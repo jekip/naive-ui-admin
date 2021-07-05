@@ -1,5 +1,5 @@
 # 0.1.0-beta (2021-07-04)
-- 初次尝试 naiveui-admin 骨架
+- Naive Ui Admin 骨架
 - ### ✨ Features 
 - 菜单模式（左侧/顶部）
 - 权限（固定角色/动态路由菜单）

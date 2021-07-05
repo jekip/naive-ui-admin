@@ -1,6 +1,6 @@
 ## 简介
 
-naive-ui-admin 是一个免费开源的中后台模版，使用了最新的`vue3`,`vite2`,`TypeScript`等主流技术开发，开箱即用的中后台前端解决方案，也可用于学习参考。
+Naive Ui Admin 是一个免费开源的中后台模版，使用了最新的`vue3`,`vite2`,`TypeScript`等主流技术开发，开箱即用的中后台前端解决方案，也可用于学习参考。
 
 ## 特性
 - **最新技术栈**：使用 Vue3/vite2 等前端前沿技术开发
@@ -17,7 +17,7 @@ naive-ui-admin 是一个免费开源的中后台模版，使用了最新的`vue3
 - [x] 工作台
 
 ## 预览
-- [naive-ui-admin](https://github.com/jekip/naive-ui-admin) - 待完善
+- [naive-ui-admin](https://jekip.github.io/naive-ui-admin-preview)
 
 账号：admin，密码：123456
 
@@ -115,4 +115,10 @@ yarn build
 
 ## 维护者
 [@Ah jung](https://github.com/jekip)
+
+## 交流
+
+`Naive Ui Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群使用问题欢迎在群内提问。
+
+- QQ 群 `328347666`
 
