@@ -17,7 +17,7 @@ naive-ui-admin 是一个免费开源的中后台模版，使用了最新的`vue3
 - [x] 工作台
 
 ## 预览
-- [naive-ui-admin](https://github.com/jekip/naive-ui-admin) - 待完善
+- [naive-ui-admin](https://jekip.github.io/naive-ui-admin-preview)
 
 账号：admin，密码：123456
 
