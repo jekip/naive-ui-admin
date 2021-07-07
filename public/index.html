@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="referrer" content="no-referrer" />
+    <link rel="icon" href="/favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <script src="<%= BASE_URL %>iconfont.js"></script>
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+</noscript>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+<!-- IE 浏览器跳转提示升级页面 start -->
+<script>
+    if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) {
+        window.open("https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href));
+    };
+</script>
+<!-- IE 浏览器跳转提示升级页面 end -->
+<script>
+    function isIE() {
+        if (!!window.ActiveXObject || "ActiveXObject" in window){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
+</body>
+</html>
