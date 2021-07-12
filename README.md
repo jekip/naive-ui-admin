@@ -16,6 +16,11 @@ Naive Ui Admin 是一个免费开源的中后台模版，使用了最新的`vue3
 - [ ] 监控页
 - [x] 工作台
 
+### 页面组件
+#### ProTable
+- [x] 表格
+- 持续开发中...
+
 ## 在线预览
 - [naive-ui-admin](https://jekip.github.io)
 
