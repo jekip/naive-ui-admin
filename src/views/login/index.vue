@@ -116,7 +116,7 @@ export default defineComponent({
           loadingMessage = message.loading('登录中...')
           state.loading = true
 
-          const params:FormState = {
+          const params: FormState = {
             username,
             password
           }

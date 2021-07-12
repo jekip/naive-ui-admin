@@ -19,7 +19,7 @@
 <script lang="ts">
 import { defineComponent, computed, onMounted, onUnmounted } from 'vue'
 import { zhCN, dateZhCN, createTheme, inputDark, datePickerDark, darkTheme } from 'naive-ui'
-import { LockScreen } from '@/components/lockscreen'
+import { LockScreen } from '@/components/Lockscreen'
 import { AppProvider } from '@/components/Application'
 import { useLockscreenStore } from '@/store/modules/lockscreen'
 import { useRoute } from 'vue-router'

@@ -139,7 +139,7 @@ export default defineComponent({
 
     const getChangeStyle = computed(() => {
       const { collapsed } = props
-      const { minMenuWidth, menuWidth }:any = unref(getMenuSetting)
+      const { minMenuWidth, menuWidth }: any = unref(getMenuSetting)
       return {
         'left': collapsed ? `${ minMenuWidth }px` : `${ menuWidth }px`,
         'width': `calc(100% - ${ collapsed ? `${ minMenuWidth }px` : `${ menuWidth }px` })`
@@ -165,7 +165,10 @@ export default defineComponent({
         return currentMenu
       })
     }
-    const breadcrumbList: any = generator(route.matched)
+
+    const breadcrumbList = computed(() => {
+      return generator(route.matched)
+    })
 
     const dropdownSelect = (key) => {
       router.push({ name: key })

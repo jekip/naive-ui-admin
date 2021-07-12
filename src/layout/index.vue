@@ -13,8 +13,8 @@
       :width="leftMenuWidth"
       :native-scrollbar="false"
       :inverted="inverted" class="layout-sider">
-        <Logo :collapsed="collapsed"/>
-        <AsideMenu v-model:collapsed="collapsed"/>
+      <Logo :collapsed="collapsed"/>
+      <AsideMenu v-model:collapsed="collapsed"/>
     </NLayoutSider>
 
     <NLayout :inverted="inverted">

@@ -5,9 +5,10 @@ import { PageEnum } from '@/enums/pageEnum';
 import { createRouterGuards } from './router-guards'
 import 'nprogress/css/nprogress.css' // 进度条样式
 
+// @ts-ignore
 const modules = import.meta.globEager('./modules/**/*.ts');
 
-const routeModuleList: AppRouteModule[] = [];
+const routeModuleList: RouteRecordRaw[] = [];
 
 Object.keys(modules).forEach((key) => {
   const mod = modules[key].default || {};
@@ -15,7 +16,13 @@ Object.keys(modules).forEach((key) => {
   routeModuleList.push(...modList);
 });
 
-export const RootRoute: AppRouteRecordRaw = {
+function sortRoute(a, b) {
+  return (a.meta.sort || 0) - (b.meta.sort || 0)
+}
+
+routeModuleList.sort(sortRoute)
+
+export const RootRoute: RouteRecordRaw = {
   path: '/',
   name: 'Root',
   redirect: PageEnum.BASE_HOME,
@@ -24,7 +31,7 @@ export const RootRoute: AppRouteRecordRaw = {
   },
 };
 
-export const LoginRoute: AppRouteRecordRaw = {
+export const LoginRoute: RouteRecordRaw = {
   path: '/login',
   name: 'Login',
   component: () => import('@/views/login/index.vue'),

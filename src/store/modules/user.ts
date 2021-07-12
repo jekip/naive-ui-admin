@@ -3,6 +3,7 @@ import { createStorage } from '@/utils/Storage'
 import { store } from '@/store'
 import { ACCESS_TOKEN, CURRENT_USER, IS_LOCKSCREEN } from '@/store/mutation-types'
 import { ResultEnum } from '@/enums/httpEnum'
+
 const Storage = createStorage({ storage: localStorage })
 import { getUserInfo, login } from '@/api/system/user'
 import { storage } from '@/utils/Storage'

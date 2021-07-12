@@ -126,8 +126,8 @@ export default defineComponent({
     const getChangeStyle = computed(() => {
       const { collapsed } = props
       const navMode = unref(getNavMode)
-      const { minMenuWidth, menuWidth }:any = unref(getMenuSetting)
-      const { fixed }:any = unref(getMultiTabsSetting)
+      const { minMenuWidth, menuWidth }: any = unref(getMenuSetting)
+      const { fixed }: any = unref(getMultiTabsSetting)
       let lenNum = navMode === 'horizontal' ? '0px' : collapsed ? `${ minMenuWidth }px` : `${ menuWidth }px`
       return {
         left: lenNum,
@@ -545,7 +545,8 @@ export default defineComponent({
     }
   }
 }
-.tabs-view-default-background{
+
+.tabs-view-default-background {
   background: #f5f7f9;
 }
 

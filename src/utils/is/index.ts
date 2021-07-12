@@ -104,3 +104,11 @@ export const isServer = typeof window === 'undefined'
 export function isImageDom(o: Element) {
   return o && ['IMAGE', 'IMG'].includes(o.tagName)
 }
+
+export function isNull(val: unknown): val is null {
+  return val === null;
+}
+
+export function isNullAndUnDef(val: unknown): val is null | undefined {
+  return isUnDef(val) && isNull(val);
+}

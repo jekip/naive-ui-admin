@@ -77,7 +77,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive, toRefs, computed } from 'vue'
 import { ResultEnum } from '@/enums/httpEnum'
-import recharge from './recharge.vue'
+import recharge from './Recharge.vue'
 import {
   LockOutlined,
   LoadingOutlined,

@@ -13,13 +13,15 @@
           </div>
           <div class="py-1 px-1 flex justify-between ">
             <div class="text-sn">
-              日同比<CountTo :startVal="1" suffix="%" :endVal="visits.rise"/>
+              日同比
+              <CountTo :startVal="1" suffix="%" :endVal="visits.rise"/>
               <n-icon size="12" style="color: #00ff6f">
                 <component is="CaretUpOutlined"/>
               </n-icon>
             </div>
             <div class="text-sn">
-              周同比<CountTo :startVal="1" suffix="%" :endVal="visits.decline"/>
+              周同比
+              <CountTo :startVal="1" suffix="%" :endVal="visits.decline"/>
               <n-icon size="12" style="color: #ffde66">
                 <component is="CaretDownOutlined"/>
               </n-icon>
@@ -77,13 +79,15 @@
           </div>
           <div class="py-1 px-1 flex justify-between ">
             <div class="text-sn">
-              日同比<CountTo :startVal="1" suffix="%" :endVal="orderLarge.rise"/>
+              日同比
+              <CountTo :startVal="1" suffix="%" :endVal="orderLarge.rise"/>
               <n-icon size="12" style="color: #00ff6f">
                 <component is="CaretUpOutlined"/>
               </n-icon>
             </div>
             <div class="text-sn">
-              周同比<CountTo :startVal="1" suffix="%" :endVal="orderLarge.rise"/>
+              周同比
+              <CountTo :startVal="1" suffix="%" :endVal="orderLarge.rise"/>
               <n-icon size="12" style="color: #ffde66">
                 <component is="CaretDownOutlined"/>
               </n-icon>
@@ -111,13 +115,15 @@
           </div>
           <div class="py-1 px-1 flex justify-between ">
             <div class="text-sn">
-              月同比<CountTo :startVal="1" suffix="%" :endVal="volume.rise"/>
+              月同比
+              <CountTo :startVal="1" suffix="%" :endVal="volume.rise"/>
               <n-icon size="12" style="color: #00ff6f">
                 <component is="CaretUpOutlined"/>
               </n-icon>
             </div>
             <div class="text-sn">
-              月同比<CountTo :startVal="1" suffix="%" :endVal="volume.decline"/>
+              月同比
+              <CountTo :startVal="1" suffix="%" :endVal="volume.decline"/>
               <n-icon size="12" style="color: #ffde66">
                 <component is="CaretDownOutlined"/>
               </n-icon>
@@ -179,10 +185,10 @@ export default defineComponent({
         'border-bottom': '1px solid #eee',
         'font-size': '16px'
       },
-      visits:{},
-      saleroom:{},
-      orderLarge:{},
-      volume:{},
+      visits: {},
+      saleroom: {},
+      orderLarge: {},
+      volume: {},
     })
     // 图标列表
     const iconList = [
@@ -267,8 +273,8 @@ export default defineComponent({
         }
       },
     ]
-    onMounted(async ()=> {
-      const { visits, saleroom, orderLarge, volume} =  await getConsoleInfo()
+    onMounted(async () => {
+      const { visits, saleroom, orderLarge, volume } = await getConsoleInfo()
       state.visits = visits
       state.saleroom = saleroom
       state.orderLarge = orderLarge

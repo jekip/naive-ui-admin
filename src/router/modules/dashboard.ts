@@ -1,13 +1,7 @@
-import { h } from 'vue'
-import { NIcon } from 'naive-ui'
 import { RouteRecordRaw } from 'vue-router'
 import { Layout } from '@/router/constant';
-import { MainView } from '@/layout/components/Main'
 import { DashboardOutlined } from '@vicons/antd'
-
-function renderIcon(icon) {
-  return () => h(NIcon, null, { default: () => h(icon) })
-}
+import { renderIcon } from '@/utils/index'
 
 const routeName = 'dashboard'
 
@@ -19,7 +13,7 @@ const routeName = 'dashboard'
  * @param meta.title 菜单名称
  * @param meta.icon 菜单图标
  * @param meta.keepAlive 缓存该路由
- *
+ * @param meta.sort 排序越小越排前
  * */
 const routes: Array<RouteRecordRaw> = [
   {
@@ -30,7 +24,8 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Dashboard',
       icon: renderIcon(DashboardOutlined),
-      permission: ['dashboard_console', 'dashboard_console', 'dashboard_workplace']
+      permission: ['dashboard_console', 'dashboard_console', 'dashboard_workplace'],
+      sort: 0
     },
     children: [
       {
@@ -56,7 +51,7 @@ const routes: Array<RouteRecordRaw> = [
         name: `${ routeName }_workplace`,
         meta: {
           title: '工作台',
-          keepAlive:true,
+          keepAlive: true,
           permission: ['dashboard_workplace']
         },
         component: () => import('@/views/dashboard/workplace/workplace.vue')

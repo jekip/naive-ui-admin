@@ -13,7 +13,7 @@ const setting = {
     isReload: true
   },
   //页脚
-  showFooter:true,
+  showFooter: true,
   //多标签
   multiTabsSetting: {
     //背景色

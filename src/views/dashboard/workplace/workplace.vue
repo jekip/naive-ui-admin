@@ -41,7 +41,8 @@
       <n-gi>
         <n-card :segmented="{ content: 'hard' }" content-style="padding: 0;" :bordered="false" size="small" title="项目">
           <div class="flex flex-wrap project-card">
-            <n-card size="small" class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
+            <n-card size="small"
+                    class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
                     :bordered="false" hoverable>
               <div class="flex">
                 <span>
@@ -58,7 +59,8 @@
                 开源君，2021-07-04
               </div>
             </n-card>
-            <n-card size="small" class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
+            <n-card size="small"
+                    class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
                     :bordered="false" hoverable>
               <div class="flex">
                 <span>
@@ -75,12 +77,13 @@
                 学不动也要学，2021-07-04
               </div>
             </n-card>
-            <n-card size="small" class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
+            <n-card size="small"
+                    class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
                     :bordered="false" hoverable>
               <div class="flex">
                 <span>
                   <n-icon size="30" style="color: #e44c27">
-                    <Html5Outlined />
+                    <Html5Outlined/>
                   </n-icon>
                 </span>
                 <span class="text-lg ml-4">Html5</span>
@@ -92,7 +95,8 @@
                 撸码也是一种艺术 2021-04-01
               </div>
             </n-card>
-            <n-card size="small" class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
+            <n-card size="small"
+                    class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
                     :bordered="false" hoverable>
               <div class="flex">
                 <span>
@@ -109,7 +113,8 @@
                 铁粉君 2021-07-04。
               </div>
             </n-card>
-            <n-card size="small" class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
+            <n-card size="small"
+                    class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
                     :bordered="false" hoverable>
               <div class="flex">
                 <span>
@@ -126,7 +131,8 @@
                 技术牛 2021-07-04。
               </div>
             </n-card>
-            <n-card size="small" class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
+            <n-card size="small"
+                    class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
                     :bordered="false" hoverable>
               <div class="flex">
                 <span>
@@ -220,7 +226,9 @@
               </template>
               <n-thing title="页面切换其实也支持缓存，只是加了过度效果，看起来像是重新渲染了">
                 <template #description>
-                  <p class="text-gray-400"><n-input type="text" placeholder="不信，输点文字试试"></n-input></p>
+                  <p class="text-gray-400">
+                    <n-input type="text" placeholder="不信，输点文字试试"></n-input>
+                  </p>
                 </template>
               </n-thing>
             </n-list-item>
@@ -228,7 +236,8 @@
         </n-card>
       </n-gi>
       <n-gi>
-        <n-card :segmented="{ content: 'hard' }" content-style="padding: 0;" :bordered="false" size="small" title="快捷操作">
+        <n-card :segmented="{ content: 'hard' }" content-style="padding: 0;" :bordered="false" size="small"
+                title="快捷操作">
           <div class="flex flex-wrap project-card">
             <n-card size="small" class="border rounded-none border-gray-100 cursor-pointer project-card-item"
                     :bordered="false" hoverable>
@@ -327,9 +336,19 @@ import {
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name:'dashboard_workplace',
-  components: { GithubOutlined, LogoVue, DashboardOutlined, ProfileOutlined, FileProtectOutlined, SettingOutlined, ApartmentOutlined,
-    Html5Outlined, LogoAngular, LogoReact, LogoJavascript
+  name: 'dashboard_workplace',
+  components: {
+    GithubOutlined,
+    LogoVue,
+    DashboardOutlined,
+    ProfileOutlined,
+    FileProtectOutlined,
+    SettingOutlined,
+    ApartmentOutlined,
+    Html5Outlined,
+    LogoAngular,
+    LogoReact,
+    LogoJavascript
   },
   setup() {
     return {
@@ -342,9 +361,10 @@ export default defineComponent({
 <style lang="less" scoped>
 .project-card {
   margin-right: -6px;
+
   &-item {
     margin: -1px;
-    width:33.333333%
+    width: 33.333333%
   }
 }
 </style>
