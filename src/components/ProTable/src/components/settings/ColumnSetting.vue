@@ -18,42 +18,41 @@
             </div>
           </template>
           <div class="table-toolbar-inner">
-            <Draggable v-model="columnsList" animation="300" item-key="key" @end="draggableEnd">
-              <template #item="{element, index}">
-                <div class="table-toolbar-inner-checkbox">
-                  <span class="drag-icon">
-                    <n-icon size="18">
-                      <DragOutlined/>
-                    </n-icon>
-                  </span>
-                  <n-checkbox-group v-model:value="checkList" @update:value="onChange">
+            <n-checkbox-group v-model:value="checkList" @update:value="onChange">
+              <Draggable v-model="columnsList" animation="300" item-key="key" @end="draggableEnd">
+                <template #item="{element, index}">
+                  <div class="table-toolbar-inner-checkbox" :class="{'table-toolbar-inner-checkbox-dark':getDarkTheme === true}">
+                    <span class="drag-icon">
+                      <n-icon size="18">
+                        <DragOutlined/>
+                      </n-icon>
+                    </span>
                     <n-checkbox :value="element.key" :label="element.title"/>
-                  </n-checkbox-group>
-                  <div class="fixed-item">
-                    <n-tooltip trigger="hover" placement="bottom">
-                      <template #trigger>
-                        <n-icon size="18" :color="element.fixed === 'left' ? '#2080f0':undefined"
-                                class="transform -rotate-90 cursor-pointer" @click="fixedColumn(index,'left')">
-                          <VerticalAlignTopOutlined/>
-                        </n-icon>
-                      </template>
-                      <span>固定到左侧</span>
-                    </n-tooltip>
-                    <n-divider vertical/>
-                    <n-tooltip trigger="hover" placement="bottom">
-                      <template #trigger>
-                        <n-icon size="18" :color="element.fixed === 'right' ? '#2080f0':undefined"
-                                class="transform rotate-90 cursor-pointer" @click="fixedColumn(index,'right')">
-                          <VerticalAlignTopOutlined/>
-                        </n-icon>
-                      </template>
-                      <span>固定到右侧</span>
-                    </n-tooltip>
+                    <div class="fixed-item">
+                      <n-tooltip trigger="hover" placement="bottom">
+                        <template #trigger>
+                          <n-icon size="18" :color="element.fixed === 'left' ? '#2080f0':undefined"
+                                  class="transform -rotate-90 cursor-pointer" @click="fixedColumn(element,'left')">
+                            <VerticalAlignTopOutlined/>
+                          </n-icon>
+                        </template>
+                        <span>固定到左侧</span>
+                      </n-tooltip>
+                      <n-divider vertical/>
+                      <n-tooltip trigger="hover" placement="bottom">
+                        <template #trigger>
+                          <n-icon size="18" :color="element.fixed === 'right' ? '#2080f0':undefined"
+                                  class="transform rotate-90 cursor-pointer" @click="fixedColumn(element,'right')">
+                            <VerticalAlignTopOutlined/>
+                          </n-icon>
+                        </template>
+                        <span>固定到右侧</span>
+                      </n-tooltip>
+                    </div>
                   </div>
-                </div>
-              </template>
-            </Draggable>
-
+                </template>
+              </Draggable>
+            </n-checkbox-group>
           </div>
         </n-popover>
       </div>
@@ -67,6 +66,7 @@ import { ref, defineComponent, reactive, unref, toRaw, computed, toRefs, watchEf
 import { useTableContext } from '../../hooks/useTableContext';
 import { ReloadOutlined, ColumnHeightOutlined, SettingOutlined, DragOutlined, VerticalAlignTopOutlined } from '@vicons/antd'
 import Draggable from 'vuedraggable/src/vuedraggable'
+import { useDesignSetting } from "@/hooks/setting/useDesignSetting";
 
 interface Options {
   title: string;
@@ -81,8 +81,11 @@ export default defineComponent({
     VerticalAlignTopOutlined
   },
   setup(props, { emit }) {
+    const { getDarkTheme } = useDesignSetting()
     const table = useTableContext();
     const columnsList = ref<Options[]>([]);
+    const cacheColumnsList = ref<Options[]>([]);
+
     const state = reactive({
       selection: false,
       checkAll: true,
@@ -108,6 +111,7 @@ export default defineComponent({
       state.checkList = checkList
       state.defaultCheckList = checkList
       columnsList.value = columns
+      cacheColumnsList.value = columns
     }
 
     //切换
@@ -125,18 +129,26 @@ export default defineComponent({
 
     //获取
     function getColumns() {
-      const newArr = []
+      let newRet = []
       table.getColumns().forEach(item => {
-        newArr.push({ ...item })
+        newRet.push({...item })
       })
-      return newArr
+      return newRet
     }
 
     //重置
     function resetColumns() {
       state.checkList = [...state.defaultCheckList]
       state.checkAll = true;
-      setColumns(table.getCacheColumns(true));
+      let cacheColumnsKeys:any[] = table.getCacheColumns()
+      let newColumns = cacheColumnsKeys.map(item => {
+        return {
+          ...item,
+          fixed:undefined
+        }
+      })
+      setColumns(newColumns);
+      columnsList.value = newColumns
     }
 
     //全选
@@ -154,6 +166,8 @@ export default defineComponent({
     //拖拽排序
     function draggableEnd(e) {
       const newColumns = toRaw(unref(columnsList))
+      console.log(newColumns);
+      columnsList.value = newColumns
       setColumns(newColumns);
     }
 
@@ -170,19 +184,26 @@ export default defineComponent({
     }
 
     //固定
-    function fixedColumn(index, fixed) {
-      let columnList = getColumns();
-      let columnInfo = columnList[index]
-      const isFixed = columnInfo.fixed === fixed ? undefined : fixed
-      columnInfo.fixed = isFixed
-      columnsList.value = columnList
-      table.setCacheColumnsField(columnInfo.key, { fixed: isFixed })
-      setColumns(columnList);
+    function fixedColumn(item, fixed) {
+      console.log('item：',item)
+      if (!state.checkList.includes(item.key)) return;
+      let columns = getColumns();
+      const isFixed = item.fixed === fixed ? undefined : fixed
+      let index = columns.findIndex(res => res.key === item.key)
+      console.log('index：',index)
+      if(index !== -1){
+        columns[index].fixed = isFixed;
+      }
+      table.setCacheColumnsField(item.key, { fixed: isFixed })
+      columnsList.value[index].fixed = isFixed
+      console.log('columnsList：',columnsList.value)
+      setColumns(columns);
     }
 
     return {
       ...toRefs(state),
       columnsList,
+      getDarkTheme,
       onChange,
       onCheckAll,
       onSelection,
@@ -197,12 +218,15 @@ export default defineComponent({
 
 <style lang="less">
 .table-toolbar {
+  &-inner-popover-title{
+    padding: 3px 0;
+  }
   &-right {
     &-icon {
       height: 18px;
       margin-left: 12px;
       font-size: 16px;
-      color: rgba(0, 0, 0, .75);
+      color:var(--text-color);
       cursor: pointer;
 
       :hover {
@@ -216,18 +240,15 @@ export default defineComponent({
   &-checkbox {
     display: flex;
     align-items: center;
-    padding: 8px 0;
-
+    padding: 10px 14px;
     &:hover {
       background: #e6f7ff;
     }
-
     .drag-icon {
       display: inline-flex;
       margin-right: 8px;
       cursor: move;
     }
-
     .fixed-item {
       display: flex;
       align-items: center;
@@ -242,6 +263,16 @@ export default defineComponent({
         color: #1890ff !important;
       }
     }
+  }
+  &-checkbox-dark{
+    &:hover {
+      background: hsla(0, 0%, 100%, .08);
+    }
+  }
+}
+.toolbar-popover{
+  .n-popover__content{
+    padding: 0;
   }
 }
 </style>

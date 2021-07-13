@@ -267,7 +267,6 @@ export default defineComponent({
       justify-content: flex-start;
       font-size: 16px;
       font-weight: 600;
-      color: rgba(0, 0, 0, .85);
     }
   }
 
@@ -280,9 +279,8 @@ export default defineComponent({
       height: 18px;
       margin-left: 12px;
       font-size: 16px;
-      color: rgba(0, 0, 0, .75);
       cursor: pointer;
-
+      color:var(--text-color);
       :hover {
         color: #1890ff;
       }

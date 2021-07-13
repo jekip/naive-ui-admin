@@ -23,7 +23,6 @@ export const basicProps = {
     type: [Array] as PropType<BasicColumn[]>,
     default: () => [],
     required: true,
-
   },
   request: {
     type: Function as PropType<(...arg: any[]) => Promise<any>>,

@@ -2,77 +2,91 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" href="/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="renderer" content="webkit"/>
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0"
+  />
+  <link rel="icon" href="/favicon.ico"/>
   <title><%= title %></title>
 </head>
 <body>
-  <div id="app">
-    <style>
-      .app-loading-main{
-        display: flex;
-        width: 100%;
-        height: 100%;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        background-color: #f4f7f9;
-        position: relative;
+<div id="app">
+  <style>
+    .app-loading-main {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: #f4f7f9;
+      position: relative;
+    }
+
+    .app-loading {
+      position: relative;
+      -webkit-transform: translateY(-15px);
+      -ms-transform: translateY(-15px);
+      transform: translateY(-15px);
+    }
+
+    .app-loading > div {
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      border-radius: 100%;
+    }
+
+    .app-loading > div:first-child {
+      background: #2d8cf0;
+      height: 16px;
+      width: 16px;
+      top: 9px;
+      left: 9px;
+      -webkit-animation: scale 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+      animation: scale 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+    }
+
+    .app-loading > div:last-child {
+      position: absolute;
+      border: 2px solid #2d8cf0;
+      width: 30px;
+      height: 30px;
+      background: transparent;
+      border: 2px solid;
+      border-color: #2d8cf0 transparent #2d8cf0 transparent;
+      -webkit-animation: rotate 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+      animation: rotate 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+      -webkit-animation-duration: 1s;
+      animation-duration: 1s;
+    }
+
+    @keyframes rotate {
+      0% {
+        -webkit-transform: rotate(0deg) scale(1);
+        transform: rotate(0deg) scale(1);
       }
-      .app-loading {
-        position: relative;
-        -webkit-transform: translateY(-15px);
-        -ms-transform: translateY(-15px);
-        transform: translateY(-15px); 
+      50% {
+        -webkit-transform: rotate(180deg) scale(0.6);
+        transform: rotate(180deg) scale(0.6);
       }
-      .app-loading > div {
-        -webkit-animation-fill-mode: both;
-        animation-fill-mode: both;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        border-radius: 100%; }
-      .app-loading > div:first-child {
-        background: #2d8cf0;
-        height: 16px;
-        width: 16px;
-        top: 9px;
-        left: 9px;
-        -webkit-animation: scale 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
-        animation: scale 1s 0s cubic-bezier(.09, .57, .49, .9) infinite; 
+      100% {
+        -webkit-transform: rotate(360deg) scale(1);
+        transform: rotate(360deg) scale(1);
       }
-      .app-loading > div:last-child {
-        position: absolute;
-        border: 2px solid #2d8cf0;
-        width: 30px;
-        height: 30px;
-        background: transparent;
-        border: 2px solid;
-        border-color: #2d8cf0 transparent #2d8cf0 transparent;
-        -webkit-animation: rotate 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
-        animation: rotate 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
-        -webkit-animation-duration: 1s;
-        animation-duration: 1s; 
-      }
-      @keyframes rotate {
-        0% {
-          -webkit-transform: rotate(0deg) scale(1);
-          transform: rotate(0deg) scale(1); }
-        50% {
-          -webkit-transform: rotate(180deg) scale(0.6);
-          transform: rotate(180deg) scale(0.6); }
-        100% {
-          -webkit-transform: rotate(360deg) scale(1);
-          transform: rotate(360deg) scale(1); }
-      }
-    </style>
-    <div class="app-loading-main">
-      <div class="app-loading">
-        <div></div>
-        <div></div>
-      </div>
+    }
+  </style>
+  <div class="app-loading-main">
+    <div class="app-loading">
+      <div></div>
+      <div></div>
     </div>
   </div>
-  <script type="module" src="/src/main.ts"></script>
+</div>
+<script type="module" src="/src/main.ts"></script>
 </body>
 </html>

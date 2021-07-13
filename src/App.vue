@@ -12,7 +12,7 @@
   </NConfigProvider>
 
   <transition v-if="isLock && $route.name != 'login'" name="slide-up">
-    <lockScreen/>
+    <LockScreen/>
   </transition>
 </template>
 

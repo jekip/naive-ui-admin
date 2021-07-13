@@ -1,5 +1,5 @@
 <template>
-  <n-drawer v-model:show="isDrawer" :width="width" :placement="placement">
+  <n-drawer v-model:show="isDrawer" :width="width" :placement="placement" :native-scrollbar="false">
     <n-drawer-content :title="title">
       <div class="drawer">
         <n-divider title-placement="center">主题</n-divider>

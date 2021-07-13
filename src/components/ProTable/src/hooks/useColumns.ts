@@ -22,9 +22,10 @@ export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
     () => unref(propsRef).columns,
     (columns) => {
       columnsRef.value = columns;
-      cacheColumns = columns?.filter((item) => !item.flag) ?? [];
+      cacheColumns = columns;
     }
   );
+
 
   //设置
   function setColumns(columnList: string[]) {
@@ -36,7 +37,6 @@ export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
       return;
     }
     const cacheKeys = cacheColumns.map((item) => item.key);
-
     //针对拖拽排序
     if (!isString(columns[0])) {
       columnsRef.value = columns;
@@ -60,9 +60,9 @@ export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
 
   //获取
   function getColumns() {
-    const columns = toRaw(unref(propsRef).columns);
+    let columns = toRaw(unref(getColumnsRef));
     return columns.map(item => {
-      return { title: item.title, key: item.key, fixed: item.fixed || undefined }
+      return { ...item, title: item.title, key: item.key, fixed: item.fixed || undefined }
     })
   }
 

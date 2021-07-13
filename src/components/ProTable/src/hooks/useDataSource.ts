@@ -1,8 +1,8 @@
-import { ref, ComputedRef, unref, computed, onMounted, onBeforeMount, watchEffect, watch } from 'vue';
+import { ref, ComputedRef, unref, computed, onMounted, watchEffect, watch } from 'vue';
 import type { BasicTableProps } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
-import { isFunction, isBoolean } from '@/utils/is';
-import { DEFAULTPAGESIZE, APISETTING, PAGESIZES } from '../const';
+import { isBoolean } from '@/utils/is';
+import { APISETTING } from '../const';
 
 export function useDataSource(
   propsRef: ComputedRef<BasicTableProps>,
@@ -10,12 +10,11 @@ export function useDataSource(
     getPaginationInfo,
     setPagination,
     setLoading,
-    tableData,
-    getSelection
+    tableData
   },
-  emit: EmitType
+  emit
 ) {
-  const dataSourceRef = ref<Recordable[]>([]);
+  const dataSourceRef = ref([]);
 
   watchEffect(() => {
     tableData.value = unref(dataSourceRef);
@@ -33,7 +32,7 @@ export function useDataSource(
   );
 
   const getRowKey = computed(() => {
-    const { rowKey } = unref(propsRef);
+    const { rowKey }:any = unref(propsRef);
     return rowKey ? rowKey : () => {
       return 'key'
     };
@@ -44,25 +43,6 @@ export function useDataSource(
     if (!dataSource || dataSource.length === 0) {
       return unref(dataSourceRef);
     }
-    // if (unref(getAutoCreateKey)) {
-    //   const firstItem = dataSource[0];
-    //   const lastItem = dataSource[dataSource.length - 1];
-    //
-    //   if (firstItem && lastItem) {
-    //     if (!firstItem[ROW_KEY] || !lastItem[ROW_KEY]) {
-    //       const data = cloneDeep(unref(dataSourceRef));
-    //       data.forEach((item) => {
-    //         if (!item[ROW_KEY]) {
-    //           item[ROW_KEY] = buildUUID();
-    //         }
-    //         if (item.children && item.children.length) {
-    //           setTableKey(item.children);
-    //         }
-    //       });
-    //       dataSourceRef.value = data;
-    //     }
-    //   }
-    // }
     return unref(dataSourceRef);
   });
 
@@ -77,7 +57,7 @@ export function useDataSource(
       const totalField = APISETTING.totalField
       const listField = APISETTING.listField
 
-      let pageParams: Recordable = {};
+      let pageParams = {};
       const { page = 1, pageSize = 10 } = unref(getPaginationInfo) as PaginationProps;
 
       if ((isBoolean(pagination) && !pagination) || isBoolean(getPaginationInfo)) {
@@ -95,7 +75,7 @@ export function useDataSource(
       const resultTotal = res[totalField] || 0
       const currentPage = res[pageField]
 
-      // 假如数据变少，导致总页数变少并小于当前选中页码，通过getPaginationRef获取到的页码是不正确的，需获取正确的页码再次执行
+      // 如果数据异常，需获取正确的页码再次执行
       if (resultTotal) {
         const currentTotalPage = Math.ceil(resultTotal / pageSize);
         if (page > currentTotalPage) {
@@ -138,19 +118,15 @@ export function useDataSource(
     }, 16)
   });
 
-  // onBeforeMount(()=> {
-  //   fetch()
-  // })
-
-  function setTableData<T = Recordable>(values: T[]) {
+  function setTableData(values) {
     dataSourceRef.value = values;
   }
 
-  function getDataSource<T = Recordable>() {
-    return getDataSourceRef.value as T[];
+  function getDataSource() :any[] {
+    return getDataSourceRef.value;
   }
 
-  async function reload(opt?: FetchParams) {
+  async function reload(opt?) {
     await fetch(opt);
   }
 
