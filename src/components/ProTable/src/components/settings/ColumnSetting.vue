@@ -164,9 +164,8 @@ export default defineComponent({
     }
 
     //拖拽排序
-    function draggableEnd(e) {
+    function draggableEnd() {
       const newColumns = toRaw(unref(columnsList))
-      console.log(newColumns);
       columnsList.value = newColumns
       setColumns(newColumns);
     }

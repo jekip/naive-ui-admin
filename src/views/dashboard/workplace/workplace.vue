@@ -41,9 +41,7 @@
       <n-gi>
         <n-card :segmented="{ content: 'hard' }" content-style="padding: 0;" :bordered="false" size="small" title="项目">
           <div class="flex flex-wrap project-card">
-            <n-card size="small"
-                    class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
-                    :bordered="false" hoverable>
+            <n-card size="small" class="cursor-pointer project-card-item ms:w-1/2 md:w-1/3" hoverable>
               <div class="flex">
                 <span>
                   <n-icon size="30">
@@ -59,9 +57,7 @@
                 开源君，2021-07-04
               </div>
             </n-card>
-            <n-card size="small"
-                    class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
-                    :bordered="false" hoverable>
+            <n-card size="small" class="cursor-pointer project-card-item ms:w-1/2 md:w-1/3" hoverable>
               <div class="flex">
                 <span>
                   <n-icon size="30" style="color: #42b983">
@@ -77,9 +73,7 @@
                 学不动也要学，2021-07-04
               </div>
             </n-card>
-            <n-card size="small"
-                    class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
-                    :bordered="false" hoverable>
+            <n-card size="small" class="cursor-pointer project-card-item ms:w-1/2 md:w-1/3" hoverable>
               <div class="flex">
                 <span>
                   <n-icon size="30" style="color: #e44c27">
@@ -95,9 +89,7 @@
                 撸码也是一种艺术 2021-04-01
               </div>
             </n-card>
-            <n-card size="small"
-                    class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
-                    :bordered="false" hoverable>
+            <n-card size="small" class="cursor-pointer project-card-item ms:w-1/2 md:w-1/3" hoverable>
               <div class="flex">
                 <span>
                   <n-icon size="30" style="color: #dd0031">
@@ -113,9 +105,7 @@
                 铁粉君 2021-07-04。
               </div>
             </n-card>
-            <n-card size="small"
-                    class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
-                    :bordered="false" hoverable>
+            <n-card size="small" class="cursor-pointer project-card-item ms:w-1/2 md:w-1/3" hoverable>
               <div class="flex">
                 <span>
                   <n-icon size="30" style="color: #61dafb">
@@ -131,9 +121,7 @@
                 技术牛 2021-07-04。
               </div>
             </n-card>
-            <n-card size="small"
-                    class="border rounded-none border-gray-100 cursor-pointer project-card-item ms:w-1/2 md:w-1/3"
-                    :bordered="false" hoverable>
+            <n-card size="small" class="cursor-pointer project-card-item ms:w-1/2 md:w-1/3" hoverable>
               <div class="flex">
                 <span>
                   <n-icon size="30">
@@ -239,71 +227,65 @@
         <n-card :segmented="{ content: 'hard' }" content-style="padding: 0;" :bordered="false" size="small"
                 title="快捷操作">
           <div class="flex flex-wrap project-card">
-            <n-card size="small" class="border rounded-none border-gray-100 cursor-pointer project-card-item"
-                    :bordered="false" hoverable>
-              <a href="javascript:;" class="flex flex-col justify-center text-gray-500">
+            <n-card size="small" class="cursor-pointer project-card-item" hoverable>
+              <div class="flex flex-col justify-center text-gray-500">
                   <span class="text-center">
                     <n-icon size="30" style="color: #68c755">
                       <DashboardOutlined/>
                     </n-icon>
                   </span>
                 <span class="text-lx text-center">主控台</span>
-              </a>
+              </div>
             </n-card>
-            <n-card size="small" class="border rounded-none border-gray-100 cursor-pointer project-card-item"
-                    :bordered="false" hoverable>
-              <a href="javascript:;" class="flex flex-col justify-center text-gray-500">
+            <n-card size="small" class="cursor-pointer project-card-item" hoverable>
+              <div class="flex flex-col justify-center text-gray-500">
                   <span class="text-center">
                     <n-icon size="30" style="color: #fab251">
                       <ProfileOutlined/>
                     </n-icon>
                   </span>
                 <span class="text-lx text-center">列表</span>
-              </a>
+              </div>
             </n-card>
-            <n-card size="small" class="border rounded-none border-gray-100 cursor-pointer project-card-item"
-                    :bordered="false" hoverable>
-              <a href="javascript:;" class="flex flex-col justify-center text-gray-500">
+            <n-card size="small" class="cursor-pointer project-card-item" hoverable>
+              <div class="flex flex-col justify-center text-gray-500">
                   <span class="text-center">
                     <n-icon size="30" style="color: #1890ff">
                       <FileProtectOutlined/>
                     </n-icon>
                   </span>
                 <span class="text-lx text-center">表单</span>
-              </a>
+              </div>
             </n-card>
-            <n-card size="small" class="border rounded-none border-gray-100 cursor-pointer project-card-item"
-                    :bordered="false" hoverable>
-              <a href="javascript:;" class="flex flex-col justify-center text-gray-500">
+            <n-card size="small" class="cursor-pointer project-card-item" hoverable>
+              <div class="flex flex-col justify-center text-gray-500">
                   <span class="text-center">
                     <n-icon size="30" style="color: #f06b96">
                       <ApartmentOutlined/>
                     </n-icon>
                   </span>
                 <span class="text-lx text-center">权限管理</span>
-              </a>
+              </div>
             </n-card>
-            <n-card size="small" class="border rounded-none border-gray-100 cursor-pointer project-card-item"
-                    :bordered="false" hoverable>
-              <a href="javascript:;" class="flex flex-col justify-center text-gray-500">
+            <n-card size="small" class="cursor-pointer project-card-item" hoverable>
+              <div class="flex flex-col justify-center text-gray-500">
                   <span class="text-center">
                     <n-icon size="30" style="color: #7238d1">
                       <SettingOutlined/>
                     </n-icon>
                   </span>
                 <span class="text-lx text-center">系统管理</span>
-              </a>
+              </div>
             </n-card>
-            <n-card size="small" class="border rounded-none border-gray-100 cursor-pointer project-card-item"
-                    :bordered="false" hoverable>
-              <a href="javascript:;" class="flex flex-col justify-center text-gray-500">
+            <n-card size="small" class="cursor-pointer project-card-item" hoverable>
+              <div class="flex flex-col justify-center text-gray-500">
                 <span class="text-center">
-                  <n-icon size="30">
+                  <n-icon size="30" color="">
                     <DashboardOutlined/>
                   </n-icon>
                 </span>
                 <span class="text-lx text-center">主控台</span>
-              </a>
+              </div>
             </n-card>
           </div>
         </n-card>

@@ -12,7 +12,7 @@
       </a>
     </div>
     <div class="copyright">
-      naive-ui-admin 0.1.0 · Made by Ah jung
+      naive-ui-admin 1.0 · Made by Ah jung
     </div>
   </div>
 
