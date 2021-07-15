@@ -46,7 +46,17 @@ import {
   NThing,
   NDataTable,
   NPopover,
-  NPagination
+  NPagination,
+  NSelect,
+  NRadioGroup,
+  NRadio,
+  NSteps,
+  NStep,
+  NInputGroup,
+  NResult,
+  NDescriptions,
+  NDescriptionsItem,
+  NTable
 } from 'naive-ui'
 
 const naive = create({
@@ -96,7 +106,17 @@ const naive = create({
     NThing,
     NDataTable,
     NPopover,
-    NPagination
+    NPagination,
+    NSelect,
+    NRadioGroup,
+    NRadio,
+    NSteps,
+    NStep,
+    NInputGroup,
+    NResult,
+    NDescriptions,
+    NDescriptionsItem,
+    NTable
   ]
 })
 

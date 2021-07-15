@@ -32,8 +32,8 @@
                       <n-tooltip trigger="hover" placement="bottom">
                         <template #trigger>
                           <n-icon size="18" :color="element.fixed === 'left' ? '#2080f0':undefined"
-                                  class="transform -rotate-90 cursor-pointer" @click="fixedColumn(element,'left')">
-                            <VerticalAlignTopOutlined/>
+                                  class="cursor-pointer" @click="fixedColumn(element,'left')">
+                            <VerticalRightOutlined />
                           </n-icon>
                         </template>
                         <span>固定到左侧</span>
@@ -42,8 +42,8 @@
                       <n-tooltip trigger="hover" placement="bottom">
                         <template #trigger>
                           <n-icon size="18" :color="element.fixed === 'right' ? '#2080f0':undefined"
-                                  class="transform rotate-90 cursor-pointer" @click="fixedColumn(element,'right')">
-                            <VerticalAlignTopOutlined/>
+                                  class="cursor-pointer" @click="fixedColumn(element,'right')">
+                            <VerticalLeftOutlined />
                           </n-icon>
                         </template>
                         <span>固定到右侧</span>
@@ -64,7 +64,7 @@
 <script lang="ts">
 import { ref, defineComponent, reactive, unref, toRaw, computed, toRefs, watchEffect } from "vue"
 import { useTableContext } from '../../hooks/useTableContext';
-import { ReloadOutlined, ColumnHeightOutlined, SettingOutlined, DragOutlined, VerticalAlignTopOutlined } from '@vicons/antd'
+import { ReloadOutlined, ColumnHeightOutlined, SettingOutlined, DragOutlined, VerticalRightOutlined, VerticalLeftOutlined } from '@vicons/antd'
 import Draggable from 'vuedraggable/src/vuedraggable'
 import { useDesignSetting } from "@/hooks/setting/useDesignSetting";
 
@@ -78,7 +78,7 @@ export default defineComponent({
   name: 'ColumnSetting',
   components: {
     ReloadOutlined, ColumnHeightOutlined, SettingOutlined, DragOutlined, Draggable,
-    VerticalAlignTopOutlined
+    VerticalRightOutlined, VerticalLeftOutlined
   },
   setup(props, { emit }) {
     const { getDarkTheme } = useDesignSetting()

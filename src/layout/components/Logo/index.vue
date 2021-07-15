@@ -28,7 +28,6 @@ export default {
 
   img {
     height: 32px;
-    margin-right: 8px;
   }
 
   .title {

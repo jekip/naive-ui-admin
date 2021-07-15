@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
 import { Layout } from '@/router/constant';
-import { ProfileOutlined } from '@vicons/antd'
+import { WalletOutlined  } from '@vicons/antd'
 import { renderIcon } from '@/utils/index'
 
 
@@ -25,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: '组件',
-      icon: renderIcon(ProfileOutlined),
+      icon: renderIcon(WalletOutlined ),
       sort: 1
     },
     children: [

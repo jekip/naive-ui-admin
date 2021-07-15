@@ -7,7 +7,7 @@
     <!--左侧菜单-->
     <div class="layout-header-left" v-else>
       <!-- 菜单收起 -->
-      <span class="ml-1 layout-header-trigger layout-header-trigger-min"
+      <div class="ml-1 layout-header-trigger layout-header-trigger-min"
             @click="() => $emit('update:collapsed', !collapsed)">
           <n-icon size="18" v-if="collapsed">
             <MenuUnfoldOutlined/>
@@ -15,14 +15,14 @@
           <n-icon size="18" v-else>
             <MenuFoldOutlined/>
           </n-icon>
-        </span>
+      </div>
       <!-- 刷新 -->
-      <span class="mr-1 layout-header-trigger layout-header-trigger-min" v-if="headerSetting.isReload"
+      <div class="mr-1 layout-header-trigger layout-header-trigger-min" v-if="headerSetting.isReload"
             @click="reloadPage">
           <n-icon size="18">
             <ReloadOutlined/>
           </n-icon>
-        </span>
+      </div>
       <!-- 面包屑 -->
       <n-breadcrumb v-if="crumbsSetting.show">
         <template v-for="routeItem in breadcrumbList" :key="routeItem.name">
@@ -46,7 +46,7 @@
       </n-breadcrumb>
     </div>
     <div class="layout-header-right">
-        <span class="layout-header-trigger layout-header-trigger-min" v-for="item in iconList" :key="item.icon.name">
+        <div class="layout-header-trigger layout-header-trigger-min" v-for="item in iconList" :key="item.icon.name">
           <n-tooltip placement="bottom">
             <template #trigger>
               <n-icon size="18">
@@ -55,15 +55,20 @@
             </template>
             <span>{{ item.tips }}</span>
           </n-tooltip>
-        </span>
+        </div>
       <!--切换全屏-->
-      <span class="layout-header-trigger layout-header-trigger-min">
-          <n-icon size="18">
-            <component :is="fullscreenIcon" @click="toggleFullScreen"/>
-          </n-icon>
-        </span>
+      <div class="layout-header-trigger layout-header-trigger-min">
+        <n-tooltip placement="bottom">
+            <template #trigger>
+              <n-icon size="18">
+                <component :is="fullscreenIcon" @click="toggleFullScreen"/>
+              </n-icon>
+            </template>
+            <span>全屏</span>
+          </n-tooltip>
+        </div>
       <!-- 个人中心 -->
-      <span class="layout-header-trigger layout-header-trigger-min">
+      <div class="layout-header-trigger layout-header-trigger-min">
             <n-dropdown trigger="hover" @select="avatarSelect" :options="avatarOptions">
               <div class="avatar">
                 <n-avatar>
@@ -72,9 +77,9 @@
                 </n-avatar>
               </div>
             </n-dropdown>
-        </span>
+        </div>
       <!--设置-->
-      <span class="layout-header-trigger layout-header-trigger-min" @click="openSetting">
+      <div class="layout-header-trigger layout-header-trigger-min" @click="openSetting">
             <n-tooltip placement="bottom-end">
               <template #trigger>
                 <n-icon size="18" style="font-weight: bold">
@@ -83,7 +88,7 @@
               </template>
               <span>项目配置</span>
             </n-tooltip>
-          </span>
+          </div>
     </div>
   </div>
   <!--项目配置-->
@@ -91,7 +96,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, createVNode, ref, computed, unref } from 'vue'
+import { defineComponent, reactive, toRefs, ref, computed, unref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import components from './components'
 import { NDialogProvider, useDialog, useMessage, useNotification } from 'naive-ui'
