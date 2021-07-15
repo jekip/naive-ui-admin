@@ -1,10 +1,10 @@
 export enum PageEnum {
-  // basic login path
+  // 登录
   BASE_LOGIN = '/login',
-  // basic home path
+  //重定向
+  REDIRECT = '/Redirect',
+  // 首页
   BASE_HOME = '/dashboard',
-  // error page path
+  // 错误
   ERROR_PAGE = '/exception',
-  // error log page path
-  ERROR_LOG_PAGE = '/error-log/list',
 }

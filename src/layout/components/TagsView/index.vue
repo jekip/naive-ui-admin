@@ -22,7 +22,10 @@
           <div ref="navRef" class="tabs-card-nav" :style="getNavStyle">
             <Draggable :list="tabsList" animation="300" item-key="fullPath">
               <template #item="{element}">
-                <div class="tabs-card-scroll-item" @click.stop="goPage(element)" @contextmenu="handleContextMenu">
+                <div class="tabs-card-scroll-item"
+                     :class="{'active-item':activeKey === element.path }"
+                     @click.stop="goPage(element)"
+                     @contextmenu="handleContextMenu">
                   <span>{{ element.meta.title }}</span>
                   <n-icon size="14" @click.stop="closeTabItem(element)">
                     <CloseOutlined/>
@@ -59,6 +62,7 @@ import { RouteItem } from '@/store/modules/tabsView'
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
 import { useMessage } from 'naive-ui'
 import Draggable from 'vuedraggable/src/vuedraggable'
+import { PageEnum } from '@/enums/pageEnum'
 import {
   DownOutlined,
   ReloadOutlined,
@@ -199,8 +203,7 @@ export default defineComponent({
 
     // 标签页列表
     const tabsList: any = computed(() => tabsViewStore.tabsList)
-
-    const whiteList = ['Redirect', 'login']
+    const whiteList = [PageEnum.REDIRECT, PageEnum.BASE_LOGIN]
 
     watch(
       () => route.fullPath,
@@ -515,6 +518,9 @@ export default defineComponent({
               display: inline-block;
             }
           }
+        }
+        .active-item{
+          color: #2d8cf0
         }
       }
     }
