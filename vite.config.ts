@@ -22,6 +22,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     resolve: {
       alias: [
         {
+          find: /\/#\//,
+          replacement: pathResolve('types') + '/'
+        },
+        {
           find: '@',
           replacement: pathResolve('src') + '/'
         },
