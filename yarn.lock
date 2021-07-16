@@ -3561,10 +3561,10 @@ mute-stream@0.0.7:
   resolved "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
 
-naive-ui@^2.15.4:
-  version "2.15.4"
-  resolved "https://registry.nlark.com/naive-ui/download/naive-ui-2.15.4.tgz#56c53b03e277ac9e55396bfb85dc2b49293ca6c3"
-  integrity sha1-VsU7A+J3rJ5VOWv7hdwrSSk8psM=
+naive-ui@^2.15.5:
+  version "2.15.5"
+  resolved "https://registry.nlark.com/naive-ui/download/naive-ui-2.15.5.tgz#50ffc1834fd64765621a31f0b09e64d72770cd6c"
+  integrity sha1-UP/Bg0/WR2ViGjHwsJ5k1ydwzWw=
   dependencies:
     "@css-render/plugin-bem" "^0.15.4"
     "@css-render/vue3-ssr" "^0.15.4"
@@ -3578,7 +3578,7 @@ naive-ui@^2.15.4:
     lodash "^4.17.21"
     lodash-es "^4.17.21"
     seemly "^0.3.1"
-    treemate "^0.2.11"
+    treemate "^0.2.12"
     vdirs "^0.1.4"
     vfonts "^0.1.0"
     vooks "^0.2.6"
@@ -4967,10 +4967,10 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
-treemate@^0.2.11:
-  version "0.2.11"
-  resolved "https://registry.nlark.com/treemate/download/treemate-0.2.11.tgz#cffa37051e613beaa82fd3fce56300e8e4d8328f"
-  integrity sha1-z/o3BR5hO+qoL9P85WMA6OTYMo8=
+treemate@^0.2.12:
+  version "0.2.12"
+  resolved "https://registry.nlark.com/treemate/download/treemate-0.2.12.tgz#eed8ce0cd5a03f11c090c43d08f548694eead4b5"
+  integrity sha1-7tjODNWgPxHAkMQ9CPVIaU7q1LU=
 
 trim-newlines@^3.0.0:
   version "3.0.1"

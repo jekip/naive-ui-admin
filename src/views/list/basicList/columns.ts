@@ -46,7 +46,7 @@ export const columns = [
     //简单写一下例子，不建议这么写，过段时间，这里封二次封装
     render() {
       return [
-        h(
+          h(
             NButton,
             {
               size: 'small',
@@ -55,7 +55,7 @@ export const columns = [
               onClick: () => {
               }
             },
-            { default: () => '删除' }
+              { default: () => '删除' }
         ),
         h(
             NButton,

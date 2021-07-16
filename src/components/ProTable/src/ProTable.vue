@@ -2,20 +2,22 @@
   <div class="table-toolbar">
 
     <!--顶部左侧区域-->
-    <n-space align="center" class="table-toolbar-left">
-      <div class="table-toolbar-left-title" v-if="title">
-        {{ title }}
-        <n-tooltip trigger="hover" v-if="titleTooltip">
-          <template #trigger>
-            <n-icon size="18" class="ml-1 cursor-pointer text-gray-400">
-              <QuestionCircleOutlined/>
-            </n-icon>
-          </template>
-          {{ titleTooltip }}
-        </n-tooltip>
-      </div>
+    <div class="flex items-center table-toolbar-left ">
+      <template v-if="title">
+        <div class="table-toolbar-left-title">
+          {{ title }}
+          <n-tooltip trigger="hover" v-if="titleTooltip">
+            <template #trigger>
+              <n-icon size="18" class="ml-1 cursor-pointer text-gray-400">
+                <QuestionCircleOutlined/>
+              </n-icon>
+            </template>
+            {{ titleTooltip }}
+          </n-tooltip>
+        </div>
+      </template>
       <slot name="tableTitle"></slot>
-    </n-space>
+    </div>
 
     <div class="flex items-center table-toolbar-right">
 
@@ -276,7 +278,6 @@ export default defineComponent({
     flex: 1;
 
     &-icon {
-      height: 18px;
       margin-left: 12px;
       font-size: 16px;
       cursor: pointer;

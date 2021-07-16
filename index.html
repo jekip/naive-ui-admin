@@ -10,81 +10,13 @@
   />
   <link rel="icon" href="/favicon.ico"/>
   <title><%= title %></title>
+  <style>.first-loading-wrp{display:flex;justify-content:center;align-items:center;flex-direction:column;min-height:420px;height:100%}.first-loading-wrp>h1{font-size:128px}.first-loading-wrp .loading-wrp{padding:98px;display:flex;justify-content:center;align-items:center}.dot{animation:antRotate 1.2s infinite linear;transform:rotate(45deg);position:relative;display:inline-block;font-size:32px;width:32px;height:32px;box-sizing:border-box}.dot i{width:14px;height:14px;position:absolute;display:block;background-color:#1890ff;border-radius:100%;transform:scale(.75);transform-origin:50% 50%;opacity:.3;animation:antSpinMove 1s infinite linear alternate}.dot i:nth-child(1){top:0;left:0}.dot i:nth-child(2){top:0;right:0;-webkit-animation-delay:.4s;animation-delay:.4s}.dot i:nth-child(3){right:0;bottom:0;-webkit-animation-delay:.8s;animation-delay:.8s}.dot i:nth-child(4){bottom:0;left:0;-webkit-animation-delay:1.2s;animation-delay:1.2s}@keyframes antRotate{to{-webkit-transform:rotate(405deg);transform:rotate(405deg)}}@-webkit-keyframes antRotate{to{-webkit-transform:rotate(405deg);transform:rotate(405deg)}}@keyframes antSpinMove{to{opacity:1}}@-webkit-keyframes antSpinMove{to{opacity:1}}</style>
 </head>
 <body>
 <div id="app">
-  <style>
-    .app-loading-main {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      min-width: 100%;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      background-color: #f4f7f9;
-      position: relative;
-    }
-
-    .app-loading {
-      position: relative;
-      -webkit-transform: translateY(-15px);
-      -ms-transform: translateY(-15px);
-      transform: translateY(-15px);
-    }
-
-    .app-loading > div {
-      -webkit-animation-fill-mode: both;
-      animation-fill-mode: both;
-      position: absolute;
-      top: 0;
-      left: 0;
-      border-radius: 100%;
-    }
-
-    .app-loading > div:first-child {
-      background: #2d8cf0;
-      height: 16px;
-      width: 16px;
-      top: 9px;
-      left: 9px;
-      -webkit-animation: scale 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
-      animation: scale 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
-    }
-
-    .app-loading > div:last-child {
-      position: absolute;
-      border: 2px solid #2d8cf0;
-      width: 30px;
-      height: 30px;
-      background: transparent;
-      border: 2px solid;
-      border-color: #2d8cf0 transparent #2d8cf0 transparent;
-      -webkit-animation: rotate 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
-      animation: rotate 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
-      -webkit-animation-duration: 1s;
-      animation-duration: 1s;
-    }
-
-    @keyframes rotate {
-      0% {
-        -webkit-transform: rotate(0deg) scale(1);
-        transform: rotate(0deg) scale(1);
-      }
-      50% {
-        -webkit-transform: rotate(180deg) scale(0.6);
-        transform: rotate(180deg) scale(0.6);
-      }
-      100% {
-        -webkit-transform: rotate(360deg) scale(1);
-        transform: rotate(360deg) scale(1);
-      }
-    }
-  </style>
-  <div class="app-loading-main">
-    <div class="app-loading">
-      <div></div>
-      <div></div>
+  <div class="first-loading-wrp">
+    <div class="loading-wrp">
+        <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
     </div>
   </div>
 </div>

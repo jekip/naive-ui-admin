@@ -256,7 +256,7 @@ export default defineComponent({
     ]
     const avatarOptions = [
       {
-        label: '个人中心',
+        label: '个人设置',
         key: 1
       },
       {
@@ -269,7 +269,7 @@ export default defineComponent({
     const avatarSelect = (key) => {
       switch (key) {
         case 1:
-          openUserCentre()
+          router.push({name:'Setting'})
           break;
         case 2:
           doLogout()
@@ -280,13 +280,6 @@ export default defineComponent({
     function openSetting() {
       const { openDrawer } = drawerSetting.value
       openDrawer()
-    }
-
-    function openUserCentre() {
-      notification.info({
-        content: '提示',
-        meta: '客官，该功能正在开发中呢...'
-      })
     }
 
     return {

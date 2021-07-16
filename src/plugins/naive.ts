@@ -56,7 +56,10 @@ import {
   NResult,
   NDescriptions,
   NDescriptionsItem,
-  NTable
+  NTable,
+  NInputNumber,
+  NLoadingBarProvider,
+  NModal
 } from 'naive-ui'
 
 const naive = create({
@@ -116,7 +119,10 @@ const naive = create({
     NResult,
     NDescriptions,
     NDescriptionsItem,
-    NTable
+    NTable,
+    NInputNumber,
+    NLoadingBarProvider,
+    NModal
   ]
 })
 

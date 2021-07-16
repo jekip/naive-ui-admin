@@ -1,5 +1,3 @@
-import { NLayout, NAvatar, NMenu, NDropdown, NBreadcrumb, NTooltip } from 'naive-ui'
-
 import {
   SettingOutlined,
   SearchOutlined,
@@ -18,7 +16,6 @@ import {
 
 export default {
   SettingOutlined,
-  NDropdown,
   LockOutlined,
   GithubOutlined,
   SearchOutlined,

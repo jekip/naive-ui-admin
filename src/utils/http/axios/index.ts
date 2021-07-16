@@ -3,10 +3,8 @@
 import { VAxios } from './Axios'
 import { AxiosTransform } from './axiosTransform'
 import axios, { AxiosResponse } from 'axios'
-import qs from 'qs'
 import { checkStatus } from './checkStatus'
 import { joinTimestamp, formatRequestDate } from './helper'
-import { useDialog } from 'naive-ui'
 import { RequestEnum, ResultEnum, ContentTypeEnum } from '@/enums/httpEnum'
 
 import { useGlobSetting } from '@/hooks/setting'
@@ -23,8 +21,6 @@ const urlPrefix = globSetting.urlPrefix || '';
 
 const Message = window.$message
 const Modal = window.$dialog
-
-const isDev = import.meta.env.DEV
 
 import router from '@/router'
 import { storage } from '@/utils/Storage'

@@ -1,10 +1,7 @@
 import { RouteRecordRaw } from 'vue-router'
 import { Layout } from '@/router/constant';
-import { WalletOutlined  } from '@vicons/antd'
+import { TableOutlined } from '@vicons/antd'
 import { renderIcon } from '@/utils/index'
-
-
-const routeName = 'comp'
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -18,27 +15,27 @@ const routeName = 'comp'
  *
  * */
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/comp',
-    name: routeName,
-    redirect: '/comp/console',
-    component: Layout,
-    meta: {
-      title: '组件示例',
-      icon: renderIcon(WalletOutlined ),
-      sort: 8
-    },
-    children: [
-      {
-        path: 'table',
-        name: `${ routeName }_table`,
+    {
+        path: '/list',
+        name: 'List',
+        redirect: '/list/basic-list',
+        component: Layout,
         meta: {
-          title: '表格',
+            title: '列表页面',
+            icon: renderIcon(TableOutlined),
+            sort: 1
         },
-        component: () => import('@/views/comp/table/list.vue')
-      }
-    ],
-  }
+        children: [
+            {
+                path: 'basic-list',
+                name: 'basic-list',
+                meta: {
+                    title: '基础列表',
+                },
+                component: () => import('@/views/list/basicList/index.vue')
+            }
+        ],
+    }
 ]
 
 export default routes

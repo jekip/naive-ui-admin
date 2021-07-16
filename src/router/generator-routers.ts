@@ -1,8 +1,7 @@
 import { adminMenus } from '@/api/system/menu'
 import { constantRouterComponents, constantRouterIcon } from './constantRouterComponents'
 import router from '@/router/index'
-import { constantRouter, asyncRoutes } from '@/router/index'
-import { NEmpty } from 'naive-ui'
+import { constantRouter } from '@/router/index'
 import { RouteRecordRaw } from 'vue-router'
 
 /**
@@ -12,9 +11,9 @@ import { RouteRecordRaw } from 'vue-router'
  * @param parent
  * @returns {*}
  */
-export const routerGenerator = (routerMap, parent) => {
+export const routerGenerator = (routerMap, parent?):any[] => {
   return routerMap.map(item => {
-    const currentRouter = {
+    const currentRouter:any = {
       // 路由地址 动态拼接生成如 /dashboard/workplace
       path: `${ parent && parent.path || '' }/${ item.path }`,
       // 路由名称，建议唯一
@@ -53,12 +52,6 @@ export const generatorDynamicRouter = (): Promise<RouteRecordRaw[]> => {
     adminMenus()
       .then((result) => {
         const routeList = routerGenerator(result)
-        // 设置模块重定向到菜单
-        // routeList.forEach((item) => {
-        //   if (item.children?.length > 0 && !item.redirect) {
-        //     item.redirect = { name: item.children[0].name }
-        //   }
-        // })
         const asyncRoutesList = [...constantRouter, ...routeList]
         asyncRoutesList.forEach(item => {
           router.addRoute(item)

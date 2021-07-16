@@ -222,12 +222,10 @@ export default defineComponent({
   }
   &-right {
     &-icon {
-      height: 18px;
       margin-left: 12px;
       font-size: 16px;
       color:var(--text-color);
       cursor: pointer;
-
       :hover {
         color: #1890ff;
       }
