@@ -211,6 +211,7 @@ export default defineComponent({
           if (whiteList.includes(route.name as string) || ['ErrorPage'].includes(route.name as string)) return
           state.activeKey = to
           tabsViewStore.addTabs(getSimpleRoute(route))
+          onElementResize()
         },
         { immediate: true }
     )
