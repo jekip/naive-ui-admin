@@ -211,7 +211,7 @@ export default defineComponent({
           if (whiteList.includes(route.name as string) || ['ErrorPage'].includes(route.name as string)) return
           state.activeKey = to
           tabsViewStore.addTabs(getSimpleRoute(route))
-          onElementResize()
+          updateNavScroll()
         },
         { immediate: true }
     )
@@ -234,7 +234,7 @@ export default defineComponent({
         state.activeKey = currentRoute.fullPath
         router.push(currentRoute)
       }
-      onElementResize()
+      updateNavScroll()
     }
 
     // 刷新页面
@@ -253,7 +253,7 @@ export default defineComponent({
       tabsViewStore.closeLeftTabs(route)
       state.activeKey = route.fullPath
       router.replace(route.fullPath)
-      onElementResize()
+      updateNavScroll()
     }
 
     // 关闭右侧
@@ -261,7 +261,7 @@ export default defineComponent({
       tabsViewStore.closeRightTabs(route)
       state.activeKey = route.fullPath
       router.replace(route.fullPath)
-      onElementResize()
+      updateNavScroll()
     }
 
     // 关闭其他
@@ -269,7 +269,7 @@ export default defineComponent({
       tabsViewStore.closeOtherTabs(route)
       state.activeKey = route.fullPath
       router.replace(route.fullPath)
-      onElementResize()
+      updateNavScroll()
     }
 
     // 关闭全部
@@ -277,7 +277,7 @@ export default defineComponent({
       localStorage.removeItem('routes')
       tabsViewStore.closeAllTabs()
       router.replace('/')
-      onElementResize()
+      updateNavScroll()
     }
 
     //tab 操作
@@ -300,7 +300,7 @@ export default defineComponent({
           closeAll()
           break
       }
-      onElementResize()
+      updateNavScroll()
     }
 
     function getCurrentScrollOffset() {
@@ -336,7 +336,8 @@ export default defineComponent({
     }
 
     function updateNavScroll() {
-      const navWidth = navRef.value.offsetWidth
+      if(!navRef.value)return
+      const navWidth = (navRef.value.offsetWidth + 32)
       const containerWidth = navScroll.value.offsetWidth
       const currentOffset = getCurrentScrollOffset()
       if (containerWidth < navWidth) {
