@@ -12,7 +12,7 @@ export function renderIcon(icon) {
 /**
  * 递归组装菜单格式
  */
-export function generatorMenu(routerMap: Array<any>, parent?: object) {
+export function generatorMenu(routerMap: Array<any>) {
   return routerMap.filter(item => {
     return item.meta.hidden != true && !['/:path(.*)*', '/', '/redirect', '/login'].includes(item.path)
   }).map(item => {
@@ -25,7 +25,7 @@ export function generatorMenu(routerMap: Array<any>, parent?: object) {
     // 是否有子菜单，并递归处理
     if (item.children && item.children.length > 0) {
       // Recursion
-      currentMenu.children = generatorMenu(item.children, currentMenu)
+      currentMenu.children = generatorMenu(item.children)
     }
     return currentMenu
   })

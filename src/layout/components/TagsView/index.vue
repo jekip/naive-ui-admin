@@ -192,10 +192,10 @@ export default defineComponent({
     const delKeepAliveCompName = () => {
       if (route.meta.keepAlive) {
         const name = router.currentRoute.value.matched.find((item) => item.name == route.name)
-          ?.components?.default.name
+            ?.components?.default.name
         if (name) {
           asyncRouteStore.keepAliveComponents = asyncRouteStore.keepAliveComponents.filter(
-            (item) => item != name
+              (item) => item != name
           )
         }
       }
@@ -203,16 +203,16 @@ export default defineComponent({
 
     // 标签页列表
     const tabsList: any = computed(() => tabsViewStore.tabsList)
-    const whiteList = [PageEnum.REDIRECT, PageEnum.BASE_LOGIN]
+    const whiteList: string[] = [PageEnum.REDIRECT, PageEnum.BASE_LOGIN]
 
     watch(
-      () => route.fullPath,
-      (to) => {
-        if (whiteList.includes(route.name as string) || ['ErrorPage'].includes(route.name as string)) return
-        state.activeKey = to
-        tabsViewStore.addTabs(getSimpleRoute(route))
-      },
-      { immediate: true }
+        () => route.fullPath,
+        (to) => {
+          if (whiteList.includes(route.name as string) || ['ErrorPage'].includes(route.name as string)) return
+          state.activeKey = to
+          tabsViewStore.addTabs(getSimpleRoute(route))
+        },
+        { immediate: true }
     )
 
     // 在页面关闭或刷新之前，保存数据
@@ -233,6 +233,7 @@ export default defineComponent({
         state.activeKey = currentRoute.fullPath
         router.push(currentRoute)
       }
+      onElementResize()
     }
 
     // 刷新页面
@@ -251,6 +252,7 @@ export default defineComponent({
       tabsViewStore.closeLeftTabs(route)
       state.activeKey = route.fullPath
       router.replace(route.fullPath)
+      onElementResize()
     }
 
     // 关闭右侧
@@ -258,6 +260,7 @@ export default defineComponent({
       tabsViewStore.closeRightTabs(route)
       state.activeKey = route.fullPath
       router.replace(route.fullPath)
+      onElementResize()
     }
 
     // 关闭其他
@@ -265,6 +268,7 @@ export default defineComponent({
       tabsViewStore.closeOtherTabs(route)
       state.activeKey = route.fullPath
       router.replace(route.fullPath)
+      onElementResize()
     }
 
     // 关闭全部
@@ -272,28 +276,30 @@ export default defineComponent({
       localStorage.removeItem('routes')
       tabsViewStore.closeAllTabs()
       router.replace('/')
+      onElementResize()
     }
 
     //tab 操作
     const closeHandleSelect = (key) => {
       switch (key) {
-        //刷新
+          //刷新
         case '1':
           reloadPage()
           break
-        //关闭
+          //关闭
         case '2':
           removeTab(route)
           break
-        //关闭其他
+          //关闭其他
         case '3':
           closeOther(route)
           break
-        //关闭所有
+          //关闭所有
         case '4':
           closeAll()
           break
       }
+      onElementResize()
     }
 
     function getCurrentScrollOffset() {
@@ -321,9 +327,9 @@ export default defineComponent({
       if (navWidth - currentOffset <= containerWidth) return
 
       let newOffset =
-        navWidth - currentOffset > containerWidth * 2
-          ? currentOffset + containerWidth
-          : navWidth - containerWidth
+          navWidth - currentOffset > containerWidth * 2
+              ? currentOffset + containerWidth
+              : navWidth - containerWidth
 
       setOffset(newOffset)
     }
@@ -383,10 +389,14 @@ export default defineComponent({
     }
 
     onMounted(() => {
+      onElementResize()
+    })
+
+    function onElementResize() {
       let observer
       observer = elementResizeDetectorMaker()
       observer.listenTo(navWrap.value, handleResize)
-    })
+    }
 
     return {
       ...toRefs(state),
@@ -519,7 +529,8 @@ export default defineComponent({
             }
           }
         }
-        .active-item{
+
+        .active-item {
           color: #2d8cf0
         }
       }

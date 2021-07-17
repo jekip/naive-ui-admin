@@ -74,6 +74,9 @@ export default defineComponent({
     watch(
         () => currentRoute.fullPath,
         () => {
+          const matched = currentRoute.matched
+          const getOpenKeys = matched && matched.length ? [matched[0]?.name] : []
+          state.openKeys = getOpenKeys
           state.selectedKeys = currentRoute.name
         }
     )
@@ -89,6 +92,7 @@ export default defineComponent({
 
     //展开菜单
     function menuExpanded(openKeys: string[]) {
+      console.log(openKeys)
       if (!openKeys) return
       const latestOpenKey = openKeys.pop();
       state.openKeys = latestOpenKey ? [latestOpenKey] : []

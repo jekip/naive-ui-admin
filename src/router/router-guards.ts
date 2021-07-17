@@ -1,11 +1,9 @@
-import { toRefs } from 'vue'
 import { isNavigationFailure, Router } from 'vue-router'
 import { useUserStoreWidthOut } from '@/store/modules/user'
 import { useAsyncRouteStoreWidthOut } from '@/store/modules/asyncRoute'
 import NProgress from 'nprogress' // progress bar
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { storage } from '@/utils/Storage'
-import { debounce } from '@/utils/lodashChunk'
 import { PageEnum } from '@/enums/pageEnum'
 
 
@@ -14,39 +12,6 @@ NProgress.configure({ showSpinner: false }) // NProgress Configuration
 const LOGIN_PATH = PageEnum.BASE_LOGIN
 
 const whitePathList = [LOGIN_PATH] // no redirect whitelist
-
-// 是否需要从后端获取菜单
-const isGetMenus = debounce(
-    ({ to, from, next, hasRoute, router }) => {
-        const userStore = useUserStoreWidthOut();
-        const asyncRouteStore = useAsyncRouteStoreWidthOut();
-        userStore.GetInfo().then(res => {
-            asyncRouteStore.generateRoutes(res).then(() => {
-                // 根据roles权限生成可访问的路由表
-                // 动态添加可访问路由表
-                asyncRouteStore.getRouters().forEach((item) => {
-                    router.addRoute(item)
-                });
-                // if (whitePathList.includes(to.name as string)) return
-                if (!hasRoute) {
-                    // 请求带有 redirect 重定向时，登录自动重定向到该地址
-                    const redirect = decodeURIComponent((from.query.redirect || '') as string)
-                    if (to.path === redirect) {
-                        next({ ...to, replace: true })
-                    } else {
-                        // 跳转到目的路由
-                        next({ ...to, replace: true })
-                    }
-                } else {
-                    next()
-                }
-            }).catch(() => next({ path: defaultRoutePath }))
-        })
-    },
-    1800,
-    { leading: true }
-)
-
 
 export function createRouterGuards(router: Router) {
     const userStore = useUserStoreWidthOut();
@@ -65,7 +30,6 @@ export function createRouterGuards(router: Router) {
         }
 
         const token = storage.get(ACCESS_TOKEN)
-        const roles = storage.get('roles')
 
         if (!token) {
 
@@ -111,7 +75,7 @@ export function createRouterGuards(router: Router) {
         NProgress.done()
     })
 
-    router.afterEach((to, from, failure) => {
+    router.afterEach((to, _, failure) => {
         document.title = (to?.meta?.title as string) || document.title
         if (isNavigationFailure(failure)) {
             //console.log('failed navigation', failure)

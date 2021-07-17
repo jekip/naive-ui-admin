@@ -59,7 +59,8 @@ import {
   NTable,
   NInputNumber,
   NLoadingBarProvider,
-  NModal
+  NModal,
+  NUpload
 } from 'naive-ui'
 
 const naive = create({
@@ -122,7 +123,8 @@ const naive = create({
     NTable,
     NInputNumber,
     NLoadingBarProvider,
-    NModal
+    NModal,
+    NUpload
   ]
 })
 
