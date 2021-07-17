@@ -52,7 +52,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, ref, toRefs, toRaw, unref, provide, watch, onMounted, nextTick } from 'vue'
+import {
+  defineComponent,
+  reactive,
+  computed,
+  ref,
+  toRefs,
+  toRaw,
+  unref,
+  provide,
+  watch,
+  onMounted,
+  nextTick
+} from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { storage } from '@/utils/Storage'
 import { TABS_ROUTES } from '@/store/mutation-types'
@@ -322,7 +334,7 @@ export default defineComponent({
     }
 
     function scrollNext() {
-      const navWidth = navRef.value.offsetWidth
+      const navWidth = navRef.value.scrollWidth
       const containerWidth = navScroll.value.offsetWidth
       const currentOffset = getCurrentScrollOffset()
       if (navWidth - currentOffset <= containerWidth) return
@@ -336,9 +348,9 @@ export default defineComponent({
     }
 
     function updateNavScroll() {
-      if(!navRef.value)return
-      const navWidth = (navRef.value.offsetWidth + 32)
-      const containerWidth = navScroll.value.offsetWidth
+      if (!navRef.value) return
+      let navWidth = navRef.value.scrollWidth
+      let containerWidth = navScroll.value.offsetWidth
       const currentOffset = getCurrentScrollOffset()
       if (containerWidth < navWidth) {
         state.scrollable = true
