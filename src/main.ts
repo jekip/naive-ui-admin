@@ -3,10 +3,14 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router, { setupRouter } from './router'
 import { setupStore } from '@/store'
+import MakeitCaptcha from 'makeit-captcha'
+import 'makeit-captcha/dist/captcha.min.css'
 import { setupNaive, setupDirectives, setupGlobalMethods, setupCustomComponents } from '@/plugins'
 
 async function bootstrap() {
     const app = createApp(App)
+
+    app.use(MakeitCaptcha)
 
     // 注册全局常用的 naive-ui 组件
     setupNaive(app)

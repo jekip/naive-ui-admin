@@ -18,7 +18,7 @@ export default defineComponent({
   setup() {
     const router = useRouter()
     return {
-      goHome(){
+      goHome() {
         router.push('/')
       }
     }
@@ -32,9 +32,14 @@ export default defineComponent({
   background-color: white;
   border-radius: 4px;
   padding: 50px 0;
-  .text-center{
-    h1{ color: #666;padding: 20px 0}
+
+  .text-center {
+    h1 {
+      color: #666;
+      padding: 20px 0
+    }
   }
+
   img {
     width: 350px;
     margin: 0 auto;

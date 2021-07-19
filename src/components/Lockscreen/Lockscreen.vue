@@ -1,10 +1,10 @@
 <template>
   <div
-    :class="{ onLockLogin: showLogin }"
-    class="lockscreen"
-    @keyup="onLockLogin(true)"
-    @mousedown.stop
-    @contextmenu.prevent
+      :class="{ onLockLogin: showLogin }"
+      class="lockscreen"
+      @keyup="onLockLogin(true)"
+      @mousedown.stop
+      @contextmenu.prevent
   >
     <template v-if="!showLogin">
 
@@ -20,9 +20,9 @@
       </div>
       <!--充电-->
       <recharge
-        :battery="battery"
-        :battery-status="batteryStatus"
-        :calc-discharging-time="calcDischargingTime"
+          :battery="battery"
+          :battery-status="batteryStatus"
+          :calc-discharging-time="calcDischargingTime"
       ></recharge>
 
       <div class="local-time">
@@ -47,10 +47,10 @@
         </n-avatar>
         <div class="username">{{ loginParams.username }}</div>
         <n-input
-          type="password"
-          autofocus
-          v-model:value="loginParams.password"
-          placeholder="请输入登录密码">
+            type="password"
+            autofocus
+            v-model:value="loginParams.password"
+            placeholder="请输入登录密码">
           <template #suffix>
             <n-icon @click="onLogin" style="cursor: pointer;">
               <LoadingOutlined v-if="loginLoading"/>

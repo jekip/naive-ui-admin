@@ -8,29 +8,29 @@
     <div class="layout-header-left" v-else>
       <!-- 菜单收起 -->
       <div class="ml-1 layout-header-trigger layout-header-trigger-min"
-            @click="() => $emit('update:collapsed', !collapsed)">
-          <n-icon size="18" v-if="collapsed">
-            <MenuUnfoldOutlined/>
-          </n-icon>
-          <n-icon size="18" v-else>
-            <MenuFoldOutlined/>
-          </n-icon>
+           @click="() => $emit('update:collapsed', !collapsed)">
+        <n-icon size="18" v-if="collapsed">
+          <MenuUnfoldOutlined/>
+        </n-icon>
+        <n-icon size="18" v-else>
+          <MenuFoldOutlined/>
+        </n-icon>
       </div>
       <!-- 刷新 -->
       <div class="mr-1 layout-header-trigger layout-header-trigger-min" v-if="headerSetting.isReload"
-            @click="reloadPage">
-          <n-icon size="18">
-            <ReloadOutlined/>
-          </n-icon>
+           @click="reloadPage">
+        <n-icon size="18">
+          <ReloadOutlined/>
+        </n-icon>
       </div>
       <!-- 面包屑 -->
       <n-breadcrumb v-if="crumbsSetting.show">
         <template v-for="routeItem in breadcrumbList" :key="routeItem.name">
           <n-breadcrumb-item>
             <n-dropdown
-              v-if="routeItem.children.length"
-              :options="routeItem.children"
-              @select="dropdownSelect"
+                v-if="routeItem.children.length"
+                :options="routeItem.children"
+                @select="dropdownSelect"
             >
                 <span class="link-text">
                   <component v-if="crumbsSetting.showIcon && routeItem.meta.icon" :is="routeItem.meta.icon"></component>
@@ -46,49 +46,51 @@
       </n-breadcrumb>
     </div>
     <div class="layout-header-right">
-        <div class="layout-header-trigger layout-header-trigger-min" v-for="item in iconList" :key="item.icon.name">
-          <n-tooltip placement="bottom">
-            <template #trigger>
-              <n-icon size="18">
-                <component :is="item.icon" v-on="item.eventObject || {}"/>
-              </n-icon>
-            </template>
-            <span>{{ item.tips }}</span>
-          </n-tooltip>
-        </div>
+      <div class="layout-header-trigger layout-header-trigger-min" v-for="item in iconList" :key="item.icon.name">
+        <n-tooltip placement="bottom">
+          <template #trigger>
+            <n-icon size="18">
+              <component :is="item.icon" v-on="item.eventObject || {}"/>
+            </n-icon>
+          </template>
+          <span>{{ item.tips }}</span>
+        </n-tooltip>
+      </div>
       <!--切换全屏-->
       <div class="layout-header-trigger layout-header-trigger-min">
         <n-tooltip placement="bottom">
-            <template #trigger>
-              <n-icon size="18">
-                <component :is="fullscreenIcon" @click="toggleFullScreen"/>
-              </n-icon>
-            </template>
-            <span>全屏</span>
-          </n-tooltip>
-        </div>
+          <template #trigger>
+            <n-icon size="18">
+              <component :is="fullscreenIcon" @click="toggleFullScreen"/>
+            </n-icon>
+          </template>
+          <span>全屏</span>
+        </n-tooltip>
+      </div>
       <!-- 个人中心 -->
       <div class="layout-header-trigger layout-header-trigger-min">
-            <n-dropdown trigger="hover" @select="avatarSelect" :options="avatarOptions">
-              <div class="avatar">
-                <n-avatar>
-                  {{ username }}
-                  <template #icon><UserOutlined/></template>
-                </n-avatar>
-              </div>
-            </n-dropdown>
-        </div>
+        <n-dropdown trigger="hover" @select="avatarSelect" :options="avatarOptions">
+          <div class="avatar">
+            <n-avatar>
+              {{ username }}
+              <template #icon>
+                <UserOutlined/>
+              </template>
+            </n-avatar>
+          </div>
+        </n-dropdown>
+      </div>
       <!--设置-->
       <div class="layout-header-trigger layout-header-trigger-min" @click="openSetting">
-            <n-tooltip placement="bottom-end">
-              <template #trigger>
-                <n-icon size="18" style="font-weight: bold">
-                  <SettingOutlined/>
-                </n-icon>
-              </template>
-              <span>项目配置</span>
-            </n-tooltip>
-          </div>
+        <n-tooltip placement="bottom-end">
+          <template #trigger>
+            <n-icon size="18" style="font-weight: bold">
+              <SettingOutlined/>
+            </n-icon>
+          </template>
+          <span>项目配置</span>
+        </n-tooltip>
+      </div>
     </div>
   </div>
   <!--项目配置-->
@@ -188,7 +190,7 @@ export default defineComponent({
 
     // 退出登录
     const doLogout = () => {
-      dialog.warning({
+      dialog.info({
         title: '提示',
         content: '您确定要退出登录吗',
         positiveText: '确定',
@@ -199,13 +201,13 @@ export default defineComponent({
             // 移除标签页
             localStorage.removeItem(TABS_ROUTES)
             router
-              .replace({
-                name: 'Login',
-                query: {
-                  redirect: route.fullPath
-                }
-              })
-              .finally(() => location.reload())
+                .replace({
+                  name: 'Login',
+                  query: {
+                    redirect: route.fullPath
+                  }
+                })
+                .finally(() => location.reload())
           })
         },
         onNegativeClick: () => {
@@ -216,8 +218,8 @@ export default defineComponent({
 
     // 切换全屏图标
     const toggleFullscreenIcon = () =>
-      (state.fullscreenIcon =
-        document.fullscreenElement !== null ? 'FullscreenExitOutlined' : 'FullscreenOutlined')
+        (state.fullscreenIcon =
+            document.fullscreenElement !== null ? 'FullscreenExitOutlined' : 'FullscreenOutlined')
 
     // 监听全屏切换事件
     document.addEventListener('fullscreenchange', toggleFullscreenIcon)
@@ -269,7 +271,7 @@ export default defineComponent({
     const avatarSelect = (key) => {
       switch (key) {
         case 1:
-          router.push({name:'Setting'})
+          router.push({ name: 'Setting' })
           break;
         case 2:
           doLogout()

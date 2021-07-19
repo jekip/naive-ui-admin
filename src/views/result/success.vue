@@ -39,6 +39,7 @@ export default defineComponent({
   margin: 0 auto;
   text-align: center;
   padding-top: 5px;
+
   &-extra {
     padding: 24px 40px;
     text-align: left;

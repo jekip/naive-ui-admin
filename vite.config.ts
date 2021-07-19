@@ -13,11 +13,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   const root = process.cwd();
   const env = loadEnv(mode, root);
   const viteEnv = wrapperEnv(env);
-  const { VITE_BASE_URL, VITE_DROP_CONSOLE, VITE_PORT, VITE_GLOB_PROD_MOCK } = viteEnv
+  const { VITE_PUBLIC_PATH, VITE_DROP_CONSOLE, VITE_PORT, VITE_GLOB_PROD_MOCK } = viteEnv
   const prodMock = VITE_GLOB_PROD_MOCK
   const isBuild = command === 'build';
   return {
-    base: VITE_BASE_URL,
+    base: VITE_PUBLIC_PATH,
     esbuild: {},
     resolve: {
       alias: [

@@ -1,30 +1,30 @@
 <template>
   <n-card :bordered="false" class="proCard">
-    <ProTable
-      title="表格列表"
-      titleTooltip="这是一个提示"
-      :columns="columns"
-      :request="loadDataTable"
-      :row-key="row => row.id"
-      ref="actionRef"
-      @update:checked-row-keys="onCheckedRow"
+    <BasicTable
+        title="表格列表"
+        titleTooltip="这是一个提示"
+        :columns="columns"
+        :request="loadDataTable"
+        :row-key="row => row.id"
+        ref="actionRef"
+        @update:checked-row-keys="onCheckedRow"
     >
       <template #toolbar>
         <n-button type="primary" @click="reloadTable">刷新数据</n-button>
       </template>
-    </ProTable>
+    </BasicTable>
   </n-card>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, toRefs, ref, h } from 'vue'
 import { NTag, NButton, useMessage } from 'naive-ui'
-import { ProTable } from '@/components/ProTable'
+import { BasicTable } from '@/components/Table'
 import { getTableList } from '@/api/table/list'
 import { columns } from './columns'
 
 export default defineComponent({
-  components: { ProTable },
+  components: { BasicTable },
   setup() {
     const message = useMessage()
     const actionRef = ref()

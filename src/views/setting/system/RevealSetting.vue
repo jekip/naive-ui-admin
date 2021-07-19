@@ -149,7 +149,7 @@ export default defineComponent({
         watermarkClarity: null,
         pricePrecise: 1,
         isMarketPrice: true,
-        pricePreciseNum:null,
+        pricePreciseNum: null,
       }
     })
 

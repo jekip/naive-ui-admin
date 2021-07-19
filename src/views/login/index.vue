@@ -28,6 +28,18 @@
               </template>
             </n-input>
           </n-form-item>
+          <n-form-item
+
+              path="isCaptcha">
+            <div class="w-full">
+              <mi-captcha
+                  width="384"
+                  theme-color="#2d8cf0"
+                  :logo="logo"
+                  @success="onAuthCode"
+              ></mi-captcha>
+            </div>
+          </n-form-item>
           <n-form-item class="default-color">
             <div class="flex justify-between">
               <div class="flex-initial">
@@ -80,6 +92,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/store/modules/user'
 import { useMessage } from 'naive-ui'
 import { ResultEnum } from '@/enums/httpEnum'
+import logo from '@/assets/images/logo.png'
 
 interface FormState {
   username: string
@@ -96,12 +109,18 @@ export default defineComponent({
       autoLogin: true,
       formInline: {
         username: 'admin',
-        password: '123456'
+        password: '123456',
+        isCaptcha: false
       }
     })
     const rules = {
-      username: { required: true, message: '请输入用户名！', trigger: 'blur' },
-      password: { required: true, message: '请输入密码！', trigger: 'blur' }
+      username: { required: true, message: '请输入用户名', trigger: 'blur' },
+      password: { required: true, message: '请输入密码', trigger: 'blur' },
+      isCaptcha: {
+        required: true, type: 'boolean', trigger: 'change',
+        message: '请点击按钮进行验证码校验',
+        validator: (_, value) => value === true,
+      },
     }
     const userStore = useUserStore();
 
@@ -135,15 +154,22 @@ export default defineComponent({
             message.info(msg || '登录失败')
           }
         } else {
-          message.error('请填写完整信息')
+          message.error('请填写完整信息，并且进行验证码校验')
         }
       })
     }
+
+    function onAuthCode() {
+      state.formInline.isCaptcha = true
+    }
+
     return {
       ...toRefs(state),
       formRef,
       rules,
-      handleSubmit
+      logo,
+      handleSubmit,
+      onAuthCode
     }
   }
 })
@@ -167,14 +193,9 @@ export default defineComponent({
     padding: 32px 0;
     text-align: center;
 
-    &-logo {
-      height: 75px;
-    }
-
     &-desc {
       font-size: 14px;
       color: #808695;
-      margin-top: 20px;
     }
   }
 

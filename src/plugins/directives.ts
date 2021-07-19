@@ -7,6 +7,6 @@ import { permission } from '@/directives/permission'
  * @param app
  */
 export function setupDirectives(app: App) {
-  // 权限控制指令（演示）
-  app.directive('permission', permission)
+    // 权限控制指令（演示）
+    app.directive('permission', permission)
 }

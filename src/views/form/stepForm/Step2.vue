@@ -1,11 +1,11 @@
 <template>
   <n-form
-    :label-width="90"
-    :model="formValue"
-    :rules="rules"
-    label-placement="left"
-    ref="form2Ref"
-    style="max-width: 500px; margin: 40px auto 0;"
+      :label-width="90"
+      :model="formValue"
+      :rules="rules"
+      label-placement="left"
+      ref="form2Ref"
+      style="max-width: 500px; margin: 40px auto 0;"
   >
     <n-form-item label="付款账户" path="myAccount">
       <span>NaiveUiAdmin@163.com</span>

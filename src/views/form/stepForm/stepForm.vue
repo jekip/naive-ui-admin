@@ -9,16 +9,16 @@
       <n-space vertical class="steps">
         <n-steps :current="currentTab" :status="currentStatus">
           <n-step
-            title="填写转账信息"
-            description="确保填写正确"
+              title="填写转账信息"
+              description="确保填写正确"
           />
           <n-step
-            title="确认转账信息"
-            description="确认转账信息"
+              title="确认转账信息"
+              description="确认转账信息"
           />
           <n-step
-            title="完成"
-            description="恭喜您，转账成功"
+              title="完成"
+              description="恭喜您，转账成功"
           />
         </n-steps>
         <step1 v-if="currentTab === 1" @nextStep="nextStep"/>

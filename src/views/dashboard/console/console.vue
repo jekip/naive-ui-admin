@@ -50,10 +50,10 @@
           <div class="py-2 px-2 flex justify-between ">
             <div class="text-sn flex-1">
               <n-progress
-                type="line"
-                :percentage="saleroom.degree"
-                :indicator-placement="'inside'"
-                processing
+                  type="line"
+                  :percentage="saleroom.degree"
+                  :indicator-placement="'inside'"
+                  processing
               />
             </div>
           </div>

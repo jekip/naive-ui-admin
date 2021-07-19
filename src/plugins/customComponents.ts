@@ -5,5 +5,5 @@ import { App } from 'vue'
  * @param app
  */
 export function setupCustomComponents(app: App) {
-  // app.component()
+    // app.component()
 }

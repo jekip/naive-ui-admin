@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
 import { Layout } from '@/router/constant';
-import { WalletOutlined  } from '@vicons/antd'
+import { WalletOutlined } from '@vicons/antd'
 import { renderIcon } from '@/utils/index'
 
 
@@ -18,27 +18,36 @@ const routeName = 'comp'
  *
  * */
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/comp',
-    name: routeName,
-    redirect: '/comp/console',
-    component: Layout,
-    meta: {
-      title: '组件示例',
-      icon: renderIcon(WalletOutlined ),
-      sort: 8
-    },
-    children: [
-      {
-        path: 'table',
-        name: `${ routeName }_table`,
+    {
+        path: '/comp',
+        name: routeName,
+        redirect: '/comp/console',
+        component: Layout,
         meta: {
-          title: '表格',
+            title: '组件示例',
+            icon: renderIcon(WalletOutlined),
+            sort: 8
         },
-        component: () => import('@/views/comp/table/list.vue')
-      }
-    ],
-  }
+        children: [
+            {
+                path: 'table',
+                name: `${ routeName }_table`,
+                meta: {
+                    title: '表格',
+                },
+                component: () => import('@/views/comp/table/list.vue')
+            },
+            {
+
+                path: 'upload',
+                name: `${ routeName }_upload`,
+                meta: {
+                    title: '上传',
+                },
+                component: () => import('@/views/comp/upload/index.vue')
+            }
+        ],
+    }
 ]
 
 export default routes

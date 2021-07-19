@@ -212,10 +212,10 @@ export default defineComponent({
     })
 
     watch(
-      () => designStore.darkTheme,
-      (to) => {
-        settingStore.navTheme = to ? 'header-dark' : 'dark'
-      }
+        () => designStore.darkTheme,
+        (to) => {
+          settingStore.navTheme = to ? 'header-dark' : 'dark'
+        }
     )
 
     function openDrawer(isDrawer) {

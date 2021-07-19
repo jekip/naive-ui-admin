@@ -4,7 +4,7 @@ import { createPinia } from 'pinia';
 const store = createPinia();
 
 export function setupStore(app: App<Element>) {
-  app.use(store);
+    app.use(store);
 }
 
 export { store };

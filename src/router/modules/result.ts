@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
 import { Layout } from '@/router/constant';
-import { CheckCircleOutlined  } from '@vicons/antd'
+import { CheckCircleOutlined } from '@vicons/antd'
 import { renderIcon } from '@/utils/index'
 
 /**

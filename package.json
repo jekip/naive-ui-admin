@@ -31,6 +31,7 @@
     "element-resize-detector": "^1.2.3",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
+    "makeit-captcha": "^1.2.5",
     "mitt": "^2.1.0",
     "mockjs": "^1.1.0",
     "naive-ui": "^2.15.5",

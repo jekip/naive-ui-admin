@@ -7,7 +7,7 @@
           <p class="mt-3">
             <n-space align="center">
               <n-icon size="20" color="#18a058">
-                <CheckCircleOutlined />
+                <CheckCircleOutlined/>
               </n-icon>
               <span>转入支付宝账户（189****5426）：￥1980元</span>
               <n-button type="info" text>立即撤回</n-button>
@@ -16,7 +16,7 @@
           <p class="mt-3">
             <n-space>
               <n-icon size="20" color="#18a058">
-                <CheckCircleOutlined  />
+                <CheckCircleOutlined/>
               </n-icon>
               <span>转入支付宝账户（187****5426）：￥2980元</span>
               <n-button type="info" text>立即撤回</n-button>
@@ -42,7 +42,7 @@ import { useRouter } from 'vue-router'
 import { CheckCircleOutlined } from '@vicons/antd'
 
 export default defineComponent({
-  components:{ CheckCircleOutlined },
+  components: { CheckCircleOutlined },
   setup() {
     const router = useRouter()
     return {
@@ -59,6 +59,7 @@ export default defineComponent({
   margin: 0 auto;
   text-align: center;
   padding-top: 5px;
+
   &-extra {
     padding: 24px 40px;
     text-align: left;

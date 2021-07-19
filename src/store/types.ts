@@ -4,9 +4,9 @@ import { ILockscreenState } from '@/store/modules/lockscreen'
 import { ITabsViewState } from '@/store/modules/tabs-view'
 
 export interface IStore {
-  asyncRoute: IAsyncRouteState
-  user: IUserState
-  lockscreen: ILockscreenState
-  tabsView: ITabsViewState,
-  count: number
+    asyncRoute: IAsyncRouteState
+    user: IUserState
+    lockscreen: ILockscreenState
+    tabsView: ITabsViewState,
+    count: number
 }

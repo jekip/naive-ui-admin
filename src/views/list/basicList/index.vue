@@ -1,6 +1,6 @@
 <template>
   <n-card :bordered="false" class="proCard">
-    <ProTable
+    <BasicTable
         :columns="columns"
         :request="loadDataTable"
         :row-key="row => row.id"
@@ -20,7 +20,7 @@
       <template #toolbar>
         <n-button type="primary" @click="reloadTable">刷新数据</n-button>
       </template>
-    </ProTable>
+    </BasicTable>
 
     <n-modal v-model:show="showModal" :show-icon="false" preset="dialog" title="新建">
       <n-form
@@ -57,7 +57,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref, h } from 'vue'
 import { useMessage } from 'naive-ui'
-import { ProTable } from '@/components/ProTable'
+import { BasicTable } from '@/components/Table'
 import { getTableList } from '@/api/table/list'
 import { columns } from './columns'
 import { PlusOutlined } from '@vicons/antd'
@@ -82,7 +82,7 @@ const rules = {
 }
 
 export default defineComponent({
-  components: { ProTable, PlusOutlined },
+  components: { BasicTable, PlusOutlined },
   setup() {
     const formRef: any = ref(null)
     const message = useMessage()

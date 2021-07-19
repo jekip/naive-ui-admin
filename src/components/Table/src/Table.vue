@@ -58,10 +58,10 @@
   </div>
   <div class="s-table">
     <n-data-table
-      v-bind="getBindValues"
-      :pagination="pagination"
-      @update:page="updatePage"
-      @update:page-size="updatePageSize"
+        v-bind="getBindValues"
+        :pagination="pagination"
+        @update:page="updatePage"
+        @update:page-size="updatePageSize"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
         <slot :name="item" v-bind="data"></slot>
@@ -141,12 +141,12 @@ export default defineComponent({
     } = usePagination(getProps)
 
     const { getDataSourceRef, getRowKey, getDataSource, setDataSource, reload } = useDataSource(
-      getProps, {
-        getPaginationInfo,
-        setPagination,
-        tableData,
-        setLoading
-      }, emit
+        getProps, {
+          getPaginationInfo,
+          setPagination,
+          tableData,
+          setLoading
+        }, emit
     )
 
     const {
@@ -281,7 +281,8 @@ export default defineComponent({
       margin-left: 12px;
       font-size: 16px;
       cursor: pointer;
-      color:var(--text-color);
+      color: var(--text-color);
+
       :hover {
         color: #1890ff;
       }

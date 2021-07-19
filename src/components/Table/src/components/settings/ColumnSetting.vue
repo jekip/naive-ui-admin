@@ -21,7 +21,8 @@
             <n-checkbox-group v-model:value="checkList" @update:value="onChange">
               <Draggable v-model="columnsList" animation="300" item-key="key" @end="draggableEnd">
                 <template #item="{element, index}">
-                  <div class="table-toolbar-inner-checkbox" :class="{'table-toolbar-inner-checkbox-dark':getDarkTheme === true}">
+                  <div class="table-toolbar-inner-checkbox"
+                       :class="{'table-toolbar-inner-checkbox-dark':getDarkTheme === true}">
                     <span class="drag-icon">
                       <n-icon size="18">
                         <DragOutlined/>
@@ -33,7 +34,7 @@
                         <template #trigger>
                           <n-icon size="18" :color="element.fixed === 'left' ? '#2080f0':undefined"
                                   class="cursor-pointer" @click="fixedColumn(element,'left')">
-                            <VerticalRightOutlined />
+                            <VerticalRightOutlined/>
                           </n-icon>
                         </template>
                         <span>固定到左侧</span>
@@ -43,7 +44,7 @@
                         <template #trigger>
                           <n-icon size="18" :color="element.fixed === 'right' ? '#2080f0':undefined"
                                   class="cursor-pointer" @click="fixedColumn(element,'right')">
-                            <VerticalLeftOutlined />
+                            <VerticalLeftOutlined/>
                           </n-icon>
                         </template>
                         <span>固定到右侧</span>
@@ -131,7 +132,7 @@ export default defineComponent({
     function getColumns() {
       let newRet = []
       table.getColumns().forEach(item => {
-        newRet.push({...item })
+        newRet.push({ ...item })
       })
       return newRet
     }
@@ -140,11 +141,11 @@ export default defineComponent({
     function resetColumns() {
       state.checkList = [...state.defaultCheckList]
       state.checkAll = true;
-      let cacheColumnsKeys:any[] = table.getCacheColumns()
+      let cacheColumnsKeys: any[] = table.getCacheColumns()
       let newColumns = cacheColumnsKeys.map(item => {
         return {
           ...item,
-          fixed:undefined
+          fixed: undefined
         }
       })
       setColumns(newColumns);
@@ -184,18 +185,18 @@ export default defineComponent({
 
     //固定
     function fixedColumn(item, fixed) {
-      console.log('item：',item)
+      console.log('item：', item)
       if (!state.checkList.includes(item.key)) return;
       let columns = getColumns();
       const isFixed = item.fixed === fixed ? undefined : fixed
       let index = columns.findIndex(res => res.key === item.key)
-      console.log('index：',index)
-      if(index !== -1){
+      console.log('index：', index)
+      if (index !== -1) {
         columns[index].fixed = isFixed;
       }
       table.setCacheColumnsField(item.key, { fixed: isFixed })
       columnsList.value[index].fixed = isFixed
-      console.log('columnsList：',columnsList.value)
+      console.log('columnsList：', columnsList.value)
       setColumns(columns);
     }
 
@@ -217,15 +218,17 @@ export default defineComponent({
 
 <style lang="less">
 .table-toolbar {
-  &-inner-popover-title{
+  &-inner-popover-title {
     padding: 3px 0;
   }
+
   &-right {
     &-icon {
       margin-left: 12px;
       font-size: 16px;
-      color:var(--text-color);
+      color: var(--text-color);
       cursor: pointer;
+
       :hover {
         color: #1890ff;
       }
@@ -238,14 +241,17 @@ export default defineComponent({
     display: flex;
     align-items: center;
     padding: 10px 14px;
+
     &:hover {
       background: #e6f7ff;
     }
+
     .drag-icon {
       display: inline-flex;
       margin-right: 8px;
       cursor: move;
     }
+
     .fixed-item {
       display: flex;
       align-items: center;
@@ -261,14 +267,16 @@ export default defineComponent({
       }
     }
   }
-  &-checkbox-dark{
+
+  &-checkbox-dark {
     &:hover {
       background: hsla(0, 0%, 100%, .08);
     }
   }
 }
-.toolbar-popover{
-  .n-popover__content{
+
+.toolbar-popover {
+  .n-popover__content {
     padding: 0;
   }
 }

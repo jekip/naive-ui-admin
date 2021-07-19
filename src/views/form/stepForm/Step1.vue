@@ -1,26 +1,26 @@
 <template>
   <n-form
-    :label-width="90"
-    :model="formValue"
-    :rules="rules"
-    label-placement="left"
-    ref="form1Ref"
-    style="max-width: 500px; margin: 40px auto 0;"
+      :label-width="90"
+      :model="formValue"
+      :rules="rules"
+      label-placement="left"
+      ref="form1Ref"
+      style="max-width: 500px; margin: 40px auto 0;"
   >
     <n-form-item label="付款账户" path="myAccount">
       <n-select
-        placeholder="请选择付款账户"
-        :options="myAccountList"
-        v-model:value="formValue.myAccount"
+          placeholder="请选择付款账户"
+          :options="myAccountList"
+          v-model:value="formValue.myAccount"
       />
     </n-form-item>
     <n-form-item label="收款账户" path="account">
       <n-input-group>
         <n-select
-          placeholder="请选择"
-          :options="accountTypeList"
-          :style="{ width: '20%' }"
-          v-model:value="formValue.accountType"
+            placeholder="请选择"
+            :options="accountTypeList"
+            :style="{ width: '20%' }"
+            v-model:value="formValue.accountType"
         />
         <n-input placeholder="请输入收款账户" :style="{ width: '80%' }" v-model:value="formValue.account"/>
       </n-input-group>

@@ -215,12 +215,12 @@ export default defineComponent({
 
     // 标签页列表
     const tabsList: any = computed(() => tabsViewStore.tabsList)
-    const whiteList: string[] = [PageEnum.REDIRECT, PageEnum.BASE_LOGIN]
+    const whiteList: string[] = [PageEnum.BASE_LOGIN_NAME, PageEnum.REDIRECT_NAME, PageEnum.ERROR_PAGE_NAME]
 
     watch(
         () => route.fullPath,
         (to) => {
-          if (whiteList.includes(route.name as string) || ['ErrorPage'].includes(route.name as string)) return
+          if (whiteList.includes(route.name as string)) return
           state.activeKey = to
           tabsViewStore.addTabs(getSimpleRoute(route))
           updateNavScroll()
@@ -443,7 +443,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .tabs-view {
   width: 100%;
-  padding: 6px 0px;
+  padding: 6px 0;
   display: flex;
   transition: all 0.2s ease-in-out;
 
@@ -589,6 +589,6 @@ export default defineComponent({
 }
 
 .tabs-view-fixed-header {
-  top: 0px;
+  top: 0;
 }
 </style>

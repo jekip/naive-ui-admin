@@ -1,4 +1,4 @@
-ProTable 重封装组件说明
+BasicTable 重封装组件说明
 ====
 
 封装说明
@@ -6,7 +6,7 @@ ProTable 重封装组件说明
 
 > 基础的使用方式与 API 与 [官方版(data-table)](https://www.naiveui.com/zh-CN/os-theme/components/data-table#tree) 本一致，在其基础上，封装了加载数据的方法。
 >
-> 你无需在你是用表格的页面进行分页逻辑处理，仅需向 ProTable 组件传递绑定 `:api="Promise"` 对象即可
+> 你无需在你是用表格的页面进行分页逻辑处理，仅需向 BasicTable 组件传递绑定 `:api="Promise"` 对象即可
 >
 > 例子1
 ----
@@ -15,7 +15,7 @@ ProTable 重封装组件说明
 ```vue
 
 <template>
-    <ProTable
+    <BasicTable
       title="表格列表"
       :columns="columns"
       :api="loadDataTable"
@@ -25,12 +25,12 @@ ProTable 重封装组件说明
       <template #toolbar>
         <n-button type="primary">添加会员</n-button>
       </template>
-    </ProTable>
+    </BasicTable>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { ProTable } from '@/components/ProTable'
+import { BasicTable } from '@/components/Table'
 import { getTableList } from '@/api/table/list'
 const columns = [
     {
@@ -51,7 +51,7 @@ const columns = [
     },
 ]
 export default defineComponent({
-  components: { ProTable },
+  components: { BasicTable },
   setup() {
       const loadDataTable = async (params) => {
         const data = await getTableList(params);
@@ -68,7 +68,7 @@ export default defineComponent({
 
 API
 ----
-ProTable 在 NaiveUi 的 data-table 上进行了一层封装，支持了一些预设，并且封装了一些行为。这里只列出与 data-table 不同的 api。
+BasicTable 在 NaiveUi 的 data-table 上进行了一层封装，支持了一些预设，并且封装了一些行为。这里只列出与 data-table 不同的 api。
 
 > request：Promise 参考上面例子写法
 > ref：可绑定ref 调用组件内部方法（data-table本身的方法和参数）

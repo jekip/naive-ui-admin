@@ -2,17 +2,17 @@
   <NLayout class="layout" :position="fixedMenu" has-sider>
 
     <NLayoutSider
-      v-if="navMode ==='vertical'"
-      show-trigger
-      @collapse="collapsed = true"
-      :position="fixedMenu"
-      @expand="collapsed = false"
-      :collapsed="collapsed"
-      collapse-mode="width"
-      :collapsed-width="64"
-      :width="leftMenuWidth"
-      :native-scrollbar="false"
-      :inverted="inverted" class="layout-sider">
+        v-if="navMode ==='vertical'"
+        show-trigger
+        @collapse="collapsed = true"
+        :position="fixedMenu"
+        @expand="collapsed = false"
+        :collapsed="collapsed"
+        collapse-mode="width"
+        :collapsed-width="64"
+        :width="leftMenuWidth"
+        :native-scrollbar="false"
+        :inverted="inverted" class="layout-sider">
       <Logo :collapsed="collapsed"/>
       <AsideMenu v-model:collapsed="collapsed"/>
     </NLayoutSider>

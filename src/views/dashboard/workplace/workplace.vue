@@ -7,9 +7,9 @@
             <div class="flex items-center">
               <div>
                 <n-avatar
-                  circle
-                  :size="64"
-                  :src="schoolboy"
+                    circle
+                    :size="64"
+                    :src="schoolboy"
                 />
               </div>
               <div>
@@ -147,9 +147,9 @@
             <n-list-item>
               <template #prefix>
                 <n-avatar
-                  circle
-                  :size="40"
-                  :src="schoolboy"
+                    circle
+                    :size="40"
+                    :src="schoolboy"
                 />
               </template>
               <n-thing title="Ah Jung 刚才把工作台页面随便写了一些，凑合能看了！">
@@ -159,9 +159,9 @@
             <n-list-item>
               <template #prefix>
                 <n-avatar
-                  circle
-                  :size="40"
-                  :src="schoolboy"
+                    circle
+                    :size="40"
+                    :src="schoolboy"
                 />
               </template>
               <n-thing title="Ah Jung 在 开源组 创建了项目 naive-ui-admin？">
@@ -171,9 +171,9 @@
             <n-list-item>
               <template #prefix>
                 <n-avatar
-                  circle
-                  :size="40"
-                  :src="schoolboy"
+                    circle
+                    :size="40"
+                    :src="schoolboy"
                 />
               </template>
               <n-thing title="@It界风清扬，向naive-ui-admin提交了一个bug，抽时间看看吧！">
@@ -183,9 +183,9 @@
             <n-list-item>
               <template #prefix>
                 <n-avatar
-                  circle
-                  :size="40"
-                  :src="schoolboy"
+                    circle
+                    :size="40"
+                    :src="schoolboy"
                 />
               </template>
               <n-thing title="技术部那几位童鞋，再次警告，不要摸鱼，不要摸鱼，不要摸鱼啦！">
@@ -195,9 +195,9 @@
             <n-list-item>
               <template #prefix>
                 <n-avatar
-                  circle
-                  :size="40"
-                  :src="schoolboy"
+                    circle
+                    :size="40"
+                    :src="schoolboy"
                 />
               </template>
               <n-thing title="上班不摸鱼，和咸鱼有什么区别（这话真不是我说的哈）！">
@@ -207,9 +207,9 @@
             <n-list-item>
               <template #prefix>
                 <n-avatar
-                  circle
-                  :size="40"
-                  :src="schoolboy"
+                    circle
+                    :size="40"
+                    :src="schoolboy"
                 />
               </template>
               <n-thing title="页面切换其实也支持缓存，只是加了过度效果，看起来像是重新渲染了">
