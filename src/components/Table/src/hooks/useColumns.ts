@@ -2,6 +2,9 @@ import { ref, Ref, ComputedRef, unref, computed, watch, toRaw } from 'vue';
 import type { BasicColumn, BasicTableProps } from '../types/table';
 import { isEqual, cloneDeep } from 'lodash-es';
 import { isArray, isString } from '@/utils/is';
+import { usePermission } from '@/hooks/web/usePermission';
+import { isString, isBoolean, isFunction } from "@/utils/is";
+import { ActionItem } from "@/components/Table";
 
 export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
     const columnsRef = ref(unref(propsRef).columns) as unknown as Ref<BasicColumn[]>;
@@ -9,13 +12,34 @@ export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
 
     const getColumnsRef = computed(() => {
         const columns = cloneDeep(unref(columnsRef));
+
+        handleActionColumn(propsRef, columns);
+        if (!columns) return [];
         return columns;
     })
+
+    const { hasPermission } = usePermission();
+
+    function isIfShow(action: ActionItem): boolean {
+        const ifShow = action.ifShow;
+
+        let isIfShow = true;
+
+        if (isBoolean(ifShow)) {
+            isIfShow = ifShow;
+        }
+        if (isFunction(ifShow)) {
+            isIfShow = ifShow(action);
+        }
+        return isIfShow;
+    }
 
     const getPageColumns = computed(() => {
         const pageColumns = unref(getColumnsRef);
         const columns = cloneDeep(pageColumns);
-        return columns
+        return columns.filter((column) => {
+            return hasPermission(column.auth) && isIfShow(column);
+        })
     })
 
     watch(
@@ -26,6 +50,13 @@ export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
         }
     );
 
+    function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: BasicColumn[]) {
+        const { actionColumn } = unref(propsRef);
+        if (!actionColumn) return;
+        columns.push({
+            ...actionColumn
+        });
+    }
 
     //设置
     function setColumns(columnList: string[]) {

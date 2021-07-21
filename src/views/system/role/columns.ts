@@ -32,35 +32,5 @@ export const columns = [
     {
         title: '创建时间',
         key: 'create_date'
-    },
-    {
-        title: '操作',
-        key: 'actions',
-        width: 150,
-        //简单写一下例子，不建议这么写，过段时间，这里封二次封装
-        render() {
-            return [
-                h(
-                    NButton,
-                    {
-                        size: 'small',
-                        type: 'error',
-                        style: 'margin-right:10px',
-                        onClick: () => {
-                        }
-                    },
-                    { default: () => '删除' }
-                ),
-                h(
-                    NButton,
-                    {
-                        size: 'small',
-                        onClick: () => {
-                        }
-                    },
-                    { default: () => '编辑' }
-                )
-            ]
-        }
     }
 ]

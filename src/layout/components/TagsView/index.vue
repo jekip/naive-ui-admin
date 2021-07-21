@@ -20,15 +20,15 @@
         </span>
         <div ref="navScroll" class="tabs-card-scroll">
           <div ref="navRef" class="tabs-card-nav" :style="getNavStyle">
-            <Draggable :list="tabsList" animation="300" item-key="fullPath">
+            <Draggable :list="tabsList" animation="300" item-key="fullPath" class="flex">
               <template #item="{element}">
                 <div class="tabs-card-scroll-item"
                      :class="{'active-item':activeKey === element.path }"
                      @click.stop="goPage(element)"
-                     @contextmenu="handleContextMenu">
+                     @contextmenu="handleContextMenu($event,element)">
                   <span>{{ element.meta.title }}</span>
-                  <n-icon size="14" @click.stop="closeTabItem(element)">
-                    <CloseOutlined/>
+                  <n-icon size="14" @click.stop="closeTabItem(element)" v-if="element.path != baseHome">
+                    <CloseOutlined />
                   </n-icon>
                 </div>
               </template>
@@ -73,6 +73,7 @@ import { useAsyncRouteStore } from '@/store/modules/asyncRoute'
 import { RouteItem } from '@/store/modules/tabsView'
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
 import { useMessage } from 'naive-ui'
+// @ts-ignore
 import Draggable from 'vuedraggable/src/vuedraggable'
 import { PageEnum } from '@/enums/pageEnum'
 import {
@@ -86,7 +87,6 @@ import {
 } from '@vicons/antd'
 import { renderIcon } from '@/utils/index'
 import elementResizeDetectorMaker from 'element-resize-detector'
-import { useProjectSettingStore } from "@/store/modules/projectSetting";
 import { useDesignSetting } from '@/hooks/setting/useDesignSetting'
 
 export default defineComponent({
@@ -118,6 +118,7 @@ export default defineComponent({
     const navRef: any = ref(null)
     const navScroll: any = ref(null)
     const navWrap: any = ref(null)
+    const isCurrent = ref(false)
 
     const state = reactive({
       activeKey: route.fullPath,
@@ -152,28 +153,34 @@ export default defineComponent({
     })
 
     //tags 右侧下拉菜单
-    const TabsMenuOptions = [
-      {
-        label: '刷新当前',
-        key: '1',
-        icon: renderIcon(ReloadOutlined)
-      },
-      {
-        label: '关闭当前',
-        key: '2',
-        icon: renderIcon(CloseOutlined)
-      },
-      {
-        label: '关闭其他',
-        key: '3',
-        icon: renderIcon(ColumnWidthOutlined)
-      },
-      {
-        label: '关闭全部',
-        key: '4',
-        icon: renderIcon(MinusOutlined)
-      }
-    ]
+    const TabsMenuOptions = computed(() => {
+      const isDisabled = unref(tabsList).length <= 1 ? true : false
+     return [
+        {
+          label: '刷新当前',
+          key: '1',
+          icon: renderIcon(ReloadOutlined)
+        },
+        {
+          label: `关闭当前`,
+          key: '2',
+          disabled: unref(isCurrent) || isDisabled,
+          icon: renderIcon(CloseOutlined)
+        },
+        {
+          label: '关闭其他',
+          key: '3',
+          disabled:isDisabled,
+          icon: renderIcon(ColumnWidthOutlined)
+        },
+        {
+          label: '关闭全部',
+          key: '4',
+          disabled:isDisabled,
+          icon: renderIcon(MinusOutlined)
+        }
+      ]
+    })
 
     let routes: RouteItem[] = []
 
@@ -288,7 +295,7 @@ export default defineComponent({
     const closeAll = () => {
       localStorage.removeItem('routes')
       tabsViewStore.closeAllTabs()
-      router.replace('/')
+      router.replace(PageEnum.BASE_HOME)
       updateNavScroll()
     }
 
@@ -373,8 +380,9 @@ export default defineComponent({
       return state.navStyle
     })
 
-    function handleContextMenu(e) {
+    function handleContextMenu(e,item) {
       e.preventDefault()
+      isCurrent.value = PageEnum.BASE_HOME_REDIRECT === item.path
       state.showDropdown = false
       nextTick().then(() => {
         state.showDropdown = true
@@ -419,6 +427,7 @@ export default defineComponent({
       navScroll,
       route,
       tabsList,
+      baseHome:PageEnum.BASE_HOME_REDIRECT,
       goPage,
       closeTabItem,
       closeLeft,

@@ -19,7 +19,7 @@ export function usePermission() {
      * 可用于 v-if 显示逻辑
      * */
     function hasPermission(accesses: string[]): boolean {
-        if (!accesses.length) return true
+        if (!accesses ||!accesses.length) return true
         return _someRoles(accesses)
     }
 

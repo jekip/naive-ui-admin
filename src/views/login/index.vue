@@ -29,7 +29,6 @@
             </n-input>
           </n-form-item>
           <n-form-item
-
               path="isCaptcha">
             <div class="w-full">
               <mi-captcha
@@ -110,7 +109,7 @@ export default defineComponent({
       formInline: {
         username: 'admin',
         password: '123456',
-        isCaptcha: false
+        isCaptcha: true
       }
     })
     const rules = {

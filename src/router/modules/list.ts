@@ -33,6 +33,15 @@ const routes: Array<RouteRecordRaw> = [
                     title: '基础列表',
                 },
                 component: () => import('@/views/list/basicList/index.vue')
+            },
+            {
+                path: 'basic-info/:id?',
+                name: 'basic-info',
+                meta: {
+                    title: '基础详情',
+                    hidden:true
+                },
+                component: () => import('@/views/list/basicList/info.vue')
             }
         ],
     }

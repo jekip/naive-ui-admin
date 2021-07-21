@@ -5,7 +5,7 @@
         表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。表单域标签也可支持响应式。
       </n-card>
     </div>
-    <n-card :bordered="false" class="proCard mt-4">
+    <n-card :bordered="false" class="mt-4 proCard">
       <n-grid cols="2 s:1 m:3 l:3 xl:3 2xl:3" responsive="screen">
         <n-grid-item offset="0 s:0 m:1 l:1 xl:1 2xl:1">
           <n-form
@@ -16,7 +16,7 @@
               ref="formRef"
               class="py-8"
           >
-            <n-form-item label="预约姓名" path="name">
+            <n-form-item label="预约姓名1" path="name">
               <n-input v-model:value="formValue.name" placeholder="输入姓名"/>
             </n-form-item>
             <n-form-item label="预约号码" path="mobile">
@@ -155,16 +155,18 @@ export default defineComponent({
     const message = useMessage()
     const { uploadUrl } = globSetting
 
+    const defaultValueRef = () => ({
+      name: '',
+      mobile: '',
+      remark: '',
+      sex: 1,
+      matter: null,
+      doctor: null,
+      datetime: [],
+    })
+
     const state = reactive({
-      formValue: {
-        name: '',
-        mobile: '',
-        remark: '',
-        sex: 1,
-        matter: null,
-        doctor: null,
-        datetime: [],
-      },
+      formValue: defaultValueRef(),
       //图片列表 通常查看和编辑使用 绝对路径 | 相对路径都可以
       uploadList: [
         'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
@@ -188,6 +190,7 @@ export default defineComponent({
 
     function resetForm() {
       formRef.value.restoreValidation()
+      state.formValue = Object.assign(state.formValue, defaultValueRef())
     }
 
     function uploadChange(list: string[]) {

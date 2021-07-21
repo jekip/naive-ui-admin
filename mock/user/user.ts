@@ -25,6 +25,14 @@ const adminInfo = {
     {
       roleName: '工作台',
       value: 'dashboard_workplace',
+    },
+    {
+      roleName: '基础列表',
+      value: 'basic_list',
+    },
+    {
+      roleName: '基础列表删除',
+      value: 'basic_list_delete',
     }
   ],
 }

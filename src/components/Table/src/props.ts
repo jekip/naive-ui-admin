@@ -41,5 +41,9 @@ export const basicProps = {
     showPagination: {
         type: [String, Boolean],
         default: 'auto'
-    }
+    },
+    actionColumn: {
+        type: Object as PropType<BasicColumn>,
+        default: null,
+    },
 }

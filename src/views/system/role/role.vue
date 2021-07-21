@@ -11,61 +11,72 @@
           :request="loadDataTable"
           :row-key="row => row.id"
           ref="actionRef"
+          :actionColumn="actionColumn"
           @update:checked-row-keys="onCheckedRow"
       >
         <template #tableTitle>
-          <n-button type="primary" @click="addTable">
+          <n-button type="primary">
             <template #icon>
               <n-icon>
                 <PlusOutlined/>
               </n-icon>
             </template>
-            新建角色
+            添加角色
           </n-button>
         </template>
-      </BasicTable>
 
-      <n-modal v-model:show="showModal" :show-icon="false" preset="dialog" title="新建">
-        <n-form
-            :model="formParams"
-            :rules="rules"
-            ref="formRef"
-            label-placement="left"
-            :label-width="80"
-            class="py-4"
-        >
-          <n-form-item label="名称" path="name">
-            <n-input placeholder="请输入名称" v-model:value="formParams.name"/>
-          </n-form-item>
-          <n-form-item label="地址" path="address">
-            <n-input type="textarea" placeholder="请输入地址" v-model:value="formParams.address"/>
-          </n-form-item>
-          <n-form-item label="日期" path="date">
-            <n-date-picker type="datetime" placeholder="请选择日期" v-model:value="formParams.date"/>
-          </n-form-item>
-        </n-form>
-
-        <template #action>
-          <n-space>
-            <n-button @click="()=> showModal = false">取消</n-button>
-            <n-button type="info" :loading="formBtnLoading" @click="confirmForm">确定</n-button>
-          </n-space>
+        <template #action="{ record }">
+          <TableAction></TableAction>
         </template>
 
-      </n-modal>
+      </BasicTable>
+
 
     </n-card>
+
+    <n-modal v-model:show="showModal" :show-icon="false" preset="dialog" :title="editRoleTitle">
+      <div class="py-3 menu-list">
+        <n-tree
+            block-line
+            cascade
+            checkable
+            :virtual-scroll="true"
+            :data="treeData"
+            :expandedKeys="expandedKeys"
+            :checked-keys="checkedKeys"
+            style="max-height: 950px;overflow: hidden"
+            @update:checked-keys="checkedTree"
+        />
+      </div>
+      <template #action>
+        <n-space>
+          <n-button type="info" ghost icon-placement="left" @click="packHandle">
+            全部{{ expandedKeys.length ? '收起' : '展开' }}
+          </n-button>
+
+          <n-button type="info" ghost icon-placement="left" @click="checkedAllHandle">
+            全部{{ checkedAll ? '取消' : '选择' }}
+          </n-button>
+          <n-button type="primary" :loading="formBtnLoading" @click="confirmForm">提交</n-button>
+        </n-space>
+      </template>
+
+    </n-modal>
+
   </div>
 
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, ref, h } from 'vue'
+import { defineComponent, reactive, toRefs, ref, h, onMounted } from 'vue'
 import { useMessage } from 'naive-ui'
-import { BasicTable } from '@/components/Table'
+import { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined } from '@vicons/antd'
+import { BasicTable, TableAction } from '@/components/Table'
 import { getRoleList } from '@/api/system/role'
+import { getMenuList } from '@/api/system/menu'
 import { columns } from './columns'
 import { PlusOutlined } from '@vicons/antd'
+import { getTreeAll } from "@/utils";
 
 const rules = {
   name: {
@@ -87,7 +98,7 @@ const rules = {
 }
 
 export default defineComponent({
-  components: { BasicTable, PlusOutlined },
+  components: { BasicTable, TableAction, PlusOutlined, AlignLeftOutlined },
   setup() {
     const formRef: any = ref(null)
     const message = useMessage()
@@ -95,6 +106,11 @@ export default defineComponent({
     const state = reactive({
       showModal: false,
       formBtnLoading: false,
+      checkedAll: false,
+      editRoleTitle: '',
+      treeData: [],
+      expandedKeys: [],
+      checkedKeys: ['console', 'step-form'],
       formParams: {
         name: '',
         address: '',
@@ -104,11 +120,53 @@ export default defineComponent({
         pageSize: 5,
         name: 'xiaoMa'
       },
-    })
+      actionColumn: {
+        width: 250,
+        title: '操作',
+        dataIndex: 'action',
+        fixed: 'right',
+        render(record) {
+          return h(
+              TableAction,
+              {
+                style: 'button',
+                actions: [
+                  {
+                    label: '菜单权限',
+                    onClick: handleMenuAuth.bind(null, record),
+                    // 根据业务控制是否显示 isShow 和 auth 是并且关系
+                    ifShow: () => {
+                      return true;
+                    },
+                    // 根据权限控制是否显示: 有权限，会显示，支持多个
+                    auth: ['basic_list'],
+                  },
+                  {
 
-    function addTable() {
-      state.showModal = true
-    }
+                    label: '编辑',
+                    onClick: handleEdit.bind(null, record),
+                    ifShow: () => {
+                      return true;
+                    },
+                    auth: ['basic_list'],
+                  },
+                  {
+                    label: '删除',
+                    icon: 'ic:outline-delete-outline',
+                    onClick: handleDelete.bind(null, record),
+                    // 根据业务控制是否显示 isShow 和 auth 是并且关系
+                    ifShow: () => {
+                      return true;
+                    },
+                    // 根据权限控制是否显示: 有权限，会显示，支持多个
+                    auth: ['basic_list'],
+                  },
+                ]
+              }
+          )
+        }
+      },
+    })
 
     const loadDataTable = async (params) => {
       const data = await getRoleList(params);
@@ -140,6 +198,55 @@ export default defineComponent({
       })
     }
 
+    function handleEdit(record: Recordable) {
+      console.log('点击了编辑', record);
+      router.push({ name: 'basic-info', params: { id: record.id } })
+    }
+
+    function handleDelete(record: Recordable) {
+      console.log('点击了删除', record);
+      message.info('点击了删除')
+    }
+
+    function handleOpen(record: Recordable) {
+      console.log('点击了启用', record);
+      message.info('点击了删除')
+    }
+
+    function handleMenuAuth(record: Recordable) {
+      state.editRoleTitle = `分配 ${ record.name } 的菜单权限`
+      state.checkedKeys = record.menu_keys
+      state.showModal = true
+    }
+
+    function checkedTree(keys) {
+      state.checkedKeys = [state.checkedKeys, ...keys]
+    }
+
+    function packHandle() {
+      if (state.expandedKeys.length) {
+        state.expandedKeys = []
+      } else {
+        state.expandedKeys = state.treeData.map(item => item.key)
+      }
+    }
+
+    function checkedAllHandle() {
+      if (!state.checkedAll) {
+        state.checkedKeys = getTreeAll(state.treeData)
+        state.checkedAll = true
+      } else {
+        state.checkedKeys = []
+        state.checkedAll = false
+      }
+    }
+
+    onMounted(async () => {
+      const treeMenuList = await getMenuList()
+      state.expandedKeys = treeMenuList.list.map(item => item.key)
+      state.treeData = treeMenuList.list
+    })
+
     return {
       ...toRefs(state),
       formRef,
@@ -150,7 +257,13 @@ export default defineComponent({
       loadDataTable,
       onCheckedRow,
       reloadTable,
-      addTable
+      handleEdit,
+      handleDelete,
+      handleOpen,
+      handleMenuAuth,
+      checkedTree,
+      packHandle,
+      checkedAllHandle
     }
   }
 })

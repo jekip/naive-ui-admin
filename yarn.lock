@@ -505,10 +505,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@rollup/plugin-node-resolve@^13.0.0":
-  version "13.0.0"
-  resolved "https://registry.nlark.com/@rollup/plugin-node-resolve/download/@rollup/plugin-node-resolve-13.0.0.tgz#352f07e430ff377809ec8ec8a6fd636547162dc4"
-  integrity sha1-NS8H5DD/N3gJ7I7Ipv1jZUcWLcQ=
+"@rollup/plugin-node-resolve@^13.0.2":
+  version "13.0.2"
+  resolved "https://registry.nlark.com/@rollup/plugin-node-resolve/download/@rollup/plugin-node-resolve-13.0.2.tgz?cache=0&sync_timestamp=1626393688566&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40rollup%2Fplugin-node-resolve%2Fdownload%2F%40rollup%2Fplugin-node-resolve-13.0.2.tgz#bfe58e9bfc7284ee0fabc6da7fabcb268f04e0a4"
+  integrity sha1-v+WOm/xyhO4Pq8baf6vLJo8E4KQ=
   dependencies:
     "@rollup/pluginutils" "^3.1.0"
     "@types/resolve" "1.17.1"
@@ -620,10 +620,10 @@
   resolved "https://registry.npmjs.org/@types/minimist/-/minimist-1.2.1.tgz#283f669ff76d7b8260df8ab7a4262cc83d988256"
   integrity sha512-fZQQafSREFyuZcdWFAExYjBiCL7AUCdgsk80iO0q4yihYYdcIiH28CcuPTGFgLOCC8RlW49GSQxdHwZP+I7CNg==
 
-"@types/mockjs@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.nlark.com/@types/mockjs/download/@types/mockjs-1.0.3.tgz?cache=0&sync_timestamp=1621241889026&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fmockjs%2Fdownload%2F%40types%2Fmockjs-1.0.3.tgz#bd8ee3c7cbbd9a18788ab677b9e4f97c8d0bb0bf"
-  integrity sha1-vY7jx8u9mhh4irZ3ueT5fI0LsL8=
+"@types/mockjs@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.nlark.com/@types/mockjs/download/@types/mockjs-1.0.4.tgz?cache=0&sync_timestamp=1625771765667&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fmockjs%2Fdownload%2F%40types%2Fmockjs-1.0.4.tgz#e706951d5e33b4f0a4bb73b1f8b124e26f081de0"
+  integrity sha1-5waVHV4ztPCku3Ox+LEk4m8IHeA=
 
 "@types/node@*":
   version "15.12.4"
@@ -2016,6 +2016,11 @@ esbuild@0.11.3:
   resolved "https://registry.nlark.com/esbuild/download/esbuild-0.11.3.tgz#b57165b907be4ffba651f6450538ce8d8c1d5eb0"
   integrity sha1-tXFluQe+T/umUfZFBTjOjYwdXrA=
 
+esbuild@^0.12.5:
+  version "0.12.15"
+  resolved "https://registry.nlark.com/esbuild/download/esbuild-0.12.15.tgz?cache=0&sync_timestamp=1625545660518&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fesbuild%2Fdownload%2Fesbuild-0.12.15.tgz#9d99cf39aeb2188265c5983e983e236829f08af0"
+  integrity sha1-nZnPOa6yGIJlxZg+mD4jaCnwivA=
+
 esbuild@^0.12.6, esbuild@^0.12.8:
   version "0.12.14"
   resolved "https://registry.nlark.com/esbuild/download/esbuild-0.12.14.tgz?cache=0&sync_timestamp=1625183314696&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fesbuild%2Fdownload%2Fesbuild-0.12.14.tgz#43157dbd0b36d939247d4eb4909a4886ac40f82e"
@@ -2297,7 +2302,7 @@ fast-glob@^3.1.1, fast-glob@^3.2.5:
     micromatch "^4.0.2"
     picomatch "^2.2.1"
 
-fast-glob@^3.2.6:
+fast-glob@^3.2.7:
   version "3.2.7"
   resolved "https://registry.nlark.com/fast-glob/download/fast-glob-3.2.7.tgz#fd6cb7a2d7e9aa7a7846111e85a196d6b2f766a1"
   integrity sha1-/Wy3otfpqnp4RhEehaGW1rL3ZqE=
@@ -4204,7 +4209,7 @@ postcss@^8.1.10:
     nanoid "^3.1.23"
     source-map-js "^0.6.2"
 
-postcss@^8.1.6, postcss@^8.2.1, postcss@^8.3.5:
+postcss@^8.1.6, postcss@^8.2.1, postcss@^8.2.10, postcss@^8.3.5:
   version "8.3.5"
   resolved "https://registry.nlark.com/postcss/download/postcss-8.3.5.tgz#982216b113412bc20a86289e91eb994952a5b709"
   integrity sha1-mCIWsRNBK8IKhiiekeuZSVKltwk=
@@ -5307,19 +5312,19 @@ vite-plugin-html@^2.0.7:
     fs-extra "^9.1.0"
     html-minifier-terser "^5.1.1"
 
-vite-plugin-mock@^2.9.1:
-  version "2.9.1"
-  resolved "https://registry.nlark.com/vite-plugin-mock/download/vite-plugin-mock-2.9.1.tgz?cache=0&sync_timestamp=1625545918347&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvite-plugin-mock%2Fdownload%2Fvite-plugin-mock-2.9.1.tgz#bc67868082c0a7bfa13a3deb97f6a1bf57be12ff"
-  integrity sha1-vGeGgILAp7+hOj3rl/ahv1e+Ev8=
+vite-plugin-mock@^2.9.3:
+  version "2.9.3"
+  resolved "https://registry.nlark.com/vite-plugin-mock/download/vite-plugin-mock-2.9.3.tgz#1afedd17a5a0a64c71acb7355f86977398f46912"
+  integrity sha1-Gv7dF6WgpkxxrLc1X4aXc5j0aRI=
   dependencies:
-    "@rollup/plugin-node-resolve" "^13.0.0"
-    "@types/mockjs" "^1.0.3"
+    "@rollup/plugin-node-resolve" "^13.0.2"
+    "@types/mockjs" "^1.0.4"
     chalk "^4.1.1"
     chokidar "^3.5.2"
     connect "^3.7.0"
     debug "^4.3.2"
     esbuild "0.11.3"
-    fast-glob "^3.2.6"
+    fast-glob "^3.2.7"
     path-to-regexp "^6.2.0"
 
 vite-plugin-style-import@^1.0.1:
@@ -5333,17 +5338,17 @@ vite-plugin-style-import@^1.0.1:
     es-module-lexer "^0.6.0"
     magic-string "^0.25.7"
 
-vite@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.nlark.com/vite/download/vite-2.4.2.tgz#07d00615775c808530bc9f65641062b349b67929"
-  integrity sha1-B9AGFXdcgIUwvJ9lZBBis0m2eSk=
+vite@2.3.6:
+  version "2.3.6"
+  resolved "https://registry.nlark.com/vite/download/vite-2.3.6.tgz#1f7cfde88a51a802d69000c7bac85d481c2e871c"
+  integrity sha1-H3z96IpRqALWkADHushdSBwuhxw=
   dependencies:
-    esbuild "^0.12.8"
-    postcss "^8.3.5"
-    resolve "^1.20.0"
+    esbuild "^0.12.5"
+    postcss "^8.2.10"
+    resolve "^1.19.0"
     rollup "^2.38.5"
   optionalDependencies:
-    fsevents "~2.3.2"
+    fsevents "~2.3.1"
 
 vooks@^0.2.4, vooks@^0.2.6:
   version "0.2.6"

@@ -43,7 +43,11 @@ const columns = [
     },
     {
       title: '地址',
-      key: 'address'
+      key: 'address',
+      auth: ['amdin'], // 同时根据权限控制是否显示
+      ifShow: (row) => {
+        return true; // 根据业务控制是否显示
+      },
     },
     {
       title: '日期',

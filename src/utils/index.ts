@@ -42,3 +42,34 @@ export const withInstall = <T>(component: T, alias?: string) => {
     };
     return component as T & Plugin;
 };
+
+/**
+ *  找到对应的节点
+ * */
+let result = null
+export function getTreeItem(data: any[], key?: string | number) {
+    data.map(item => {
+        if (item.key === key) {
+            result = item;
+        } else {
+            if (item.children && item.children.length) {
+                getTreeItem(item.children, key);
+            }
+        }
+    });
+    return result
+}
+
+/**
+ *  找到所有节点
+ * */
+let treeAll = []
+export function getTreeAll(data: any[]) {
+    data.map(item => {
+        treeAll.push(item.key)
+        if (item.children && item.children.length) {
+            getTreeAll(item.children);
+        }
+    });
+    return treeAll
+}

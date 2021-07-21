@@ -61,7 +61,8 @@ import {
     NLoadingBarProvider,
     NModal,
     NUpload,
-    NTree
+    NTree,
+    NSpin
 } from 'naive-ui'
 
 const naive = create({
@@ -126,7 +127,8 @@ const naive = create({
         NLoadingBarProvider,
         NModal,
         NUpload,
-        NTree
+        NTree,
+        NSpin
     ]
 })
 
