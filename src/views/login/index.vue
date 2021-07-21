@@ -28,17 +28,17 @@
               </template>
             </n-input>
           </n-form-item>
-          <n-form-item
-              path="isCaptcha">
-            <div class="w-full">
-              <mi-captcha
-                  width="384"
-                  theme-color="#2d8cf0"
-                  :logo="logo"
-                  @success="onAuthCode"
-              ></mi-captcha>
-            </div>
-          </n-form-item>
+<!--          <n-form-item-->
+<!--              path="isCaptcha">-->
+<!--            <div class="w-full">-->
+<!--              <mi-captcha-->
+<!--                  width="384"-->
+<!--                  theme-color="#2d8cf0"-->
+<!--                  :logo="logo"-->
+<!--                  @success="onAuthCode"-->
+<!--              ></mi-captcha>-->
+<!--            </div>-->
+<!--          </n-form-item>-->
           <n-form-item class="default-color">
             <div class="flex justify-between">
               <div class="flex-initial">
