@@ -1,3 +1,3 @@
-import AppProvider from './Application.vue'
+import AppProvider from './Application.vue';
 
-export { AppProvider }
+export { AppProvider };

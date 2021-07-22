@@ -1,3 +1,3 @@
-import MessageContent from './index.vue'
+import MessageContent from './index.vue';
 
-export { MessageContent }
+export { MessageContent };

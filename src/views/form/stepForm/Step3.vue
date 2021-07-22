@@ -32,58 +32,58 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useRouter } from 'vue-router'
+  import { defineComponent } from 'vue';
+  import { useRouter } from 'vue-router';
 
-export default defineComponent({
-  emits: ['finish', 'prevStep'],
-  setup(_, { emit }) {
-    const router = useRouter()
+  export default defineComponent({
+    emits: ['finish', 'prevStep'],
+    setup(_, { emit }) {
+      const router = useRouter();
 
-    function prevStep() {
-      emit('prevStep')
-    }
+      function prevStep() {
+        emit('prevStep');
+      }
 
-    function finish() {
-      emit('finish')
-    }
+      function finish() {
+        emit('finish');
+      }
 
-    function toOrderList() {
-      router.push('/form/step-form')
-    }
+      function toOrderList() {
+        router.push('/form/step-form');
+      }
 
-    return {
-      prevStep,
-      finish,
-      toOrderList
-    }
-  }
-})
+      return {
+        prevStep,
+        finish,
+        toOrderList,
+      };
+    },
+  });
 </script>
 
 <style lang="less" scoped>
-.step-result {
-  max-width: 560px;
-  margin: 40px auto 0;
+  .step-result {
+    max-width: 560px;
+    margin: 40px auto 0;
 
-  ::v-deep(.n-result-content) {
-    background-color: #fafafa;
-    padding: 24px 40px;
-  }
+    ::v-deep(.n-result-content) {
+      background-color: #fafafa;
+      padding: 24px 40px;
+    }
 
-  .information {
-    line-height: 22px;
+    .information {
+      line-height: 22px;
 
-    .ant-row:not(:last-child) {
-      margin-bottom: 24px;
+      .ant-row:not(:last-child) {
+        margin-bottom: 24px;
+      }
+    }
+
+    .money {
+      font-family: 'Helvetica Neue', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 14px;
     }
   }
-
-  .money {
-    font-family: "Helvetica Neue", sans-serif;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 14px;
-  }
-}
 </style>

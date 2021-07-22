@@ -1,8 +1,7 @@
-import { RouteRecordRaw } from 'vue-router'
+import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
-import { ToolOutlined } from '@vicons/antd'
-import { OptionsSharp } from '@vicons/ionicons5'
-import { renderIcon } from '@/utils/index'
+import { OptionsSharp } from '@vicons/ionicons5';
+import { renderIcon } from '@/utils/index';
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -16,35 +15,35 @@ import { renderIcon } from '@/utils/index'
  *
  * */
 const routes: Array<RouteRecordRaw> = [
-    {
-        path: '/system',
-        name: 'System',
-        redirect: '/system/menu',
-        component: Layout,
+  {
+    path: '/system',
+    name: 'System',
+    redirect: '/system/menu',
+    component: Layout,
+    meta: {
+      title: '系统设置',
+      icon: renderIcon(OptionsSharp),
+      sort: 1,
+    },
+    children: [
+      {
+        path: 'menu',
+        name: 'system_menu',
         meta: {
-            title: '系统设置',
-            icon: renderIcon(OptionsSharp),
-            sort: 1
+          title: '菜单权限管理',
         },
-        children: [
-            {
-                path: 'menu',
-                name: 'system_menu',
-                meta: {
-                    title: '菜单权限管理',
-                },
-                component: () => import('@/views/system/menu/menu.vue')
-            },
-            {
-                path: 'role',
-                name: 'system_role',
-                meta: {
-                    title: '角色权限管理',
-                },
-                component: () => import('@/views/system/role/role.vue')
-            }
-        ],
-    }
-]
+        component: () => import('@/views/system/menu/menu.vue'),
+      },
+      {
+        path: 'role',
+        name: 'system_role',
+        meta: {
+          title: '角色权限管理',
+        },
+        component: () => import('@/views/system/role/role.vue'),
+      },
+    ],
+  },
+];
 
-export default routes
+export default routes;

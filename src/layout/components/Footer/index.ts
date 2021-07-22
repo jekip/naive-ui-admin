@@ -1,3 +1,3 @@
-import PageFooter from './index.vue'
+import PageFooter from './index.vue';
 
-export { PageFooter }
+export { PageFooter };

@@ -1,7 +1,7 @@
-import { RouteRecordRaw } from 'vue-router'
+import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
-import { CheckCircleOutlined } from '@vicons/antd'
-import { renderIcon } from '@/utils/index'
+import { CheckCircleOutlined } from '@vicons/antd';
+import { renderIcon } from '@/utils/index';
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -15,43 +15,43 @@ import { renderIcon } from '@/utils/index'
  *
  * */
 const routes: Array<RouteRecordRaw> = [
-    {
-        path: '/result',
-        name: 'Result',
-        redirect: '/result/success',
-        component: Layout,
+  {
+    path: '/result',
+    name: 'Result',
+    redirect: '/result/success',
+    component: Layout,
+    meta: {
+      title: '结果页面',
+      icon: renderIcon(CheckCircleOutlined),
+      sort: 4,
+    },
+    children: [
+      {
+        path: 'success',
+        name: 'result-success',
         meta: {
-            title: '结果页面',
-            icon: renderIcon(CheckCircleOutlined),
-            sort: 4
+          title: '成功页',
         },
-        children: [
-            {
-                path: 'success',
-                name: 'result-success',
-                meta: {
-                    title: '成功页',
-                },
-                component: () => import('@/views/result/success.vue')
-            },
-            {
-                path: 'fail',
-                name: 'result-fail',
-                meta: {
-                    title: '失败页',
-                },
-                component: () => import('@/views/result/fail.vue')
-            },
-            {
-                path: 'info',
-                name: 'result-info',
-                meta: {
-                    title: '信息页',
-                },
-                component: () => import('@/views/result/info.vue')
-            },
-        ],
-    }
-]
+        component: () => import('@/views/result/success.vue'),
+      },
+      {
+        path: 'fail',
+        name: 'result-fail',
+        meta: {
+          title: '失败页',
+        },
+        component: () => import('@/views/result/fail.vue'),
+      },
+      {
+        path: 'info',
+        name: 'result-info',
+        meta: {
+          title: '信息页',
+        },
+        component: () => import('@/views/result/info.vue'),
+      },
+    ],
+  },
+];
 
-export default routes
+export default routes;

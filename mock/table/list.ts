@@ -1,9 +1,9 @@
-import { Random } from 'mockjs'
-import { resultSuccess, doCustomTimes, resultPageSuccess } from '../_util'
+import { Random } from 'mockjs';
+import { resultSuccess, doCustomTimes } from '../_util';
 
-const tableList = ((pageSize) => {
-  const result:any[] = []
-  doCustomTimes(pageSize,()=> {
+const tableList = (pageSize) => {
+  const result: any[] = [];
+  doCustomTimes(pageSize, () => {
     result.push({
       id: '@integer(10,100)',
       beginTime: '@datetime',
@@ -16,10 +16,9 @@ const tableList = ((pageSize) => {
       'no|100000-10000000': 100000,
       'status|1': ['normal', 'enable', 'disable'],
     });
-  })
-  return result
-});
-
+  });
+  return result;
+};
 
 export default [
   //表格数据列表
@@ -29,16 +28,13 @@ export default [
     method: 'get',
     response: ({ query }) => {
       const { page = 1, pageSize = 10 } = query;
-      const list = tableList(Number(pageSize))
+      const list = tableList(Number(pageSize));
       return resultSuccess({
-        page:Number(page),
-        pageSize:Number(pageSize),
+        page: Number(page),
+        pageSize: Number(pageSize),
         pageCount: 60,
-        list
-      }
-      );
+        list,
+      });
     },
-  }
-]
-
-
+  },
+];

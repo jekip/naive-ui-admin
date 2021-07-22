@@ -1,10 +1,9 @@
-import { RouteRecordRaw } from 'vue-router'
+import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
-import { WalletOutlined } from '@vicons/antd'
-import { renderIcon } from '@/utils/index'
+import { WalletOutlined } from '@vicons/antd';
+import { renderIcon } from '@/utils/index';
 
-
-const routeName = 'comp'
+const routeName = 'comp';
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -18,36 +17,35 @@ const routeName = 'comp'
  *
  * */
 const routes: Array<RouteRecordRaw> = [
-    {
-        path: '/comp',
-        name: routeName,
-        redirect: '/comp/console',
-        component: Layout,
+  {
+    path: '/comp',
+    name: routeName,
+    redirect: '/comp/console',
+    component: Layout,
+    meta: {
+      title: '组件示例',
+      icon: renderIcon(WalletOutlined),
+      sort: 8,
+    },
+    children: [
+      {
+        path: 'table',
+        name: `${routeName}_table`,
         meta: {
-            title: '组件示例',
-            icon: renderIcon(WalletOutlined),
-            sort: 8
+          title: '表格',
         },
-        children: [
-            {
-                path: 'table',
-                name: `${ routeName }_table`,
-                meta: {
-                    title: '表格',
-                },
-                component: () => import('@/views/comp/table/list.vue')
-            },
-            {
+        component: () => import('@/views/comp/table/list.vue'),
+      },
+      {
+        path: 'upload',
+        name: `${routeName}_upload`,
+        meta: {
+          title: '上传',
+        },
+        component: () => import('@/views/comp/upload/index.vue'),
+      },
+    ],
+  },
+];
 
-                path: 'upload',
-                name: `${ routeName }_upload`,
-                meta: {
-                    title: '上传',
-                },
-                component: () => import('@/views/comp/upload/index.vue')
-            }
-        ],
-    }
-]
-
-export default routes
+export default routes;

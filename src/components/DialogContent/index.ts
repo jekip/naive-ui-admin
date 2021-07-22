@@ -1,3 +1,3 @@
-import DialogContent from './index.vue'
+import DialogContent from './index.vue';
 
-export { DialogContent }
+export { DialogContent };

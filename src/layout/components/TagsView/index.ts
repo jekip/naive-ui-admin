@@ -1,3 +1,3 @@
-import TabsView from './index.vue'
+import TabsView from './index.vue';
 
-export { TabsView }
+export { TabsView };

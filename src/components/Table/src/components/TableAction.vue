@@ -5,18 +5,17 @@
         <n-button v-bind="action" class="mx-2">{{ action.label }}</n-button>
       </template>
       <n-dropdown
-          v-if="dropDownActions && getDropdownList.length"
-          trigger="hover"
-          :options="getDropdownList"
-          @select="select"
+        v-if="dropDownActions && getDropdownList.length"
+        trigger="hover"
+        :options="getDropdownList"
+        @select="select"
       >
         <slot name="more"></slot>
         <n-button v-bind="getMoreProps" class="mx-2" v-if="!$slots.more" icon-placement="right">
-
           <div class="flex items-center">
             <span>更多</span>
             <n-icon size="14" class="ml-1">
-              <DownOutlined/>
+              <DownOutlined />
             </n-icon>
           </div>
           <!--          <template #icon>-->
@@ -29,64 +28,56 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, toRaw } from 'vue';
-import { ActionItem } from '@/components/Table';
-import { usePermission } from '@/hooks/web/usePermission';
-import { isString, isBoolean, isFunction } from "@/utils/is";
-import { DownOutlined } from '@vicons/antd'
+  import { defineComponent, PropType, computed, toRaw } from 'vue';
+  import { ActionItem } from '@/components/Table';
+  import { usePermission } from '@/hooks/web/usePermission';
+  import { isBoolean, isFunction } from '@/utils/is';
+  import { DownOutlined } from '@vicons/antd';
 
-export default defineComponent({
-  name: 'TableAction',
-  components: { DownOutlined },
-  props: {
-    actions: {
-      type: Array as PropType<ActionItem[]>,
-      default: null,
+  export default defineComponent({
+    name: 'TableAction',
+    components: { DownOutlined },
+    props: {
+      actions: {
+        type: Array as PropType<ActionItem[]>,
+        default: null,
+      },
+      dropDownActions: {
+        type: Array as PropType<ActionItem[]>,
+        default: null,
+      },
+      style: {
+        type: String as PropType<String>,
+        default: 'button',
+      },
+      select: {
+        type: Function as PropType<Function>,
+        default: () => {},
+      },
     },
-    dropDownActions: {
-      type: Array as PropType<ActionItem[]>,
-      default: null,
-    },
-    style: {
-      type: String as PropType<String>,
-      default: 'button'
-    },
-    select:{
-      type: Function as PropType<Function>,
-      default: () =>{ }
-    }
-  },
-  setup(props, { emit }) {
-    const { hasPermission } = usePermission();
+    setup(props) {
+      const { hasPermission } = usePermission();
 
-    const getTooltip = computed(() => {
-      return (data: string | TooltipProps): TooltipProps => {
-        if (isString(data)) {
-          return { title: data, placement: 'bottom' };
-        } else {
-          return Object.assign({ placement: 'bottom' }, data);
-        }
-      };
-    });
+      const actionType =
+        props.style === 'button' ? 'default' : props.style === 'text' ? 'primary' : 'default';
+      const actionText =
+        props.style === 'button' ? undefined : props.style === 'text' ? true : undefined;
 
-    const actionType = props.style === 'button' ? 'default' : props.style === 'text' ? 'primary' : 'default'
-    const actionText = props.style === 'button' ? undefined : props.style === 'text' ? true : undefined
-
-    const getMoreProps  = computed(() => {
+      const getMoreProps = computed(() => {
         return {
           text: actionText,
           type: actionType,
-          size: "small"
-        }
-    })
+          size: 'small',
+        };
+      });
 
-    const getDropdownList = computed(() => {
-      return (toRaw(props.dropDownActions) || [])
+      const getDropdownList = computed(() => {
+        return (toRaw(props.dropDownActions) || [])
           .filter((action) => {
             return hasPermission(action.auth) && isIfShow(action);
           })
-          .map((action, index) => {
-            const { label, popConfirm } = action;
+          .map((action) => {
+            const { popConfirm } = action;
             return {
               size: 'small',
               text: actionText,
@@ -94,27 +85,27 @@ export default defineComponent({
               ...action,
               ...popConfirm,
               onConfirm: popConfirm?.confirm,
-              onCancel: popConfirm?.cancel
+              onCancel: popConfirm?.cancel,
             };
           });
-    });
+      });
 
-    function isIfShow(action: ActionItem): boolean {
-      const ifShow = action.ifShow;
+      function isIfShow(action: ActionItem): boolean {
+        const ifShow = action.ifShow;
 
-      let isIfShow = true;
+        let isIfShow = true;
 
-      if (isBoolean(ifShow)) {
-        isIfShow = ifShow;
+        if (isBoolean(ifShow)) {
+          isIfShow = ifShow;
+        }
+        if (isFunction(ifShow)) {
+          isIfShow = ifShow(action);
+        }
+        return isIfShow;
       }
-      if (isFunction(ifShow)) {
-        isIfShow = ifShow(action);
-      }
-      return isIfShow;
-    }
 
-    const getActions = computed(() => {
-      return (toRaw(props.actions) || [])
+      const getActions = computed(() => {
+        return (toRaw(props.actions) || [])
           .filter((action) => {
             return hasPermission(action.auth) && isIfShow(action);
           })
@@ -132,14 +123,13 @@ export default defineComponent({
               enable: !!popConfirm,
             };
           });
-    });
+      });
 
-    return {
-      getActions,
-      getDropdownList,
-      getTooltip,
-      getMoreProps
-    }
-  }
-})
+      return {
+        getActions,
+        getDropdownList,
+        getMoreProps,
+      };
+    },
+  });
 </script>

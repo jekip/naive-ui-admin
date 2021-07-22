@@ -1,9 +1,9 @@
-import Mock from 'mockjs'
-import { resultSuccess, getRequestToken } from '../_util'
+import Mock from 'mockjs';
+import { resultSuccess } from '../_util';
 
-const Random = Mock.Random
+const Random = Mock.Random;
 
-const token = Random.string('upper', 32, 32)
+const token = Random.string('upper', 32, 32);
 
 const adminInfo = {
   userId: '1',
@@ -33,9 +33,9 @@ const adminInfo = {
     {
       roleName: '基础列表删除',
       value: 'basic_list_delete',
-    }
+    },
   ],
-}
+};
 
 export default [
   {
@@ -56,4 +56,4 @@ export default [
       return resultSuccess(adminInfo);
     },
   },
-]
+];

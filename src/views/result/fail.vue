@@ -7,7 +7,7 @@
           <p class="mt-3">
             <n-space align="center">
               <n-icon size="20" color="#f0a020">
-                <InfoCircleOutlined/>
+                <InfoCircleOutlined />
               </n-icon>
               <span>认证照片不够清晰</span>
               <n-button type="info" text>立即修改</n-button>
@@ -16,7 +16,7 @@
           <p class="mt-3">
             <n-space>
               <n-icon size="20" color="#f0a020">
-                <InfoCircleOutlined/>
+                <InfoCircleOutlined />
               </n-icon>
               <span>备注包含敏感字符，并且不能包含政治相关</span>
               <n-button type="info" text>立即修改</n-button>
@@ -37,34 +37,34 @@
   </n-card>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useRouter } from 'vue-router'
-import { InfoCircleOutlined } from '@vicons/antd'
+  import { defineComponent } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { InfoCircleOutlined } from '@vicons/antd';
 
-export default defineComponent({
-  components: { InfoCircleOutlined },
-  setup() {
-    const router = useRouter()
-    return {
-      goHome() {
-        router.push('/')
-      }
-    }
-  }
-})
+  export default defineComponent({
+    components: { InfoCircleOutlined },
+    setup() {
+      const router = useRouter();
+      return {
+        goHome() {
+          router.push('/');
+        },
+      };
+    },
+  });
 </script>
 <style lang="less" scoped>
-.result-box {
-  width: 72%;
-  margin: 0 auto;
-  text-align: center;
-  padding-top: 5px;
+  .result-box {
+    width: 72%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 5px;
 
-  &-extra {
-    padding: 24px 40px;
-    text-align: left;
-    background: #f8f8f9;
-    border-radius: 4px;
+    &-extra {
+      padding: 24px 40px;
+      text-align: left;
+      background: #f8f8f9;
+      border-radius: 4px;
+    }
   }
-}
 </style>
