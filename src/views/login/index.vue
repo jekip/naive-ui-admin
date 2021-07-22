@@ -114,7 +114,7 @@
         formInline: {
           username: 'admin',
           password: '123456',
-          isCaptcha: true,
+          isCaptcha: false,
         },
       });
       const rules = {
