@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { store } from '@/store';
 import projectSetting from '@/settings/projectSetting';
+import type { IheaderSetting, ImenuSetting, ImultiTabsSetting, IcrumbsSetting } from '/#/config';
 
 const {
   navMode,
@@ -16,11 +17,11 @@ const {
 interface ProjectSettingState {
   navMode: string; //导航模式
   navTheme: string; //导航风格
-  headerSetting: object; //顶部设置
+  headerSetting: IheaderSetting; //顶部设置
   showFooter: boolean; //页脚
-  menuSetting: object; //多标签
-  multiTabsSetting: object; //多标签
-  crumbsSetting: object; //面包屑
+  menuSetting: ImenuSetting; //多标签
+  multiTabsSetting: ImultiTabsSetting; //多标签
+  crumbsSetting: IcrumbsSetting; //面包屑
   permissionMode: string; //权限模式
 }
 
