@@ -6,7 +6,7 @@
       </n-card>
     </div>
     <n-card :bordered="false" class="mt-4 proCard">
-      <n-grid cols="2 s:1 m:3 l:3 xl:3 2xl:3" responsive="screen">
+      <n-grid cols="1 s:1 m:3 l:3 xl:3 2xl:3" responsive="screen">
         <n-grid-item offset="0 s:0 m:1 l:1 xl:1 2xl:1">
           <n-form
             :label-width="80"
