@@ -23,7 +23,7 @@
 
 <style lang="less" scoped>
   .page-footer {
-    margin: 48px 0 24px 0;
+    //margin: 28px 0 24px 0;
     padding: 0 16px;
     text-align: center;
 

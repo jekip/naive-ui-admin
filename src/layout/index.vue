@@ -46,10 +46,10 @@
             <MainView />
           </div>
         </div>
-
-        <NLayoutFooter v-if="getShowFooter">
-          <PageFooter />
-        </NLayoutFooter>
+        <!--1.15废弃，没啥用，占用操作空间-->
+        <!--        <NLayoutFooter v-if="getShowFooter">-->
+        <!--          <PageFooter />-->
+        <!--        </NLayoutFooter>-->
       </NLayoutContent>
     </NLayout>
   </NLayout>

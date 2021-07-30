@@ -1,4 +1,5 @@
 import type { PropType } from 'vue';
+import { propTypes } from '@/utils/propTypes';
 import { BasicColumn } from './types/table';
 
 export const basicProps = {
@@ -16,7 +17,7 @@ export const basicProps = {
   },
   tableData: {
     type: [Object],
-    default: () => {},
+    default: () => [],
   },
   columns: {
     type: [Array] as PropType<BasicColumn[]>,
@@ -36,6 +37,7 @@ export const basicProps = {
     type: [Object, Boolean],
     default: () => {},
   },
+  //废弃
   showPagination: {
     type: [String, Boolean],
     default: 'auto',
@@ -44,4 +46,6 @@ export const basicProps = {
     type: Object as PropType<BasicColumn>,
     default: null,
   },
+  canResize: propTypes.bool.def(true),
+  resizeHeightOffset: propTypes.number.def(0),
 };

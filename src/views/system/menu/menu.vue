@@ -5,7 +5,6 @@
         页面数据为 Mock 示例数据，非真实数据。
       </n-card>
     </div>
-
     <n-grid class="mt-4" cols="1 s:1 m:1 l:3 xl:3 2xl:3" responsive="screen" :x-gap="12">
       <n-gi span="1">
         <n-card :segmented="{ content: 'hard' }" :bordered="false" size="small">
@@ -35,7 +34,6 @@
               </n-button>
             </n-space>
           </template>
-
           <div class="w-full menu">
             <n-input type="input" v-model:value="pattern" placeholder="输入菜单名称搜索">
               <template #suffix>
@@ -61,6 +59,7 @@
                   :expandedKeys="expandedKeys"
                   style="max-height: 650px; overflow: hidden"
                   @update:selected-keys="selectedTree"
+                  @update:expanded-keys="onExpandedKeys"
                 />
               </template>
             </div>
@@ -77,7 +76,7 @@
               <span>编辑菜单{{ treeItemTitle ? `：${treeItemTitle}` : '' }}</span>
             </n-space>
           </template>
-          <n-alert type="info" closable> 从菜单列表选择一项后，进行编辑 </n-alert>
+          <n-alert type="info" closable> 从菜单列表选择一项后，进行编辑</n-alert>
           <n-form
             :model="formParams"
             :rules="rules"
@@ -122,17 +121,15 @@
         </n-card>
       </n-gi>
     </n-grid>
-
     <CreateDrawer ref="createDrawerRef" :title="drawerTitle" />
   </div>
 </template>
-
 <script lang="ts">
   import { defineComponent, ref, unref, reactive, toRefs, onMounted, computed } from 'vue';
   import { useMessage } from 'naive-ui';
   import { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined } from '@vicons/antd';
   import { getMenuList } from '@/api/system/menu';
-  import { getTreeItem } from '@/utils/index';
+  import { getTreeItem } from '@/utils';
   import CreateDrawer from './CreateDrawer.vue';
 
   const rules = {
@@ -156,35 +153,49 @@
       const message = useMessage();
 
       const isAddSon = computed(() => {
-        return state.treeItemKey.length ? false : true;
+        return !state.treeItemKey.length;
       });
 
+      const addMenuOptions = ref([
+        {
+          label: '添加顶级菜单',
+          key: 'home',
+          disabled: false,
+        },
+        {
+          label: '添加子菜单',
+          key: 'son',
+          disabled: isAddSon,
+        },
+      ]);
+
+      const treeItemKey: string[] = reactive([]);
+
+      const expandedKeys: string[] = reactive([]);
+
+      const treeData: string[] = reactive([]);
+
       const state = reactive({
-        addMenuOptions: [
-          {
-            label: '添加顶级菜单',
-            key: 'home',
-            disabled: false,
-          },
-          {
-            label: '添加子菜单',
-            key: 'son',
-            disabled: isAddSon,
-          },
-        ],
         loading: true,
         subLoading: false,
         isEditMenu: false,
-        treeData: [],
-        treeItemKey: [],
         treeItemTitle: '',
-        expandedKeys: [],
-        formParams: {},
+        formParams: {
+          type: 1,
+          label: '',
+          subtitle: '',
+          path: '',
+          auth: '',
+          openType: 1,
+        },
         pattern: '',
         drawerTitle: '',
+        treeItemKey,
+        expandedKeys,
+        treeData,
       });
 
-      function selectAddMenu(key) {
+      function selectAddMenu(key: string) {
         state.drawerTitle = key === 'home' ? '添加顶栏菜单' : `添加子菜单：${state.treeItemTitle}`;
         openCreateDrawer();
       }
@@ -194,7 +205,7 @@
         openDrawer();
       }
 
-      function selectedTree(keys) {
+      function selectedTree(keys: string[]) {
         if (keys.length) {
           const treeItem = getTreeItem(unref(state.treeData), keys[0]);
           state.treeItemKey = keys;
@@ -214,7 +225,7 @@
       }
 
       function formSubmit() {
-        formRef.value.validate((errors) => {
+        formRef.value.validate((errors: boolean) => {
           if (!errors) {
             message.error('抱歉，您没有该权限');
           } else {
@@ -227,19 +238,8 @@
         if (state.expandedKeys.length) {
           state.expandedKeys = [];
         } else {
-          state.expandedKeys = state.treeData.map((item) => item.key);
+          state.expandedKeys = state.treeData.map((item: any) => item.key);
         }
-      }
-
-      function onExpandedKeys() {
-        // let key = keys[0]
-        // console.log(state.expandedKeys)
-        // if(state.expandedKeys.includes(key)){
-        //   state.expandedKeys.splice(state.expandedKeys.findIndex(item => item === key), 1)
-        //   console.log(state.expandedKeys)
-        // }else{
-        //   state.expandedKeys.push(key)
-        // }
       }
 
       onMounted(async () => {
@@ -249,8 +249,13 @@
         state.loading = false;
       });
 
+      function onExpandedKeys(keys: string[]) {
+        state.expandedKeys = keys;
+      }
+
       return {
         ...toRefs(state),
+        addMenuOptions,
         createDrawerRef,
         formRef,
         rules,

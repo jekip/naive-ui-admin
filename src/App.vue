@@ -11,7 +11,7 @@
     </AppProvider>
   </NConfigProvider>
 
-  <transition v-if="isLock && $route.name != 'login'" name="slide-up">
+  <transition v-if="isLock && $route.name !== 'login'" name="slide-up">
     <LockScreen />
   </transition>
 </template>
@@ -34,9 +34,7 @@
       const designStore = useDesignSettingStore();
       const isLock = computed(() => useLockscreen.isLock);
       const lockTime = computed(() => useLockscreen.lockTime);
-      /**
-       * @type import('naive-ui').GlobalThemeOverrides
-       */
+
       const getThemeOverrides = computed(() => {
         return {
           common: {
@@ -89,9 +87,7 @@
 </script>
 
 <style lang="less">
-  @import 'styles/global.less';
   @import 'styles/common.less';
-  @import 'styles/override.less';
 
   .slide-up-enter-active,
   .slide-up-leave-active {

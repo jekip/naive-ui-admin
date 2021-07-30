@@ -41,6 +41,7 @@
       actions: {
         type: Array as PropType<ActionItem[]>,
         default: null,
+        required: true,
       },
       dropDownActions: {
         type: Array as PropType<ActionItem[]>,

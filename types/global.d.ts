@@ -66,6 +66,9 @@ declare global {
     VITE_DROP_CONSOLE: boolean;
     VITE_GLOB_PROD_MOCK: boolean;
     VITE_GLOB_IMG_URL: string;
+    VITE_PROXY: [string, string][];
+    VITE_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none';
+    VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE: boolean;
   }
 
   declare function parseInt(s: string | number, radix?: number): number;
@@ -94,6 +97,6 @@ declare global {
 
 declare module 'vue' {
   export type JSXComponent<Props = any> =
-    | { new(): ComponentPublicInstance<Props> }
+    | { new (): ComponentPublicInstance<Props> }
     | FunctionalComponent<Props>;
 }

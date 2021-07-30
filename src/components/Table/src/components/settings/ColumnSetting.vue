@@ -158,7 +158,7 @@
         table.getColumns().forEach((item) => {
           newRet.push({ ...item });
         });
-        return newRet;
+        return newRet.filter((item) => item.key != 'action' && item.title != '操作');
       }
 
       //重置

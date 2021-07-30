@@ -31,8 +31,7 @@ export function wrapperEnv(envConf: Recordable): ViteEnv {
     if (envName === 'VITE_PROXY') {
       try {
         realName = JSON.parse(realName);
-      } catch (error) {
-      }
+      } catch (error) {}
     }
     ret[envName] = realName;
     process.env[envName] = realName;
@@ -51,12 +50,11 @@ export function getEnvConfig(match = 'VITE_GLOB_', confFiles = ['.env', '.env.pr
     try {
       const env = dotenv.parse(fs.readFileSync(path.resolve(process.cwd(), item)));
       envConfig = { ...envConfig, ...env };
-    } catch (error) {
-    }
+    } catch (error) {}
   });
 
   Object.keys(envConfig).forEach((key) => {
-    const reg = new RegExp(`^(${ match })`);
+    const reg = new RegExp(`^(${match})`);
     if (!reg.test(key)) {
       Reflect.deleteProperty(envConfig, key);
     }

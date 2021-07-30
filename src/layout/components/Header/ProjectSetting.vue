@@ -7,7 +7,18 @@
         <div class="drawer-setting-item justify-center dark-switch">
           <n-tooltip placement="bottom">
             <template #trigger>
-              <n-switch v-model:value="designStore.darkTheme" />
+              <n-switch v-model:value="designStore.darkTheme" class="dark-theme-switch">
+                <template #checked>
+                  <n-icon size="14" color="#ffd93b">
+                    <SunnySharp />
+                  </n-icon>
+                </template>
+                <template #unchecked>
+                  <n-icon size="14" color="#ffd93b">
+                    <Moon />
+                  </n-icon>
+                </template>
+              </n-switch>
             </template>
             <span>深色主题</span>
           </n-tooltip>
@@ -146,13 +157,13 @@
             <n-switch v-model:value="settingStore.multiTabsSetting.show" />
           </div>
         </div>
-
-        <div class="drawer-setting-item">
-          <div class="drawer-setting-item-title"> 显示页脚 </div>
-          <div class="drawer-setting-item-action">
-            <n-switch v-model:value="settingStore.showFooter" />
-          </div>
-        </div>
+        <!--1.15废弃，没啥用，占用操作空间-->
+        <!--        <div class="drawer-setting-item">-->
+        <!--          <div class="drawer-setting-item-title"> 显示页脚 </div>-->
+        <!--          <div class="drawer-setting-item-action">-->
+        <!--            <n-switch v-model:value="settingStore.showFooter" />-->
+        <!--          </div>-->
+        <!--        </div>-->
 
         <div class="drawer-setting-item">
           <n-alert type="warning" :showIcon="false">
@@ -169,11 +180,12 @@
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
   import { useDesignSettingStore } from '@/store/modules/designSetting';
   import { CheckOutlined } from '@vicons/antd';
+  import { Moon, SunnySharp } from '@vicons/ionicons5';
   import { darkTheme } from 'naive-ui';
 
   export default defineComponent({
     name: 'ProjectSetting',
-    components: { CheckOutlined },
+    components: { CheckOutlined, Moon, SunnySharp },
     props: {
       title: {
         type: String,
@@ -300,8 +312,7 @@
     .justify-center {
       justify-content: center;
     }
-
-    .dark-switch .n-switch--active {
+    .dark-switch .n-switch {
       ::v-deep(.n-switch__rail) {
         background-color: #000e1c;
       }

@@ -1,12 +1,9 @@
 import { isNavigationFailure, Router } from 'vue-router';
 import { useUserStoreWidthOut } from '@/store/modules/user';
 import { useAsyncRouteStoreWidthOut } from '@/store/modules/asyncRoute';
-import NProgress from 'nprogress'; // progress bar
 import { ACCESS_TOKEN } from '@/store/mutation-types';
 import { storage } from '@/utils/Storage';
 import { PageEnum } from '@/enums/pageEnum';
-
-NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
 
@@ -15,8 +12,9 @@ const whitePathList = [LOGIN_PATH]; // no redirect whitelist
 export function createRouterGuards(router: Router) {
   const userStore = useUserStoreWidthOut();
   const asyncRouteStore = useAsyncRouteStoreWidthOut();
+  const Loading = window['$loading'] || null;
   router.beforeEach(async (to, from, next) => {
-    NProgress.start();
+    Loading && Loading.start();
     if (from.path === LOGIN_PATH && to.name === 'errorPage') {
       next(PageEnum.BASE_HOME);
       return;
@@ -70,7 +68,7 @@ export function createRouterGuards(router: Router) {
     const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect };
     asyncRouteStore.setDynamicAddedRoute(true);
     next(nextData);
-    NProgress.done();
+    Loading && Loading.finish();
   });
 
   router.afterEach((to, _, failure) => {
@@ -93,7 +91,7 @@ export function createRouterGuards(router: Router) {
       }
     }
     asyncRouteStore.setKeepAliveComponents(keepAliveComponents);
-    NProgress.done(); // finish progress bar
+    Loading && Loading.finish();
   });
 
   router.onError((error) => {

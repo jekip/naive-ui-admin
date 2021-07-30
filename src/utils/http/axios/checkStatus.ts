@@ -1,5 +1,4 @@
-export function checkStatus(status: number, msg: string): void {
-  const message = window['$message'];
+export function checkStatus(status: number, msg: string, message: any): void {
   switch (status) {
     case 400:
       message.error(`${msg}`);

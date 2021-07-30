@@ -6,6 +6,7 @@
     :collapsed="collapsed"
     :collapsed-width="64"
     :collapsed-icon-size="20"
+    :indent="28"
     :expanded-keys="openKeys"
     v-model:value="selectedKeys"
     @update:value="clickMenuItem"
@@ -14,7 +15,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive, computed, watch, toRefs } from 'vue';
+  import { defineComponent, reactive, computed, watch, toRefs, unref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
   import { generatorMenu } from '@/utils/index';
@@ -44,7 +45,7 @@
       // 获取当前打开的子菜单
       const matched = currentRoute.matched;
 
-      const getOpenKeys = matched && matched.length ? [matched[0]?.name] : [];
+      const getOpenKeys = matched && matched.length ? matched.map((item) => item.name) : [];
 
       const state = reactive({
         openKeys: getOpenKeys,
@@ -73,8 +74,7 @@
         () => currentRoute.fullPath,
         () => {
           const matched = currentRoute.matched;
-          const getOpenKeys = matched && matched.length ? [matched[0]?.name] : [];
-          state.openKeys = getOpenKeys;
+          state.openKeys = matched.map((item) => item.name);
           state.selectedKeys = currentRoute.name;
         }
       );
@@ -90,10 +90,22 @@
 
       //展开菜单
       function menuExpanded(openKeys: string[]) {
-        console.log(openKeys);
         if (!openKeys) return;
-        const latestOpenKey = openKeys.pop();
-        state.openKeys = latestOpenKey ? [latestOpenKey] : [];
+        const latestOpenKey = openKeys.find((key) => state.openKeys.indexOf(key) === -1);
+        const isExistChildren = findChildrenLen(latestOpenKey as string);
+        state.openKeys = isExistChildren ? (latestOpenKey ? [latestOpenKey] : []) : openKeys;
+      }
+
+      //查找是否存在子路由
+      function findChildrenLen(key: string) {
+        if (!key) return false;
+        const subRouteChildren: string[] = [];
+        for (const { children, key } of unref(menus)) {
+          if (children && children.length > 0) {
+            subRouteChildren.push(key as string);
+          }
+        }
+        return subRouteChildren.includes(key);
       }
 
       return {

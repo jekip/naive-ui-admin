@@ -10,6 +10,14 @@ export const appThemeList: string[] = [
   '#0096c7',
   '#9c27b0',
   '#ff9800',
+  '#FF3D68',
+  '#00C1D4',
+  '#71EFA3',
+  '#171010',
+  '#78DEC7',
+  '#1768AC',
+  '#FB9300',
+  '#FC5404',
 ];
 
 const setting = {

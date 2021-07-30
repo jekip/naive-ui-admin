@@ -219,7 +219,7 @@
 
   @media (min-width: 768px) {
     .view-account {
-      background-image: url('@/assets/images/login.svg');
+      background-image: url('../../assets/images/login.svg');
       background-repeat: no-repeat;
       background-position: 50%;
       background-size: 100%;

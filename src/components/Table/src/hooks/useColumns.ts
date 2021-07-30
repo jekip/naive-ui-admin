@@ -1,9 +1,12 @@
-import { ref, Ref, ComputedRef, unref, computed, watch, toRaw } from 'vue';
+import { ref, Ref, ComputedRef, unref, computed, watch, toRaw, h } from 'vue';
 import type { BasicColumn, BasicTableProps } from '../types/table';
 import { isEqual, cloneDeep } from 'lodash-es';
 import { isArray, isString, isBoolean, isFunction } from '@/utils/is';
 import { usePermission } from '@/hooks/web/usePermission';
 import { ActionItem } from '@/components/Table';
+import { renderEditCell } from '../components/editable';
+import { NTooltip, NIcon } from 'naive-ui';
+import { FormOutlined } from '@vicons/antd';
 
 export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
   const columnsRef = ref(unref(propsRef).columns) as unknown as Ref<BasicColumn[]>;
@@ -33,13 +36,48 @@ export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
     return isIfShow;
   }
 
+  const renderTooltip = (trigger, content) => {
+    return h(NTooltip, null, {
+      trigger: () => trigger,
+      default: () => content,
+    });
+  };
+
   const getPageColumns = computed(() => {
     const pageColumns = unref(getColumnsRef);
     const columns = cloneDeep(pageColumns);
-    return columns.filter((column) => {
-      // @ts-ignore
-      return hasPermission(column.auth) && isIfShow(column);
-    });
+    return columns
+      .filter((column) => {
+        // @ts-ignore
+        return hasPermission(column.auth) && isIfShow(column);
+      })
+      .map((column) => {
+        const { edit, editRow } = column;
+        if (edit) {
+          column.render = renderEditCell(column);
+          if (edit) {
+            const title: any = column.title;
+            column.title = () => {
+              return renderTooltip(
+                h('span', {}, [
+                  h('span', { style: { 'margin-right': '5px' } }, title),
+                  h(
+                    NIcon,
+                    {
+                      size: 14,
+                    },
+                    {
+                      default: () => h(FormOutlined),
+                    }
+                  ),
+                ]),
+                '该列可编辑'
+              );
+            };
+          }
+        }
+        return column;
+      });
   });
 
   watch(

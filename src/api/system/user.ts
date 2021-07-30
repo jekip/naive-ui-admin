@@ -33,7 +33,7 @@ export function login(params) {
       params,
     },
     {
-      isTransformRequestResult: false,
+      isTransformResponse: false,
     }
   );
 }
@@ -49,7 +49,7 @@ export function changePassword(params, uid) {
       params,
     },
     {
-      isTransformRequestResult: false,
+      isTransformResponse: false,
     }
   );
 }

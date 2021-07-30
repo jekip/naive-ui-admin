@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
-import { Layout } from '@/router/constant';
+import { Layout, ParentLayout } from '@/router/constant';
 import { WalletOutlined } from '@vicons/antd';
 import { renderIcon } from '@/utils/index';
 
@@ -20,8 +20,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/comp',
     name: routeName,
-    redirect: '/comp/console',
     component: Layout,
+    redirect: '/comp/table',
     meta: {
       title: '组件示例',
       icon: renderIcon(WalletOutlined),
@@ -31,10 +31,37 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'table',
         name: `${routeName}_table`,
+        redirect: '/comp/table/basic',
+        component: ParentLayout,
         meta: {
           title: '表格',
         },
-        component: () => import('@/views/comp/table/list.vue'),
+        children: [
+          {
+            path: 'basic',
+            name: `${routeName}_table_basic`,
+            meta: {
+              title: '基础表格',
+            },
+            component: () => import('@/views/comp/table/basic.vue'),
+          },
+          {
+            path: 'editCell',
+            name: `${routeName}_table_editCell`,
+            meta: {
+              title: '单元格编辑',
+            },
+            component: () => import('@/views/comp/table/editCell.vue'),
+          },
+          {
+            path: 'editRow',
+            name: `${routeName}_table_editRow`,
+            meta: {
+              title: '整行编辑',
+            },
+            component: () => import('@/views/comp/table/editRow.vue'),
+          },
+        ],
       },
       {
         path: 'upload',

@@ -4,6 +4,7 @@ import { resolve } from 'path';
 import { wrapperEnv } from './build/utils';
 import { createVitePlugins } from './build/vite/plugin';
 import { OUTPUT_DIR } from './build/constant';
+import { createProxy } from './build/vite/proxy';
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
@@ -13,7 +14,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   const root = process.cwd();
   const env = loadEnv(mode, root);
   const viteEnv = wrapperEnv(env);
-  const { VITE_PUBLIC_PATH, VITE_DROP_CONSOLE, VITE_PORT, VITE_GLOB_PROD_MOCK } = viteEnv;
+  const { VITE_PUBLIC_PATH, VITE_DROP_CONSOLE, VITE_PORT, VITE_GLOB_PROD_MOCK, VITE_PROXY } =
+    viteEnv;
   const prodMock = VITE_GLOB_PROD_MOCK;
   const isBuild = command === 'build';
   return {
@@ -38,15 +40,14 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         less: {
           modifyVars: {},
           javascriptEnabled: true,
-          additionalData: `@import "src/styles/global.less";`,
-        },
-        scss: {
-          additionalData: `@import "src/styles/global.less";`,
+          additionalData: `@import "src/styles/var.less";`,
         },
       },
     },
     server: {
+      host: true,
       port: VITE_PORT,
+      proxy: createProxy(VITE_PROXY),
       // proxy: {
       //     '/api': {
       //         target: '',

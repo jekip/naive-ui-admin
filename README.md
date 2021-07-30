@@ -1,6 +1,6 @@
 ## 简介
 
-Naive Ui Admin 是一个免费开源的中后台模版，使用了最新的`vue3`,`vite2`,`TypeScript`等主流技术开发，开箱即用的中后台前端解决方案，也可用于学习参考。
+[Naive Ui Admin](https://github.com/jekip/naive-ui-admin) 是一个基于 [Vue3.0](https://github.com/vuejs/vue-next)、[Vite](https://github.com/vitejs/vite)、 [Naive UI](https://www.naiveui.com/)、[TypeScript](https://www.typescriptlang.org/) 的中后台解决方案，它使用了最新的前端技术栈，并提炼了典型的业务模型，页面，包括二次封装组件、动态菜单、权限校验、粒子化权限控制等功能，它可以帮助你快速搭建企业级中后台项目，该项目使用最新的前端技术栈，相信不管是从新技术使用还是其他方面，都能帮助到你。
 
 ## 特性
 - **最新技术栈**：使用 Vue3/vite2 等前端前沿技术开发
@@ -10,35 +10,15 @@ Naive Ui Admin 是一个免费开源的中后台模版，使用了最新的`vue3
 - **权限** 内置完善的动态路由权限生成方案
 - **组件** 二次封装了多个常用的组件
 
-### 页面功能
-#### 系统看板
-- [x] 主控台
-- [ ] 监控页
-- [x] 工作台
-- [x] 表单页面
-- [x] 列表页面
-- [x] 异常页面
-- [x] 结果页面
-- [x] 设置页面
-- [x] 系统设置
-- [x] 菜单权限
-- [x] 角色权限
-
-### 页面组件
-#### ProTable
-- [x] 基础表格
-- [x] 上传图片
-- [x] 滑块验证码  
-- 持续开发中...
 
 ## 在线预览
 - [naive-ui-admin](https://jekip.github.io)
 
-账号：admin，密码：123456
+账号：admin，密码：123456（随意）
 
 ## 文档
 
-[文档地址](https://github.com/jekip/naive-ui-admin) - 待完善
+[文档地址](https://jekip.github.io/docs/) 
 
 ## 准备
 
@@ -85,7 +65,7 @@ yarn build
 [CHANGELOG](./CHANGELOG.md)
 
 ## 感谢
-[@Vben](https://github.com/anncwb/vue-vben-admin) 借鉴 vue-vben-admin 实现的骨架，同时也使用作者开发的 vite 插件，非常感谢作者。
+[@Vben](https://github.com/anncwb/vue-vben-admin) 借鉴 vue-vben-admin 实现的骨架，同时也使用作者开发的 vite 插件，再次感谢作者。
 
 
 ## 如何贡献

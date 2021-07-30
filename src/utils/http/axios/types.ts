@@ -13,7 +13,7 @@ export interface RequestOptions {
   // 格式化请求参数时间
   formatDate?: boolean;
   //  是否处理请求结果
-  isTransformRequestResult?: boolean;
+  isTransformResponse?: boolean;
   // 是否显示提示信息
   isShowMessage?: boolean;
   // 是否解析成JSON
@@ -34,6 +34,10 @@ export interface RequestOptions {
   errorMessageMode?: 'none' | 'modal';
   // 是否添加时间戳
   joinTime?: boolean;
+  // 不进行任何处理，直接返回
+  isTransformResponse?: boolean;
+  // 是否返回原生响应头
+  isReturnNativeResponse?: boolean;
 }
 
 export interface Result<T = any> {

@@ -59,6 +59,7 @@
   </div>
   <div class="s-table">
     <n-data-table
+      ref="tableElRef"
       v-bind="getBindValues"
       :pagination="pagination"
       @update:page="updatePage"
@@ -73,7 +74,17 @@
 
 <script lang="ts">
   import { NDataTable } from 'naive-ui';
-  import { ref, defineComponent, reactive, unref, toRaw, computed, toRefs } from 'vue';
+  import {
+    ref,
+    defineComponent,
+    reactive,
+    unref,
+    toRaw,
+    computed,
+    toRefs,
+    onMounted,
+    nextTick,
+  } from 'vue';
   import { ReloadOutlined, ColumnHeightOutlined, QuestionCircleOutlined } from '@vicons/antd';
   import { createTableContext } from './hooks/useTableContext';
 
@@ -87,6 +98,10 @@
   import { basicProps } from './props';
 
   import { BasicTableProps } from './types/table';
+
+  import { getViewportOffset } from '@/utils/domUtils';
+  import { useWindowSizeFn } from '@/hooks/event/useWindowSizeFn';
+  import { isBoolean } from '@/utils/is';
 
   const densityOptions = [
     {
@@ -117,9 +132,20 @@
       ...NDataTable.props, // 这里继承原 UI 组件的 props
       ...basicProps,
     },
-    emits: ['fetch-success', 'fetch-error', 'update:checked-row-keys'],
+    emits: [
+      'fetch-success',
+      'fetch-error',
+      'update:checked-row-keys',
+      'edit-end',
+      'edit-cancel',
+      'edit-row-end',
+      'edit-change',
+    ],
     setup(props, { emit }) {
+      const deviceHeight = ref(150);
+      const tableElRef = ref<ComponentRef>(null);
       const wrapRef = ref<Nullable<HTMLDivElement>>(null);
+      let paginationEl: HTMLElement | null;
 
       const tableData = ref<Recordable[]>([]);
       const innerPropsRef = ref<Partial<BasicTableProps>>();
@@ -173,20 +199,14 @@
         emit('update:checked-row-keys', rowKeys);
       }
 
-      //重置 Columns
-      const resetColumns = () => {
-        columns.map((item) => {
-          item.isShow = true;
-        });
-      };
-
       //获取表格大小
       const getTableSize = computed(() => state.tableSize);
 
       //组装表格信息
       const getBindValues = computed(() => {
         const tableData = unref(getDataSourceRef);
-        let propsData = {
+        const maxHeight = tableData.length ? `${unref(deviceHeight)}px` : 'auto';
+        return {
           ...unref(getProps),
           loading: unref(getLoading),
           columns: toRaw(unref(getPageColumns)),
@@ -194,8 +214,8 @@
           data: tableData,
           size: unref(getTableSize),
           remote: true,
+          'max-height': maxHeight,
         };
-        return propsData;
       });
 
       //获取分页信息
@@ -205,7 +225,7 @@
         innerPropsRef.value = { ...unref(innerPropsRef), ...props };
       }
 
-      const tableAction: TableActionType = {
+      const tableAction = {
         reload,
         setColumns,
         setLoading,
@@ -216,14 +236,54 @@
         setCacheColumnsField,
         emit,
         getSize: () => {
-          return unref(getBindValues).size as SizeType;
+          return unref(getBindValues).size;
         },
       };
+
+      const getCanResize = computed(() => {
+        const { canResize } = unref(getProps);
+        return canResize;
+      });
+
+      async function computeTableHeight() {
+        const table = unref(tableElRef);
+        if (!table) return;
+        if (!unref(getCanResize)) return;
+        const tableEl: any = table?.$el;
+        const headEl = tableEl.querySelector('.n-data-table-thead ');
+        const { bottomIncludeBody } = getViewportOffset(headEl);
+        const headerH = 64;
+        let paginationH = 2;
+        let marginH = 24;
+        if (!isBoolean(pagination)) {
+          paginationEl = tableEl.querySelector('.n-data-table__pagination') as HTMLElement;
+          if (paginationEl) {
+            const offsetHeight = paginationEl.offsetHeight;
+            paginationH += offsetHeight || 0;
+          } else {
+            paginationH += 28;
+          }
+        }
+        let height =
+          bottomIncludeBody - (headerH + paginationH + marginH + (props.resizeHeightOffset || 0));
+        const maxHeight = props.maxHeight;
+        height = maxHeight && maxHeight < height ? maxHeight : height;
+        deviceHeight.value = height;
+      }
+
+      useWindowSizeFn(computeTableHeight, 280);
+
+      onMounted(() => {
+        nextTick(() => {
+          computeTableHeight();
+        });
+      });
 
       createTableContext({ ...tableAction, wrapRef, getBindValues });
 
       return {
         ...toRefs(state),
+        tableElRef,
         getBindValues,
         densityOptions,
         reload,
@@ -232,7 +292,6 @@
         updatePageSize,
         updateCheckedRowKeys,
         pagination,
-        resetColumns,
         tableAction,
       };
     },

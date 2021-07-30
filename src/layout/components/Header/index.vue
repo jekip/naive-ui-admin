@@ -86,7 +86,7 @@
       <div class="layout-header-trigger layout-header-trigger-min">
         <n-dropdown trigger="hover" @select="avatarSelect" :options="avatarOptions">
           <div class="avatar">
-            <n-avatar>
+            <n-avatar round>
               {{ username }}
               <template #icon>
                 <UserOutlined />
