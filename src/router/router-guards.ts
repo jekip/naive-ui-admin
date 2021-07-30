@@ -12,8 +12,8 @@ const whitePathList = [LOGIN_PATH]; // no redirect whitelist
 export function createRouterGuards(router: Router) {
   const userStore = useUserStoreWidthOut();
   const asyncRouteStore = useAsyncRouteStoreWidthOut();
-  const Loading = window['$loading'] || null;
   router.beforeEach(async (to, from, next) => {
+    const Loading = window['$loading'] || null;
     Loading && Loading.start();
     if (from.path === LOGIN_PATH && to.name === 'errorPage') {
       next(PageEnum.BASE_HOME);
@@ -91,6 +91,7 @@ export function createRouterGuards(router: Router) {
       }
     }
     asyncRouteStore.setKeepAliveComponents(keepAliveComponents);
+    const Loading = window['$loading'] || null;
     Loading && Loading.finish();
   });
 
