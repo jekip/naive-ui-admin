@@ -1,8 +1,8 @@
 <template>
-  <div class="layout-header" :class="{ 'layout-header-light': !(navTheme == 'header-dark') }">
+  <div class="layout-header">
     <!--顶部菜单-->
     <div class="layout-header-left" v-if="navMode === 'horizontal'">
-      <AsideMenu v-model:collapsed="collapsed" mode="horizontal" class="n-menu-horizontal-light" />
+      <AsideMenu v-model:collapsed="collapsed" :inverted="getInverted" mode="horizontal" />
     </div>
     <!--左侧菜单-->
     <div class="layout-header-left" v-else>
@@ -131,6 +131,9 @@
       collapsed: {
         type: Boolean,
       },
+      inverted: {
+        type: Boolean,
+      },
     },
     setup(props) {
       const userStore = useUserStore();
@@ -151,6 +154,11 @@
         navTheme: getNavTheme,
         headerSetting: getHeaderSetting,
         crumbsSetting: getCrumbsSetting,
+      });
+
+      const getInverted = computed(() => {
+        const navTheme = unref(getNavTheme);
+        return ['light', 'header-dark'].includes(navTheme) ? props.inverted : !props.inverted;
       });
 
       const getChangeStyle = computed(() => {
@@ -305,6 +313,7 @@
         reloadPage,
         drawerSetting,
         openSetting,
+        getInverted,
       };
     },
   });
@@ -341,6 +350,10 @@
 
       .n-breadcrumb {
         display: inline-block;
+      }
+
+      &-menu {
+        color: var(--text-color);
       }
     }
 

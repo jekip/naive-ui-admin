@@ -19,8 +19,8 @@
     </NLayoutSider>
 
     <NLayout :inverted="inverted">
-      <NLayoutHeader :inverted="inverted" :position="fixedHeader">
-        <PageHeader v-model:collapsed="collapsed" />
+      <NLayoutHeader :inverted="getHeaderInverted" :position="fixedHeader">
+        <PageHeader v-model:collapsed="collapsed" :inverted="inverted" />
       </NLayoutHeader>
 
       <NLayoutContent
@@ -62,7 +62,6 @@
   import { MainView } from './components/Main';
   import { AsideMenu } from './components/Menu';
   import { PageHeader } from './components/Header';
-  import { PageFooter } from './components/Footer';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 
@@ -74,7 +73,6 @@
       PageHeader,
       AsideMenu,
       Logo,
-      PageFooter,
     },
     setup() {
       const { getDarkTheme } = useDesignSetting();
@@ -114,6 +112,11 @@
         return ['dark', 'header-dark'].includes(unref(getNavTheme));
       });
 
+      const getHeaderInverted = computed(() => {
+        const navTheme = unref(getNavTheme);
+        return ['light', 'header-dark'].includes(navTheme) ? unref(inverted) : !unref(inverted);
+      });
+
       const leftMenuWidth = computed(() => {
         const { minMenuWidth, menuWidth } = unref(getMenuSetting);
         return collapsed.value ? minMenuWidth : menuWidth;
@@ -149,6 +152,7 @@
         navMode,
         getShowFooter,
         getDarkTheme,
+        getHeaderInverted,
       };
     },
   });

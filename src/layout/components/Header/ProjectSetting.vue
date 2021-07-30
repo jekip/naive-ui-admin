@@ -226,7 +226,7 @@
 
       function togNavTheme(theme) {
         settingStore.navTheme = theme;
-        if (settingStore.navMode === 'horizontal' && theme === 'light') {
+        if (settingStore.navMode === 'horizontal' && ['light'].includes(theme)) {
           settingStore.navTheme = 'dark';
         }
       }
@@ -237,11 +237,11 @@
 
       function togNavMode(mode) {
         settingStore.navMode = mode;
-        if (mode === 'horizontal') {
-          settingStore.setNavTheme('light');
-        } else {
-          settingStore.setNavTheme('dark');
-        }
+        // if (mode === 'header-dark') {
+        //   settingStore.setNavTheme('dark');
+        // } else {
+        //   settingStore.setNavTheme('light');
+        // }
       }
 
       return {
