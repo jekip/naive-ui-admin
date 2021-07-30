@@ -557,6 +557,7 @@
             cursor: pointer;
             display: inline-block;
             position: relative;
+            flex: 0 0 auto;
 
             span {
               float: left;
