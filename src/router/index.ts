@@ -3,7 +3,6 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { ErrorPageRoute, RedirectRoute } from '@/router/base';
 import { PageEnum } from '@/enums/pageEnum';
 import { createRouterGuards } from './router-guards';
-import 'nprogress/css/nprogress.css'; // 进度条样式
 
 // @ts-ignore
 const modules = import.meta.globEager('./modules/**/*.ts');
