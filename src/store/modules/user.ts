@@ -8,7 +8,7 @@ const Storage = createStorage({ storage: localStorage });
 import { getUserInfo, login } from '@/api/system/user';
 import { storage } from '@/utils/Storage';
 
-interface UserState {
+export interface IUserState {
   token: string;
   username: string;
   welcome: string;
@@ -19,7 +19,7 @@ interface UserState {
 
 export const useUserStore = defineStore({
   id: 'app-user',
-  state: (): UserState => ({
+  state: (): IUserState => ({
     token: Storage.get(ACCESS_TOKEN, ''),
     username: '',
     welcome: '',

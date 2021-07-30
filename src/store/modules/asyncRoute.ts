@@ -20,7 +20,7 @@ const DEFAULT_CONFIG: TreeHelperConfig = {
 
 const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
 
-interface AsyncRouteState {
+export interface IAsyncRouteState {
   menus: RouteRecordRaw[];
   routers: any[];
   addRouters: any[];
@@ -50,7 +50,7 @@ function filter<T = any>(
 
 export const useAsyncRouteStore = defineStore({
   id: 'app-async-route',
-  state: (): AsyncRouteState => ({
+  state: (): IAsyncRouteState => ({
     menus: [],
     routers: constantRouter,
     addRouters: [],

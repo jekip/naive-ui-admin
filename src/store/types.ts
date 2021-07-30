@@ -1,7 +1,7 @@
-import { IAsyncRouteState } from '@/store/modules/async-route';
-import { IUserState } from '@/store/modules/user/state';
+import { IAsyncRouteState } from '@/store/modules/asyncRoute';
+import { IUserState } from '@/store/modules/user';
 import { ILockscreenState } from '@/store/modules/lockscreen';
-import { ITabsViewState } from '@/store/modules/tabs-view';
+import { ITabsViewState } from '@/store/modules/tabsView';
 
 export interface IStore {
   asyncRoute: IAsyncRouteState;
