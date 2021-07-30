@@ -64,6 +64,7 @@
   import { PageHeader } from './components/Header';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
+  import { useLoadingBar } from "naive-ui";
 
   export default defineComponent({
     name: 'Layout',
@@ -138,6 +139,9 @@
 
       onMounted(() => {
         window.addEventListener('resize', watchWidth);
+        //挂载在 window 方便与在js中使用
+        window['$loading'] = useLoadingBar();
+        window['$loading'].finish();
       });
 
       return {

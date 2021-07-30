@@ -41,6 +41,9 @@
             primaryColor: designStore.appTheme,
             primaryColorHover: '#57a3f3',
           },
+          LoadingBar: {
+            colorLoading: designStore.appTheme,
+          },
         };
       });
 
