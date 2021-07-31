@@ -60,7 +60,7 @@
 
     .number {
       position: absolute;
-      top: 27%;
+      top: 20%;
       z-index: 10;
       width: 300px;
       font-size: 32px;
