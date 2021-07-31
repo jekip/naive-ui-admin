@@ -13,7 +13,7 @@
         剩余可使用时间：{{ calcDischargingTime }}
       </div>
       <span v-show="Number.isFinite(battery.chargingTime) && battery.chargingTime != 0">
-        距离电池充满需要：{{ calcDischargingTime }}
+        距离电池充满需要：{{ calcChargingTime }}
       </span>
     </div>
   </div>
@@ -36,6 +36,10 @@
         type: String,
         default: '',
       },
+      calcChargingTime: {
+        type: String,
+        default: '',
+      },
       batteryStatus: {
         // 电池状态
         type: String,
@@ -51,12 +55,12 @@
     bottom: 20vh;
     left: 50vw;
     width: 300px;
-    height: 400px;
+    height: 500px;
     transform: translateX(-50%);
 
     .number {
       position: absolute;
-      top: 27%;
+      top: 20%;
       z-index: 10;
       width: 300px;
       font-size: 32px;

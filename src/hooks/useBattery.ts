@@ -33,6 +33,14 @@ export const useBattery = () => {
     return `${~~hour}小时${~~minute}分钟`;
   });
 
+  // 计算电池充满剩余时间
+  const calcChargingTime = computed(() => {
+    console.log(state.battery);
+    const hour = state.battery.chargingTime / 3600;
+    const minute = (state.battery.chargingTime / 60) % 60;
+    return `${~~hour}小时${~~minute}分钟`;
+  });
+
   // 电池状态
   const batteryStatus = computed(() => {
     if (state.battery.charging && state.battery.level >= 100) {
@@ -80,5 +88,6 @@ export const useBattery = () => {
     ...toRefs(state),
     batteryStatus,
     calcDischargingTime,
+    calcChargingTime,
   };
 };

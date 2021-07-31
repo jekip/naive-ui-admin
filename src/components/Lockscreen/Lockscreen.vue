@@ -21,6 +21,7 @@
         :battery="battery"
         :battery-status="batteryStatus"
         :calc-discharging-time="calcDischargingTime"
+        :calc-charging-time="calcChargingTime"
       />
 
       <div class="local-time">
@@ -114,7 +115,7 @@
       const router = useRouter();
       const route = useRoute();
 
-      const { battery, batteryStatus, calcDischargingTime } = useBattery();
+      const { battery, batteryStatus, calcDischargingTime, calcChargingTime } = useBattery();
       const userInfo: object = userStore.getUserInfo || {};
       const username = userInfo['username'] || '';
       const state = reactive({
@@ -176,6 +177,7 @@
         battery,
         batteryStatus,
         calcDischargingTime,
+        calcChargingTime,
         onLockLogin,
         onLogin,
         goLogin,
