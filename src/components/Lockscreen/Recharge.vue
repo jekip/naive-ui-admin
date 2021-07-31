@@ -55,7 +55,7 @@
     bottom: 20vh;
     left: 50vw;
     width: 300px;
-    height: 400px;
+    height: 500px;
     transform: translateX(-50%);
 
     .number {
