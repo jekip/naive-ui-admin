@@ -74,10 +74,9 @@ export function useDataSource(
 
       // 如果数据异常，需获取正确的页码再次执行
       if (resultTotal) {
-        const currentTotalPage = Math.ceil(resultTotal / pageSize);
-        if (page > currentTotalPage) {
+        if (page > resultTotal) {
           setPagination({
-            [pageField]: currentTotalPage,
+            [pageField]: resultTotal,
           });
           fetch(opt);
         }
