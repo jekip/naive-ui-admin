@@ -6,7 +6,7 @@
     :collapsed="collapsed"
     :collapsed-width="64"
     :collapsed-icon-size="20"
-    :indent="28"
+    :indent="24"
     :expanded-keys="openKeys"
     v-model:value="selectedKeys"
     @update:value="clickMenuItem"
@@ -18,7 +18,7 @@
   import { defineComponent, reactive, computed, watch, toRefs, unref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
-  import { generatorMenu } from '@/utils/index';
+  import { generatorMenu } from '@/utils';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
 
   export default defineComponent({

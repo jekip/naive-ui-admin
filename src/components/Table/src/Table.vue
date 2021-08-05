@@ -73,7 +73,6 @@
 </template>
 
 <script lang="ts">
-  import { NDataTable } from 'naive-ui';
   import {
     ref,
     defineComponent,
@@ -129,7 +128,6 @@
       QuestionCircleOutlined,
     },
     props: {
-      ...NDataTable.props, // 这里继承原 UI 组件的 props
       ...basicProps,
     },
     emits: [

@@ -2382,10 +2382,10 @@ date-fns@^2.19.0:
   resolved "https://registry.nlark.com/date-fns/download/date-fns-2.22.1.tgz#1e5af959831ebb1d82992bf67b765052d8f0efc4"
   integrity sha1-Hlr5WYMeux2CmSv2e3ZQUtjw78Q=
 
-dayjs@^1.10.5:
-  version "1.10.5"
-  resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.10.5.tgz#5600df4548fc2453b3f163ebb2abbe965ccfb986"
-  integrity sha512-BUFis41ikLz+65iH6LHQCDm4YPMj5r1YFLdupPIyM4SGcXMmtiLQ7U37i+hGS8urIuqe7I/ou3IS1jVc4nbN4g==
+date-fns@^2.23.0:
+  version "2.23.0"
+  resolved "https://registry.nlark.com/date-fns/download/date-fns-2.23.0.tgz?cache=0&sync_timestamp=1627020299263&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdate-fns%2Fdownload%2Fdate-fns-2.23.0.tgz#4e886c941659af0cf7b30fafdd1eaa37e88788a9"
+  integrity sha1-TohslBZZrwz3sw+v3R6qN+iHiKk=
 
 debug@2.6.9:
   version "2.6.9"
@@ -4999,10 +4999,10 @@ mute-stream@0.0.7:
   resolved "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
 
-naive-ui@^2.15.11:
-  version "2.15.11"
-  resolved "https://registry.nlark.com/naive-ui/download/naive-ui-2.15.11.tgz#1a7fa5ca6d42ed2c4d50cde827b994f42edc5743"
-  integrity sha1-Gn+lym1C7SxNUM3oJ7mU9C7cV0M=
+naive-ui@^2.16.0:
+  version "2.16.0"
+  resolved "https://registry.nlark.com/naive-ui/download/naive-ui-2.16.0.tgz#42d8b6120ab061e46a316ac074c5b788139cd744"
+  integrity sha1-Qti2EgqwYeRqMWrAdMW3iBOc10Q=
   dependencies:
     "@css-render/plugin-bem" "^0.15.4"
     "@css-render/vue3-ssr" "^0.15.4"

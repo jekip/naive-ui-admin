@@ -52,7 +52,7 @@ export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
         return hasPermission(column.auth) && isIfShow(column);
       })
       .map((column) => {
-        const { edit, editRow } = column;
+        const { edit } = column;
         if (edit) {
           column.render = renderEditCell(column);
           if (edit) {
@@ -140,12 +140,12 @@ export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
   }
 
   //更新原始数据单个字段
-  function setCacheColumnsField(dataIndex: string | undefined, value: Partial<BasicColumn>) {
-    if (!dataIndex || !value) {
+  function setCacheColumnsField(key: string | undefined, value: Partial<BasicColumn>) {
+    if (!key || !value) {
       return;
     }
     cacheColumns.forEach((item) => {
-      if (item.key === dataIndex) {
+      if (item.key === key) {
         Object.assign(item, value);
         return;
       }

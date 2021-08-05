@@ -64,7 +64,7 @@
   import { PageHeader } from './components/Header';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
-  import { useLoadingBar } from "naive-ui";
+  import { useLoadingBar } from 'naive-ui';
 
   export default defineComponent({
     name: 'Layout',

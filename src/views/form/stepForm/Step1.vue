@@ -5,7 +5,7 @@
     :rules="rules"
     label-placement="left"
     ref="form1Ref"
-    style="max-width: 500px; margin: 40px auto 0"
+    style="max-width: 500px; margin: 40px auto 0 80px"
   >
     <n-form-item label="付款账户" path="myAccount">
       <n-select

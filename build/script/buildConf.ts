@@ -18,19 +18,19 @@ function createConfig(
   }: { configName: string; config: any; configFileName?: string } = { configName: '', config: {} }
 ) {
   try {
-    const windowConf = `window.${ configName }`;
+    const windowConf = `window.${configName}`;
     // Ensure that the variable will not be modified
-    const configStr = `${ windowConf }=${ JSON.stringify(config) };
-      Object.freeze(${ windowConf });
-      Object.defineProperty(window, "${ configName }", {
+    const configStr = `${windowConf}=${JSON.stringify(config)};
+      Object.freeze(${windowConf});
+      Object.defineProperty(window, "${configName}", {
         configurable: false,
         writable: false,
       });
     `.replace(/\s/g, '');
     fs.mkdirp(getRootPath(OUTPUT_DIR));
-    writeFileSync(getRootPath(`${ OUTPUT_DIR }/${ configFileName }`), configStr);
+    writeFileSync(getRootPath(`${OUTPUT_DIR}/${configFileName}`), configStr);
 
-    console.log(chalk.cyan(`✨ [${ pkg.name }]`) + ` - configuration file is build successfully:`);
+    console.log(chalk.cyan(`✨ [${pkg.name}]`) + ` - configuration file is build successfully:`);
     console.log(chalk.gray(OUTPUT_DIR + '/' + chalk.green(configFileName)) + '\n');
   } catch (error) {
     console.log(chalk.red('configuration file configuration file failed to package:\n' + error));

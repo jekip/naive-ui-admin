@@ -5,7 +5,7 @@ const tableList = (pageSize) => {
   const result: any[] = [];
   doCustomTimes(pageSize, () => {
     result.push({
-      id: '@integer(10,100)',
+      id: '@integer(10,999999)',
       beginTime: '@datetime',
       endTime: '@datetime',
       address: '@city()',

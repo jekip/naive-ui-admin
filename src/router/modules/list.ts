@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { TableOutlined } from '@vicons/antd';
-import { renderIcon } from '@/utils/index';
+import { renderIcon, renderNew } from '@/utils/index';
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -31,6 +31,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'basic-list',
         meta: {
           title: '基础列表',
+          extra: renderNew(),
         },
         component: () => import('@/views/list/basicList/index.vue'),
       },

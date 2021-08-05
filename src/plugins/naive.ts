@@ -63,6 +63,8 @@ import {
   NUpload,
   NTree,
   NSpin,
+  NTimePicker,
+  NBackTop,
 } from 'naive-ui';
 
 const naive = create({
@@ -129,6 +131,8 @@ const naive = create({
     NUpload,
     NTree,
     NSpin,
+    NTimePicker,
+    NBackTop,
   ],
 });
 

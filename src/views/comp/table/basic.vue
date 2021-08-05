@@ -38,7 +38,7 @@
         actionColumn: {
           width: 150,
           title: '操作',
-          dataIndex: 'action',
+          key: 'action',
           fixed: 'right',
           align: 'center',
           render(record) {

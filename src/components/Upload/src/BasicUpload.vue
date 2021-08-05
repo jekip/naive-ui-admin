@@ -70,7 +70,6 @@
 <script lang="ts">
   import { defineComponent, toRefs, reactive, computed } from 'vue';
   import { EyeOutlined, DeleteOutlined, PlusOutlined } from '@vicons/antd';
-  import { NUpload } from 'naive-ui';
   import { basicProps } from './props';
   import { useMessage, useDialog } from 'naive-ui';
   import { ResultEnum } from '@/enums/httpEnum';
@@ -85,7 +84,6 @@
 
     components: { EyeOutlined, DeleteOutlined, PlusOutlined },
     props: {
-      ...NUpload.props, // 这里继承原 UI 组件的 props
       ...basicProps,
     },
     emits: ['uploadChange', 'delete'],

@@ -64,12 +64,47 @@ const routes: Array<RouteRecordRaw> = [
         ],
       },
       {
+        path: 'form',
+        name: `${routeName}_form`,
+        redirect: '/comp/form/basic',
+        component: ParentLayout,
+        meta: {
+          title: '表单',
+        },
+        children: [
+          {
+            path: 'basic',
+            name: `${routeName}_form_basic`,
+            meta: {
+              title: '基础使用',
+            },
+            component: () => import('@/views/comp/form/basic.vue'),
+          },
+          {
+            path: 'useForm',
+            name: `useForm`,
+            meta: {
+              title: 'useForm',
+            },
+            component: () => import('@/views/comp/form/useForm.vue'),
+          },
+        ],
+      },
+      {
         path: 'upload',
         name: `${routeName}_upload`,
         meta: {
-          title: '上传',
+          title: '上传图片',
         },
         component: () => import('@/views/comp/upload/index.vue'),
+      },
+      {
+        path: 'modal',
+        name: `${routeName}_modal`,
+        meta: {
+          title: '弹窗扩展',
+        },
+        component: () => import('@/views/comp/modal/index.vue'),
       },
     ],
   },

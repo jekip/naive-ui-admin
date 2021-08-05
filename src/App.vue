@@ -24,6 +24,7 @@
   import { useLockscreenStore } from '@/store/modules/lockscreen';
   import { useRoute } from 'vue-router';
   import { useDesignSettingStore } from '@/store/modules/designSetting';
+  import { lighten } from '@/utils/index';
 
   export default defineComponent({
     name: 'App',
@@ -35,14 +36,20 @@
       const isLock = computed(() => useLockscreen.isLock);
       const lockTime = computed(() => useLockscreen.lockTime);
 
+      /**
+       * @type import('naive-ui').GlobalThemeOverrides
+       */
       const getThemeOverrides = computed(() => {
+        const appTheme = designStore.appTheme;
+        const lightenStr = lighten(designStore.appTheme, 6);
         return {
           common: {
-            primaryColor: designStore.appTheme,
-            primaryColorHover: '#57a3f3',
+            primaryColor: appTheme,
+            primaryColorHover: lightenStr,
+            primaryColorPressed: lightenStr,
           },
           LoadingBar: {
-            colorLoading: designStore.appTheme,
+            colorLoading: appTheme,
           },
         };
       });

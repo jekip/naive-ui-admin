@@ -81,12 +81,14 @@
 <script lang="ts">
   import { ref, defineComponent, reactive, unref, toRaw, computed, toRefs, watchEffect } from 'vue';
   import { useTableContext } from '../../hooks/useTableContext';
+  import { cloneDeep } from 'lodash-es';
   import {
     SettingOutlined,
     DragOutlined,
     VerticalRightOutlined,
     VerticalLeftOutlined,
   } from '@vicons/antd';
+  // @ts-ignore
   import Draggable from 'vuedraggable/src/vuedraggable';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 
@@ -107,7 +109,7 @@
     },
     setup() {
       const { getDarkTheme } = useDesignSetting();
-      const table = useTableContext();
+      const table: any = useTableContext();
       const columnsList = ref<Options[]>([]);
       const cacheColumnsList = ref<Options[]>([]);
 
@@ -135,8 +137,11 @@
         const checkList: any = columns.map((item) => item.key);
         state.checkList = checkList;
         state.defaultCheckList = checkList;
-        columnsList.value = columns;
-        cacheColumnsList.value = columns;
+        const newColumns = columns.filter((item) => item.key != 'action' && item.title != '操作');
+        if (!columnsList.value.length) {
+          columnsList.value = cloneDeep(newColumns);
+          cacheColumnsList.value = cloneDeep(newColumns);
+        }
       }
 
       //切换
@@ -154,11 +159,11 @@
 
       //获取
       function getColumns() {
-        let newRet = [];
+        let newRet: any[] = [];
         table.getColumns().forEach((item) => {
           newRet.push({ ...item });
         });
-        return newRet.filter((item) => item.key != 'action' && item.title != '操作');
+        return newRet;
       }
 
       //重置

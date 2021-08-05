@@ -1,5 +1,11 @@
 <template>
   <n-card :bordered="false" class="proCard">
+    <BasicForm @register="register" @submit="handleSubmit" @reset="handleReset">
+      <template #statusSlot="{ model, field }">
+        <n-input v-model:value="model[field]" />
+      </template>
+    </BasicForm>
+
     <BasicTable
       :columns="columns"
       :request="loadDataTable"
@@ -21,10 +27,6 @@
 
       <template #toolbar>
         <n-button type="primary" @click="reloadTable">刷新数据</n-button>
-      </template>
-
-      <template #action>
-        <TableAction />
       </template>
     </BasicTable>
 
@@ -59,9 +61,10 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive, toRefs, ref, h } from 'vue';
+  import { defineComponent, h, reactive, ref, toRefs } from 'vue';
   import { useMessage } from 'naive-ui';
   import { BasicTable, TableAction } from '@/components/Table';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
   import { getTableList } from '@/api/table/list';
   import { columns } from './columns';
   import { PlusOutlined } from '@vicons/antd';
@@ -86,8 +89,133 @@
     },
   };
 
+  const schemas: FormSchema[] = [
+    {
+      field: 'name',
+      labelMessage: '这是一个提示',
+      component: 'NInput',
+      label: '姓名',
+      componentProps: {
+        placeholder: '请输入姓名',
+        onInput: (e: any) => {
+          console.log(e);
+        },
+      },
+      rules: [{ required: true, message: '请输入姓名', trigger: ['blur'] }],
+    },
+    {
+      field: 'mobile',
+      component: 'NInputNumber',
+      label: '手机',
+      componentProps: {
+        placeholder: '请输入手机号码',
+        showButton: false,
+        onInput: (e: any) => {
+          console.log(e);
+        },
+      },
+    },
+    {
+      field: 'type',
+      component: 'NSelect',
+      label: '类型',
+      componentProps: {
+        placeholder: '请选择类型',
+        options: [
+          {
+            label: '舒适性',
+            value: 1,
+          },
+          {
+            label: '经济性',
+            value: 2,
+          },
+        ],
+        onUpdateValue: (e: any) => {
+          console.log(e);
+        },
+      },
+    },
+    {
+      field: 'makeDate',
+      component: 'NDatePicker',
+      label: '预约时间',
+      componentProps: {
+        type: 'date',
+        clearable: true,
+        defaultValue: 1183135260000,
+        onUpdateValue: (e: any) => {
+          console.log(e);
+        },
+      },
+    },
+    {
+      field: 'makeTime',
+      component: 'NTimePicker',
+      label: '停留时间',
+      componentProps: {
+        clearable: true,
+        onUpdateValue: (e: any) => {
+          console.log(e);
+        },
+      },
+    },
+    {
+      field: 'status',
+      label: '状态',
+      //插槽
+      slot: 'statusSlot',
+    },
+    {
+      field: 'makeProject',
+      component: 'NCheckbox',
+      label: '预约项目',
+      componentProps: {
+        placeholder: '请选择预约项目',
+        options: [
+          {
+            label: '种牙',
+            value: 1,
+          },
+          {
+            label: '补牙',
+            value: 2,
+          },
+          {
+            label: '根管',
+            value: 3,
+          },
+        ],
+        onUpdateChecked: (e: any) => {
+          console.log(e);
+        },
+      },
+    },
+    {
+      field: 'makeSource',
+      component: 'NRadioGroup',
+      label: '来源',
+      componentProps: {
+        options: [
+          {
+            label: '网上',
+            value: 1,
+          },
+          {
+            label: '门店',
+            value: 2,
+          },
+        ],
+        onUpdateChecked: (e: any) => {
+          console.log(e);
+        },
+      },
+    },
+  ];
+
   export default defineComponent({
-    components: { BasicTable, PlusOutlined, TableAction },
+    // eslint-disable-next-line vue/no-unused-components
+    components: { BasicTable, PlusOutlined, TableAction, BasicForm },
     setup() {
       const router = useRouter();
       const formRef: any = ref(null);
@@ -96,11 +224,7 @@
       const state = reactive({
         showModal: false,
         formBtnLoading: false,
-        formParams: {
-          name: '',
-          address: '',
-          date: [],
-        },
+        formParams: {},
         params: {
           pageSize: 5,
           name: 'xiaoMa',
@@ -108,10 +232,10 @@
         actionColumn: {
           width: 250,
           title: '操作',
-          dataIndex: 'action',
+          key: 'action',
           fixed: 'right',
           render(record) {
-            return h(TableAction, {
+            return h(TableAction as any, {
               style: 'button',
               actions: [
                 {
@@ -159,13 +283,22 @@
         },
       });
 
+      const [register, {}] = useForm({
+        gridProps: { cols: 5 },
+        labelWidth: 80,
+        schemas,
+      });
+
       function addTable() {
         state.showModal = true;
       }
 
-      const loadDataTable = async (params) => {
-        const data = await getTableList(params);
-        return data;
+      const loadDataTable = async (res) => {
+        let params = {
+          ...res,
+          ...state.formParams,
+        };
+        return await getTableList(params);
       };
 
       function onCheckedRow(rowKeys) {
@@ -208,12 +341,23 @@
         message.info('点击了删除');
       }
 
+      function handleSubmit(values: Recordable) {
+        console.log(values);
+        state.formParams = values;
+        reloadTable();
+      }
+
+      function handleReset(values: Recordable) {
+        console.log(values);
+      }
+
       return {
         ...toRefs(state),
         formRef,
         columns,
         rules,
         actionRef,
+        register,
         confirmForm,
         loadDataTable,
         onCheckedRow,
@@ -222,6 +366,8 @@
         handleEdit,
         handleDelete,
         handleOpen,
+        handleSubmit,
+        handleReset,
       };
     },
   });

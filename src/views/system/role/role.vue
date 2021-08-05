@@ -116,7 +116,7 @@
         actionColumn: {
           width: 250,
           title: '操作',
-          dataIndex: 'action',
+          key: 'action',
           fixed: 'right',
           render(record) {
             return h(TableAction, {

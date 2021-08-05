@@ -11,7 +11,7 @@ export interface BasicColumn extends TableBaseColumn {
   editValueMap?: (value: any) => string;
   onEditRow?: () => void;
   // 权限编码控制是否显示
-  auth?: RoleEnum | RoleEnum[] | string | string[];
+  auth?: string[];
   // 业务控制是否显示
   ifShow?: boolean | ((column: BasicColumn) => boolean);
 }

@@ -38,7 +38,7 @@
         actionColumn: {
           width: 150,
           title: '操作',
-          dataIndex: 'action',
+          key: 'action',
           fixed: 'right',
           align: 'center',
           render(record) {
@@ -61,7 +61,7 @@
       }
 
       function onEditChange({ column, value, record }) {
-        if (column.dataIndex === 'id') {
+        if (column.key === 'id') {
           record.editValueRefs.name4.value = `${value}`;
         }
         console.log(column, value, record);

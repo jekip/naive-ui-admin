@@ -49,7 +49,7 @@
   import { set, omit } from 'lodash-es';
   import { EventEnum } from '@/components/Table/src/componentMap';
 
-  import dayjs from 'dayjs';
+  import { milliseconds } from 'date-fns';
 
   export default defineComponent({
     name: 'EditableCell',
@@ -108,10 +108,11 @@
 
         let value = isCheckValue ? (isNumber(val) && isBoolean(val) ? val : !!val) : val;
 
-        if (component === 'NDatePicker') {
-          value = dayjs(value).valueOf();
+        if (isString(value) && component === 'NDatePicker') {
+          value = milliseconds(value as Duration);
+        } else if (isArray(value) && component === 'NDatePicker') {
+          value = value.map((item) => milliseconds(item));
         }
-
         const onEvent: any = editComponent ? EventEnum[editComponent] : undefined;
 
         return {
@@ -196,12 +197,12 @@
         }
 
         //TODO 这里组件参数格式，和dayjs格式不一致
-        if (component === 'NDatePicker') {
-          let format = (props.column.editComponentProps?.format)
-            .replace(/yyyy/g, 'YYYY')
-            .replace(/dd/g, 'DD');
-          currentValueRef.value = dayjs(currentValueRef.value).format(format);
-        }
+        // if (component === 'NDatePicker') {
+        //   let format = (props.column.editComponentProps?.format)
+        //     .replace(/yyyy/g, 'YYYY')
+        //     .replace(/dd/g, 'DD');
+        //   currentValueRef.value = dayjs(currentValueRef.value).format(format);
+        // }
 
         const onChange = props.column?.editComponentProps?.onChange;
         if (onChange && isFunction(onChange)) onChange(...arguments);
