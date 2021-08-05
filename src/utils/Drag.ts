@@ -1,5 +1,6 @@
 //获取相关CSS属性
 const getCss = function (o, key) {
+  // @ts-ignore
   return o.currentStyle
     ? o.currentStyle[key]
     : document.defaultView.getComputedStyle(o, false)[key];
@@ -57,7 +58,7 @@ const startDrag = function (bar, target, callback) {
     }
   };
   document.onmousemove = function (event) {
-    const e = event ? event : window.event;
+    const e: any = event ? event : window.event;
     if (params.flag) {
       const nowX = e.clientX,
         nowY = e.clientY;
