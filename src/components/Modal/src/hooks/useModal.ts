@@ -1,12 +1,12 @@
 import { ref, onUnmounted, unref, getCurrentInstance, watch } from 'vue';
 import { isProdMode } from '@/utils/env';
-import { UseModalReturnType, ModalMethods } from './type';
+import { ReturnMethods } from '../type';
 import { getDynamicProps } from '@/utils';
-export function useModal(props?: Props): UseModalReturnType {
-  const modal = ref<Nullable<ModalMethods>>(null);
+export function useModal(props): (((modalMethod: ReturnMethods) => any) | ReturnMethods)[] {
+  const modal = ref<Nullable<ReturnMethods>>(null);
   const loaded = ref<Nullable<boolean>>(false);
 
-  function register(modalMethod: ModalMethods) {
+  function register(modalMethod: ReturnMethods) {
     if (!getCurrentInstance()) {
       throw new Error('useModal() can only be used inside setup() or functional components!');
     }
@@ -21,6 +21,7 @@ export function useModal(props?: Props): UseModalReturnType {
     watch(
       () => props,
       () => {
+        // @ts-ignore
         const { setProps } = modal.value;
         props && setProps(getDynamicProps(props));
       },
@@ -34,13 +35,13 @@ export function useModal(props?: Props): UseModalReturnType {
   const getInstance = () => {
     const instance = unref(modal);
     if (!instance) {
-      error('useModal instance is undefined!');
+      console.error('useModal instance is undefined!');
     }
     return instance;
   };
 
   const methods: ReturnMethods = {
-    setProps: (props: Partial<ModalProps>): void => {
+    setProps: (props): void => {
       getInstance()?.setProps(props);
     },
     openModal: () => {
@@ -49,8 +50,8 @@ export function useModal(props?: Props): UseModalReturnType {
     closeModal: () => {
       getInstance()?.closeModal();
     },
-    setSubLoading: () => {
-      getInstance()?.setSubLoading();
+    setSubLoading: (status) => {
+      getInstance()?.setSubLoading(status);
     },
   };
   return [register, methods];

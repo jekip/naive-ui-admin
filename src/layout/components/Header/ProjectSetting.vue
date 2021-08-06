@@ -46,7 +46,11 @@
           <div class="drawer-setting-item-style align-items-top">
             <n-tooltip placement="top">
               <template #trigger>
-                <img src="~@/assets/images/nav-theme-dark.svg" @click="togNavMode('vertical')" />
+                <img
+                  src="~@/assets/images/nav-theme-dark.svg"
+                  @click="togNavMode('vertical')"
+                  alt="左侧菜单模式"
+                />
               </template>
               <span>左侧菜单模式</span>
             </n-tooltip>
@@ -56,11 +60,29 @@
           <div class="drawer-setting-item-style">
             <n-tooltip placement="top">
               <template #trigger>
-                <img src="~@/assets/images/nav-horizontal.svg" @click="togNavMode('horizontal')" />
+                <img
+                  src="~@/assets/images/nav-horizontal.svg"
+                  alt="顶部菜单模式"
+                  @click="togNavMode('horizontal')"
+                />
               </template>
               <span>顶部菜单模式</span>
             </n-tooltip>
             <n-badge dot color="#19be6b" v-show="settingStore.navMode === 'horizontal'" />
+          </div>
+
+          <div class="drawer-setting-item-style">
+            <n-tooltip placement="top">
+              <template #trigger>
+                <img
+                  src="~@/assets/images/nav-horizontal-mix.svg"
+                  @click="togNavMode('horizontal-mix')"
+                  alt="顶部菜单混合模式"
+                />
+              </template>
+              <span>顶部菜单混合模式</span>
+            </n-tooltip>
+            <n-badge dot color="#19be6b" v-show="settingStore.navMode === 'horizontal-mix'" />
           </div>
         </div>
 
@@ -70,7 +92,11 @@
           <div class="drawer-setting-item-style align-items-top">
             <n-tooltip placement="top">
               <template #trigger>
-                <img src="~@/assets/images/nav-theme-dark.svg" @click="togNavTheme('dark')" />
+                <img
+                  src="~@/assets/images/nav-theme-dark.svg"
+                  alt="暗色侧边栏"
+                  @click="togNavTheme('dark')"
+                />
               </template>
               <span>暗色侧边栏</span>
             </n-tooltip>
@@ -80,7 +106,11 @@
           <div class="drawer-setting-item-style">
             <n-tooltip placement="top">
               <template #trigger>
-                <img src="~@/assets/images/nav-theme-light.svg" @click="togNavTheme('light')" />
+                <img
+                  src="~@/assets/images/nav-theme-light.svg"
+                  alt="白色侧边栏"
+                  @click="togNavTheme('light')"
+                />
               </template>
               <span>白色侧边栏</span>
             </n-tooltip>
@@ -95,6 +125,7 @@
                 <img
                   src="~@/assets/images/header-theme-dark.svg"
                   @click="togNavTheme('header-dark')"
+                  alt="暗色顶栏"
                 />
               </template>
               <span>暗色顶栏</span>
@@ -104,6 +135,16 @@
         </div>
 
         <n-divider title-placement="center">界面功能</n-divider>
+
+        <div class="drawer-setting-item">
+          <div class="drawer-setting-item-title"> 分割菜单 </div>
+          <div class="drawer-setting-item-action">
+            <n-switch
+              :disabled="settingStore.navMode === 'horizontal-mix' ? false : true"
+              v-model:value="settingStore.menuSetting.mixMenu"
+            />
+          </div>
+        </div>
 
         <div class="drawer-setting-item">
           <div class="drawer-setting-item-title"> 固定顶栏 </div>
@@ -312,6 +353,7 @@
     .justify-center {
       justify-content: center;
     }
+
     .dark-switch .n-switch {
       ::v-deep(.n-switch__rail) {
         background-color: #000e1c;

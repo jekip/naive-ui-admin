@@ -3,7 +3,7 @@ const getCss = function (o, key) {
   // @ts-ignore
   return o.currentStyle
     ? o.currentStyle[key]
-    : document.defaultView.getComputedStyle(o, false)[key];
+    : document.defaultView?.getComputedStyle(o, null)[key];
 };
 
 const params = {

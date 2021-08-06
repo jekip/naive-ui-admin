@@ -284,7 +284,7 @@
       });
 
       const [register, {}] = useForm({
-        gridProps: { cols: 5 },
+        gridProps: { cols: '4' },
         labelWidth: 80,
         schemas,
       });

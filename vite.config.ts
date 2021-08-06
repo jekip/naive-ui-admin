@@ -5,6 +5,14 @@ import { wrapperEnv } from './build/utils';
 import { createVitePlugins } from './build/vite/plugin';
 import { OUTPUT_DIR } from './build/constant';
 import { createProxy } from './build/vite/proxy';
+import pkg from './package.json';
+import { format } from 'date-fns';
+const { dependencies, devDependencies, name, version } = pkg;
+
+const __APP_INFO__ = {
+  pkg: { dependencies, devDependencies, name, version },
+  lastBuildTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+};
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
@@ -35,6 +43,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       dedupe: ['vue'],
     },
     plugins: createVitePlugins(viteEnv, isBuild, prodMock),
+    define: {
+      __APP_INFO__: JSON.stringify(__APP_INFO__),
+    },
     css: {
       preprocessorOptions: {
         less: {

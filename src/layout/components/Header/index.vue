@@ -1,8 +1,16 @@
 <template>
   <div class="layout-header">
     <!--顶部菜单-->
-    <div class="layout-header-left" v-if="navMode === 'horizontal'">
-      <AsideMenu v-model:collapsed="collapsed" :inverted="getInverted" mode="horizontal" />
+    <div
+      class="layout-header-left"
+      v-if="navMode === 'horizontal' || (navMode === 'horizontal-mix' && mixMenu)"
+    >
+      <AsideMenu
+        v-model:collapsed="collapsed"
+        v-model:location="getMenuLocation"
+        :inverted="getInverted"
+        mode="horizontal"
+      />
     </div>
     <!--左侧菜单-->
     <div class="layout-header-left" v-else>
@@ -161,6 +169,10 @@
         return ['light', 'header-dark'].includes(navTheme) ? props.inverted : !props.inverted;
       });
 
+      const mixMenu = computed(() => {
+        return unref(getMenuSetting).mixMenu;
+      });
+
       const getChangeStyle = computed(() => {
         const { collapsed } = props;
         const { minMenuWidth, menuWidth }: any = unref(getMenuSetting);
@@ -168,6 +180,10 @@
           left: collapsed ? `${minMenuWidth}px` : `${menuWidth}px`,
           width: `calc(100% - ${collapsed ? `${minMenuWidth}px` : `${menuWidth}px`})`,
         };
+      });
+
+      const getMenuLocation = computed(() => {
+        return 'header';
       });
 
       const router = useRouter();
@@ -314,6 +330,8 @@
         drawerSetting,
         openSetting,
         getInverted,
+        getMenuLocation,
+        mixMenu,
       };
     },
   });
@@ -330,11 +348,6 @@
     transition: all 0.2s ease-in-out;
     width: 100%;
     z-index: 11;
-    //color: #fff;
-
-    //.n-icon {
-    //  color: #fff
-    //}
 
     &-left {
       display: flex;
@@ -342,10 +355,6 @@
 
       ::v-deep(.ant-breadcrumb span:last-child .link-text) {
         color: #515a6e;
-      }
-
-      ::v-deep(.n-breadcrumb .n-breadcrumb-item:last-child .n-breadcrumb-item__link) {
-        color: #fff;
       }
 
       .n-breadcrumb {

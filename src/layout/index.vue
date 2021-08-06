@@ -1,7 +1,7 @@
 <template>
   <NLayout class="layout" :position="fixedMenu" has-sider>
     <NLayoutSider
-      v-if="navMode === 'vertical'"
+      v-if="isMixMenuNoneSub && (navMode === 'vertical' || navMode === 'horizontal-mix')"
       show-trigger
       @collapse="collapsed = true"
       :position="fixedMenu"
@@ -15,7 +15,7 @@
       class="layout-sider"
     >
       <Logo :collapsed="collapsed" />
-      <AsideMenu v-model:collapsed="collapsed" />
+      <AsideMenu v-model:collapsed="collapsed" v-model:location="getMenuLocation" />
     </NLayoutSider>
 
     <NLayout :inverted="inverted">
@@ -65,6 +65,8 @@
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
   import { useLoadingBar } from 'naive-ui';
+  import { useRoute } from 'vue-router';
+  import { useProjectSettingStore } from '@/store/modules/projectSetting';
 
   export default defineComponent({
     name: 'Layout',
@@ -77,7 +79,6 @@
     },
     setup() {
       const { getDarkTheme } = useDesignSetting();
-
       const {
         getShowFooter,
         getNavMode,
@@ -87,6 +88,8 @@
         getMultiTabsSetting,
       } = useProjectSetting();
 
+      const settingStore = useProjectSettingStore();
+
       const navMode = getNavMode;
 
       const collapsed = ref<boolean>(false);
@@ -94,6 +97,16 @@
       const fixedHeader = computed(() => {
         const { fixed } = unref(getHeaderSetting);
         return fixed ? 'absolute' : 'static';
+      });
+
+      const isMixMenuNoneSub = computed(() => {
+        const mixMenu = settingStore.menuSetting.mixMenu;
+        const currentRoute = useRoute();
+        if (unref(navMode) != 'horizontal-mix') return true;
+        if (unref(navMode) === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot) {
+          return false;
+        }
+        return true;
       });
 
       const fixedMenu = computed(() => {
@@ -130,6 +143,10 @@
         };
       });
 
+      const getMenuLocation = computed(() => {
+        return 'left';
+      });
+
       function watchWidth() {
         const Width = document.body.clientWidth;
         if (Width <= 950) {
@@ -157,6 +174,8 @@
         getShowFooter,
         getDarkTheme,
         getHeaderInverted,
+        getMenuLocation,
+        isMixMenuNoneSub,
       };
     },
   });

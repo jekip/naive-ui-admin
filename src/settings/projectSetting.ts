@@ -31,6 +31,8 @@ const setting = {
     menuWidth: 200,
     //固定菜单
     fixed: true,
+    //分割菜单
+    mixMenu: false,
   },
   //面包屑
   crumbsSetting: {

@@ -27,6 +27,7 @@ export interface ImenuSetting {
   minMenuWidth: number;
   menuWidth: number;
   fixed: boolean;
+  mixMenu: boolean;
 }
 
 export interface IcrumbsSetting {

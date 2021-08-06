@@ -41,6 +41,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: '基础详情',
           hidden: true,
+          activeMenu: 'basic-list',
         },
         component: () => import('@/views/list/basicList/info.vue'),
       },

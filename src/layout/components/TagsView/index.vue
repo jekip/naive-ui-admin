@@ -116,6 +116,7 @@
   import { renderIcon } from '@/utils/index';
   import elementResizeDetectorMaker from 'element-resize-detector';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
+  import { useProjectSettingStore } from '@/store/modules/projectSetting';
 
   export default defineComponent({
     name: 'TabsView',
@@ -135,6 +136,7 @@
       const { getDarkTheme } = useDesignSetting();
       const { getNavMode, getHeaderSetting, getMenuSetting, getMultiTabsSetting } =
         useProjectSetting();
+      const settingStore = useProjectSettingStore();
 
       const message = useMessage();
       const route = useRoute();
@@ -165,6 +167,17 @@
         return { fullPath, hash, meta, name, params, path, query };
       };
 
+      const isMixMenuNoneSub = computed(() => {
+        const mixMenu = settingStore.menuSetting.mixMenu;
+        const currentRoute = useRoute();
+        const navMode = unref(getNavMode);
+        if (unref(navMode) != 'horizontal-mix') return true;
+        if (unref(navMode) === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot) {
+          return false;
+        }
+        return true;
+      });
+
       //动态组装样式 菜单缩进
       const getChangeStyle = computed(() => {
         const { collapsed } = props;
@@ -172,7 +185,11 @@
         const { minMenuWidth, menuWidth }: any = unref(getMenuSetting);
         const { fixed }: any = unref(getMultiTabsSetting);
         let lenNum =
-          navMode === 'horizontal' ? '0px' : collapsed ? `${minMenuWidth}px` : `${menuWidth}px`;
+          navMode === 'horizontal' || !isMixMenuNoneSub.value
+            ? '0px'
+            : collapsed
+            ? `${minMenuWidth}px`
+            : `${menuWidth}px`;
         return {
           left: lenNum,
           width: `calc(100% - ${!fixed ? '0px' : lenNum})`,
