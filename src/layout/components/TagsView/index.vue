@@ -59,7 +59,7 @@
           placement="bottom-end"
           :options="TabsMenuOptions"
         >
-          <div class="tabs-close-btn" @click.prevent>
+          <div class="tabs-close-btn">
             <n-icon size="16" color="#515a6e">
               <DownOutlined />
             </n-icon>
@@ -371,6 +371,7 @@
             break;
         }
         updateNavScroll();
+        state.showDropdown = false;
       };
 
       function getCurrentScrollOffset() {
