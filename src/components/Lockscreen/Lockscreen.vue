@@ -49,6 +49,7 @@
           type="password"
           autofocus
           v-model:value="loginParams.password"
+          @keyup.enter="onLogin"
           placeholder="请输入登录密码"
         >
           <template #suffix>
