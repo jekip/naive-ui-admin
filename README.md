@@ -12,13 +12,13 @@
 
 
 ## 在线预览
-- [naive-ui-admin](https://jekip.github.io)
+- [naive-ui-admin](https://naive-ui-admin.vercel.app)
 
 账号：admin，密码：123456（随意）
 
 ## 文档
 
-[文档地址](https://jekip.github.io/docs/) 
+[文档地址](https://naive-ui-admin-docs.vercel.app) 
 
 ## 准备
 
