@@ -8,6 +8,7 @@
       :row-key="(row) => row.id"
       ref="actionRef"
       :actionColumn="actionColumn"
+      :scroll-x="1360"
       @update:checked-row-keys="onCheckedRow"
     >
       <template #toolbar>

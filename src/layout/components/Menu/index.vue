@@ -40,7 +40,8 @@
         default: 'left',
       },
     },
-    setup(props) {
+    emits: ['update:collapsed'],
+    setup(props, { emit }) {
       // 当前路由
       const currentRoute = useRoute();
       const router = useRouter();
@@ -72,6 +73,9 @@
         () => settingStore.menuSetting.mixMenu,
         () => {
           updateMenu();
+          if (props.collapsed) {
+            emit('update:collapsed', !props.collapsed);
+          }
         }
       );
 

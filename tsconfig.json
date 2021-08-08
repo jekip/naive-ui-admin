@@ -16,18 +16,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,
-    "lib": [
-      "dom",
-      "esnext"
-    ],
-    "types": [
-      "vite/client",
-      "jest"
-    ],
-    "typeRoots": [
-      "./node_modules/@types/",
-      "./types"
-    ],
+    "lib": ["dom", "esnext"],
+    "types": ["vite/client", "jest"],
+    "typeRoots": ["./node_modules/@types/", "./types"],
     "noImplicitAny": false,
     "skipLibCheck": true,
     "paths": {
@@ -40,7 +31,6 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "types/*.ts",
     "types/**/*.d.ts",
     "types/**/*.ts",
     "build/**/*.ts",
@@ -48,9 +38,5 @@
     "mock/**/*.ts",
     "vite.config.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.js"
-  ]
+  "exclude": ["node_modules", "dist", "**/*.js"]
 }
