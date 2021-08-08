@@ -233,9 +233,6 @@
         getCacheColumns,
         setCacheColumnsField,
         emit,
-        getSize: () => {
-          return unref(getBindValues).size;
-        },
       };
 
       const getCanResize = computed(() => {
@@ -288,7 +285,6 @@
         densitySelect,
         updatePage,
         updatePageSize,
-        updateCheckedRowKeys,
         pagination,
         tableAction,
       };

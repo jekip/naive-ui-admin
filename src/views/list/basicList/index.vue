@@ -13,6 +13,7 @@
       ref="actionRef"
       :actionColumn="actionColumn"
       @update:checked-row-keys="onCheckedRow"
+      :scroll-x="1090"
     >
       <template #tableTitle>
         <n-button type="primary" @click="addTable">
@@ -230,7 +231,7 @@
           name: 'xiaoMa',
         },
         actionColumn: {
-          width: 250,
+          width: 220,
           title: '操作',
           key: 'action',
           fixed: 'right',

@@ -38,7 +38,7 @@
     "makeit-captcha": "^1.2.5",
     "mitt": "^2.1.0",
     "mockjs": "^1.1.0",
-    "naive-ui": "^2.16.0",
+    "naive-ui": "^2.16.1",
     "pinia": "^2.0.0-beta.3",
     "qs": "^6.10.1",
     "vfonts": "^0.1.0",
