@@ -278,11 +278,7 @@
 
       function togNavMode(mode) {
         settingStore.navMode = mode;
-        // if (mode === 'header-dark') {
-        //   settingStore.setNavTheme('dark');
-        // } else {
-        //   settingStore.setNavTheme('light');
-        // }
+        settingStore.menuSetting.mixMenu = false;
       }
 
       return {

@@ -33,14 +33,7 @@
         </n-grid>
       </n-card>
     </div>
-    <n-grid
-      class="mt-4"
-      cols="2 s:1 m:1 l:2 xl:2 2xl:2"
-      responsive="screen"
-      :x-gap="12"
-      :y-gap="9"
-      :cols="2"
-    >
+    <n-grid class="mt-4" cols="2 s:1 m:1 l:2 xl:2 2xl:2" responsive="screen" :x-gap="12" :y-gap="9">
       <n-gi>
         <n-card
           :segmented="{ content: 'hard' }"
@@ -75,7 +68,7 @@
             >
               <div class="flex">
                 <span>
-                  <n-icon size="30" style="color: #42b983">
+                  <n-icon size="30" color="#42b983">
                     <LogoVue />
                   </n-icon>
                 </span>
@@ -91,7 +84,7 @@
             >
               <div class="flex">
                 <span>
-                  <n-icon size="30" style="color: #e44c27">
+                  <n-icon size="30" color="#e44c27">
                     <Html5Outlined />
                   </n-icon>
                 </span>
@@ -107,7 +100,7 @@
             >
               <div class="flex">
                 <span>
-                  <n-icon size="30" style="color: #dd0031">
+                  <n-icon size="30" color="#dd0031">
                     <LogoAngular />
                   </n-icon>
                 </span>
@@ -123,7 +116,7 @@
             >
               <div class="flex">
                 <span>
-                  <n-icon size="30" style="color: #61dafb">
+                  <n-icon size="30" color="#61dafb">
                     <LogoReact />
                   </n-icon>
                 </span>
@@ -238,7 +231,7 @@
             <n-card size="small" class="cursor-pointer project-card-item" hoverable>
               <div class="flex flex-col justify-center text-gray-500">
                 <span class="text-center">
-                  <n-icon size="30" style="color: #68c755">
+                  <n-icon size="30" color="#68c755">
                     <DashboardOutlined />
                   </n-icon>
                 </span>
@@ -248,7 +241,7 @@
             <n-card size="small" class="cursor-pointer project-card-item" hoverable>
               <div class="flex flex-col justify-center text-gray-500">
                 <span class="text-center">
-                  <n-icon size="30" style="color: #fab251">
+                  <n-icon size="30" color="#fab251">
                     <ProfileOutlined />
                   </n-icon>
                 </span>
@@ -258,7 +251,7 @@
             <n-card size="small" class="cursor-pointer project-card-item" hoverable>
               <div class="flex flex-col justify-center text-gray-500">
                 <span class="text-center">
-                  <n-icon size="30" style="color: #1890ff">
+                  <n-icon size="30" color="#1890ff">
                     <FileProtectOutlined />
                   </n-icon>
                 </span>
@@ -268,7 +261,7 @@
             <n-card size="small" class="cursor-pointer project-card-item" hoverable>
               <div class="flex flex-col justify-center text-gray-500">
                 <span class="text-center">
-                  <n-icon size="30" style="color: #f06b96">
+                  <n-icon size="30" color="#f06b96">
                     <ApartmentOutlined />
                   </n-icon>
                 </span>
@@ -278,7 +271,7 @@
             <n-card size="small" class="cursor-pointer project-card-item" hoverable>
               <div class="flex flex-col justify-center text-gray-500">
                 <span class="text-center">
-                  <n-icon size="30" style="color: #7238d1">
+                  <n-icon size="30" color="#7238d1">
                     <SettingOutlined />
                   </n-icon>
                 </span>

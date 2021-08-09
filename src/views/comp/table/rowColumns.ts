@@ -91,6 +91,6 @@ export const columns = [
   {
     title: '停留时间',
     key: 'time',
-    width: 160,
+    width: 80,
   },
 ];

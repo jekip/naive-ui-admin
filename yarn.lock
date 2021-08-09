@@ -4999,10 +4999,10 @@ mute-stream@0.0.7:
   resolved "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
 
-naive-ui@^2.16.1:
-  version "2.16.1"
-  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.16.1.tgz#0599e6748f498ad8f4f2f4c6c0637c1f1d860827"
-  integrity sha512-ku7ZxxBMp2fHD2eKV1gUDO6LmvMPUKYx0JzgtiCHRC8B88t4Ch5Momf+CfuYIM5NeVexzcmlahadslB74Bgbfw==
+naive-ui@^2.16.2:
+  version "2.16.2"
+  resolved "https://registry.nlark.com/naive-ui/download/naive-ui-2.16.2.tgz#f7d4b84f15529bc8f367644edcdb2c14c7912372"
+  integrity sha1-99S4TxVSm8jzZ2RO3NssFMeRI3I=
   dependencies:
     "@css-render/plugin-bem" "^0.15.4"
     "@css-render/vue3-ssr" "^0.15.4"

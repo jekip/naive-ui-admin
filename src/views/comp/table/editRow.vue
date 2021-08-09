@@ -11,7 +11,7 @@
       @edit-end="editEnd"
       @edit-change="onEditChange"
       @update:checked-row-keys="onCheckedRow"
-      :scroll-x="1530"
+      :scroll-x="1510"
     >
       <template #toolbar>
         <n-button type="primary" @click="reloadTable">刷新数据</n-button>

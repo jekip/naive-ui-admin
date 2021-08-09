@@ -81,7 +81,7 @@ export function generatorMenuMix(routerMap: Array<any>, routerName: string, loca
  * 递归组装子菜单
  * */
 export function getChildrenRouter(routerMap: Array<any>) {
-  return routerMap.map((item) => {
+  return filterRouter(routerMap).map((item) => {
     const isRoot = isRootRouter(item);
     const info = isRoot ? item.children[0] : item;
     const currentMenu = {

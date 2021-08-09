@@ -20,6 +20,7 @@
   import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
   import { generatorMenu, generatorMenuMix } from '@/utils';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
+  import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 
   export default defineComponent({
     name: 'Menu',
@@ -51,6 +52,10 @@
       const selectedKeys = ref<string>(currentRoute.name as string);
       const headerMenuSelectKey = ref<string>('');
 
+      const { getNavMode } = useProjectSetting();
+
+      const navMode = getNavMode;
+
       // 获取当前打开的子菜单
       const matched = currentRoute.matched;
 
@@ -65,7 +70,10 @@
       });
 
       const getSelectedKeys = computed(() => {
-        return props.location === 'left' ? unref(selectedKeys) : unref(headerMenuSelectKey);
+        let location = props.location;
+        return location === 'left' || (location === 'header' && unref(navMode) === 'horizontal')
+          ? unref(selectedKeys)
+          : unref(headerMenuSelectKey);
       });
 
       // 监听分割菜单
@@ -96,6 +104,7 @@
           const matched = currentRoute.matched;
           state.openKeys = matched.map((item) => item.name);
           const activeMenu: string = (currentRoute.meta?.activeMenu as string) || '';
+          console.log(currentRoute);
           selectedKeys.value = activeMenu ? (activeMenu as string) : (currentRoute.name as string);
         }
       );
