@@ -102,11 +102,7 @@
             type="primary"
             text
             icon-placement="right"
-            v-if="
-              isInline &&
-              getSchema.length > (getProps.gridProps?.cols || 0) &&
-              getProps.showAdvancedButton
-            "
+            v-if="overflow && isInline && getProps.showAdvancedButton"
             @click="unfoldToggle"
           >
             <template #icon>
@@ -212,6 +208,7 @@
         return {
           ...gridProps,
           collapsed: isInline.value ? gridCollapsed.value : false,
+          responsive: 'screen',
         };
       });
 

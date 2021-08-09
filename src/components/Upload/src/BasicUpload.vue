@@ -101,8 +101,8 @@
       const state = reactive({
         showModal: false,
         previewUrl: '',
-        originalImgList: [],
-        imgList: [],
+        originalImgList: [] as string[],
+        imgList: [] as string[],
       });
 
       //赋值默认图片显示
@@ -176,7 +176,7 @@
         const result = res[infoField];
         //成功
         if (code === ResultEnum.SUCCESS) {
-          let imgUrl = getImgUrl(result.photo);
+          let imgUrl: string = getImgUrl(result.photo);
           state.imgList.push(imgUrl);
           state.originalImgList.push(result.photo);
           emit('uploadChange', state.originalImgList);
@@ -220,6 +220,7 @@
 
         &:hover {
           background: 0 0;
+
           .upload-card-item-info::before {
             opacity: 1;
           }

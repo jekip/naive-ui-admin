@@ -104,7 +104,6 @@
           const matched = currentRoute.matched;
           state.openKeys = matched.map((item) => item.name);
           const activeMenu: string = (currentRoute.meta?.activeMenu as string) || '';
-          console.log(currentRoute);
           selectedKeys.value = activeMenu ? (activeMenu as string) : (currentRoute.name as string);
         }
       );
