@@ -5,6 +5,10 @@
       class="layout-header-left"
       v-if="navMode === 'horizontal' || (navMode === 'horizontal-mix' && mixMenu)"
     >
+      <div class="logo">
+        <img src="~@/assets/images/logo.png" alt="" />
+        <h2 v-show="!collapsed" class="title">NaiveUiAdmin</h2>
+      </div>
       <AsideMenu
         v-model:collapsed="collapsed"
         v-model:location="getMenuLocation"
@@ -352,6 +356,27 @@
     &-left {
       display: flex;
       align-items: center;
+
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 64px;
+        line-height: 64px;
+        overflow: hidden;
+        white-space: nowrap;
+        padding-left: 10px;
+
+        img {
+          width: auto;
+          height: 32px;
+          margin-right: 10px;
+        }
+
+        .title {
+          margin-bottom: 0;
+        }
+      }
 
       ::v-deep(.ant-breadcrumb span:last-child .link-text) {
         color: #515a6e;

@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
     <img src="~@/assets/images/logo.png" alt="" />
-    <h2 v-show="!collapsed" class="title">&nbsp;NaiveUiAdmin</h2>
+    <h2 v-show="!collapsed" class="title">NaiveUiAdmin</h2>
   </div>
 </template>
 
@@ -29,10 +29,10 @@
     img {
       width: auto;
       height: 32px;
+      margin-right: 10px;
     }
 
     .title {
-      color: white;
       margin-bottom: 0;
     }
   }
