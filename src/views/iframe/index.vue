@@ -1,7 +1,7 @@
 <template>
   <n-spin :show="loading">
     <div class="frame">
-      <iframe :src="frameSrc" class="frame-iframe" scrolling="no" ref="frameRef"></iframe>
+      <iframe :src="frameSrc" class="frame-iframe" ref="frameRef"></iframe>
     </div>
   </n-spin>
 </template>
