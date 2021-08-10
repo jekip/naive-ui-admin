@@ -5,6 +5,7 @@
       'tabs-view-fix': multiTabsSetting.fixed,
       'tabs-view-fixed-header': isMultiHeaderFixed,
       'tabs-view-default-background': getDarkTheme === false,
+      'tabs-view-dark-background': getDarkTheme === true,
     }"
     :style="getChangeStyle"
   >
@@ -642,7 +643,11 @@
   .tabs-view-default-background {
     background: #f5f7f9;
   }
-
+  
+  .tabs-view-dark-background {
+    background: #101014;
+  }
+  
   .tabs-view-fix {
     position: fixed;
     z-index: 5;
