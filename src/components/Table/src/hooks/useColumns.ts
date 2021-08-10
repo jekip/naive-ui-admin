@@ -94,7 +94,7 @@ export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
     const { actionColumn } = unref(propsRef);
     if (!actionColumn) return;
     // @ts-ignore
-    columns.push({
+    !columns.find((col) => col.key === 'action') && columns.push({
       ...actionColumn,
     });
   }
@@ -129,7 +129,7 @@ export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
   }
 
   //获取
-  function getColumns() {
+  function getColumns(): BasicColumn[] {
     const columns = toRaw(unref(getColumnsRef));
     return columns.map((item) => {
       return { ...item, title: item.title, key: item.key, fixed: item.fixed || undefined };

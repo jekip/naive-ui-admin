@@ -231,7 +231,7 @@
           name: 'xiaoMa',
         },
         actionColumn: {
-          width: 140,
+          width: 220,
           title: '操作',
           key: 'action',
           fixed: 'right',
