@@ -8,10 +8,12 @@
 - `表格设置列，重复添加action列样式错乱问题` 合并 [#24](https://github.com/jekip/naive-ui-admin/pull/24) 感谢 [@CasbaL](https://github.com/CasbaL)
 
 - ### ✨ Features
+- 新增 `路由支持（内联外部地址）`配置
+- 新增 `顶部菜单` logo展示
 -（破坏性更新）
 - 优化 `动态路由配置` 取消`constantRouterComponents.ts`，中组件映射配置，更名为 `router-icons.ts`
 - 优化 `admin_info接口结构`，roles 更名为：permissions，roles.roleName，更名为：label
-- 优化 多级路由，当没有配置时，`redirect` ，`redirect` 默认为第一个子路由，配置则优先按配置
+- 优化 多级路由，当没有配置`redirect`时，默认为第一个子路由，配置则优先按配置
 - 依赖升级
 
 # 1.5.3 (2021-08-09)
