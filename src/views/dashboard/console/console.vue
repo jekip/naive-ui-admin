@@ -1,7 +1,7 @@
 <template>
   <div class="console">
     <!--数据卡片-->
-    <n-grid cols="1 s:2 m:3 l:4 xl:4 2xl:4" responsive="screen" :x-gap="12" :y-gap="8" :cols="4">
+    <n-grid cols="1 s:2 m:3 l:4 xl:4 2xl:4" responsive="screen" :x-gap="12" :y-gap="8">
       <n-grid-item>
         <NCard
           title="访问量"
@@ -19,14 +19,14 @@
             <div class="text-sn">
               日同比
               <CountTo :startVal="1" suffix="%" :endVal="visits.rise" />
-              <n-icon size="12" style="color: #00ff6f">
+              <n-icon size="12" color="#00ff6f">
                 <component is="CaretUpOutlined" />
               </n-icon>
             </div>
             <div class="text-sn">
               周同比
               <CountTo :startVal="1" suffix="%" :endVal="visits.decline" />
-              <n-icon size="12" style="color: #ffde66">
+              <n-icon size="12" color="#ffde66">
                 <component is="CaretDownOutlined" />
               </n-icon>
             </div>
@@ -91,14 +91,14 @@
             <div class="text-sn">
               日同比
               <CountTo :startVal="1" suffix="%" :endVal="orderLarge.rise" />
-              <n-icon size="12" style="color: #00ff6f">
+              <n-icon size="12" color="#00ff6f">
                 <component is="CaretUpOutlined" />
               </n-icon>
             </div>
             <div class="text-sn">
               周同比
               <CountTo :startVal="1" suffix="%" :endVal="orderLarge.rise" />
-              <n-icon size="12" style="color: #ffde66">
+              <n-icon size="12" color="#ffde66">
                 <component is="CaretDownOutlined" />
               </n-icon>
             </div>
@@ -130,14 +130,14 @@
             <div class="text-sn">
               月同比
               <CountTo :startVal="1" suffix="%" :endVal="volume.rise" />
-              <n-icon size="12" style="color: #00ff6f">
+              <n-icon size="12" color="#00ff6f">
                 <component is="CaretUpOutlined" />
               </n-icon>
             </div>
             <div class="text-sn">
               月同比
               <CountTo :startVal="1" suffix="%" :endVal="volume.decline" />
-              <n-icon size="12" style="color: #ffde66">
+              <n-icon size="12" color="#ffde66">
                 <component is="CaretDownOutlined" />
               </n-icon>
             </div>
@@ -156,14 +156,14 @@
 
     <!--导航卡片-->
     <div class="mt-4">
-      <n-grid cols="1 s:2 m:3 l:8 xl:8 2xl:8" responsive="screen" :x-gap="16" :y-gap="8" :cols="8">
+      <n-grid cols="1 s:2 m:3 l:8 xl:8 2xl:8" responsive="screen" :x-gap="16" :y-gap="8">
         <n-grid-item v-for="(item, index) in iconList" :key="index">
           <NCard content-style="padding-top: 0;" size="small" :bordered="false">
             <template #footer>
               <div class="cursor-pointer">
                 <p class="flex justify-center">
                   <span>
-                    <n-icon :size="item.size" class="flex-1" :style="{ color: `${item.color}` }">
+                    <n-icon :size="item.size" class="flex-1" :color="item.color">
                       <component :is="item.icon" v-on="item.eventObject || {}" />
                     </n-icon>
                   </span>

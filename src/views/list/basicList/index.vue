@@ -13,7 +13,7 @@
       ref="actionRef"
       :actionColumn="actionColumn"
       @update:checked-row-keys="onCheckedRow"
-      :scroll-x="1010"
+      :scroll-x="1090"
     >
       <template #tableTitle>
         <n-button type="primary" @click="addTable">

@@ -1,6 +1,5 @@
 import type { RouteRecordRaw, RouteMeta } from 'vue-router';
 import { defineComponent } from 'vue';
-import { RoleEnum } from '@/enums/roleEnum';
 
 export type Component<T extends any = any> =
   | ReturnType<typeof defineComponent>
@@ -23,7 +22,7 @@ export interface Meta {
   title: string;
   // 是否忽略权限
   ignoreAuth?: boolean;
-  roles?: RoleEnum[];
+  permissions?: string[];
   // 是否不缓存
   noKeepAlive?: boolean;
   // 是否固定在tab上

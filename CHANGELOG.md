@@ -1,3 +1,19 @@
+# CHANGELOG
+
+## 1.5.4 (2021-08-10)
+
+### 🐛 Bug Fixes
+
+- `暗色模式下多页签背景问题 ` 合并 [#23](https://github.com/jekip/naive-ui-admin/pull/23) 感谢 [@Dishone](https://github.com/Dishone)
+- `表格设置列，重复添加action列样式错乱问题` 合并 [#24](https://github.com/jekip/naive-ui-admin/pull/24) 感谢 [@CasbaL](https://github.com/CasbaL)
+
+- ### ✨ Features
+-（破坏性更新）
+- 优化 `动态路由配置` 取消`constantRouterComponents.ts`，中组件映射配置，更名为 `router-icons.ts`
+- 优化 `admin_info接口结构`，roles 更名为：permissions，roles.roleName，更名为：label
+- 优化 多级路由，当没有配置时，`redirect` ，`redirect` 默认为第一个子路由，配置则优先按配置
+- 依赖升级
+
 # 1.5.3 (2021-08-09)
 ### 🐛 Bug Fixes
 - 修复顶部菜单，选中联动

@@ -13,7 +13,7 @@ export const ErrorPageRoute: AppRouteRecordRaw = {
   children: [
     {
       path: '/:path(.*)*',
-      name: 'ErrorPage',
+      name: 'ErrorPageSon',
       component: ErrorPage,
       meta: {
         title: 'ErrorPage',

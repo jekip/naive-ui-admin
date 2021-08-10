@@ -2696,11 +2696,6 @@ esbuild@0.11.3:
   resolved "https://registry.nlark.com/esbuild/download/esbuild-0.11.3.tgz#b57165b907be4ffba651f6450538ce8d8c1d5eb0"
   integrity sha1-tXFluQe+T/umUfZFBTjOjYwdXrA=
 
-esbuild@^0.12.5:
-  version "0.12.15"
-  resolved "https://registry.nlark.com/esbuild/download/esbuild-0.12.15.tgz?cache=0&sync_timestamp=1625545660518&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fesbuild%2Fdownload%2Fesbuild-0.12.15.tgz#9d99cf39aeb2188265c5983e983e236829f08af0"
-  integrity sha1-nZnPOa6yGIJlxZg+mD4jaCnwivA=
-
 esbuild@^0.12.6, esbuild@^0.12.8:
   version "0.12.14"
   resolved "https://registry.nlark.com/esbuild/download/esbuild-0.12.14.tgz?cache=0&sync_timestamp=1625183314696&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fesbuild%2Fdownload%2Fesbuild-0.12.14.tgz#43157dbd0b36d939247d4eb4909a4886ac40f82e"
@@ -5569,10 +5564,19 @@ postcss@^8.1.10:
     nanoid "^3.1.23"
     source-map-js "^0.6.2"
 
-postcss@^8.1.6, postcss@^8.2.1, postcss@^8.2.10, postcss@^8.3.5:
+postcss@^8.1.6, postcss@^8.2.1, postcss@^8.3.5:
   version "8.3.5"
   resolved "https://registry.nlark.com/postcss/download/postcss-8.3.5.tgz#982216b113412bc20a86289e91eb994952a5b709"
   integrity sha1-mCIWsRNBK8IKhiiekeuZSVKltwk=
+  dependencies:
+    colorette "^1.2.2"
+    nanoid "^3.1.23"
+    source-map-js "^0.6.2"
+
+postcss@^8.3.6:
+  version "8.3.6"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.6.tgz#2730dd76a97969f37f53b9a6096197be311cc4ea"
+  integrity sha512-wG1cc/JhRgdqB6WHEuyLTedf3KIRuD0hG6ldkFEZNCjRxiC+3i6kkWUUbiJQayP28iwG35cEmAbe98585BYV0A==
   dependencies:
     colorette "^1.2.2"
     nanoid "^3.1.23"
@@ -6858,17 +6862,17 @@ vite-plugin-style-import@^1.0.1:
     es-module-lexer "^0.6.0"
     magic-string "^0.25.7"
 
-vite@2.3.6:
-  version "2.3.6"
-  resolved "https://registry.nlark.com/vite/download/vite-2.3.6.tgz#1f7cfde88a51a802d69000c7bac85d481c2e871c"
-  integrity sha1-H3z96IpRqALWkADHushdSBwuhxw=
+vite@2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.4.4.tgz#8c402a07ad45f168f6eb5428bead38f3e4363e47"
+  integrity sha512-m1wK6pFJKmaYA6AeZIUXyiAgUAAJzVXhIMYCdZUpCaFMGps0v0IlNJtbmPvkUhVEyautalajmnW5X6NboUPsnw==
   dependencies:
-    esbuild "^0.12.5"
-    postcss "^8.2.10"
-    resolve "^1.19.0"
+    esbuild "^0.12.8"
+    postcss "^8.3.6"
+    resolve "^1.20.0"
     rollup "^2.38.5"
   optionalDependencies:
-    fsevents "~2.3.1"
+    fsevents "~2.3.2"
 
 vooks@^0.2.4, vooks@^0.2.6:
   version "0.2.6"

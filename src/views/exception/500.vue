@@ -29,9 +29,9 @@
 <style lang="less" scoped>
   .page-container {
     width: 100%;
-    background-color: white;
     border-radius: 4px;
     padding: 50px 0;
+    height: 100vh;
 
     .text-center {
       h1 {

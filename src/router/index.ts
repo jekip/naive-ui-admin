@@ -1,6 +1,6 @@
 import { App } from 'vue';
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import { ErrorPageRoute, RedirectRoute } from '@/router/base';
+import { RedirectRoute } from '@/router/base';
 import { PageEnum } from '@/enums/pageEnum';
 import { createRouterGuards } from './router-guards';
 
@@ -40,7 +40,7 @@ export const LoginRoute: RouteRecordRaw = {
 };
 
 //需要验证权限
-export const asyncRoutes = [ErrorPageRoute, ...routeModuleList];
+export const asyncRoutes = [...routeModuleList];
 
 //普通路由 无需验证权限
 export const constantRouter: any[] = [LoginRoute, RootRoute, RedirectRoute];
