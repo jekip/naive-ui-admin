@@ -29,6 +29,7 @@ const transform: AxiosTransform = {
    * @description: 处理请求数据
    */
   transformRequestData: (res: AxiosResponse<Result>, options: RequestOptions) => {
+    // @ts-ignore
     const { $message: Message, $dialog: Modal } = window;
     const {
       isShowMessage = true,
@@ -186,6 +187,7 @@ const transform: AxiosTransform = {
    * @description: 响应错误处理
    */
   responseInterceptorsCatch: (error: any) => {
+    // @ts-ignore
     const { $message: Message, $dialog: Modal } = window;
     const { response, code, message } = error || {};
     // TODO 此处要根据后端接口返回格式修改

@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout, ParentLayout } from '@/router/constant';
 import { WalletOutlined } from '@vicons/antd';
-import { renderIcon } from '@/utils/index';
+import { renderIcon, renderNew } from '@/utils';
 
 const routeName = 'comp';
 
@@ -105,6 +105,24 @@ const routes: Array<RouteRecordRaw> = [
           title: '弹窗扩展',
         },
         component: () => import('@/views/comp/modal/index.vue'),
+      },
+      {
+        path: 'richtext',
+        name: `richtext`,
+        meta: {
+          title: '富文本',
+          extra: renderNew(),
+        },
+        component: () => import('@/views/comp/richtext/vue-quill.vue'),
+      },
+      {
+        path: 'drag',
+        name: `Drag`,
+        meta: {
+          title: '拖拽',
+          extra: renderNew(),
+        },
+        component: () => import('@/views/comp/drag/index.vue'),
       },
     ],
   },

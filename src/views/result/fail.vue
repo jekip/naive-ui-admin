@@ -36,22 +36,15 @@
     </div>
   </n-card>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { useRouter } from 'vue-router';
   import { InfoCircleOutlined } from '@vicons/antd';
 
-  export default defineComponent({
-    components: { InfoCircleOutlined },
-    setup() {
-      const router = useRouter();
-      return {
-        goHome() {
-          router.push('/');
-        },
-      };
-    },
-  });
+  const router = useRouter();
+
+  function goHome() {
+    router.push('/');
+  }
 </script>
 <style lang="less" scoped>
   .result-box {

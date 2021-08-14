@@ -7,23 +7,25 @@
       </n-icon>
     </div>
     <div class="flex editable-cell-content" v-show="isEdit" v-click-outside="onClickOutside">
-      <CellComponent
-        v-bind="getComponentProps"
-        :component="getComponent"
-        :style="getWrapperStyle"
-        :popoverVisible="getRuleVisible"
-        :ruleMessage="ruleMessage"
-        :rule="getRule"
-        :class="getWrapperClass"
-        ref="elRef"
-        @options-change="handleOptionsChange"
-        @pressEnter="handleEnter"
-      />
+      <div class="editable-cell-content-comp">
+        <CellComponent
+          v-bind="getComponentProps"
+          :component="getComponent"
+          :style="getWrapperStyle"
+          :popoverVisible="getRuleVisible"
+          :ruleMessage="ruleMessage"
+          :rule="getRule"
+          :class="getWrapperClass"
+          ref="elRef"
+          @options-change="handleOptionsChange"
+          @pressEnter="handleEnter"
+        />
+      </div>
       <div class="editable-cell-action" v-if="!getRowEditable">
-        <n-icon class="cursor-pointer mx-2">
+        <n-icon class="mx-2 cursor-pointer">
           <CheckOutlined @click="handleSubmit" />
         </n-icon>
-        <n-icon class="cursor-pointer mx-2">
+        <n-icon class="mx-2 cursor-pointer">
           <CloseOutlined @click="handleCancel" />
         </n-icon>
       </div>
@@ -49,7 +51,7 @@
   import { set, omit } from 'lodash-es';
   import { EventEnum } from '@/components/Table/src/componentMap';
 
-  import { milliseconds } from 'date-fns';
+  import { milliseconds, format } from 'date-fns';
 
   export default defineComponent({
     name: 'EditableCell',
@@ -196,12 +198,9 @@
           currentValueRef.value = e;
         }
 
-        //TODO 这里组件参数格式，和dayjs格式不一致
+        //TODO 根据组件格式化值
         // if (component === 'NDatePicker') {
-        //   let format = (props.column.editComponentProps?.format)
-        //     .replace(/yyyy/g, 'YYYY')
-        //     .replace(/dd/g, 'DD');
-        //   currentValueRef.value = dayjs(currentValueRef.value).format(format);
+        //   currentValueRef.value = format(currentValueRef.value,'yyyy-MM-dd HH:mm:ss');
         // }
 
         const onChange = props.column?.editComponentProps?.onChange;
@@ -376,6 +375,10 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+
+  &-comp{
+    flex: 1;
+  }
 
   .edit-icon {
    font-size: 14px;

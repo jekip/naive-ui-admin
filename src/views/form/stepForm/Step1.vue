@@ -47,8 +47,8 @@
   </n-form>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+  import { ref, defineEmits } from 'vue';
   import { useMessage } from 'naive-ui';
 
   const myAccountList = [
@@ -73,61 +73,50 @@
     },
   ];
 
-  export default defineComponent({
-    emits: ['nextStep'],
-    setup(_, { emit }) {
-      const form1Ref: any = ref(null);
-      const message = useMessage();
-      const current = ref(1);
+  const emit = defineEmits(['nextStep']);
 
-      return {
-        form1Ref,
-        current,
-        formValue: ref({
-          accountType: 1,
-          myAccount: null,
-          account: 'xioama@qq.com',
-          money: '1980',
-          name: 'Ah jung',
-        }),
-        rules: {
-          name: {
-            required: true,
-            message: '请输入收款人姓名',
-            trigger: 'blur',
-          },
-          account: {
-            required: true,
-            message: '请输入收款账户',
-            trigger: 'blur',
-          },
-          money: {
-            required: true,
-            message: '请输入转账金额',
-            trigger: 'blur',
-          },
-          myAccount: {
-            required: true,
-            type: 'number',
-            message: '请选择付款账户',
-            trigger: 'change',
-          },
-        },
-        myAccountList,
-        accountTypeList,
-        formSubmit() {
-          form1Ref.value.validate((errors) => {
-            if (!errors) {
-              emit('nextStep');
-            } else {
-              message.error('验证失败，请填写完整信息');
-            }
-          });
-        },
-        resetForm() {
-          form1Ref.value.restoreValidation();
-        },
-      };
-    },
+  const form1Ref: any = ref(null);
+  const message = useMessage();
+
+  const formValue = ref({
+    accountType: 1,
+    myAccount: null,
+    account: 'xioama@qq.com',
+    money: '1980',
+    name: 'Ah jung',
   });
+
+  const rules = {
+    name: {
+      required: true,
+      message: '请输入收款人姓名',
+      trigger: 'blur',
+    },
+    account: {
+      required: true,
+      message: '请输入收款账户',
+      trigger: 'blur',
+    },
+    money: {
+      required: true,
+      message: '请输入转账金额',
+      trigger: 'blur',
+    },
+    myAccount: {
+      required: true,
+      type: 'number',
+      message: '请选择付款账户',
+      trigger: 'change',
+    },
+  };
+
+  function formSubmit() {
+    form1Ref.value.validate((errors) => {
+      if (!errors) {
+        emit('nextStep');
+      } else {
+        message.error('验证失败，请填写完整信息');
+      }
+    });
+  }
 </script>

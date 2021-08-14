@@ -51,12 +51,13 @@
         <!--          <PageFooter />-->
         <!--        </NLayoutFooter>-->
       </NLayoutContent>
+      <n-back-top :right="100" />
     </NLayout>
   </NLayout>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref, unref, computed, onMounted } from 'vue';
+<script lang="ts" setup>
+  import { ref, unref, computed, onMounted } from 'vue';
   import { Logo } from './components/Logo';
   import { TabsView } from './components/TagsView';
   import { MainView } from './components/Main';
@@ -68,117 +69,89 @@
   import { useRoute } from 'vue-router';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
 
-  export default defineComponent({
-    name: 'Layout',
-    components: {
-      TabsView,
-      MainView,
-      PageHeader,
-      AsideMenu,
-      Logo,
-    },
-    setup() {
-      const { getDarkTheme } = useDesignSetting();
-      const {
-        getShowFooter,
-        getNavMode,
-        getNavTheme,
-        getHeaderSetting,
-        getMenuSetting,
-        getMultiTabsSetting,
-      } = useProjectSetting();
+  const { getDarkTheme } = useDesignSetting();
+  const {
+    getShowFooter,
+    getNavMode,
+    getNavTheme,
+    getHeaderSetting,
+    getMenuSetting,
+    getMultiTabsSetting,
+  } = useProjectSetting();
 
-      const settingStore = useProjectSettingStore();
+  const settingStore = useProjectSettingStore();
 
-      const navMode = getNavMode;
+  const navMode = getNavMode;
 
-      const collapsed = ref<boolean>(false);
+  const collapsed = ref<boolean>(false);
 
-      const fixedHeader = computed(() => {
-        const { fixed } = unref(getHeaderSetting);
-        return fixed ? 'absolute' : 'static';
-      });
-
-      const isMixMenuNoneSub = computed(() => {
-        const mixMenu = settingStore.menuSetting.mixMenu;
-        const currentRoute = useRoute();
-        if (unref(navMode) != 'horizontal-mix') return true;
-        if (unref(navMode) === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot) {
-          return false;
-        }
-        return true;
-      });
-
-      const fixedMenu = computed(() => {
-        const { fixed } = unref(getHeaderSetting);
-        return fixed ? 'absolute' : 'static';
-      });
-
-      const isMultiTabs = computed(() => {
-        return unref(getMultiTabsSetting).show;
-      });
-
-      const fixedMulti = computed(() => {
-        return unref(getMultiTabsSetting).fixed;
-      });
-
-      const inverted = computed(() => {
-        return ['dark', 'header-dark'].includes(unref(getNavTheme));
-      });
-
-      const getHeaderInverted = computed(() => {
-        const navTheme = unref(getNavTheme);
-        return ['light', 'header-dark'].includes(navTheme) ? unref(inverted) : !unref(inverted);
-      });
-
-      const leftMenuWidth = computed(() => {
-        const { minMenuWidth, menuWidth } = unref(getMenuSetting);
-        return collapsed.value ? minMenuWidth : menuWidth;
-      });
-
-      const getChangeStyle = computed(() => {
-        const { minMenuWidth, menuWidth } = unref(getMenuSetting);
-        return {
-          'padding-left': collapsed.value ? `${minMenuWidth}px` : `${menuWidth}px`,
-        };
-      });
-
-      const getMenuLocation = computed(() => {
-        return 'left';
-      });
-
-      function watchWidth() {
-        const Width = document.body.clientWidth;
-        if (Width <= 950) {
-          collapsed.value = true;
-        } else collapsed.value = false;
-      }
-
-      onMounted(() => {
-        window.addEventListener('resize', watchWidth);
-        //挂载在 window 方便与在js中使用
-        window['$loading'] = useLoadingBar();
-        window['$loading'].finish();
-      });
-
-      return {
-        fixedMenu,
-        fixedMulti,
-        fixedHeader,
-        collapsed,
-        inverted,
-        isMultiTabs,
-        leftMenuWidth,
-        getChangeStyle,
-        navMode,
-        getShowFooter,
-        getDarkTheme,
-        getHeaderInverted,
-        getMenuLocation,
-        isMixMenuNoneSub,
-      };
-    },
+  const fixedHeader = computed(() => {
+    const { fixed } = unref(getHeaderSetting);
+    return fixed ? 'absolute' : 'static';
   });
+
+  const isMixMenuNoneSub = computed(() => {
+    const mixMenu = settingStore.menuSetting.mixMenu;
+    const currentRoute = useRoute();
+    if (unref(navMode) != 'horizontal-mix') return true;
+    if (unref(navMode) === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot) {
+      return false;
+    }
+    return true;
+  });
+
+  const fixedMenu = computed(() => {
+    const { fixed } = unref(getHeaderSetting);
+    return fixed ? 'absolute' : 'static';
+  });
+
+  const isMultiTabs = computed(() => {
+    return unref(getMultiTabsSetting).show;
+  });
+
+  const fixedMulti = computed(() => {
+    return unref(getMultiTabsSetting).fixed;
+  });
+
+  const inverted = computed(() => {
+    return ['dark', 'header-dark'].includes(unref(getNavTheme));
+  });
+
+  const getHeaderInverted = computed(() => {
+    const navTheme = unref(getNavTheme);
+    return ['light', 'header-dark'].includes(navTheme) ? unref(inverted) : !unref(inverted);
+  });
+
+  const leftMenuWidth = computed(() => {
+    const { minMenuWidth, menuWidth } = unref(getMenuSetting);
+    return collapsed.value ? minMenuWidth : menuWidth;
+  });
+
+  const getChangeStyle = computed(() => {
+    const { minMenuWidth, menuWidth } = unref(getMenuSetting);
+    return {
+      'padding-left': collapsed.value ? `${minMenuWidth}px` : `${menuWidth}px`,
+    };
+  });
+
+  const getMenuLocation = computed(() => {
+    return 'left';
+  });
+
+  const watchWidth = () => {
+    const Width = document.body.clientWidth;
+    if (Width <= 950) {
+      collapsed.value = true;
+    } else collapsed.value = false;
+  }
+
+  onMounted(() => {
+    window.addEventListener('resize', watchWidth);
+    //挂载在 window 方便与在js中使用
+    window['$loading'] = useLoadingBar();
+    window['$loading'].finish();
+  });
+
 </script>
 
 <style lang="less" scoped>

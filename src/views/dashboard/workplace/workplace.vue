@@ -298,7 +298,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
   import schoolboy from '@/assets/images/schoolboy.png';
   import {
     GithubOutlined,
@@ -310,30 +310,6 @@
     Html5Outlined,
   } from '@vicons/antd';
   import { LogoVue, LogoAngular, LogoReact, LogoJavascript } from '@vicons/ionicons5';
-
-  import { defineComponent } from 'vue';
-
-  export default defineComponent({
-    name: 'DashboardWorkplace',
-    components: {
-      GithubOutlined,
-      LogoVue,
-      DashboardOutlined,
-      ProfileOutlined,
-      FileProtectOutlined,
-      SettingOutlined,
-      ApartmentOutlined,
-      Html5Outlined,
-      LogoAngular,
-      LogoReact,
-      LogoJavascript,
-    },
-    setup() {
-      return {
-        schoolboy,
-      };
-    },
-  });
 </script>
 
 <style lang="less" scoped>

@@ -10,20 +10,12 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { useRouter } from 'vue-router';
-
-  export default defineComponent({
-    setup() {
-      const router = useRouter();
-      return {
-        goHome() {
-          router.push('/');
-        },
-      };
-    },
-  });
+  const router = useRouter();
+  function goHome() {
+    router.push('/');
+  }
 </script>
 
 <style lang="less" scoped>

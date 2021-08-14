@@ -102,7 +102,7 @@
             type="primary"
             text
             icon-placement="right"
-            v-if="overflow && isInline && getProps.showAdvancedButton"
+            v-if="isInline && getProps.showAdvancedButton"
             @click="unfoldToggle"
           >
             <template #icon>

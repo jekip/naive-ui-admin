@@ -12,8 +12,6 @@ export interface RequestOptions {
   joinParamsToUrl?: boolean;
   // 格式化请求参数时间
   formatDate?: boolean;
-  //  是否处理请求结果
-  isTransformResponse?: boolean;
   // 是否显示提示信息
   isShowMessage?: boolean;
   // 是否解析成JSON

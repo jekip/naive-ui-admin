@@ -20,104 +20,88 @@
   </n-modal>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
   import {
-    defineComponent,
     getCurrentInstance,
     ref,
     nextTick,
     unref,
-    toRefs,
-    reactive,
     computed,
+    useAttrs,
+    defineEmits,
+    defineProps,
   } from 'vue';
   import { basicProps } from './props';
   import startDrag from '@/utils/Drag';
   import { deepMerge } from '@/utils';
   import { FormProps } from '@/components/Form';
-  export default defineComponent({
-    name: 'BasicModal',
-    components: {},
-    props: {
-      ...basicProps,
-    },
-    emits: ['on-close', 'on-ok', 'register'],
-    setup(props, { emit, attrs }) {
-      const propsRef = ref<Partial>({});
+  import { ModalProps, ModalMethods } from './type';
 
-      const state = reactive({
-        isModal: false,
-        subLoading: false,
-      });
+  const attrs = useAttrs();
+  const props = defineProps({ ...basicProps });
+  const emit = defineEmits(['on-close', 'on-ok', 'register']);
 
-      const getProps = computed((): FormProps => {
-        const modalProps = { ...props, ...unref(propsRef) };
-        return { ...modalProps };
-      });
+  const propsRef = ref(<Partial<ModalProps> | null>null);
 
-      async function setProps(modalProps: Partial): Promise<void> {
-        propsRef.value = deepMerge(unref(propsRef) || {}, modalProps);
-      }
+  const isModal = ref(false);
+  const subLoading = ref(false);
 
-      const getBindValue = computed(() => {
-        return {
-          ...attrs,
-          ...unref(getProps),
-        };
-      });
-
-      function setSubLoading(status: boolean) {
-        state.subLoading = status;
-      }
-
-      function openModal() {
-        state.isModal = true;
-        nextTick(() => {
-          const oBox = document.getElementById('basic-modal');
-          const oBar = document.getElementById('basic-modal-bar');
-          startDrag(oBar, oBox);
-        });
-      }
-
-      function closeModal() {
-        state.isModal = false;
-        state.subLoading = false;
-        emit('on-close');
-      }
-
-      function onCloseModal() {
-        state.isModal = false;
-        emit('on-close');
-      }
-
-      function handleSubmit() {
-        state.subLoading = true;
-        emit('on-ok');
-      }
-
-      const modalMethods: ModalMethods = {
-        setProps,
-        openModal,
-        closeModal,
-        setSubLoading,
-      };
-
-      const instance = getCurrentInstance();
-      if (instance) {
-        emit('register', modalMethods);
-      }
-
-      return {
-        ...toRefs(state),
-        getBindValue,
-        openModal,
-        closeModal,
-        onCloseModal,
-        handleSubmit,
-        setProps,
-      };
-    },
+  const getProps = computed((): FormProps => {
+    return { ...props, ...(unref(propsRef) as any) };
   });
+
+  async function setProps(modalProps: Partial<ModalProps>): Promise<void> {
+    propsRef.value = deepMerge(unref(propsRef) || ({} as any), modalProps);
+  }
+
+  const getBindValue = computed(() => {
+    return {
+      ...attrs,
+      ...unref(getProps),
+    };
+  });
+
+  function setSubLoading(status: boolean) {
+    subLoading.value = status;
+  }
+
+  function openModal() {
+    isModal.value = true;
+    nextTick(() => {
+      const oBox = document.getElementById('basic-modal');
+      const oBar = document.getElementById('basic-modal-bar');
+      startDrag(oBar, oBox);
+    });
+  }
+
+  function closeModal() {
+    isModal.value = false;
+    subLoading.value = false;
+    emit('on-close');
+  }
+
+  function onCloseModal() {
+    isModal.value = false;
+    emit('on-close');
+  }
+
+  function handleSubmit() {
+    subLoading.value = true;
+    emit('on-ok');
+  }
+
+  const modalMethods: ModalMethods = {
+    setProps,
+    openModal,
+    closeModal,
+    setSubLoading,
+  };
+
+  const instance = getCurrentInstance();
+  if (instance) {
+    emit('register', modalMethods);
+  }
+
 </script>
 
 <style lang="less">

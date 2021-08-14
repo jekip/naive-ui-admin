@@ -5,7 +5,7 @@
         将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。
       </n-card>
     </div>
-    <n-card :bordered="false" class="proCard mt-4">
+    <n-card :bordered="false" class="mt-4 proCard">
       <n-space vertical class="steps" justify="center">
         <n-steps :current="currentTab" :status="currentStatus">
           <n-step title="填写转账信息" description="确保填写正确" />
@@ -20,43 +20,30 @@
   </div>
 </template>
 
-<script>
+<script setup>
   import { defineComponent, ref } from 'vue';
   import step1 from './Step1.vue';
   import step2 from './Step2.vue';
   import step3 from './Step3.vue';
 
-  export default defineComponent({
-    components: { step1, step2, step3 },
-    setup() {
-      const currentTab = ref(1);
-      const currentStatus = ref('process');
+  const currentTab = ref(1);
+  const currentStatus = ref('process');
 
-      function nextStep() {
-        if (currentTab.value < 3) {
-          currentTab.value += 1;
-        }
-      }
+  function nextStep() {
+    if (currentTab.value < 3) {
+      currentTab.value += 1;
+    }
+  }
 
-      function prevStep() {
-        if (currentTab.value > 1) {
-          currentTab.value -= 1;
-        }
-      }
+  function prevStep() {
+    if (currentTab.value > 1) {
+      currentTab.value -= 1;
+    }
+  }
 
-      function finish() {
-        currentTab.value = 1;
-      }
-
-      return {
-        currentTab,
-        currentStatus,
-        nextStep,
-        prevStep,
-        finish,
-      };
-    },
-  });
+  function finish() {
+    currentTab.value = 1;
+  }
 </script>
 
 <style lang="less" scoped>

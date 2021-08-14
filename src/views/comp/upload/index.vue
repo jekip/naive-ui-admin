@@ -3,7 +3,7 @@
     <div class="n-layout-page-header">
       <n-card :bordered="false" title="上传图片"> 上传图片，用于向用户收集图片信息 </n-card>
     </div>
-    <n-card :bordered="false" class="proCard mt-4">
+    <n-card :bordered="false" class="mt-4 proCard">
       <n-grid cols="2 s:1 m:3 l:3 xl:3 2xl:3" responsive="screen">
         <n-grid-item offset="0 s:0 m:1 l:1 xl:1 2xl:1">
           <n-form
@@ -47,8 +47,8 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref, unref, reactive, toRefs } from 'vue';
+<script lang="ts" setup>
+  import { ref, unref, reactive } from 'vue';
   import { useMessage } from 'naive-ui';
   import { BasicUpload } from '@/components/Upload';
   import { useGlobSetting } from '@/hooks/setting';
@@ -74,54 +74,38 @@
     },
   };
 
-  export default defineComponent({
-    components: { BasicUpload },
-    setup() {
-      const formRef: any = ref(null);
-      const message = useMessage();
-      const { uploadUrl } = globSetting;
+  const formRef: any = ref(null);
+  const message = useMessage();
+  const { uploadUrl } = globSetting;
 
-      const state = reactive({
-        formValue: {
-          name: '',
-          mobile: '',
-          //图片列表 通常查看和编辑使用 绝对路径 | 相对路径都可以
-          images: ['https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'],
-        },
-        uploadHeaders: {
-          platform: 'miniPrograms',
-          timestamp: new Date().getTime(),
-          token: 'Q6fFCuhc1vkKn5JNFWaCLf6gRAc5n0LQHd08dSnG4qo=',
-        },
-      });
-
-      function formSubmit() {
-        formRef.value.validate((errors) => {
-          if (!errors) {
-            message.success('验证成功');
-          } else {
-            message.error('验证失败，请填写完整信息');
-          }
-        });
-      }
-
-      function resetForm() {
-        formRef.value.restoreValidation();
-      }
-
-      function uploadChange(list: string[]) {
-        state.formValue.images = unref(list);
-      }
-
-      return {
-        ...toRefs(state),
-        formRef,
-        uploadUrl,
-        rules,
-        formSubmit,
-        resetForm,
-        uploadChange,
-      };
-    },
+  const formValue = reactive({
+    name: '',
+    mobile: '',
+    //图片列表 通常查看和编辑使用 绝对路径 | 相对路径都可以
+    images: ['https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'],
   });
+
+  const uploadHeaders = reactive({
+    platform: 'miniPrograms',
+    timestamp: new Date().getTime(),
+    token: 'Q6fFCuhc1vkKn5JNFWaCLf6gRAc5n0LQHd08dSnG4qo=',
+  });
+
+  function formSubmit() {
+    formRef.value.validate((errors) => {
+      if (!errors) {
+        message.success('验证成功');
+      } else {
+        message.error('验证失败，请填写完整信息');
+      }
+    });
+  }
+
+  function resetForm() {
+    formRef.value.restoreValidation();
+  }
+
+  function uploadChange(list: string[]) {
+    formValue.images = unref(list);
+  }
 </script>

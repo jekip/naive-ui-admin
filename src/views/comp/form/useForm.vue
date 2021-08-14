@@ -3,7 +3,7 @@
     <div class="n-layout-page-header">
       <n-card :bordered="false" title="基础表单"> useForm 表单，用于向用户收集表单信息 </n-card>
     </div>
-    <n-card :bordered="false" class="proCard mt-4">
+    <n-card :bordered="false" class="mt-4 proCard">
       <div class="BasicForm">
         <BasicForm @register="register" @submit="handleSubmit" @reset="handleReset">
           <template #statusSlot="{ model, field }">
@@ -15,12 +15,11 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
+<script lang="ts" setup>
+  import { BasicForm, useForm } from '@/components/Form/index';
   import { useMessage } from 'naive-ui';
 
-  const schemas: FormSchema[] = [
+  const schemas = [
     {
       field: 'name',
       component: 'NInput',
@@ -165,43 +164,25 @@
     },
   ];
 
-  export default defineComponent({
-    components: { BasicForm },
-    setup() {
-      const formRef: any = ref(null);
-      const message = useMessage();
+  const message = useMessage();
 
-      const [register, { setFieldsValue }] = useForm({
-        gridProps: { cols: 1 },
-        collapsedRows: 3,
-        labelWidth: 120,
-        layout: 'horizontal',
-        submitButtonText: '提交预约',
-        schemas,
-      });
-
-      function setName() {
-        setFieldsValue({ name: '小马哥' });
-      }
-
-      function handleSubmit(values: Recordable) {
-        console.log(values);
-        message.success(JSON.stringify(values));
-      }
-
-      function handleReset(values: Recordable) {
-        console.log(values);
-      }
-
-      return {
-        register,
-        formRef,
-        handleSubmit,
-        handleReset,
-        setName,
-      };
-    },
+  const [register, {}] = useForm({
+    gridProps: { cols: 1 },
+    collapsedRows: 3,
+    labelWidth: 120,
+    layout: 'horizontal',
+    submitButtonText: '提交预约',
+    schemas,
   });
+
+  function handleSubmit(values: Recordable) {
+    console.log(values);
+    message.success(JSON.stringify(values));
+  }
+
+  function handleReset(values: Recordable) {
+    console.log(values);
+  }
 </script>
 
 <style lang="less" scoped>
