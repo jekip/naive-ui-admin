@@ -8,7 +8,7 @@
     <n-card
       :bordered="false"
       title="基本信息"
-      class="proCard mt-4"
+      class="mt-4 proCard"
       size="small"
       :segmented="{ content: 'hard' }"
     >
@@ -29,7 +29,7 @@
     <n-card
       :bordered="false"
       title="其它信息"
-      class="proCard mt-4"
+      class="mt-4 proCard"
       size="small"
       :segmented="{ content: 'hard' }"
     >
@@ -50,7 +50,7 @@
     <n-card
       :bordered="false"
       title="表格信息"
-      class="proCard mt-4"
+      class="mt-4 proCard"
       size="small"
       :segmented="{ content: 'hard' }"
     >
@@ -119,14 +119,6 @@
   </div>
 </template>
 
-<script>
-  import { defineComponent } from 'vue';
-
-  export default defineComponent({
-    setup() {
-      return {};
-    },
-  });
-</script>
+<script setup></script>
 
 <style lang="less" scoped></style>

@@ -9,9 +9,10 @@ const routes: Array<RouteRecordRaw> = [
     name: 'about',
     component: Layout,
     meta: {
-      sort: 9,
+      sort: 10,
       isRoot: true,
       activeMenu: 'about_index',
+      icon: renderIcon(ProjectOutlined),
     },
     children: [
       {
@@ -19,7 +20,6 @@ const routes: Array<RouteRecordRaw> = [
         name: `about_index`,
         meta: {
           title: '关于',
-          icon: renderIcon(ProjectOutlined),
           extra: renderNew(),
           activeMenu: 'about_index',
         },

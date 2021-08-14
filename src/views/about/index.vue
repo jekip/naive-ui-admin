@@ -9,7 +9,7 @@
     <n-card
       :bordered="false"
       title="项目信息"
-      class="proCard mt-4"
+      class="mt-4 proCard"
       size="small"
       :segmented="{ content: 'hard' }"
     >
@@ -54,7 +54,7 @@
     <n-card
       :bordered="false"
       title="开发环境依赖"
-      class="proCard mt-4"
+      class="mt-4 proCard"
       size="small"
       :segmented="{ content: 'hard' }"
     >
@@ -68,7 +68,7 @@
     <n-card
       :bordered="false"
       title="生产环境依赖"
-      class="proCard mt-4"
+      class="mt-4 proCard"
       size="small"
       :segmented="{ content: 'hard' }"
     >
@@ -81,40 +81,24 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
-
+<script lang="ts" setup>
   export interface schemaItem {
     field: string;
     label: string;
   }
 
-  export default defineComponent({
-    setup() {
-      const { pkg, lastBuildTime } = __APP_INFO__;
-      const { dependencies, devDependencies, name, version } = pkg;
+  const { pkg, lastBuildTime } = __APP_INFO__;
+  const { dependencies, devDependencies, name, version } = pkg;
 
-      const schema: schemaItem[] = [];
-      const devSchema: schemaItem[] = [];
+  const schema: schemaItem[] = [];
+  const devSchema: schemaItem[] = [];
 
-      Object.keys(dependencies).forEach((key) => {
-        schema.push({ field: key, label: dependencies[key] });
-      });
+  Object.keys(dependencies).forEach((key) => {
+    schema.push({ field: key, label: dependencies[key] });
+  });
 
-      Object.keys(devDependencies).forEach((key) => {
-        devSchema.push({ field: key, label: devDependencies[key] });
-      });
-
-      return {
-        lastBuildTime,
-        dependencies,
-        devDependencies,
-        name,
-        version,
-        schema,
-        devSchema,
-      };
-    },
+  Object.keys(devDependencies).forEach((key) => {
+    devSchema.push({ field: key, label: devDependencies[key] });
   });
 </script>
 

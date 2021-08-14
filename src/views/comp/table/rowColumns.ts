@@ -59,7 +59,7 @@ export const columns = [
     key: 'beginTime',
     editRow: true,
     edit: true,
-    width: 160,
+    width: 240,
     editComponent: 'NDatePicker',
     editComponentProps: {
       type: 'datetime',
@@ -91,6 +91,6 @@ export const columns = [
   {
     title: '停留时间',
     key: 'time',
-    width: 160,
+    width: 80,
   },
 ];

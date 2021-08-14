@@ -10,28 +10,20 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { useRouter } from 'vue-router';
-
-  export default defineComponent({
-    setup() {
-      const router = useRouter();
-      return {
-        goHome() {
-          router.push('/');
-        },
-      };
-    },
-  });
+  const router = useRouter();
+  function goHome() {
+    router.push('/');
+  }
 </script>
 
 <style lang="less" scoped>
   .page-container {
     width: 100%;
-    background-color: white;
     border-radius: 4px;
     padding: 50px 0;
+    height: 100vh;
 
     .text-center {
       h1 {

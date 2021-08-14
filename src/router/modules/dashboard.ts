@@ -24,7 +24,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Dashboard',
       icon: renderIcon(DashboardOutlined),
-      permission: ['dashboard_console', 'dashboard_console', 'dashboard_workplace'],
+      permissions: ['dashboard_console', 'dashboard_console', 'dashboard_workplace'],
       sort: 0,
     },
     children: [
@@ -33,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
         name: `${routeName}_console`,
         meta: {
           title: '主控台',
-          permission: ['dashboard_console'],
+          permissions: ['dashboard_console'],
         },
         component: () => import('@/views/dashboard/console/console.vue'),
       },
@@ -42,7 +42,7 @@ const routes: Array<RouteRecordRaw> = [
       //   name: `${ routeName }_monitor`,
       //   meta: {
       //     title: '监控页',
-      //     permission: ['dashboard_monitor']
+      //     permissions: ['dashboard_monitor']
       //   },
       //   component: () => import('@/views/dashboard/monitor/monitor.vue')
       // },
@@ -52,7 +52,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: '工作台',
           keepAlive: true,
-          permission: ['dashboard_workplace'],
+          permissions: ['dashboard_workplace'],
         },
         component: () => import('@/views/dashboard/workplace/workplace.vue'),
       },

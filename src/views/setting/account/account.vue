@@ -24,8 +24,8 @@
     </n-grid>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent, reactive, toRefs } from 'vue';
+<script lang="ts" setup>
+  import { ref } from 'vue';
   import BasicSetting from './BasicSetting.vue';
   import SafetySetting from './SafetySetting.vue';
 
@@ -41,26 +41,14 @@
       key: 2,
     },
   ];
-  export default defineComponent({
-    components: { BasicSetting, SafetySetting },
-    setup() {
-      const state = reactive({
-        type: 1,
-        typeTitle: '基本设置',
-      });
 
-      function switchType(e) {
-        state.type = e.key;
-        state.typeTitle = e.name;
-      }
+  const type = ref(1);
+  const typeTitle = ref('基本设置');
 
-      return {
-        ...toRefs(state),
-        switchType,
-        typeTabList,
-      };
-    },
-  });
+  function switchType(e) {
+    type.value = e.key;
+    typeTitle.value = e.name;
+  }
 </script>
 <style lang="less" scoped>
   .thing-cell {

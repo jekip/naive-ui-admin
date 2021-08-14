@@ -41,6 +41,7 @@ export function generatorMenu(routerMap: Array<any>) {
       ...info.meta,
       label: info.meta?.title,
       key: info.name,
+      icon: isRoot ? item.meta?.icon : info.meta?.icon,
     };
     // 是否有子菜单，并递归处理
     if (info.children && info.children.length > 0) {
@@ -81,7 +82,7 @@ export function generatorMenuMix(routerMap: Array<any>, routerName: string, loca
  * 递归组装子菜单
  * */
 export function getChildrenRouter(routerMap: Array<any>) {
-  return routerMap.map((item) => {
+  return filterRouter(routerMap).map((item) => {
     const isRoot = isRootRouter(item);
     const info = isRoot ? item.children[0] : item;
     const currentMenu = {

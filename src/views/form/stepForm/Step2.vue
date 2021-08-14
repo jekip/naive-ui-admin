@@ -32,50 +32,41 @@
   </n-form>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+  import { ref, defineEmits } from 'vue';
   import { useMessage } from 'naive-ui';
+  const form2Ref: any = ref(null);
+  const message = useMessage();
+  const loading = ref(false);
 
-  export default defineComponent({
-    emits: ['prevStep', 'nextStep'],
-    setup(_, { emit }) {
-      const form2Ref: any = ref(null);
-      const message = useMessage();
-      const loading = ref(false);
-
-      function prevStep() {
-        emit('prevStep');
-      }
-
-      function formSubmit() {
-        loading.value = true;
-        form2Ref.value.validate((errors) => {
-          if (!errors) {
-            setTimeout(() => {
-              emit('nextStep');
-            }, 1500);
-          } else {
-            message.error('验证失败，请填写完整信息');
-          }
-        });
-      }
-
-      return {
-        form2Ref,
-        loading,
-        formValue: ref({
-          password: '086611',
-        }),
-        rules: {
-          password: {
-            required: true,
-            message: '请输入支付密码',
-            trigger: 'blur',
-          },
-        },
-        prevStep,
-        formSubmit,
-      };
-    },
+  const formValue = ref({
+    password: '086611',
   });
+
+  const rules = {
+    password: {
+      required: true,
+      message: '请输入支付密码',
+      trigger: 'blur',
+    },
+  };
+
+  const emit = defineEmits(['prevStep', 'nextStep']);
+
+  function prevStep() {
+    emit('prevStep');
+  }
+
+  function formSubmit() {
+    loading.value = true;
+    form2Ref.value.validate((errors) => {
+      if (!errors) {
+        setTimeout(() => {
+          emit('nextStep');
+        }, 1500);
+      } else {
+        message.error('验证失败，请填写完整信息');
+      }
+    });
+  }
 </script>

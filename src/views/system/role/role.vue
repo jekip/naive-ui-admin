@@ -61,8 +61,8 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent, reactive, toRefs, ref, h, onMounted } from 'vue';
+<script lang="ts" setup>
+  import { reactive, ref, unref, h, onMounted } from 'vue';
   import { useMessage } from 'naive-ui';
   import { BasicTable, TableAction } from '@/components/Table';
   import { getRoleList } from '@/api/system/role';
@@ -70,191 +70,144 @@
   import { columns } from './columns';
   import { PlusOutlined } from '@vicons/antd';
   import { getTreeAll } from '@/utils';
+  import { useRouter } from 'vue-router';
 
-  const rules = {
-    name: {
-      required: true,
-      trigger: ['blur', 'input'],
-      message: '请输入名称',
+  const router = useRouter();
+  const formRef: any = ref(null);
+  const message = useMessage();
+  const actionRef = ref();
+
+  const showModal = ref(false);
+  const formBtnLoading = ref(false);
+  const checkedAll = ref(false);
+  const editRoleTitle = ref('');
+  const treeData = ref([]);
+  const expandedKeys = ref([]);
+  const checkedKeys = ref(['console', 'step-form']);
+
+  const params = reactive({
+    pageSize: 5,
+    name: 'xiaoMa',
+  });
+
+  const actionColumn = reactive({
+    width: 250,
+    title: '操作',
+    key: 'action',
+    fixed: 'right',
+    render(record) {
+      return h(TableAction, {
+        style: 'button',
+        actions: [
+          {
+            label: '菜单权限',
+            onClick: handleMenuAuth.bind(null, record),
+            // 根据业务控制是否显示 isShow 和 auth 是并且关系
+            ifShow: () => {
+              return true;
+            },
+            // 根据权限控制是否显示: 有权限，会显示，支持多个
+            auth: ['basic_list'],
+          },
+          {
+            label: '编辑',
+            onClick: handleEdit.bind(null, record),
+            ifShow: () => {
+              return true;
+            },
+            auth: ['basic_list'],
+          },
+          {
+            label: '删除',
+            icon: 'ic:outline-delete-outline',
+            onClick: handleDelete.bind(null, record),
+            // 根据业务控制是否显示 isShow 和 auth 是并且关系
+            ifShow: () => {
+              return true;
+            },
+            // 根据权限控制是否显示: 有权限，会显示，支持多个
+            auth: ['basic_list'],
+          },
+        ],
+      });
     },
-    address: {
-      required: true,
-      trigger: ['blur', 'input'],
-      message: '请输入地址',
-    },
-    date: {
-      type: 'number',
-      required: true,
-      trigger: ['blur', 'change'],
-      message: '请选择日期',
-    },
+  });
+
+  const loadDataTable = async (res: any) => {
+    let _params = {
+      ...res,
+      ...unref(params),
+    };
+    return await getRoleList(_params);
   };
 
-  export default defineComponent({
-    components: { BasicTable, TableAction, PlusOutlined },
-    setup() {
-      const formRef: any = ref(null);
-      const message = useMessage();
-      const actionRef = ref();
-      const state = reactive({
-        showModal: false,
-        formBtnLoading: false,
-        checkedAll: false,
-        editRoleTitle: '',
-        treeData: [],
-        expandedKeys: [],
-        checkedKeys: ['console', 'step-form'],
-        formParams: {
-          name: '',
-          address: '',
-          date: [],
-        },
-        params: {
-          pageSize: 5,
-          name: 'xiaoMa',
-        },
-        actionColumn: {
-          width: 250,
-          title: '操作',
-          key: 'action',
-          fixed: 'right',
-          render(record) {
-            return h(TableAction, {
-              style: 'button',
-              actions: [
-                {
-                  label: '菜单权限',
-                  onClick: handleMenuAuth.bind(null, record),
-                  // 根据业务控制是否显示 isShow 和 auth 是并且关系
-                  ifShow: () => {
-                    return true;
-                  },
-                  // 根据权限控制是否显示: 有权限，会显示，支持多个
-                  auth: ['basic_list'],
-                },
-                {
-                  label: '编辑',
-                  onClick: handleEdit.bind(null, record),
-                  ifShow: () => {
-                    return true;
-                  },
-                  auth: ['basic_list'],
-                },
-                {
-                  label: '删除',
-                  icon: 'ic:outline-delete-outline',
-                  onClick: handleDelete.bind(null, record),
-                  // 根据业务控制是否显示 isShow 和 auth 是并且关系
-                  ifShow: () => {
-                    return true;
-                  },
-                  // 根据权限控制是否显示: 有权限，会显示，支持多个
-                  auth: ['basic_list'],
-                },
-              ],
-            });
-          },
-        },
-      });
+  function onCheckedRow(rowKeys: any[]) {
+    console.log(rowKeys);
+  }
 
-      const loadDataTable = async (params) => {
-        const data = await getRoleList(params);
-        return data;
-      };
+  function reloadTable() {
+    actionRef.value.reload();
+  }
 
-      function onCheckedRow(rowKeys) {
-        console.log(rowKeys);
-      }
-
-      function reloadTable() {
-        actionRef.value.reload();
-      }
-
-      function confirmForm(e) {
-        e.preventDefault();
-        state.formBtnLoading = true;
-        formRef.value.validate((errors) => {
-          if (!errors) {
-            message.success('新建成功');
-            setTimeout(() => {
-              state.showModal = false;
-              reloadTable();
-            });
-          } else {
-            message.error('请填写完整信息');
-          }
-          state.formBtnLoading = false;
+  function confirmForm(e: any) {
+    e.preventDefault();
+    formBtnLoading.value = true;
+    formRef.value.validate((errors) => {
+      if (!errors) {
+        message.success('新建成功');
+        setTimeout(() => {
+          showModal.value = false;
+          reloadTable();
         });
+      } else {
+        message.error('请填写完整信息');
       }
+      formBtnLoading.value = false;
+    });
+  }
 
-      function handleEdit(record: Recordable) {
-        console.log('点击了编辑', record);
-        router.push({ name: 'basic-info', params: { id: record.id } });
-      }
+  function handleEdit(record: Recordable) {
+    console.log('点击了编辑', record);
+    router.push({ name: 'basic-info', params: { id: record.id } });
+  }
 
-      function handleDelete(record: Recordable) {
-        console.log('点击了删除', record);
-        message.info('点击了删除');
-      }
+  function handleDelete(record: Recordable) {
+    console.log('点击了删除', record);
+    message.info('点击了删除');
+  }
 
-      function handleOpen(record: Recordable) {
-        console.log('点击了启用', record);
-        message.info('点击了删除');
-      }
+  function handleMenuAuth(record: Recordable) {
+    editRoleTitle.value = `分配 ${record.name} 的菜单权限`;
+    checkedKeys.value = record.menu_keys;
+    showModal.value = true;
+  }
 
-      function handleMenuAuth(record: Recordable) {
-        state.editRoleTitle = `分配 ${record.name} 的菜单权限`;
-        state.checkedKeys = record.menu_keys;
-        state.showModal = true;
-      }
+  function checkedTree(keys) {
+    checkedKeys.value = [checkedKeys.value, ...keys];
+  }
 
-      function checkedTree(keys) {
-        state.checkedKeys = [state.checkedKeys, ...keys];
-      }
+  function packHandle() {
+    if (expandedKeys.value.length) {
+      expandedKeys.value = [];
+    } else {
+      expandedKeys.value = treeData.value.map((item: any) => item.key) as [];
+    }
+  }
 
-      function packHandle() {
-        if (state.expandedKeys.length) {
-          state.expandedKeys = [];
-        } else {
-          state.expandedKeys = state.treeData.map((item) => item.key);
-        }
-      }
+  function checkedAllHandle() {
+    if (!checkedAll.value) {
+      checkedKeys.value = getTreeAll(treeData.value);
+      checkedAll.value = true;
+    } else {
+      checkedKeys.value = [];
+      checkedAll.value = false;
+    }
+  }
 
-      function checkedAllHandle() {
-        if (!state.checkedAll) {
-          state.checkedKeys = getTreeAll(state.treeData);
-          state.checkedAll = true;
-        } else {
-          state.checkedKeys = [];
-          state.checkedAll = false;
-        }
-      }
-
-      onMounted(async () => {
-        const treeMenuList = await getMenuList();
-        state.expandedKeys = treeMenuList.list.map((item) => item.key);
-        state.treeData = treeMenuList.list;
-      });
-
-      return {
-        ...toRefs(state),
-        formRef,
-        columns,
-        rules,
-        actionRef,
-        confirmForm,
-        loadDataTable,
-        onCheckedRow,
-        reloadTable,
-        handleEdit,
-        handleDelete,
-        handleOpen,
-        handleMenuAuth,
-        checkedTree,
-        packHandle,
-        checkedAllHandle,
-      };
-    },
+  onMounted(async () => {
+    const treeMenuList = await getMenuList();
+    expandedKeys.value = treeMenuList.list.map((item) => item.key);
+    treeData.value = treeMenuList.list;
   });
 </script>
 

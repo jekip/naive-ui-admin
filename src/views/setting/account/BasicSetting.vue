@@ -28,8 +28,8 @@
   </n-grid>
 </template>
 
-<script lang="ts">
-  import { defineComponent, reactive, ref, toRefs } from 'vue';
+<script lang="ts" setup>
+  import { reactive, ref } from 'vue';
   import { useMessage } from 'naive-ui';
 
   const rules = {
@@ -49,37 +49,23 @@
       trigger: 'input',
     },
   };
+  const formRef: any = ref(null);
+  const message = useMessage();
 
-  export default defineComponent({
-    setup() {
-      const formRef: any = ref(null);
-      const message = useMessage();
-
-      const state = reactive({
-        formValue: {
-          name: '',
-          mobile: '',
-          email: '',
-          address: '',
-        },
-      });
-
-      function formSubmit() {
-        formRef.value.validate((errors) => {
-          if (!errors) {
-            message.success('验证成功');
-          } else {
-            message.error('验证失败，请填写完整信息');
-          }
-        });
-      }
-
-      return {
-        formRef,
-        ...toRefs(state),
-        rules,
-        formSubmit,
-      };
-    },
+  const formValue = reactive({
+    name: '',
+    mobile: '',
+    email: '',
+    address: '',
   });
+
+  function formSubmit() {
+    formRef.value.validate((errors) => {
+      if (!errors) {
+        message.success('验证成功');
+      } else {
+        message.error('验证失败，请填写完整信息');
+      }
+    });
+  }
 </script>

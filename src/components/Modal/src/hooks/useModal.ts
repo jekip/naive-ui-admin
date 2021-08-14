@@ -1,46 +1,42 @@
-import { ref, onUnmounted, unref, getCurrentInstance, watch } from 'vue';
+import { ref, onUnmounted, unref, getCurrentInstance, watch, nextTick } from 'vue';
 import { isProdMode } from '@/utils/env';
-import { ReturnMethods } from '../type';
+import { ModalMethods, UseModalReturnType } from '../type';
 import { getDynamicProps } from '@/utils';
-export function useModal(props): (((modalMethod: ReturnMethods) => any) | ReturnMethods)[] {
-  const modal = ref<Nullable<ReturnMethods>>(null);
-  const loaded = ref<Nullable<boolean>>(false);
+import { tryOnUnmounted } from '@vueuse/core';
+export function useModal(props): UseModalReturnType {
 
-  function register(modalMethod: ReturnMethods) {
-    if (!getCurrentInstance()) {
-      throw new Error('useModal() can only be used inside setup() or functional components!');
-    }
-    isProdMode() &&
-      onUnmounted(() => {
-        modal.value = null;
-        loaded.value = false;
-      });
-    if (unref(loaded) && isProdMode() && modalMethod === unref(modal)) return;
-    modal.value = modalMethod;
-
-    watch(
-      () => props,
-      () => {
-        // @ts-ignore
-        const { setProps } = modal.value;
-        props && setProps(getDynamicProps(props));
-      },
-      {
-        immediate: true,
-        deep: true,
-      }
-    );
-  }
+  const modalRef = ref<Nullable<ModalMethods>>(null);
+  const currentInstance = getCurrentInstance();
 
   const getInstance = () => {
-    const instance = unref(modal);
+    const instance = unref(modalRef.value);
     if (!instance) {
       console.error('useModal instance is undefined!');
     }
     return instance;
   };
 
-  const methods: ReturnMethods = {
+  const register = (modalInstance: ModalMethods) => {
+    isProdMode() &&
+      tryOnUnmounted(() => {
+        modalRef.value = null;
+      });
+    modalRef.value = modalInstance;
+    currentInstance?.emit('register', modalInstance);
+
+    watch(
+      () => props,
+      () => {
+        props && modalInstance.setProps(getDynamicProps(props));
+      },
+      {
+        immediate: true,
+        deep: true,
+      }
+    );
+  };
+
+  const methods: ModalMethods = {
     setProps: (props): void => {
       getInstance()?.setProps(props);
     },
@@ -54,5 +50,6 @@ export function useModal(props): (((modalMethod: ReturnMethods) => any) | Return
       getInstance()?.setSubLoading(status);
     },
   };
+
   return [register, methods];
 }

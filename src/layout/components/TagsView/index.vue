@@ -5,6 +5,7 @@
       'tabs-view-fix': multiTabsSetting.fixed,
       'tabs-view-fixed-header': isMultiHeaderFixed,
       'tabs-view-default-background': getDarkTheme === false,
+      'tabs-view-dark-background': getDarkTheme === true,
     }"
     :style="getChangeStyle"
   >
@@ -101,8 +102,7 @@
   import { RouteItem } from '@/store/modules/tabsView';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
   import { useMessage } from 'naive-ui';
-  // @ts-ignore
-  import Draggable from 'vuedraggable/src/vuedraggable';
+  import Draggable from 'vuedraggable';
   import { PageEnum } from '@/enums/pageEnum';
   import {
     DownOutlined,
@@ -641,6 +641,10 @@
 
   .tabs-view-default-background {
     background: #f5f7f9;
+  }
+
+  .tabs-view-dark-background {
+    background: #101014;
   }
 
   .tabs-view-fix {

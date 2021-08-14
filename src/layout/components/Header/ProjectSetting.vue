@@ -140,7 +140,7 @@
           <div class="drawer-setting-item-title"> 分割菜单 </div>
           <div class="drawer-setting-item-action">
             <n-switch
-              :disabled="settingStore.navMode === 'horizontal-mix' ? false : true"
+              :disabled="settingStore.navMode !== 'horizontal-mix'"
               v-model:value="settingStore.menuSetting.mixMenu"
             />
           </div>
@@ -206,6 +206,22 @@
         <!--          </div>-->
         <!--        </div>-->
 
+        <n-divider title-placement="center">动画</n-divider>
+
+        <div class="drawer-setting-item">
+          <div class="drawer-setting-item-title"> 禁用动画 </div>
+          <div class="drawer-setting-item-action">
+            <n-switch v-model:value="settingStore.isPageAnimate" />
+          </div>
+        </div>
+
+        <div class="drawer-setting-item">
+          <div class="drawer-setting-item-title"> 动画类型 </div>
+          <div class="drawer-setting-item-select">
+            <n-select v-model:value="settingStore.pageAnimateType" :options="animateOptions" />
+          </div>
+        </div>
+
         <div class="drawer-setting-item">
           <n-alert type="warning" :showIcon="false">
             <p>{{ alertText }}</p>
@@ -217,12 +233,13 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive, toRefs, watch } from 'vue';
+  import { defineComponent, reactive, toRefs, unref, watch, computed } from 'vue';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
   import { useDesignSettingStore } from '@/store/modules/designSetting';
   import { CheckOutlined } from '@vicons/antd';
   import { Moon, SunnySharp } from '@vicons/ionicons5';
   import { darkTheme } from 'naive-ui';
+  import { animates as animateOptions } from '@/settings/animateSetting';
 
   export default defineComponent({
     name: 'ProjectSetting',
@@ -257,6 +274,10 @@
         }
       );
 
+      const directionsOptions = computed(() => {
+        return animateOptions.find((item) => item.value == unref(settingStore.pageAnimateType));
+      });
+
       function openDrawer() {
         state.isDrawer = true;
       }
@@ -278,11 +299,7 @@
 
       function togNavMode(mode) {
         settingStore.navMode = mode;
-        // if (mode === 'header-dark') {
-        //   settingStore.setNavTheme('dark');
-        // } else {
-        //   settingStore.setNavTheme('light');
-        // }
+        settingStore.menuSetting.mixMenu = false;
       }
 
       return {
@@ -295,6 +312,8 @@
         darkTheme,
         openDrawer,
         closeDrawer,
+        animateOptions,
+        directionsOptions,
       };
     },
   });
@@ -327,6 +346,10 @@
 
       &-action {
         flex: 0 0 auto;
+      }
+
+      &-select {
+        flex: 1;
       }
 
       .theme-item {

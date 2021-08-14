@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
-    <img src="~@/assets/images/logo.png" alt="" />
-    <h2 v-show="!collapsed" class="title">&nbsp;NaiveUiAdmin</h2>
+    <img src="~@/assets/images/logo.png" alt="" :class="{ 'mr-2': !collapsed }" />
+    <h2 v-show="!collapsed" class="title">NaiveUiAdmin</h2>
   </div>
 </template>
 
@@ -32,7 +32,6 @@
     }
 
     .title {
-      color: white;
       margin-bottom: 0;
     }
   }

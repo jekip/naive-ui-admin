@@ -1,3 +1,50 @@
+# CHANGELOG
+
+## 1.5.5 (2021-08-14)
+
+### 🐛 Bug Fixes
+- 修复路由只存在一个子路由，图标不显示问题
+- UI样式美化
+
+- ### ✨ Features
+- 支持 Vue 3.2.x 
+- 代码全部按 `script setup` 语法重写（完成80%）  
+- 新增 `回到顶部` 功能  
+- 新增 `拖拽` 示例页面
+- 新增 `富文本` 组件
+- 新增 `路由切换动画` 可在项目设置切换  
+- 依赖升级
+
+# CHANGELOG
+
+## 1.5.4 (2021-08-10)
+
+### 🐛 Bug Fixes
+
+- `暗色模式下多页签背景问题 ` 合并 [#23](https://github.com/jekip/naive-ui-admin/pull/23) 感谢 [@Dishone](https://github.com/Dishone)
+- `表格设置列，重复添加action列样式错乱问题` 合并 [#24](https://github.com/jekip/naive-ui-admin/pull/24) 感谢 [@CasbaL](https://github.com/CasbaL)
+
+- ### ✨ Features
+- 新增 `路由支持（内联外部地址）`配置
+- 新增 `顶部菜单` logo展示
+-（破坏性更新）
+- 优化 `动态路由配置` 取消`constantRouterComponents.ts`，中组件映射配置，更名为 `router-icons.ts`
+- 优化 `admin_info接口结构`，roles 更名为：permissions，roles.roleName，更名为：label
+- 优化 多级路由，当没有配置`redirect`时，默认为第一个子路由，配置则优先按配置
+- 依赖升级
+
+# 1.5.3 (2021-08-09)
+### 🐛 Bug Fixes
+- 修复顶部菜单，选中联动
+- 修复混合菜单模式，切换其他模式菜单未重置
+- 实例基础列表，和表格组件实例，开启横向滚动特性
+- `naiveui` 升级成最新版
+
+- ### ✨ Features
+- table组件，默认开启 `ellipsis` 特性
+
+
+
 # 1.5.2 (2021-08-06)
 ### 🐛 Bug Fixes
 - 修复已知bug

@@ -1,9 +1,11 @@
+import type { RouteRecordRaw } from 'vue-router';
 import { isNavigationFailure, Router } from 'vue-router';
 import { useUserStoreWidthOut } from '@/store/modules/user';
 import { useAsyncRouteStoreWidthOut } from '@/store/modules/asyncRoute';
 import { ACCESS_TOKEN } from '@/store/mutation-types';
 import { storage } from '@/utils/Storage';
 import { PageEnum } from '@/enums/pageEnum';
+import { ErrorPageRoute } from '@/router/base';
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
 
@@ -29,7 +31,7 @@ export function createRouterGuards(router: Router) {
     const token = storage.get(ACCESS_TOKEN);
 
     if (!token) {
-      // You can access without permission. You need to set the routing meta.ignoreAuth to true
+      // You can access without permissions. You need to set the routing meta.ignoreAuth to true
       if (to.meta.ignoreAuth) {
         next();
         return;
@@ -60,8 +62,14 @@ export function createRouterGuards(router: Router) {
 
     // 动态添加可访问路由表
     routes.forEach((item) => {
-      router.addRoute(item);
+      router.addRoute(item as unknown as RouteRecordRaw);
     });
+
+    //添加404
+    const isErrorPage = router.getRoutes().findIndex((item) => item.name === ErrorPageRoute.name);
+    if (isErrorPage === -1) {
+      router.addRoute(ErrorPageRoute as unknown as RouteRecordRaw);
+    }
 
     const redirectPath = (from.query.redirect || to.path) as string;
     const redirect = decodeURIComponent(redirectPath);

@@ -31,34 +31,17 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
-  import { useRouter } from 'vue-router';
+<script lang="ts" setup>
+  import { defineEmits } from 'vue';
 
-  export default defineComponent({
-    emits: ['finish', 'prevStep'],
-    setup(_, { emit }) {
-      const router = useRouter();
+  const emit = defineEmits(['finish', 'prevStep']);
+  function prevStep() {
+    emit('prevStep');
+  }
 
-      function prevStep() {
-        emit('prevStep');
-      }
-
-      function finish() {
-        emit('finish');
-      }
-
-      function toOrderList() {
-        router.push('/form/step-form');
-      }
-
-      return {
-        prevStep,
-        finish,
-        toOrderList,
-      };
-    },
-  });
+  function finish() {
+    emit('finish');
+  }
 </script>
 
 <style lang="less" scoped>

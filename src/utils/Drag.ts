@@ -14,7 +14,7 @@ const params = {
   flag: false,
 };
 
-const startDrag = function (bar, target, callback) {
+const startDrag = function (bar, target, callback?) {
   const screenWidth = document.body.clientWidth; // body当前宽度
   const screenHeight = document.documentElement.clientHeight; // 可见区域高度
 

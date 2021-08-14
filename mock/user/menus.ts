@@ -4,7 +4,7 @@ const menusList = [
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: 'Layout',
+    component: 'LAYOUT',
     redirect: '/dashboard/console',
     meta: {
       icon: 'DashboardOutlined',
@@ -14,7 +14,7 @@ const menusList = [
       {
         path: 'console',
         name: 'dashboard_console',
-        component: 'DashboardConsole',
+        component: '/dashboard/console/console',
         meta: {
           title: '主控台',
         },
@@ -22,7 +22,7 @@ const menusList = [
       {
         path: 'monitor',
         name: 'dashboard_monitor',
-        component: 'DashboardMonitor',
+        component: '/dashboard/monitor/monitor',
         meta: {
           title: '监控页',
         },
@@ -30,7 +30,7 @@ const menusList = [
       {
         path: 'workplace',
         name: 'dashboard_workplace',
-        component: 'DashboardWorkplace',
+        component: '/dashboard/workplace/workplace',
         meta: {
           hidden: true,
           title: '工作台',

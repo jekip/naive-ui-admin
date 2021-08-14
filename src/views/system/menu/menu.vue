@@ -124,8 +124,8 @@
     <CreateDrawer ref="createDrawerRef" :title="drawerTitle" />
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent, ref, unref, reactive, toRefs, onMounted, computed } from 'vue';
+<script lang="ts" setup>
+  import { ref, unref, reactive, onMounted, computed } from 'vue';
   import { useMessage } from 'naive-ui';
   import { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined } from '@vicons/antd';
   import { getMenuList } from '@/api/system/menu';
@@ -145,127 +145,104 @@
     },
   };
 
-  export default defineComponent({
-    components: { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined, CreateDrawer },
-    setup() {
-      const formRef: any = ref(null);
-      const createDrawerRef = ref();
-      const message = useMessage();
+  const formRef: any = ref(null);
+  const createDrawerRef = ref();
+  const message = useMessage();
 
-      const isAddSon = computed(() => {
-        return !state.treeItemKey.length;
-      });
+  let treeItemKey = ref([]);
 
-      const addMenuOptions = ref([
-        {
-          label: '添加顶级菜单',
-          key: 'home',
-          disabled: false,
-        },
-        {
-          label: '添加子菜单',
-          key: 'son',
-          disabled: isAddSon,
-        },
-      ]);
+  let expandedKeys = ref([]);
 
-      const treeItemKey: string[] = reactive([]);
+  const treeData = ref([]);
 
-      const expandedKeys: string[] = reactive([]);
+  const loading = ref(true);
+  const subLoading = ref(false);
+  const isEditMenu = ref(false);
+  const treeItemTitle = ref('');
+  const pattern = ref('');
+  const drawerTitle = ref('');
 
-      const treeData: string[] = reactive([]);
-
-      const state = reactive({
-        loading: true,
-        subLoading: false,
-        isEditMenu: false,
-        treeItemTitle: '',
-        formParams: {
-          type: 1,
-          label: '',
-          subtitle: '',
-          path: '',
-          auth: '',
-          openType: 1,
-        },
-        pattern: '',
-        drawerTitle: '',
-        treeItemKey,
-        expandedKeys,
-        treeData,
-      });
-
-      function selectAddMenu(key: string) {
-        state.drawerTitle = key === 'home' ? '添加顶栏菜单' : `添加子菜单：${state.treeItemTitle}`;
-        openCreateDrawer();
-      }
-
-      function openCreateDrawer() {
-        const { openDrawer } = createDrawerRef.value;
-        openDrawer();
-      }
-
-      function selectedTree(keys: string[]) {
-        if (keys.length) {
-          const treeItem = getTreeItem(unref(state.treeData), keys[0]);
-          state.treeItemKey = keys;
-          state.treeItemTitle = treeItem.label;
-          state.formParams = Object.assign(state.formParams, treeItem);
-          state.isEditMenu = true;
-        } else {
-          state.isEditMenu = false;
-          state.treeItemKey = [];
-          state.treeItemTitle = '';
-        }
-      }
-
-      function handleReset() {
-        const treeItem = getTreeItem(unref(state.treeData), state.treeItemKey[0]);
-        state.formParams = Object.assign(state.formParams, treeItem);
-      }
-
-      function formSubmit() {
-        formRef.value.validate((errors: boolean) => {
-          if (!errors) {
-            message.error('抱歉，您没有该权限');
-          } else {
-            message.error('请填写完整信息');
-          }
-        });
-      }
-
-      function packHandle() {
-        if (state.expandedKeys.length) {
-          state.expandedKeys = [];
-        } else {
-          state.expandedKeys = state.treeData.map((item: any) => item.key);
-        }
-      }
-
-      onMounted(async () => {
-        const treeMenuList = await getMenuList();
-        state.expandedKeys = treeMenuList.list.map((item) => item.key);
-        state.treeData = treeMenuList.list;
-        state.loading = false;
-      });
-
-      function onExpandedKeys(keys: string[]) {
-        state.expandedKeys = keys;
-      }
-
-      return {
-        ...toRefs(state),
-        addMenuOptions,
-        createDrawerRef,
-        formRef,
-        rules,
-        selectedTree,
-        handleReset,
-        formSubmit,
-        packHandle,
-        onExpandedKeys,
-        selectAddMenu,
-      };
-    },
+  const isAddSon = computed(() => {
+    return !treeItemKey.value.length;
   });
+
+  const addMenuOptions = ref([
+    {
+      label: '添加顶级菜单',
+      key: 'home',
+      disabled: false,
+    },
+    {
+      label: '添加子菜单',
+      key: 'son',
+      disabled: isAddSon,
+    },
+  ]);
+
+  let formParams = reactive({
+    type: 1,
+    label: '',
+    subtitle: '',
+    path: '',
+    auth: '',
+    openType: 1,
+  });
+
+  function selectAddMenu(key: string) {
+    drawerTitle.value = key === 'home' ? '添加顶栏菜单' : `添加子菜单：${treeItemTitle.value}`;
+    openCreateDrawer();
+  }
+
+  function openCreateDrawer() {
+    const { openDrawer } = createDrawerRef.value;
+    openDrawer();
+  }
+
+  function selectedTree(keys) {
+    if (keys.length) {
+      const treeItem = getTreeItem(unref(treeData), keys[0]);
+      treeItemKey.value = keys;
+      treeItemTitle.value = treeItem.label;
+      formParams = Object.assign(formParams, treeItem);
+      isEditMenu.value = true;
+    } else {
+      isEditMenu.value = false;
+      treeItemKey.value = [];
+      treeItemTitle.value = '';
+    }
+  }
+
+  function handleReset() {
+    const treeItem = getTreeItem(unref(treeData), treeItemKey[0]);
+    formParams = Object.assign(formParams, treeItem);
+  }
+
+  function formSubmit() {
+    formRef.value.validate((errors: boolean) => {
+      if (!errors) {
+        message.error('抱歉，您没有该权限');
+      } else {
+        message.error('请填写完整信息');
+      }
+    });
+  }
+
+  function packHandle() {
+    if (expandedKeys.value.length) {
+      expandedKeys.value = [];
+    } else {
+      expandedKeys.value = unref(treeData).map((item: any) => item.key as string) as [];
+    }
+  }
+
+  onMounted(async () => {
+    const treeMenuList = await getMenuList();
+    formParams = treeMenuList.list.map((item) => item.key);
+    treeData.value = treeMenuList.list;
+    loading.value = false;
+  });
+
+  function onExpandedKeys(keys) {
+    expandedKeys.value = keys;
+  }
 </script>

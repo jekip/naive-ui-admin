@@ -20,6 +20,10 @@ export function useProjectSetting() {
 
   const getShowFooter = computed(() => projectStore.showFooter);
 
+  const getIsPageAnimate = computed(() => projectStore.isPageAnimate);
+
+  const getPageAnimateType = computed(() => projectStore.pageAnimateType);
+
   return {
     getNavMode,
     getNavTheme,
@@ -29,5 +33,7 @@ export function useProjectSetting() {
     getCrumbsSetting,
     getPermissionMode,
     getShowFooter,
+    getIsPageAnimate,
+    getPageAnimateType,
   };
 }

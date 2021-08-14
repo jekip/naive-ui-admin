@@ -13,25 +13,25 @@ const adminInfo = {
   desc: 'manager',
   password: Random.string('upper', 4, 16),
   token,
-  roles: [
+  permissions: [
     {
-      roleName: '主控台',
+      label: '主控台',
       value: 'dashboard_console',
     },
     {
-      roleName: '监控页',
+      label: '监控页',
       value: 'dashboard_monitor',
     },
     {
-      roleName: '工作台',
+      label: '工作台',
       value: 'dashboard_workplace',
     },
     {
-      roleName: '基础列表',
+      label: '基础列表',
       value: 'basic_list',
     },
     {
-      roleName: '基础列表删除',
+      label: '基础列表删除',
       value: 'basic_list_delete',
     },
   ],

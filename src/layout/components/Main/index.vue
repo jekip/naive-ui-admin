@@ -1,7 +1,7 @@
 <template>
   <RouterView>
     <template #default="{ Component, route }">
-      <transition name="zoom-fade" mode="out-in" appear>
+      <transition :name="getTransitionName" mode="out-in" appear>
         <keep-alive v-if="keepAliveComponents" :include="keepAliveComponents">
           <component :is="Component" :key="route.fullPath" />
         </keep-alive>
@@ -12,8 +12,9 @@
 </template>
 
 <script>
-  import { defineComponent, computed } from 'vue';
+  import { defineComponent, computed, unref } from 'vue';
   import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
+  import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 
   export default defineComponent({
     name: 'MainView',
@@ -29,11 +30,18 @@
       },
     },
     setup() {
+      const { getIsPageAnimate, getPageAnimateType } = useProjectSetting();
       const asyncRouteStore = useAsyncRouteStore();
       // 需要缓存的路由组件
       const keepAliveComponents = computed(() => asyncRouteStore.keepAliveComponents);
+
+      const getTransitionName = computed(() => {
+        return unref(getIsPageAnimate) ? unref(getPageAnimateType) : '';
+      });
+
       return {
         keepAliveComponents,
+        getTransitionName,
       };
     },
   });

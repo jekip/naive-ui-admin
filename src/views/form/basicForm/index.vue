@@ -81,8 +81,8 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref, reactive, toRefs } from 'vue';
+<script lang="ts" setup>
+  import { ref, unref, reactive } from 'vue';
   import { useMessage } from 'naive-ui';
   import { BasicUpload } from '@/components/Upload';
   import { useGlobSetting } from '@/hooks/setting';
@@ -149,66 +149,46 @@
     },
   };
 
-  export default defineComponent({
-    components: { BasicUpload },
-    setup() {
-      const formRef: any = ref(null);
-      const message = useMessage();
-      const { uploadUrl } = globSetting;
+  const formRef: any = ref(null);
+  const message = useMessage();
+  const { uploadUrl } = globSetting;
 
-      const defaultValueRef = () => ({
-        name: '',
-        mobile: '',
-        remark: '',
-        sex: 1,
-        matter: null,
-        doctor: null,
-        datetime: [],
-      });
-
-      const state = reactive({
-        formValue: defaultValueRef(),
-        //图片列表 通常查看和编辑使用 绝对路径 | 相对路径都可以
-        uploadList: [
-          'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        ],
-        uploadHeaders: {
-          platform: 'miniPrograms',
-          timestamp: new Date().getTime(),
-          token: 'Q6fFCuhc1vkKn5JNFWaCLf6gRAc5n0LQHd08dSnG4qo=',
-        },
-      });
-
-      function formSubmit() {
-        formRef.value.validate((errors) => {
-          if (!errors) {
-            message.success('验证成功');
-          } else {
-            message.error('验证失败，请填写完整信息');
-          }
-        });
-      }
-
-      function resetForm() {
-        formRef.value.restoreValidation();
-        state.formValue = Object.assign(state.formValue, defaultValueRef());
-      }
-
-      function uploadChange(list: string[]) {
-        console.log(list);
-      }
-
-      return {
-        ...toRefs(state),
-        formRef,
-        uploadUrl,
-        rules,
-        doctorList,
-        matterList,
-        formSubmit,
-        resetForm,
-        uploadChange,
-      };
-    },
+  const defaultValueRef = () => ({
+    name: '',
+    mobile: '',
+    remark: '',
+    sex: 1,
+    matter: null,
+    doctor: null,
+    datetime: [],
   });
+
+  let formValue = reactive(defaultValueRef());
+  const uploadList = ref([
+    'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  ]);
+  const uploadHeaders = reactive({
+    platform: 'miniPrograms',
+    timestamp: new Date().getTime(),
+    token: 'Q6fFCuhc1vkKn5JNFWaCLf6gRAc5n0LQHd08dSnG4qo=',
+  });
+
+  function formSubmit() {
+    formRef.value.validate((errors) => {
+      if (!errors) {
+        message.success('验证成功');
+      } else {
+        message.error('验证失败，请填写完整信息');
+      }
+    });
+  }
+
+  function resetForm() {
+    formRef.value.restoreValidation();
+    formValue = Object.assign(unref(formValue), defaultValueRef());
+  }
+
+  function uploadChange(list: string[]) {
+    console.log(list);
+  }
 </script>

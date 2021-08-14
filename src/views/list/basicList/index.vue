@@ -61,11 +61,11 @@
   </n-card>
 </template>
 
-<script lang="ts">
-  import { defineComponent, h, reactive, ref, toRefs } from 'vue';
+<script lang="ts" setup>
+  import { h, reactive, ref } from 'vue';
   import { useMessage } from 'naive-ui';
   import { BasicTable, TableAction } from '@/components/Table';
-  import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
+  import { BasicForm, useForm } from '@/components/Form/index';
   import { getTableList } from '@/api/table/list';
   import { columns } from './columns';
   import { PlusOutlined } from '@vicons/antd';
@@ -90,7 +90,7 @@
     },
   };
 
-  const schemas: FormSchema[] = [
+  const schemas = [
     {
       field: 'name',
       labelMessage: '这是一个提示',
@@ -214,164 +214,134 @@
     },
   ];
 
-  export default defineComponent({
-    // eslint-disable-next-line vue/no-unused-components
-    components: { BasicTable, PlusOutlined, TableAction, BasicForm },
-    setup() {
-      const router = useRouter();
-      const formRef: any = ref(null);
-      const message = useMessage();
-      const actionRef = ref();
-      const state = reactive({
-        showModal: false,
-        formBtnLoading: false,
-        formParams: {},
-        params: {
-          pageSize: 5,
-          name: 'xiaoMa',
-        },
-        actionColumn: {
-          width: 220,
-          title: '操作',
-          key: 'action',
-          fixed: 'right',
-          render(record) {
-            return h(TableAction as any, {
-              style: 'button',
-              actions: [
-                {
-                  label: '删除',
-                  icon: 'ic:outline-delete-outline',
-                  onClick: handleDelete.bind(null, record),
-                  // 根据业务控制是否显示 isShow 和 auth 是并且关系
-                  ifShow: () => {
-                    return true;
-                  },
-                  // 根据权限控制是否显示: 有权限，会显示，支持多个
-                  auth: ['basic_list'],
-                },
-                {
-                  label: '编辑',
-                  onClick: handleEdit.bind(null, record),
-                  ifShow: () => {
-                    return true;
-                  },
-                  auth: ['basic_list'],
-                },
-              ],
-              dropDownActions: [
-                {
-                  label: '启用',
-                  key: 'enabled',
-                  // 根据业务控制是否显示: 非enable状态的不显示启用按钮
-                  ifShow: () => {
-                    return true;
-                  },
-                },
-                {
-                  label: '禁用',
-                  key: 'disabled',
-                  ifShow: () => {
-                    return true;
-                  },
-                },
-              ],
-              select: (key) => {
-                message.info(`您点击了，${key} 按钮`);
-              },
-            });
+  const router = useRouter();
+  const formRef: any = ref(null);
+  const message = useMessage();
+  const actionRef = ref();
+
+  const showModal = ref(false);
+  const formBtnLoading = ref(false);
+  const formParams = reactive({
+    name: '',
+    address: '',
+    date: null,
+  });
+
+  const params = ref({
+    pageSize: 5,
+    name: 'xiaoMa',
+  });
+
+  const actionColumn = reactive({
+    width: 220,
+    title: '操作',
+    key: 'action',
+    fixed: 'right',
+    render(record) {
+      return h(TableAction as any, {
+        style: 'button',
+        actions: [
+          {
+            label: '删除',
+            icon: 'ic:outline-delete-outline',
+            onClick: handleDelete.bind(null, record),
+            // 根据业务控制是否显示 isShow 和 auth 是并且关系
+            ifShow: () => {
+              return true;
+            },
+            // 根据权限控制是否显示: 有权限，会显示，支持多个
+            auth: ['basic_list'],
           },
+          {
+            label: '编辑',
+            onClick: handleEdit.bind(null, record),
+            ifShow: () => {
+              return true;
+            },
+            auth: ['basic_list'],
+          },
+        ],
+        dropDownActions: [
+          {
+            label: '启用',
+            key: 'enabled',
+            // 根据业务控制是否显示: 非enable状态的不显示启用按钮
+            ifShow: () => {
+              return true;
+            },
+          },
+          {
+            label: '禁用',
+            key: 'disabled',
+            ifShow: () => {
+              return true;
+            },
+          },
+        ],
+        select: (key) => {
+          message.info(`您点击了，${key} 按钮`);
         },
       });
-
-      const [register, {}] = useForm({
-        gridProps: { cols: '4' },
-        labelWidth: 80,
-        schemas,
-      });
-
-      function addTable() {
-        state.showModal = true;
-      }
-
-      const loadDataTable = async (res) => {
-        let params = {
-          ...res,
-          ...state.formParams,
-        };
-        return await getTableList(params);
-      };
-
-      function onCheckedRow(rowKeys) {
-        console.log(rowKeys);
-      }
-
-      function reloadTable() {
-        actionRef.value.reload();
-      }
-
-      function confirmForm(e) {
-        e.preventDefault();
-        state.formBtnLoading = true;
-        formRef.value.validate((errors) => {
-          if (!errors) {
-            message.success('新建成功');
-            setTimeout(() => {
-              state.showModal = false;
-              reloadTable();
-            });
-          } else {
-            message.error('请填写完整信息');
-          }
-          state.formBtnLoading = false;
-        });
-      }
-
-      function handleEdit(record: Recordable) {
-        console.log('点击了编辑', record);
-        router.push({ name: 'basic-info', params: { id: record.id } });
-      }
-
-      function handleDelete(record: Recordable) {
-        console.log('点击了删除', record);
-        message.info('点击了删除');
-      }
-
-      function handleOpen(record: Recordable) {
-        console.log('点击了启用', record);
-        message.info('点击了删除');
-      }
-
-      function handleSubmit(values: Recordable) {
-        console.log(values);
-        state.formParams = values;
-        reloadTable();
-      }
-
-      function handleReset(values: Recordable) {
-        console.log(values);
-      }
-
-      return {
-        ...toRefs(state),
-        formRef,
-        columns,
-        rules,
-        actionRef,
-        register,
-        confirmForm,
-        loadDataTable,
-        onCheckedRow,
-        reloadTable,
-        addTable,
-        handleEdit,
-        handleDelete,
-        handleOpen,
-        handleSubmit,
-        handleReset,
-      };
     },
   });
+
+  const [register, {}] = useForm({
+    gridProps: { cols: '1 s:1 m:2 l:3 xl:4 2xl:4' },
+    labelWidth: 80,
+    schemas,
+  });
+
+  function addTable() {
+    showModal.value = true;
+  }
+
+  const loadDataTable = async (res) => {
+    return await getTableList({...res, ...formParams, ...params.value});
+  };
+
+  function onCheckedRow(rowKeys) {
+    console.log(rowKeys);
+  }
+
+  function reloadTable() {
+    actionRef.value.reload();
+  }
+
+  function confirmForm(e) {
+    e.preventDefault();
+    formBtnLoading.value = true;
+    formRef.value.validate((errors) => {
+      if (!errors) {
+        message.success('新建成功');
+        setTimeout(() => {
+          showModal.value = false;
+          reloadTable();
+        });
+      } else {
+        message.error('请填写完整信息');
+      }
+      formBtnLoading.value = false;
+    });
+  }
+
+  function handleEdit(record: Recordable) {
+    console.log('点击了编辑', record);
+    router.push({ name: 'basic-info', params: { id: record.id } });
+  }
+
+  function handleDelete(record: Recordable) {
+    console.log('点击了删除', record);
+    message.info('点击了删除');
+  }
+
+  function handleSubmit(values: Recordable) {
+    console.log(values);
+    reloadTable();
+  }
+
+  function handleReset(values: Recordable) {
+    console.log(values);
+  }
 </script>
 
 <style lang="less" scoped></style>

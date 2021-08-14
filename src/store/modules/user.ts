@@ -13,7 +13,7 @@ export interface IUserState {
   username: string;
   welcome: string;
   avatar: string;
-  roles: any[];
+  permissions: any[];
   info: any;
 }
 
@@ -24,7 +24,7 @@ export const useUserStore = defineStore({
     username: '',
     welcome: '',
     avatar: '',
-    roles: [],
+    permissions: [],
     info: Storage.get(CURRENT_USER, {}),
   }),
   getters: {
@@ -37,8 +37,8 @@ export const useUserStore = defineStore({
     getNickname(): string {
       return this.username;
     },
-    getRoles(): [any][] {
-      return this.roles;
+    getPermissions(): [any][] {
+      return this.permissions;
     },
     getUserInfo(): object {
       return this.info;
@@ -51,8 +51,8 @@ export const useUserStore = defineStore({
     setAvatar(avatar: string) {
       this.avatar = avatar;
     },
-    setRoles(roles) {
-      this.roles = roles;
+    setPermissions(permissions) {
+      this.permissions = permissions;
     },
     setUserInfo(info) {
       this.info = info;
@@ -83,12 +83,12 @@ export const useUserStore = defineStore({
         getUserInfo()
           .then((res) => {
             const result = res;
-            if (result.roles && result.roles.length) {
-              const roles = result.roles;
-              that.setRoles(roles);
+            if (result.permissions && result.permissions.length) {
+              const permissionsList = result.permissions;
+              that.setPermissions(permissionsList);
               that.setUserInfo(result);
             } else {
-              reject(new Error('getInfo: roles must be a non-null array !'));
+              reject(new Error('getInfo: permissionsList must be a non-null array !'));
             }
             that.setAvatar(result.avatar);
             resolve(res);
@@ -101,7 +101,7 @@ export const useUserStore = defineStore({
 
     // 登出
     async logout() {
-      this.setRoles([]);
+      this.setPermissions([]);
       this.setUserInfo('');
       storage.remove(ACCESS_TOKEN);
       storage.remove(CURRENT_USER);

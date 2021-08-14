@@ -65,6 +65,7 @@ import {
   NSpin,
   NTimePicker,
   NBackTop,
+  NSkeleton,
 } from 'naive-ui';
 
 const naive = create({
@@ -133,6 +134,7 @@ const naive = create({
     NSpin,
     NTimePicker,
     NBackTop,
+    NSkeleton,
   ],
 });
 
