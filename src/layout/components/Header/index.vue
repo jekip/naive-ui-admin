@@ -5,7 +5,7 @@
       class="layout-header-left"
       v-if="navMode === 'horizontal' || (navMode === 'horizontal-mix' && mixMenu)"
     >
-      <div class="logo">
+      <div class="logo" v-if="navMode === 'horizontal'">
         <img src="~@/assets/images/logo.png" alt="" />
         <h2 v-show="!collapsed" class="title">NaiveUiAdmin</h2>
       </div>
