@@ -111,7 +111,7 @@
     LeftOutlined,
     RightOutlined,
   } from '@vicons/antd';
-  import { renderIcon } from '@/utils/index';
+  import { renderIcon } from '@/utils';
   import elementResizeDetectorMaker from 'element-resize-detector';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
@@ -148,9 +148,6 @@
       const state = reactive({
         activeKey: route.fullPath,
         scrollable: false,
-        navStyle: {
-          transform: '',
-        },
         dropdownX: 0,
         dropdownY: 0,
         showDropdown: false,
@@ -169,10 +166,7 @@
         const currentRoute = useRoute();
         const navMode = unref(getNavMode);
         if (unref(navMode) != 'horizontal-mix') return true;
-        if (unref(navMode) === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot) {
-          return false;
-        }
-        return true;
+        return !(unref(navMode) === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot);
       });
 
       //动态组装样式 菜单缩进
@@ -195,7 +189,7 @@
 
       //tags 右侧下拉菜单
       const TabsMenuOptions = computed(() => {
-        const isDisabled = unref(tabsList).length <= 1 ? true : false;
+        const isDisabled = unref(tabsList).length <= 1;
         return [
           {
             label: '刷新当前',
@@ -242,11 +236,11 @@
           document.documentElement.scrollTop ||
           window.pageYOffset ||
           document.body.scrollTop; // 滚动条偏移量
-        if (!getHeaderSetting.fixed && getMultiTabsSetting.fixed && scrollTop >= 64) {
-          state.isMultiHeaderFixed = true;
-        } else {
-          state.isMultiHeaderFixed = false;
-        }
+        state.isMultiHeaderFixed = !!(
+          !getHeaderSetting.fixed &&
+          getMultiTabsSetting.fixed &&
+          scrollTop >= 64
+        );
       }
 
       window.addEventListener('scroll', onScroll, true);
@@ -278,9 +272,7 @@
           if (whiteList.includes(route.name as string)) return;
           state.activeKey = to;
           tabsViewStore.addTabs(getSimpleRoute(route));
-          nextTick().then(() => {
-            updateNavScroll(true);
-          });
+          updateNavScroll(true);
         },
         { immediate: true }
       );
@@ -414,7 +406,8 @@
       /**
        * @param autoScroll 是否开启自动滚动功能
        */
-      function updateNavScroll(autoScroll?: boolean) {
+      async function updateNavScroll(autoScroll?: boolean) {
+        await nextTick();
         if (!navScroll.value) return;
         const containerWidth = navScroll.value.offsetWidth;
         const navWidth = navScroll.value.scrollWidth;
@@ -438,10 +431,6 @@
       function handleResize() {
         updateNavScroll(true);
       }
-
-      const getNavStyle = computed(() => {
-        return state.navStyle;
-      });
 
       function handleContextMenu(e, item) {
         e.preventDefault();
@@ -502,7 +491,6 @@
         closeHandleSelect,
         scrollNext,
         scrollPrev,
-        getNavStyle,
         handleContextMenu,
         onClickOutside,
         getDarkTheme,
