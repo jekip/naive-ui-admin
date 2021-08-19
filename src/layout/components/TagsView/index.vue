@@ -30,27 +30,26 @@
           </n-icon>
         </span>
         <div ref="navScroll" class="tabs-card-scroll">
-          <div ref="navRef" class="tabs-card-nav" :style="getNavStyle">
-            <Draggable :list="tabsList" animation="300" item-key="fullPath" class="flex">
-              <template #item="{ element }">
-                <div
-                  class="tabs-card-scroll-item"
-                  :class="{ 'active-item': activeKey === element.path }"
-                  @click.stop="goPage(element)"
-                  @contextmenu="handleContextMenu($event, element)"
+          <Draggable :list="tabsList" animation="300" item-key="fullPath" class="flex">
+            <template #item="{ element }">
+              <div
+                :id="`tag${element.fullPath.split('/').join('\/')}`"
+                class="tabs-card-scroll-item"
+                :class="{ 'active-item': activeKey === element.path }"
+                @click.stop="goPage(element)"
+                @contextmenu="handleContextMenu($event, element)"
+              >
+                <span>{{ element.meta.title }}</span>
+                <n-icon
+                  size="14"
+                  @click.stop="closeTabItem(element)"
+                  v-if="element.path !== baseHome"
                 >
-                  <span>{{ element.meta.title }}</span>
-                  <n-icon
-                    size="14"
-                    @click.stop="closeTabItem(element)"
-                    v-if="element.path != baseHome"
-                  >
-                    <CloseOutlined />
-                  </n-icon>
-                </div>
-              </template>
-            </Draggable>
-          </div>
+                  <CloseOutlined />
+                </n-icon>
+              </div>
+            </template>
+          </Draggable>
         </div>
       </div>
       <div class="tabs-close">
@@ -87,7 +86,6 @@
     computed,
     ref,
     toRefs,
-    toRaw,
     unref,
     provide,
     watch,
@@ -143,7 +141,6 @@
       const router = useRouter();
       const tabsViewStore = useTabsViewStore();
       const asyncRouteStore = useAsyncRouteStore();
-      const navRef: any = ref(null);
       const navScroll: any = ref(null);
       const navWrap: any = ref(null);
       const isCurrent = ref(false);
@@ -281,7 +278,9 @@
           if (whiteList.includes(route.name as string)) return;
           state.activeKey = to;
           tabsViewStore.addTabs(getSimpleRoute(route));
-          updateNavScroll();
+          nextTick().then(() => {
+            updateNavScroll(true);
+          });
         },
         { immediate: true }
       );
@@ -374,58 +373,70 @@
         state.showDropdown = false;
       };
 
-      function getCurrentScrollOffset() {
-        const { navStyle } = state;
-        const transform: any = toRaw(navStyle.transform);
-        return transform ? Number(transform.match(/translateX\(-(\d+(\.\d+)*)px\)/)[1]) : 0;
-      }
-
-      function setOffset(value) {
-        state.navStyle.transform = `translateX(-${value}px)`;
+      /**
+       * @param value 要滚动到的位置
+       * @param amplitude 每次滚动的长度
+       */
+      function scrollTo(value: number, amplitude: number) {
+        const currentScroll = navScroll.value.scrollLeft;
+        const scrollWidth =
+          (amplitude > 0 && currentScroll + amplitude >= value) ||
+          (amplitude < 0 && currentScroll + amplitude <= value)
+            ? value
+            : currentScroll + amplitude;
+        navScroll.value && navScroll.value.scrollTo(scrollWidth, 0);
+        if (scrollWidth === value) return;
+        return window.requestAnimationFrame(() => scrollTo(value, amplitude));
       }
 
       function scrollPrev() {
         const containerWidth = navScroll.value.offsetWidth;
-        const currentOffset = getCurrentScrollOffset();
-        if (!currentOffset) return;
-        let newOffset = currentOffset > containerWidth ? currentOffset - containerWidth : 0;
-        setOffset(newOffset);
+        const currentScroll = navScroll.value.scrollLeft;
+
+        if (!currentScroll) return;
+        const scrollLeft = currentScroll > containerWidth ? currentScroll - containerWidth : 0;
+        scrollTo(scrollLeft, (scrollLeft - currentScroll) / 20);
       }
 
       function scrollNext() {
-        const navWidth = navRef.value.scrollWidth;
         const containerWidth = navScroll.value.offsetWidth;
-        const currentOffset = getCurrentScrollOffset();
-        if (navWidth - currentOffset <= containerWidth) return;
+        const navWidth = navScroll.value.scrollWidth;
+        const currentScroll = navScroll.value.scrollLeft;
 
-        let newOffset =
-          navWidth - currentOffset > containerWidth * 2
-            ? currentOffset + containerWidth
+        if (navWidth - currentScroll <= containerWidth) return;
+        const scrollLeft =
+          navWidth - currentScroll > containerWidth * 2
+            ? currentScroll + containerWidth
             : navWidth - containerWidth;
-
-        setOffset(newOffset);
+        scrollTo(scrollLeft, (scrollLeft - currentScroll) / 20);
       }
 
-      function updateNavScroll() {
-        if (!navRef.value) return;
-        let navWidth = navRef.value.scrollWidth;
-        let containerWidth = navScroll.value.offsetWidth;
-        const currentOffset = getCurrentScrollOffset();
+      /**
+       * @param autoScroll 是否开启自动滚动功能
+       */
+      function updateNavScroll(autoScroll?: boolean) {
+        if (!navScroll.value) return;
+        const containerWidth = navScroll.value.offsetWidth;
+        const navWidth = navScroll.value.scrollWidth;
+
         if (containerWidth < navWidth) {
           state.scrollable = true;
-          if (navWidth - currentOffset < containerWidth) {
-            setOffset(navWidth - containerWidth);
+          if (autoScroll) {
+            let tagList = navScroll.value.querySelectorAll('.tabs-card-scroll-item') || [];
+            [...tagList].forEach((tag: HTMLElement) => {
+              // fix SyntaxError
+              if (tag.id === `tag${state.activeKey.split('/').join('\/')}`) {
+                tag.scrollIntoView && tag.scrollIntoView();
+              }
+            });
           }
         } else {
           state.scrollable = false;
-          if (currentOffset > 0) {
-            setOffset(0);
-          }
         }
       }
 
       function handleResize() {
-        updateNavScroll();
+        updateNavScroll(true);
       }
 
       const getNavStyle = computed(() => {
@@ -475,7 +486,6 @@
       return {
         ...toRefs(state),
         navWrap,
-        navRef,
         navScroll,
         route,
         tabsList,
@@ -552,18 +562,8 @@
         }
 
         &-scroll {
-          overflow: hidden;
           white-space: nowrap;
-
-          .tabs-card-nav {
-            padding-left: 0;
-            margin: 0;
-            float: left;
-            list-style: none;
-            box-sizing: border-box;
-            position: relative;
-            transition: transform 0.5s ease-in-out;
-          }
+          overflow: hidden;
 
           &-item {
             background: var(--color);
