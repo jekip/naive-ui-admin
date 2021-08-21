@@ -133,7 +133,7 @@
       },
     },
     setup(props) {
-      const { getDarkTheme } = useDesignSetting();
+      const { getDarkTheme, getAppTheme } = useDesignSetting();
       const { getNavMode, getHeaderSetting, getMenuSetting, getMultiTabsSetting } =
         useProjectSetting();
       const settingStore = useProjectSettingStore();
@@ -496,6 +496,7 @@
         handleContextMenu,
         onClickOutside,
         getDarkTheme,
+        getAppTheme,
       };
     },
   });
@@ -607,7 +608,7 @@
           }
 
           .active-item {
-            color: #2d8cf0;
+            color: v-bind(getAppTheme);
           }
         }
       }
