@@ -16,14 +16,14 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
     }
     const { pageField, totalField } = APISETTING;
     return {
+      page: unref(configRef)[pageField],
+      pageCount: unref(configRef)[totalField],
       pageSize: DEFAULTPAGESIZE,
       pageSizes: PAGESIZES,
       showSizePicker: true,
       showQuickJumper: true,
       ...(isBoolean(pagination) ? {} : pagination),
       ...unref(configRef),
-      page: unref(configRef)[pageField],
-      pageCount: unref(configRef)[totalField],
     };
   });
 
