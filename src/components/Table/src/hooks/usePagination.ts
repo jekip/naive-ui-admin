@@ -3,7 +3,7 @@ import type { BasicTableProps } from '../types/table';
 import { computed, unref, ref, ComputedRef } from 'vue';
 
 import { isBoolean } from '@/utils/is';
-import { DEFAULTPAGESIZE, PAGESIZES } from '../const';
+import { APISETTING, DEFAULTPAGESIZE, PAGESIZES } from '../const';
 
 export function usePagination(refProps: ComputedRef<BasicTableProps>) {
   const configRef = ref<PaginationProps>({});
@@ -14,6 +14,7 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
     if (!unref(show) || (isBoolean(pagination) && !pagination)) {
       return false;
     }
+    const { pageField, totalField } = APISETTING;
     return {
       pageSize: DEFAULTPAGESIZE,
       pageSizes: PAGESIZES,
@@ -21,6 +22,8 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
       showQuickJumper: true,
       ...(isBoolean(pagination) ? {} : pagination),
       ...unref(configRef),
+      page: unref(configRef)[pageField],
+      pageCount: unref(configRef)[totalField],
     };
   });
 

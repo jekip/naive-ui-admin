@@ -20,6 +20,7 @@ const urlPrefix = globSetting.urlPrefix || '';
 
 import router from '@/router';
 import { storage } from '@/utils/Storage';
+import { APISETTING } from '@/components/Table/src/const';
 
 /**
  * @description: 数据处理，方便区分多种处理方式
@@ -60,7 +61,8 @@ const transform: AxiosTransform = {
       return reject(data);
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-    const { code, result, message } = data;
+    const { code, message } = data;
+    const result = data[APISETTING.listField];
     // 请求成功
     const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
     // 是否显示提示信息
