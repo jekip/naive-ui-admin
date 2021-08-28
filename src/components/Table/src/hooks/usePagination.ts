@@ -14,16 +14,15 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
     if (!unref(show) || (isBoolean(pagination) && !pagination)) {
       return false;
     }
-    const { pageField, totalField } = APISETTING;
+    const { totalField } = APISETTING;
     return {
-      page: unref(configRef)[pageField],
-      pageCount: unref(configRef)[totalField],
       pageSize: DEFAULTPAGESIZE,
       pageSizes: PAGESIZES,
       showSizePicker: true,
       showQuickJumper: true,
       ...(isBoolean(pagination) ? {} : pagination),
       ...unref(configRef),
+      pageCount: unref(configRef)[totalField],
     };
   });
 
