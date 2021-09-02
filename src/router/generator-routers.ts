@@ -1,7 +1,5 @@
 import { adminMenus } from '@/api/system/menu';
 import { constantRouterIcon } from './router-icons';
-import router from '@/router/index';
-import { constantRouter } from '@/router/index';
 import { RouteRecordRaw } from 'vue-router';
 import { Layout, ParentLayout } from '@/router/constant';
 import type { AppRouteRecordRaw } from '@/router/types';
@@ -61,11 +59,8 @@ export const generatorDynamicRouter = (): Promise<RouteRecordRaw[]> => {
       .then((result) => {
         const routeList = routerGenerator(result);
         asyncImportRoute(routeList);
-        const asyncRoutesList = [...routeList, ...constantRouter];
-        asyncRoutesList.forEach((item) => {
-          router.addRoute(item);
-        });
-        resolve(asyncRoutesList);
+
+        resolve(routeList);
       })
       .catch((err) => {
         reject(err);
