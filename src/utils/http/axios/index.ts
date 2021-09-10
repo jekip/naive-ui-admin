@@ -5,6 +5,7 @@ import axios, { AxiosResponse } from 'axios';
 import { checkStatus } from './checkStatus';
 import { joinTimestamp, formatRequestDate } from './helper';
 import { RequestEnum, ResultEnum, ContentTypeEnum } from '@/enums/httpEnum';
+import { PageEnum } from '@/enums/pageEnum';
 
 import { useGlobSetting } from '@/hooks/setting';
 
@@ -101,7 +102,8 @@ const transform: AxiosTransform = {
 
     // 登录超时
     if (code === ResultEnum.TIMEOUT) {
-      if (router.currentRoute.value.name == 'login') return;
+      const LoginName = PageEnum.BASE_LOGIN_NAME;
+      if (router.currentRoute.value.name == LoginName) return;
       // 到登录页
       const timeoutMsg = '登录超时,请重新登录!';
       Modal.warning({
@@ -112,7 +114,7 @@ const transform: AxiosTransform = {
         onPositiveClick: () => {
           storage.clear();
           router.replace({
-            name: 'login',
+            name: LoginName,
             query: {
               redirect: router.currentRoute.value.fullPath,
             },
@@ -143,6 +145,7 @@ const transform: AxiosTransform = {
       config.url = `${apiUrl}${config.url}`;
     }
     const params = config.params || {};
+    const data = config.data || false;
     if (config.method?.toUpperCase() === RequestEnum.GET) {
       if (!isString(params)) {
         // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
@@ -155,10 +158,18 @@ const transform: AxiosTransform = {
     } else {
       if (!isString(params)) {
         formatDate && formatRequestDate(params);
-        config.data = params;
-        config.params = undefined;
+        if (Reflect.has(config, 'data') && config.data && Object.keys(config.data).length) {
+          config.data = data;
+          config.params = params;
+        } else {
+          config.data = params;
+          config.params = undefined;
+        }
         if (joinParamsToUrl) {
-          config.url = setObjToUrlParams(config.url as string, config.data);
+          config.url = setObjToUrlParams(
+            config.url as string,
+            Object.assign({}, config.params, config.data)
+          );
         }
       } else {
         // 兼容restful风格

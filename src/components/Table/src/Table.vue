@@ -171,7 +171,7 @@
         useColumns(getProps);
 
       const state = reactive({
-        tableSize: 'medium',
+        tableSize: unref(getProps as any).size || 'medium',
         isColumnSetting: false,
       });
 
