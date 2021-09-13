@@ -1,6 +1,6 @@
 <template>
-  <NLayout class="layout" :position="fixedMenu" has-sider>
-    <NLayoutSider
+  <n-layout class="layout" :position="fixedMenu" has-sider>
+    <n-layout-sider
       v-if="isMixMenuNoneSub && (navMode === 'vertical' || navMode === 'horizontal-mix')"
       show-trigger
       @collapse="collapsed = true"
@@ -16,14 +16,14 @@
     >
       <Logo :collapsed="collapsed" />
       <AsideMenu v-model:collapsed="collapsed" v-model:location="getMenuLocation" />
-    </NLayoutSider>
+    </n-layout-sider>
 
-    <NLayout :inverted="inverted">
-      <NLayoutHeader :inverted="getHeaderInverted" :position="fixedHeader">
+    <n-layout :inverted="inverted">
+      <n-layout-header :inverted="getHeaderInverted" :position="fixedHeader">
         <PageHeader v-model:collapsed="collapsed" :inverted="inverted" />
-      </NLayoutHeader>
+      </n-layout-header>
 
-      <NLayoutContent
+      <n-layout-content
         class="layout-content"
         :class="{ 'layout-default-background': getDarkTheme === false }"
       >
@@ -50,10 +50,10 @@
         <!--        <NLayoutFooter v-if="getShowFooter">-->
         <!--          <PageFooter />-->
         <!--        </NLayoutFooter>-->
-      </NLayoutContent>
+      </n-layout-content>
       <n-back-top :right="100" />
-    </NLayout>
-  </NLayout>
+    </n-layout>
+  </n-layout>
 </template>
 
 <script lang="ts" setup>
@@ -143,7 +143,7 @@
     if (Width <= 950) {
       collapsed.value = true;
     } else collapsed.value = false;
-  }
+  };
 
   onMounted(() => {
     window.addEventListener('resize', watchWidth);
@@ -151,7 +151,6 @@
     window['$loading'] = useLoadingBar();
     window['$loading'].finish();
   });
-
 </script>
 
 <style lang="less" scoped>
