@@ -179,7 +179,7 @@
     },
   ]);
 
-  let formParams = reactive({
+  const formParams = reactive({
     type: 1,
     label: '',
     subtitle: '',
@@ -203,7 +203,7 @@
       const treeItem = getTreeItem(unref(treeData), keys[0]);
       treeItemKey.value = keys;
       treeItemTitle.value = treeItem.label;
-      formParams = Object.assign(formParams, treeItem);
+      Object.assign(formParams, treeItem);
       isEditMenu.value = true;
     } else {
       isEditMenu.value = false;
@@ -214,7 +214,7 @@
 
   function handleReset() {
     const treeItem = getTreeItem(unref(treeData), treeItemKey[0]);
-    formParams = Object.assign(formParams, treeItem);
+    Object.assign(formParams, treeItem);
   }
 
   function formSubmit() {
@@ -237,7 +237,8 @@
 
   onMounted(async () => {
     const treeMenuList = await getMenuList();
-    formParams = treeMenuList.list.map((item) => item.key);
+    const keys = treeMenuList.list.map((item) => item.key);
+    Object.assign(formParams, keys);
     treeData.value = treeMenuList.list;
     loading.value = false;
   });
