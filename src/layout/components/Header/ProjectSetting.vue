@@ -20,7 +20,7 @@
                 </template>
               </n-switch>
             </template>
-            <span>深色主题</span>
+            <span>{{ designStore.darkTheme ? '深' : '浅' }}色主题</span>
           </n-tooltip>
         </div>
 
