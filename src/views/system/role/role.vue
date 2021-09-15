@@ -43,6 +43,7 @@
           :checked-keys="checkedKeys"
           style="max-height: 950px; overflow: hidden"
           @update:checked-keys="checkedTree"
+          @update:expanded-keys="onExpandedKeys"
         />
       </div>
       <template #action>
@@ -184,6 +185,10 @@
 
   function checkedTree(keys) {
     checkedKeys.value = [checkedKeys.value, ...keys];
+  }
+
+  function onExpandedKeys(keys) {
+    expandedKeys.value = keys;
   }
 
   function packHandle() {
