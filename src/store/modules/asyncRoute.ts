@@ -107,7 +107,7 @@ export const useAsyncRouteStore = defineStore({
       } else {
         try {
           //过滤账户是否拥有某一个权限，并将菜单从加载列表移除
-          accessedRouters = filter([...asyncRoutes, ...constantRouter], routeFilter);
+          accessedRouters = filter(asyncRoutes, routeFilter);
         } catch (error) {
           console.log(error);
         }
