@@ -50,6 +50,11 @@
     return { ...props, ...(unref(propsRef) as any) };
   });
 
+  const subBtuText = computed(() => {
+    const { subBtuText } = propsRef.value as any
+    return subBtuText;
+  })
+
   async function setProps(modalProps: Partial<ModalProps>): Promise<void> {
     propsRef.value = deepMerge(unref(propsRef) || ({} as any), modalProps);
   }

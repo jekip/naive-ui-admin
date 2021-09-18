@@ -136,8 +136,8 @@
 
   const loadDataTable = async (res: any) => {
     let _params = {
-      ...res,
       ...unref(params),
+      ...res,
     };
     return await getRoleList(_params);
   };

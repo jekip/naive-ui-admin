@@ -141,10 +141,10 @@
       field: 'makeDate',
       component: 'NDatePicker',
       label: '预约时间',
+      defaultValue: 1183135260000,
       componentProps: {
         type: 'date',
         clearable: true,
-        defaultValue: 1183135260000,
         onUpdateValue: (e: any) => {
           console.log(e);
         },
@@ -296,7 +296,7 @@
   }
 
   const loadDataTable = async (res) => {
-    return await getTableList({...res, ...formParams, ...params.value});
+    return await getTableList({ ...formParams, ...params.value, ...res });
   };
 
   function onCheckedRow(rowKeys) {

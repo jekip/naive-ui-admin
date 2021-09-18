@@ -77,10 +77,10 @@
       field: 'makeDate',
       component: 'NDatePicker',
       label: '预约时间',
+      defaultValue: 1183135260000,
       componentProps: {
         type: 'date',
         clearable: true,
-        defaultValue: 1183135260000,
         onUpdateValue: (e: any) => {
           console.log(e);
         },
