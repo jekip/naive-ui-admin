@@ -52,7 +52,7 @@
 
   const subBtuText = computed(() => {
     const { subBtuText } = propsRef.value as any;
-    return subBtuText || '确定';
+    return subBtuText || props.subBtuText;
   });
 
   async function setProps(modalProps: Partial<ModalProps>): Promise<void> {
@@ -63,6 +63,7 @@
     return {
       ...attrs,
       ...unref(getProps),
+      ...unref(propsRef),
     };
   });
 
