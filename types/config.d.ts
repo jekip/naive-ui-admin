@@ -17,6 +17,10 @@ export interface ProjectSettingState {
   permissionMode: string;
 }
 
+export interface IbodySetting {
+  fixed: boolean;
+}
+
 export interface IheaderSetting {
   bgColor: string;
   fixed: boolean;
@@ -28,6 +32,7 @@ export interface ImenuSetting {
   menuWidth: number;
   fixed: boolean;
   mixMenu: boolean;
+  collapsed: boolean;
 }
 
 export interface IcrumbsSetting {

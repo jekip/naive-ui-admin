@@ -6,7 +6,6 @@ export type Component<T extends any = any> =
   | (() => Promise<typeof import('*.vue')>)
   | (() => Promise<T>);
 
-// @ts-ignore
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   name: string;
   meta: RouteMeta;
@@ -33,4 +32,24 @@ export interface Meta {
   frameSrc?: string;
   // 外链跳转地址
   externalLink?: string;
+  //隐藏
+  hidden?: boolean;
+}
+
+export interface Menu {
+  title: string;
+  label: string;
+  key: string;
+  meta: RouteMeta;
+  name: string;
+  component?: Component | string;
+  components?: Component;
+  children?: AppRouteRecordRaw[];
+  props?: Recordable;
+  fullPath?: string;
+  icon?: any;
+  path: string;
+  permissions?: string[];
+  redirect?: string;
+  sort?: number;
 }

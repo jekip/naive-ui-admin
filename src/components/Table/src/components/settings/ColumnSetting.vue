@@ -88,7 +88,6 @@
     VerticalRightOutlined,
     VerticalLeftOutlined,
   } from '@vicons/antd';
-  // @ts-ignore
   import Draggable from 'vuedraggable/src/vuedraggable';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 

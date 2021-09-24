@@ -1,7 +1,5 @@
-// @ts-ignore
 import { NButton } from 'naive-ui';
 import { PermissionsEnum } from '@/enums/permissionsEnum';
-// @ts-ignore
 export interface ActionItem extends NButton.props {
   onClick?: Fn;
   label?: string;

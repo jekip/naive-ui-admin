@@ -48,8 +48,7 @@ export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
     const columns = cloneDeep(pageColumns);
     return columns
       .filter((column) => {
-        // @ts-ignore
-        return hasPermission(column.auth) && isIfShow(column);
+        return hasPermission(column.auth as string[]) && isIfShow(column);
       })
       .map((column) => {
         //默认 ellipsis 为true
@@ -93,10 +92,10 @@ export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
   function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: BasicColumn[]) {
     const { actionColumn } = unref(propsRef);
     if (!actionColumn) return;
-    // @ts-ignore
-    !columns.find((col) => col.key === 'action') && columns.push({
-      ...actionColumn,
-    });
+    !columns.find((col) => col.key === 'action') &&
+      columns.push({
+        ...(actionColumn as any),
+      });
   }
 
   //设置
