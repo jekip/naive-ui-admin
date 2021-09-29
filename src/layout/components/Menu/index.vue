@@ -88,13 +88,11 @@
       );
 
       // 监听菜单收缩状态
-      watch(
-        () => props.collapsed,
-        (newVal) => {
-          state.openKeys = newVal ? [] : getOpenKeys;
-          selectedKeys.value = currentRoute.name as string;
-        }
-      );
+      // watch(
+      //   () => props.collapsed,
+      //   (newVal) => {
+      //   }
+      // );
 
       // 跟随页面路由变化，切换菜单选中状态
       watch(

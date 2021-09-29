@@ -2,7 +2,7 @@
   <n-layout class="layout" :position="fixedMenu" has-sider>
     <n-layout-sider
       v-if="isMixMenuNoneSub && (navMode === 'vertical' || navMode === 'horizontal-mix')"
-      show-trigger
+      show-trigger="bar"
       @collapse="collapsed = true"
       :position="fixedMenu"
       @expand="collapsed = false"
