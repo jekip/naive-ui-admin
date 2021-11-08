@@ -1,8 +1,5 @@
-<div align=center>
-
 ## 留步
 少侠留步，早知如此绊人心，何如当初莫相识，右上角免费的 `Star` 点一点，帮我们突破一下 `1k`，谢谢！O(∩_∩)O
-</div>
 
 ## 简介
 
@@ -25,17 +22,17 @@
 
 如果这个版本的功能和组件，并不能满足您的需求，不妨看看，我们全新 `NaiveAdmin v2` 他或许能让您眼前一亮O(∩_∩)O哈哈~
 
-### [NaiveAdmin 官网](https://www.naiveadmin.com)
+[NaiveAdmin 官网](https://www.naiveadmin.com)
 
-### [NaiveAdmin v2 预览](https://pro.naiveadmin.com)
+[NaiveAdmin v2 预览](https://pro.naiveadmin.com)
 
-### [NaiveAdmin v2 变更日志](https://www.naiveadmin.com/guide/changelog)
+[NaiveAdmin v2 变更日志](https://www.naiveadmin.com/guide/changelog)
 
 ## 新品
 
 千呼万唤 `Naive Admin Antd` 也迎来了第一个版本，同时具备 `Naive Ui Admin` 优点，如果您选的技术站是 `antd` 的话，不妨看看以下版本，他或许能让您眼前一亮O(∩_∩)O哈哈~
 
-### [NaiveAdmin Antd 预览](https://antd.naiveadmin.com)
+[NaiveAdmin Antd 预览](https://antd.naiveadmin.com)
 
 ## 文档
 
