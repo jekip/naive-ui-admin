@@ -38,7 +38,7 @@
       ]
     }
   },
-  "include": [
+  "includes": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
@@ -48,6 +48,7 @@
     "build/**/*.ts",
     "build/**/*.d.ts",
     "mock/**/*.ts",
+    "components.d.ts",
     "vite.config.ts"
   ],
   "exclude": [
