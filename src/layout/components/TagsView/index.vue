@@ -217,17 +217,27 @@
         ];
       });
 
-      let routes: RouteItem[] = [];
-
+      let cacheRoutes: RouteItem[] = [];
+      const simpleRoute = getSimpleRoute(route);
       try {
         const routesStr = storage.get(TABS_ROUTES) as string | null | undefined;
-        routes = routesStr ? JSON.parse(routesStr) : [getSimpleRoute(route)];
+        cacheRoutes = routesStr ? JSON.parse(routesStr) : [simpleRoute];
       } catch (e) {
-        routes = [getSimpleRoute(route)];
+        cacheRoutes = [simpleRoute];
       }
 
+      // 将最新的路由信息同步到 localStorage 中
+      const routes = router.getRoutes();
+      cacheRoutes.forEach((cacheRoute) => {
+        const route = routes.find((route) => route.path === cacheRoute.path);
+        if (route) {
+          cacheRoute.meta = route.meta || cacheRoute.meta;
+          cacheRoute.name = (route.name || cacheRoute.name) as string;
+        }
+      });
+
       // 初始化标签页
-      tabsViewStore.initTabs(routes);
+      tabsViewStore.initTabs(cacheRoutes);
 
       //监听滚动条
       function onScroll(e) {
