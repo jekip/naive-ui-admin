@@ -5,7 +5,7 @@ import { isBoolean } from '@/utils/is';
 import { APISETTING } from '../const';
 
 export function useDataSource(
-  propsRef: ComputedRef<BasicTableProps>,
+  propsRef: ComputedRef<any>,
   { getPaginationInfo, setPagination, setLoading, tableData },
   emit
 ) {
@@ -14,12 +14,16 @@ export function useDataSource(
   watchEffect(() => {
     tableData.value = unref(dataSourceRef);
   });
-
+  
+ 
+  // 此处propsRef根本没有dataSource属性， 导致dataSourceRef永远没有值，传进来的tableData会永远不起作用
+  // Fix:修改为如下，并将下面的onMounted去掉，否则会清空tableData的数据
+  // 另外还需要将request的required： false
   watch(
-    () => unref(propsRef).dataSource,
+    () => unref(propsRef).tableData,
     () => {
-      const { dataSource }: any = unref(propsRef);
-      dataSource && (dataSourceRef.value = dataSource);
+      const { tableData }: any = unref(propsRef);
+      tableData && (dataSourceRef.value = tableData);
     },
     {
       immediate: true,
@@ -107,7 +111,8 @@ export function useDataSource(
     }
   }
 
-  onMounted(() => {
+ onMounted(() => {
+    unref(propsRef).request &&
     setTimeout(() => {
       fetch();
     }, 16);
