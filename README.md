@@ -30,7 +30,7 @@
 
 ## 新品
 
-千呼万唤 `Naive Admin Antd` 也迎来了第一个版本，同时具备 `Naive Ui Admin` 优点，如果您选的技术站是 `antd` 的话，不妨看看以下版本，他或许能让您眼前一亮O(∩_∩)O哈哈~
+千呼万唤 `Naive Admin Antd` 也迎来了第一个版本，同时具备 `Naive Ui Admin` 优点，如果您选的技术栈是 `antd` 的话，不妨看看以下版本，他或许能让您眼前一亮O(∩_∩)O哈哈~
 
 [NaiveAdmin Antd 预览](https://antd.naiveadmin.com)
 
