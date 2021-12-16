@@ -1,0 +1,1 @@
+import{g as p}from"./index.8d035c2e.js";import{j as t}from"./vendor.21d60ab8.js";function m(){const e=p(),s=t(()=>e.darkTheme),n=t(()=>e.appTheme),o=t(()=>e.appThemeList);return{getDarkTheme:s,getAppTheme:n,getAppThemeList:o}}export{m as u};
