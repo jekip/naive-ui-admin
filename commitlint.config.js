@@ -14,7 +14,7 @@ module.exports = {
         'fixed',
         'resolve',
         'resolves',
-        'resolved'
+        'resolved',
       ],
       issuePrefixes: ['#'],
       noteKeywords: ['BREAKING CHANGE'],
@@ -23,8 +23,8 @@ module.exports = {
       revertCorrespondence: ['header', 'hash'],
       warn() {},
       mergePattern: null,
-      mergeCorrespondence: null
-    }
+      mergeCorrespondence: null,
+    },
   },
   rules: {
     'body-leading-blank': [2, 'always'],
@@ -50,8 +50,8 @@ module.exports = {
         'wip',
         'workflow',
         'types',
-        'release'
-      ]
-    ]
-  }
-}
+        'release',
+      ],
+    ],
+  },
+};

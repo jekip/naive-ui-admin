@@ -30,13 +30,22 @@
 
 ## 新品
 
-千呼万唤 `Naive Admin Antd` 也迎来了第一个版本，同时具备 `Naive Ui Admin` 优点，如果您选的技术栈是 `antd` 的话，不妨看看以下版本，他或许能让您眼前一亮O(∩_∩)O哈哈~
+### Antd vue
+
+千呼万唤 `Naive Admin Antd` 也迎来了第一个版本，同时具备 `Naive Ui Admin` 优点，如果您选的技术栈是 `Antd` 的话，不妨看看。
 
 [NaiveAdmin Antd 预览](https://antd.naiveadmin.com)
 
+### Arco vue
+
+新产品，新生态，智能设计体系，连接轻盈体验，一如既往、开箱即用，欢迎前往查看。
+
+[NaiveAdmin Arco 预览](https://arco.naiveadmin.com)
+
+
 ## 文档
 
-[文档地址](https://naive-ui-admin-docs.vercel.app) 
+[v1文档地址](https://naive-ui-admin-docs.vercel.app) 
 
 ## 准备
 

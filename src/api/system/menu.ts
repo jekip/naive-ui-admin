@@ -1,4 +1,4 @@
-import http from '@/utils/http/axios';
+import { http } from '@/utils/http/axios';
 
 /**
  * @description: 根据用户id获取用户菜单

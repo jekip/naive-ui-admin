@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 1.6.0 (2021-12-24)
+
+### 🐛 Bug Fixes
+- 修复 `低版本浏览器` 报 globalThis 未定义
+- 修复 `Axios` api地址拼接异常
+- 修复 `createStorage存在prefixKey` 会出bug
+
+- ### ✨ Features
+- 破坏 `Axios` 取消默认导出 `http` 可支持多个请求导出
+- 搜索 `import http from '@/utils/http/axios'` 替换为 `import { http } from '@/utils/http/axios`
+- 新增 `Axios` 多项配置 `urlPrefix`，`joinTime`，`ignoreCancelToken`，`withToken`，`uploadFile方法`
+- 依赖升级
+
 ## 1.5.5 (2021-08-14)
 
 ### 🐛 Bug Fixes

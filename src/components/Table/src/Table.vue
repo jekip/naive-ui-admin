@@ -7,7 +7,7 @@
           {{ title }}
           <n-tooltip trigger="hover" v-if="titleTooltip">
             <template #trigger>
-              <n-icon size="18" class="ml-1 cursor-pointer text-gray-400">
+              <n-icon size="18" class="ml-1 text-gray-400 cursor-pointer">
                 <QuestionCircleOutlined />
               </n-icon>
             </template>
@@ -156,7 +156,7 @@
 
       const { getPaginationInfo, setPagination } = usePagination(getProps);
 
-      const { getDataSourceRef, getRowKey, reload } = useDataSource(
+      const { getDataSourceRef, getDataSource, getRowKey, reload } = useDataSource(
         getProps,
         {
           getPaginationInfo,
@@ -280,6 +280,7 @@
         ...toRefs(state),
         tableElRef,
         getBindValues,
+        getDataSource,
         densityOptions,
         reload,
         densitySelect,

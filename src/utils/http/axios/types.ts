@@ -2,9 +2,22 @@ import { AxiosRequestConfig } from 'axios';
 import { AxiosTransform } from './axiosTransform';
 
 export interface CreateAxiosOptions extends AxiosRequestConfig {
-  prefixUrl?: string;
   transform?: AxiosTransform;
   requestOptions?: RequestOptions;
+  authenticationScheme?: string;
+}
+
+// 上传文件
+export interface UploadFileParams {
+  // 其他参数
+  data?: Recordable;
+  // 文件参数接口字段名
+  name?: string;
+  // 文件
+  file: File | Blob;
+  // 文件名称
+  filename?: string;
+  [key: string]: any;
 }
 
 export interface RequestOptions {
@@ -28,6 +41,8 @@ export interface RequestOptions {
   joinPrefix?: boolean;
   // 接口地址， 不填则使用默认apiUrl
   apiUrl?: string;
+  // 请求拼接路径
+  urlPrefix?: string;
   // 错误消息提示类型
   errorMessageMode?: 'none' | 'modal';
   // 是否添加时间戳
@@ -36,6 +51,10 @@ export interface RequestOptions {
   isTransformResponse?: boolean;
   // 是否返回原生响应头
   isReturnNativeResponse?: boolean;
+  //忽略重复请求
+  ignoreCancelToken?: boolean;
+  // 是否携带token
+  withToken?: boolean;
 }
 
 export interface Result<T = any> {

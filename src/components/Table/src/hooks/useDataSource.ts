@@ -9,7 +9,7 @@ export function useDataSource(
   { getPaginationInfo, setPagination, setLoading, tableData },
   emit
 ) {
-  const dataSourceRef = ref([]);
+  const dataSourceRef = ref<Recordable[]>([]);
 
   watchEffect(() => {
     tableData.value = unref(dataSourceRef);

@@ -48,7 +48,7 @@ export const createStorage = ({ prefixKey = '', storage = localStorage } = {}) =
           if (expire === null || expire >= Date.now()) {
             return value;
           }
-          this.remove(this.getKey(key));
+          this.remove(key);
         } catch (e) {
           return def;
         }
