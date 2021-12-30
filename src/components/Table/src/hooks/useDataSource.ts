@@ -47,6 +47,7 @@ export function useDataSource(
     try {
       setLoading(true);
       const { request, pagination }: any = unref(propsRef);
+      if (!request) return;
       //组装分页信息
       const pageField = APISETTING.pageField;
       const sizeField = APISETTING.sizeField;

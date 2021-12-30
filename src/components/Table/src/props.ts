@@ -16,7 +16,7 @@ export const basicProps = {
     type: String,
     default: 'medium',
   },
-  tableData: {
+  dataSource: {
     type: [Object],
     default: () => [],
   },
@@ -28,7 +28,6 @@ export const basicProps = {
   request: {
     type: Function as PropType<(...arg: any[]) => Promise<any>>,
     default: null,
-    required: true,
   },
   rowKey: {
     type: [String, Function] as PropType<string | ((record) => string)>,
