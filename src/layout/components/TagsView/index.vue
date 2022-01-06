@@ -115,6 +115,7 @@
   import elementResizeDetectorMaker from 'element-resize-detector';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
+  import { useThemeVars } from 'naive-ui';
 
   export default defineComponent({
     name: 'TabsView',
@@ -144,6 +145,16 @@
       const navScroll: any = ref(null);
       const navWrap: any = ref(null);
       const isCurrent = ref(false);
+
+      const themeVars = useThemeVars();
+
+      const getCardColor = computed(() => {
+        return themeVars.value.cardColor;
+      });
+
+      const getBaseColor = computed(() => {
+        return themeVars.value.textColor1;
+      });
 
       const state = reactive({
         activeKey: route.fullPath,
@@ -505,6 +516,8 @@
         onClickOutside,
         getDarkTheme,
         getAppTheme,
+        getCardColor,
+        getBaseColor,
       };
     },
   });
@@ -565,8 +578,8 @@
           overflow: hidden;
 
           &-item {
-            background: var(--color);
-            color: var(--text-color);
+            background: v-bind(getCardColor);
+            color: v-bind(getBaseColor);
             height: 32px;
             padding: 6px 16px 4px;
             border-radius: 3px;

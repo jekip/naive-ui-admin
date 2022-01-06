@@ -1,6 +1,6 @@
 <template>
-  <n-drawer v-model:show="isDrawer" :width="width" :placement="placement" :native-scrollbar="false">
-    <n-drawer-content :title="title">
+  <n-drawer v-model:show="isDrawer" :width="width" :placement="placement">
+    <n-drawer-content :title="title" :native-scrollbar="false">
       <div class="drawer">
         <n-divider title-placement="center">主题</n-divider>
 
@@ -358,7 +358,7 @@
         border-radius: 2px;
         margin: 0 5px 5px 0;
         text-align: center;
-
+        line-height: 14px;
         .n-icon {
           color: #fff;
         }
