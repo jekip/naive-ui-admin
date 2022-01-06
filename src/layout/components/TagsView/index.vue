@@ -30,7 +30,7 @@
           </n-icon>
         </span>
         <div ref="navScroll" class="tabs-card-scroll">
-          <Draggable :list="tabsList" animation="300" item-key="fullPath" class="flex">
+          <Draggable :list="tabsList" animation="300" item-key="fullPath" class="flex min-w-min">
             <template #item="{ element }">
               <div
                 :id="`tag${element.fullPath.split('/').join('\/')}`"
@@ -407,7 +407,7 @@
         const currentScroll = navScroll.value.scrollLeft;
 
         if (!currentScroll) return;
-        const scrollLeft = currentScroll > containerWidth ? currentScroll - containerWidth : 0;
+        const scrollLeft = currentScroll > containerWidth ? currentScroll - containerWidth + 110 : 0; //110 链接前后，便于观察
         scrollTo(scrollLeft, (scrollLeft - currentScroll) / 20);
       }
 
@@ -419,7 +419,7 @@
         if (navWidth - currentScroll <= containerWidth) return;
         const scrollLeft =
           navWidth - currentScroll > containerWidth * 2
-            ? currentScroll + containerWidth
+            ? currentScroll + containerWidth - 110  // 链接前后，便于观察
             : navWidth - containerWidth;
         scrollTo(scrollLeft, (scrollLeft - currentScroll) / 20);
       }
