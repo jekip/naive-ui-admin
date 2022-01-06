@@ -63,7 +63,7 @@
     "commitizen": "^4.2.4",
     "core-js": "^3.14.0",
     "dotenv": "^10.0.0",
-    "eslint": "^8.6.0",
+    "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-define-config": "1.1.4",
     "eslint-plugin-jest": "^25.3.4",
