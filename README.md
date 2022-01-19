@@ -141,9 +141,14 @@ yarn build
 
 - QQ 群 `328347666`
 
+![(2O3HZAL78@@6H G9XTVM%9](https://user-images.githubusercontent.com/19426584/150084502-9783bf65-28e8-4435-95bf-3bae3bc63d99.png)
+
+
+
 - 微信群（过期请issues留言）
 
-![image](https://user-images.githubusercontent.com/19426584/149060860-3ab2be00-303a-4cd1-b357-9fd8f2c30ad6.png)
+![IMG_1029(20220118-134629)](https://user-images.githubusercontent.com/19426584/150084024-85076114-7d39-4afb-825c-e11799530873.JPG)
+
 
 
 ## 赞助
