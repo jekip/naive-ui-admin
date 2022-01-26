@@ -4978,10 +4978,10 @@ mute-stream@0.0.7:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
 
-naive-ui@^2.23.2:
-  version "2.23.2"
-  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.23.2.tgz#4fa03b3ffec0768c0fe5d8eb7b51dadf36319119"
-  integrity sha512-x5XtoJrfMcBGqkryJ6RPg3hB7xDqbO+5TfDB1UGIaVsj2fsidn9S9a6yK/jXqKbw+h5h97NqOu+Lf5EH8tAIog==
+naive-ui@^2.24.6:
+  version "2.24.6"
+  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.24.6.tgz#544a50ee627b8c95a744e24b4d5862abf2fcf390"
+  integrity sha512-8eK9os7gruxBfhzvbXoUn8ok/jBc1T+PWhoW1Je0Ou446XsyHsZ9B5vZMQQ4w29C3dVc7OBfeIm/vTq5rLnVBw==
   dependencies:
     "@css-render/plugin-bem" "^0.15.8"
     "@css-render/vue3-ssr" "^0.15.8"
@@ -4998,9 +4998,9 @@ naive-ui@^2.23.2:
     seemly "^0.3.3"
     treemate "^0.3.9"
     vdirs "^0.1.7"
-    vfonts "^0.1.0"
+    vfonts "^0.0.3"
     vooks "^0.2.12"
-    vueuc "^0.4.19"
+    vueuc "^0.4.24"
 
 nanoid@^3.1.30:
   version "3.1.30"
@@ -6790,6 +6790,11 @@ vfile@^4.0.0:
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
 
+vfonts@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/vfonts/-/vfonts-0.0.3.tgz#999d66fecea18efee3f2b966c81101ae8ce01a29"
+  integrity sha512-nguyw8L6Un8eelg1vQ31vIU2ESxqid7EYmy8V+MDeMaHBqaRSkg3dTBToC1PR00D89UzS/SLkfYPnx0Wf23IQQ==
+
 vfonts@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/vfonts/-/vfonts-0.1.0.tgz#c16af37ca044b2725ae55553049280efbe6222a9"
@@ -6926,10 +6931,10 @@ vuedraggable@^4.0.3:
   dependencies:
     sortablejs "1.14.0"
 
-vueuc@^0.4.19:
-  version "0.4.19"
-  resolved "https://registry.yarnpkg.com/vueuc/-/vueuc-0.4.19.tgz#4f7f5f91201994e400d670944c7d880013bbf601"
-  integrity sha512-mzhYwv60cldElLolvG5sMsDFNMP1+vQbxPnbWzT2BdIG6XfF0hzCxq0KMoYpg4cAekKijty2txRgNkySIjTWLA==
+vueuc@^0.4.24:
+  version "0.4.24"
+  resolved "https://registry.yarnpkg.com/vueuc/-/vueuc-0.4.24.tgz#16b2ef68f19f711da81bea83a7dd37d480ee2d6c"
+  integrity sha512-AocMRepM9x78GOZi6m/1WLHfarwtNbMQeFl4N/XQoft5iewUq0x2Tw/F0CbxMSrCVSKgBas47tZFabp4kYADmQ==
   dependencies:
     css-render "^0.15.7"
     evtd "^0.2.2"
