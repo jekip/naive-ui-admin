@@ -45,7 +45,7 @@
 
 ## 文档
 
-[v1文档地址](https://naive-ui-admin-docs.vercel.app) 
+[文档地址](https://www.naiveadmin.com) 
 
 ## 准备
 
