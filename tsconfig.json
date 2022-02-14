@@ -38,7 +38,7 @@
       ]
     }
   },
-  "includes": [
+  "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
