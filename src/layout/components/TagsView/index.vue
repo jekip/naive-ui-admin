@@ -258,8 +258,8 @@
           window.pageYOffset ||
           document.body.scrollTop; // 滚动条偏移量
         state.isMultiHeaderFixed = !!(
-          !getHeaderSetting.fixed &&
-          getMultiTabsSetting.fixed &&
+          !getHeaderSetting.value.fixed &&
+          getMultiTabsSetting.value.fixed &&
           scrollTop >= 64
         );
       }

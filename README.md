@@ -45,7 +45,7 @@
 
 ## 文档
 
-[v1文档地址](https://naive-ui-admin-docs.vercel.app) 
+[v1文档地址](https://naive-ui-admin-docs.vercel.app)
 
 ## 准备
 
@@ -137,11 +137,16 @@ yarn build
 
 ## 交流
 
-`Naive Ui Admin` 在帮助开发者更方便地进行中大型管理系统开发，同时也提供 QQ 交流群使用问题欢迎在群内提问。
+`Naive Ui Admin` 使用或者其他问题，都可以在群内讨论或提问。
 
 - QQ 群 `328347666`
+
+![(2O3HZAL78@@6H G9XTVM%9](https://user-images.githubusercontent.com/19426584/150084502-9783bf65-28e8-4435-95bf-3bae3bc63d99.png)
+
 
 ## 赞助
 #### 如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 🍹。
 
 ![donate](https://jekip.github.io/docs/images/sponsor.png)
+
+[Paypal Me](https://www.paypal.com/paypalme/majunping)
