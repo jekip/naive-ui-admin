@@ -25,7 +25,7 @@
       class="layout-side-drawer"
     >
       <Logo :collapsed="collapsed" />
-      <AsideMenu />
+      <AsideMenu @clickMenuItem="collapsed = false" />
     </n-drawer>
 
     <n-layout :inverted="inverted">
@@ -97,7 +97,10 @@ const collapsed = ref<boolean>(false);
 
 const { mobileWidth, menuWidth } = unref(getMenuSetting);
 
-const isMobile = ref<boolean>(false);
+const isMobile = computed<boolean>({
+  get: () => settingStore.getIsMobile,
+  set: (val) => settingStore.setIsMobile(val)
+});
 
 const fixedHeader = computed(() => {
   const { fixed } = unref(getHeaderSetting);
@@ -162,7 +165,6 @@ const showSideDrawder = computed({
 const checkMobileMode = () => {
   if (document.body.clientWidth <= mobileWidth) {
     isMobile.value = true;
-
   } else {
     isMobile.value = false;
   }
