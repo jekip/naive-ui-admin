@@ -213,7 +213,7 @@
   }
 
   function handleReset() {
-    const treeItem = getTreeItem(unref(treeData), treeItemKey[0]);
+    const treeItem = getTreeItem(unref(treeData), treeItemKey.value[0]);
     Object.assign(formParams, treeItem);
   }
 
