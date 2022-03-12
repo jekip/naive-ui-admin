@@ -43,7 +43,6 @@
     loading.value = true;
     init();
   });
-
 </script>
 
 <style lang="less" scoped>

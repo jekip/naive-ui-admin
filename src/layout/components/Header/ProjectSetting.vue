@@ -359,6 +359,7 @@
         margin: 0 5px 5px 0;
         text-align: center;
         line-height: 14px;
+
         .n-icon {
           color: #fff;
         }
