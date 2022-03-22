@@ -1,6 +1,3 @@
-## 留步
-少侠留步，早知如此绊人心，何如当初莫相识，右上角免费的 `Star` 点一点，帮我们突破一下 `2k`，谢谢！O(∩_∩)O
-
 ## 简介
 
 [Naive Ui Admin](https://github.com/jekip/naive-ui-admin) 完全免费，且可商用，基于 [Vue3.0](https://github.com/vuejs/vue-next)、[Vite](https://github.com/vitejs/vite)、 [Naive UI](https://www.naiveui.com/)、[TypeScript](https://www.typescriptlang.org/) 的中后台解决方案，它使用了最新的前端技术栈，并提炼了典型的业务模型，页面，包括二次封装组件、动态菜单、权限校验、粒子化权限控制等功能，它可以帮助你快速搭建企业级中后台项目， 相信不管是从新技术使用还是其他方面，都能帮助到你。
@@ -32,15 +29,23 @@
 
 ### Antd vue
 
-千呼万唤 `Naive Admin Antd` 也迎来了第一个版本，同时具备 `Naive Ui Admin` 优点，如果您选的技术栈是 `Antd` 的话，不妨看看。
+新产品，如果您选的技术栈是 `Antd` 的话，不妨看看
 
 [NaiveAdmin Antd 预览](https://antd.naiveadmin.com)
 
 ### Arco vue
 
-新产品，新生态，智能设计体系，连接轻盈体验，一如既往、开箱即用，欢迎前往查看。
+新产品，智能设计体系，连接轻盈体验
 
 [NaiveAdmin Arco 预览](https://arco.naiveadmin.com)
+
+### Element Plus
+
+新产品，面向设计师和开发者的组件库
+
+[Element Plus Admin 预览](https://element.naiveadmin.com)
+
+以上版本同时具备 `NaiveAdmin v2` 功能/组件/页面，一如既往、开箱即用，欢迎前往查看。
 
 
 ## 文档
