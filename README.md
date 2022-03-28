@@ -144,10 +144,7 @@ yarn build
 
 `Naive Ui Admin` 使用或者其他问题，都可以在群内讨论或提问。
 
-- QQ 群 `328347666`
-
-![(2O3HZAL78@@6H G9XTVM%9](https://user-images.githubusercontent.com/19426584/150084502-9783bf65-28e8-4435-95bf-3bae3bc63d99.png)
-
+![abelianGroup](https://user-images.githubusercontent.com/19426584/160335146-c28dd205-4600-4d62-b2c6-6456034ab7b1.jpg)
 
 ## 赞助
 #### 如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 🍹。
