@@ -40,11 +40,7 @@
                 @contextmenu="handleContextMenu($event, element)"
               >
                 <span>{{ element.meta.title }}</span>
-                <n-icon
-                  size="14"
-                  @click.stop="closeTabItem(element)"
-                  v-if="element.path !== baseHome"
-                >
+                <n-icon size="14" @click.stop="closeTabItem(element)" v-if="!element.meta.affix">
                   <CloseOutlined />
                 </n-icon>
               </div>
@@ -116,6 +112,7 @@
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
   import { useThemeVars } from 'naive-ui';
+  import { useGo } from '@/hooks/web/usePage';
 
   export default defineComponent({
     name: 'TabsView',
@@ -145,6 +142,7 @@
       const navScroll: any = ref(null);
       const navWrap: any = ref(null);
       const isCurrent = ref(false);
+      const go = useGo();
 
       const themeVars = useThemeVars();
 
@@ -363,7 +361,6 @@
 
       // 关闭全部
       const closeAll = () => {
-        localStorage.removeItem('routes');
         tabsViewStore.closeAllTabs();
         router.replace(PageEnum.BASE_HOME);
         updateNavScroll();
@@ -480,7 +477,7 @@
         const { fullPath } = e;
         if (fullPath === route.fullPath) return;
         state.activeKey = fullPath;
-        router.push({ path: fullPath });
+        go(e, true);
       }
 
       //删除tab
@@ -506,7 +503,6 @@
         navScroll,
         route,
         tabsList,
-        baseHome: PageEnum.BASE_HOME_REDIRECT,
         goPage,
         closeTabItem,
         closeLeft,
