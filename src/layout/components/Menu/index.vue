@@ -41,7 +41,7 @@
         default: 'left',
       },
     },
-    emits: ['update:collapsed'],
+    emits: ['update:collapsed', 'clickMenuItem'],
     setup(props, { emit }) {
       // 当前路由
       const currentRoute = useRoute();
