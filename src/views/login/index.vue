@@ -9,7 +9,8 @@
         <div class="view-account-top-desc">Naive Ui Admin中台前端/设计解决方案</div>
       </div>
       <div class="view-account-form">
-        <n-form
+        <div id="googleBtn"></div>
+        <!-- <n-form
           ref="formRef"
           label-placement="left"
           size="large"
@@ -78,14 +79,14 @@
               </div>
             </div>
           </n-form-item>
-        </n-form>
+        </n-form> -->
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref } from 'vue';
+  import { onMounted, reactive, ref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import { useUserStore } from '@/store/modules/user';
   import { useMessage } from 'naive-ui';
@@ -119,6 +120,30 @@
 
   const router = useRouter();
   const route = useRoute();
+
+  onMounted(() => {
+    // get client_id from backend
+    google.accounts.id.initialize({
+      client_id: 'x.apps.googleusercontent.com',
+      callback: (response) => {
+        message.loading('登录中...');
+        loading.value = true;
+
+        userStore.loginGoogle(response);
+
+        const toPath = decodeURIComponent((route.query?.redirect || '/') as string);
+        message.success('登录成功，即将进入系统');
+        if (route.name === LOGIN_NAME) {
+          router.replace('/');
+        } else router.replace(toPath);
+      },
+    });
+    google.accounts.id.renderButton(
+      document.getElementById('googleBtn'),
+      { theme: 'outline', size: 'large' } // customization attributes
+    );
+    google.accounts.id.prompt(); // also display the One Tap dialog
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -156,6 +181,11 @@
 </script>
 
 <style lang="less" scoped>
+  .view-account-form {
+    display: flex;
+    justify-content: center;
+  }
+
   .view-account {
     display: flex;
     flex-direction: column;

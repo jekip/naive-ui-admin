@@ -8,6 +8,21 @@ const Storage = createStorage({ storage: localStorage });
 import { getUserInfo, login } from '@/api/system/user';
 import { storage } from '@/utils/Storage';
 
+function decodeJwtResponse(token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split('')
+      .map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join('')
+  );
+
+  return JSON.parse(jsonPayload);
+}
+
 export interface IUserState {
   token: string;
   username: string;
@@ -57,6 +72,18 @@ export const useUserStore = defineStore({
     setUserInfo(info) {
       this.info = info;
     },
+
+    // Google SignIn
+    loginGoogle(response) {
+      const { credential } = response;
+      const result = decodeJwtResponse(credential);
+      storage.set(ACCESS_TOKEN, credential);
+      storage.set(CURRENT_USER, result);
+      storage.set(IS_LOCKSCREEN, false);
+      this.setToken(credential);
+      this.setUserInfo(result);
+    },
+
     // 登录
     async login(userInfo) {
       try {
