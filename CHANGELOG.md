@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 1.8.1
+
+- ### ✨ Features
+- 新增 `clean:cache` 删除缓存命令
+- 新增 `clean:lib` 删除 `node_modules` 命令
+- 依赖升级
+### 🐛 Bug Fixes
+- 修复 `开发环境` 运行控制台错误提示
+
 ## 1.8.0 (2022-04-01)
 
 - ### ✨ Features
