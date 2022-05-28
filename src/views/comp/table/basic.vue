@@ -73,7 +73,7 @@
   }
 
   const loadDataTable = async (res) => {
-    return await getTableList({...res,...params});
+    return await getTableList({ ...params, ...res });
   };
 
   function onCheckedRow(rowKeys) {

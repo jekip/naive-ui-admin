@@ -25,13 +25,26 @@
           </template>
           <div class="table-toolbar-inner">
             <n-checkbox-group v-model:value="checkList" @update:value="onChange">
-              <Draggable v-model="columnsList" animation="300" item-key="key" @end="draggableEnd">
+              <Draggable
+                v-model="columnsList"
+                animation="300"
+                item-key="key"
+                filter=".no-draggable"
+                :move="onMove"
+                @end="draggableEnd"
+              >
                 <template #item="{ element }">
                   <div
                     class="table-toolbar-inner-checkbox"
-                    :class="{ 'table-toolbar-inner-checkbox-dark': getDarkTheme === true }"
+                    :class="{
+                      'table-toolbar-inner-checkbox-dark': getDarkTheme === true,
+                      'no-draggable': element.draggable === false,
+                    }"
                   >
-                    <span class="drag-icon">
+                    <span
+                      class="drag-icon"
+                      :class="{ 'drag-icon-hidden': element.draggable === false }"
+                    >
                       <n-icon size="18">
                         <DragOutlined />
                       </n-icon>
@@ -88,7 +101,6 @@
     VerticalRightOutlined,
     VerticalLeftOutlined,
   } from '@vicons/antd';
-  // @ts-ignore
   import Draggable from 'vuedraggable/src/vuedraggable';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 
@@ -212,6 +224,11 @@
         }
       }
 
+      function onMove(e) {
+        if (e.draggedContext.element.draggable === false) return false;
+        return true;
+      }
+
       //固定
       function fixedColumn(item, fixed) {
         if (!state.checkList.includes(item.key)) return;
@@ -233,6 +250,7 @@
         onChange,
         onCheckAll,
         onSelection,
+        onMove,
         resetColumns,
         fixedColumn,
         draggableEnd,
@@ -276,6 +294,10 @@
         display: inline-flex;
         margin-right: 8px;
         cursor: move;
+        &-hidden {
+          visibility: hidden;
+          cursor: default;
+        }
       }
 
       .fixed-item {

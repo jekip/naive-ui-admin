@@ -30,27 +30,22 @@
           </n-icon>
         </span>
         <div ref="navScroll" class="tabs-card-scroll">
-          <div ref="navRef" class="tabs-card-nav" :style="getNavStyle">
-            <Draggable :list="tabsList" animation="300" item-key="fullPath" class="flex">
-              <template #item="{ element }">
-                <div
-                  class="tabs-card-scroll-item"
-                  :class="{ 'active-item': activeKey === element.path }"
-                  @click.stop="goPage(element)"
-                  @contextmenu="handleContextMenu($event, element)"
-                >
-                  <span>{{ element.meta.title }}</span>
-                  <n-icon
-                    size="14"
-                    @click.stop="closeTabItem(element)"
-                    v-if="element.path != baseHome"
-                  >
-                    <CloseOutlined />
-                  </n-icon>
-                </div>
-              </template>
-            </Draggable>
-          </div>
+          <Draggable :list="tabsList" animation="300" item-key="fullPath" class="flex">
+            <template #item="{ element }">
+              <div
+                :id="`tag${element.fullPath.split('/').join('\/')}`"
+                class="tabs-card-scroll-item"
+                :class="{ 'active-item': activeKey === element.path }"
+                @click.stop="goPage(element)"
+                @contextmenu="handleContextMenu($event, element)"
+              >
+                <span>{{ element.meta.title }}</span>
+                <n-icon size="14" @click.stop="closeTabItem(element)" v-if="!element.meta.affix">
+                  <CloseOutlined />
+                </n-icon>
+              </div>
+            </template>
+          </Draggable>
         </div>
       </div>
       <div class="tabs-close">
@@ -87,7 +82,6 @@
     computed,
     ref,
     toRefs,
-    toRaw,
     unref,
     provide,
     watch,
@@ -113,10 +107,12 @@
     LeftOutlined,
     RightOutlined,
   } from '@vicons/antd';
-  import { renderIcon } from '@/utils/index';
+  import { renderIcon } from '@/utils';
   import elementResizeDetectorMaker from 'element-resize-detector';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
+  import { useThemeVars } from 'naive-ui';
+  import { useGo } from '@/hooks/web/usePage';
 
   export default defineComponent({
     name: 'TabsView',
@@ -133,8 +129,8 @@
       },
     },
     setup(props) {
-      const { getDarkTheme } = useDesignSetting();
-      const { getNavMode, getHeaderSetting, getMenuSetting, getMultiTabsSetting } =
+      const { getDarkTheme, getAppTheme } = useDesignSetting();
+      const { getNavMode, getHeaderSetting, getMenuSetting, getMultiTabsSetting, getIsMobile } =
         useProjectSetting();
       const settingStore = useProjectSettingStore();
 
@@ -143,17 +139,24 @@
       const router = useRouter();
       const tabsViewStore = useTabsViewStore();
       const asyncRouteStore = useAsyncRouteStore();
-      const navRef: any = ref(null);
       const navScroll: any = ref(null);
       const navWrap: any = ref(null);
       const isCurrent = ref(false);
+      const go = useGo();
+
+      const themeVars = useThemeVars();
+
+      const getCardColor = computed(() => {
+        return themeVars.value.cardColor;
+      });
+
+      const getBaseColor = computed(() => {
+        return themeVars.value.textColor1;
+      });
 
       const state = reactive({
         activeKey: route.fullPath,
         scrollable: false,
-        navStyle: {
-          transform: '',
-        },
         dropdownX: 0,
         dropdownY: 0,
         showDropdown: false,
@@ -172,10 +175,7 @@
         const currentRoute = useRoute();
         const navMode = unref(getNavMode);
         if (unref(navMode) != 'horizontal-mix') return true;
-        if (unref(navMode) === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot) {
-          return false;
-        }
-        return true;
+        return !(unref(navMode) === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot);
       });
 
       //动态组装样式 菜单缩进
@@ -190,6 +190,13 @@
             : collapsed
             ? `${minMenuWidth}px`
             : `${menuWidth}px`;
+
+        if (getIsMobile.value) {
+          return {
+            left: '0px',
+            width: '100%',
+          };
+        }
         return {
           left: lenNum,
           width: `calc(100% - ${!fixed ? '0px' : lenNum})`,
@@ -198,7 +205,7 @@
 
       //tags 右侧下拉菜单
       const TabsMenuOptions = computed(() => {
-        const isDisabled = unref(tabsList).length <= 1 ? true : false;
+        const isDisabled = unref(tabsList).length <= 1;
         return [
           {
             label: '刷新当前',
@@ -226,17 +233,27 @@
         ];
       });
 
-      let routes: RouteItem[] = [];
-
+      let cacheRoutes: RouteItem[] = [];
+      const simpleRoute = getSimpleRoute(route);
       try {
         const routesStr = storage.get(TABS_ROUTES) as string | null | undefined;
-        routes = routesStr ? JSON.parse(routesStr) : [getSimpleRoute(route)];
+        cacheRoutes = routesStr ? JSON.parse(routesStr) : [simpleRoute];
       } catch (e) {
-        routes = [getSimpleRoute(route)];
+        cacheRoutes = [simpleRoute];
       }
 
+      // 将最新的路由信息同步到 localStorage 中
+      const routes = router.getRoutes();
+      cacheRoutes.forEach((cacheRoute) => {
+        const route = routes.find((route) => route.path === cacheRoute.path);
+        if (route) {
+          cacheRoute.meta = route.meta || cacheRoute.meta;
+          cacheRoute.name = (route.name || cacheRoute.name) as string;
+        }
+      });
+
       // 初始化标签页
-      tabsViewStore.initTabs(routes);
+      tabsViewStore.initTabs(cacheRoutes);
 
       //监听滚动条
       function onScroll(e) {
@@ -245,11 +262,11 @@
           document.documentElement.scrollTop ||
           window.pageYOffset ||
           document.body.scrollTop; // 滚动条偏移量
-        if (!getHeaderSetting.fixed && getMultiTabsSetting.fixed && scrollTop >= 64) {
-          state.isMultiHeaderFixed = true;
-        } else {
-          state.isMultiHeaderFixed = false;
-        }
+        state.isMultiHeaderFixed = !!(
+          !getHeaderSetting.value.fixed &&
+          getMultiTabsSetting.value.fixed &&
+          scrollTop >= 64
+        );
       }
 
       window.addEventListener('scroll', onScroll, true);
@@ -281,7 +298,7 @@
           if (whiteList.includes(route.name as string)) return;
           state.activeKey = to;
           tabsViewStore.addTabs(getSimpleRoute(route));
-          updateNavScroll();
+          updateNavScroll(true);
         },
         { immediate: true }
       );
@@ -344,7 +361,6 @@
 
       // 关闭全部
       const closeAll = () => {
-        localStorage.removeItem('routes');
         tabsViewStore.closeAllTabs();
         router.replace(PageEnum.BASE_HOME);
         updateNavScroll();
@@ -374,63 +390,72 @@
         state.showDropdown = false;
       };
 
-      function getCurrentScrollOffset() {
-        const { navStyle } = state;
-        const transform: any = toRaw(navStyle.transform);
-        return transform ? Number(transform.match(/translateX\(-(\d+(\.\d+)*)px\)/)[1]) : 0;
-      }
-
-      function setOffset(value) {
-        state.navStyle.transform = `translateX(-${value}px)`;
+      /**
+       * @param value 要滚动到的位置
+       * @param amplitude 每次滚动的长度
+       */
+      function scrollTo(value: number, amplitude: number) {
+        const currentScroll = navScroll.value.scrollLeft;
+        const scrollWidth =
+          (amplitude > 0 && currentScroll + amplitude >= value) ||
+          (amplitude < 0 && currentScroll + amplitude <= value)
+            ? value
+            : currentScroll + amplitude;
+        navScroll.value && navScroll.value.scrollTo(scrollWidth, 0);
+        if (scrollWidth === value) return;
+        return window.requestAnimationFrame(() => scrollTo(value, amplitude));
       }
 
       function scrollPrev() {
         const containerWidth = navScroll.value.offsetWidth;
-        const currentOffset = getCurrentScrollOffset();
-        if (!currentOffset) return;
-        let newOffset = currentOffset > containerWidth ? currentOffset - containerWidth : 0;
-        setOffset(newOffset);
+        const currentScroll = navScroll.value.scrollLeft;
+
+        if (!currentScroll) return;
+        const scrollLeft = currentScroll > containerWidth ? currentScroll - containerWidth : 0;
+        scrollTo(scrollLeft, (scrollLeft - currentScroll) / 20);
       }
 
       function scrollNext() {
-        const navWidth = navRef.value.scrollWidth;
         const containerWidth = navScroll.value.offsetWidth;
-        const currentOffset = getCurrentScrollOffset();
-        if (navWidth - currentOffset <= containerWidth) return;
+        const navWidth = navScroll.value.scrollWidth;
+        const currentScroll = navScroll.value.scrollLeft;
 
-        let newOffset =
-          navWidth - currentOffset > containerWidth * 2
-            ? currentOffset + containerWidth
+        if (navWidth - currentScroll <= containerWidth) return;
+        const scrollLeft =
+          navWidth - currentScroll > containerWidth * 2
+            ? currentScroll + containerWidth
             : navWidth - containerWidth;
-
-        setOffset(newOffset);
+        scrollTo(scrollLeft, (scrollLeft - currentScroll) / 20);
       }
 
-      function updateNavScroll() {
-        if (!navRef.value) return;
-        let navWidth = navRef.value.scrollWidth;
-        let containerWidth = navScroll.value.offsetWidth;
-        const currentOffset = getCurrentScrollOffset();
+      /**
+       * @param autoScroll 是否开启自动滚动功能
+       */
+      async function updateNavScroll(autoScroll?: boolean) {
+        await nextTick();
+        if (!navScroll.value) return;
+        const containerWidth = navScroll.value.offsetWidth;
+        const navWidth = navScroll.value.scrollWidth;
+
         if (containerWidth < navWidth) {
           state.scrollable = true;
-          if (navWidth - currentOffset < containerWidth) {
-            setOffset(navWidth - containerWidth);
+          if (autoScroll) {
+            let tagList = navScroll.value.querySelectorAll('.tabs-card-scroll-item') || [];
+            [...tagList].forEach((tag: HTMLElement) => {
+              // fix SyntaxError
+              if (tag.id === `tag${state.activeKey.split('/').join('\/')}`) {
+                tag.scrollIntoView && tag.scrollIntoView();
+              }
+            });
           }
         } else {
           state.scrollable = false;
-          if (currentOffset > 0) {
-            setOffset(0);
-          }
         }
       }
 
       function handleResize() {
-        updateNavScroll();
+        updateNavScroll(true);
       }
-
-      const getNavStyle = computed(() => {
-        return state.navStyle;
-      });
 
       function handleContextMenu(e, item) {
         e.preventDefault();
@@ -452,7 +477,7 @@
         const { fullPath } = e;
         if (fullPath === route.fullPath) return;
         state.activeKey = fullPath;
-        router.push({ path: fullPath });
+        go(e, true);
       }
 
       //删除tab
@@ -475,11 +500,9 @@
       return {
         ...toRefs(state),
         navWrap,
-        navRef,
         navScroll,
         route,
         tabsList,
-        baseHome: PageEnum.BASE_HOME_REDIRECT,
         goPage,
         closeTabItem,
         closeLeft,
@@ -492,10 +515,12 @@
         closeHandleSelect,
         scrollNext,
         scrollPrev,
-        getNavStyle,
         handleContextMenu,
         onClickOutside,
         getDarkTheme,
+        getAppTheme,
+        getCardColor,
+        getBaseColor,
       };
     },
   });
@@ -552,22 +577,12 @@
         }
 
         &-scroll {
-          overflow: hidden;
           white-space: nowrap;
-
-          .tabs-card-nav {
-            padding-left: 0;
-            margin: 0;
-            float: left;
-            list-style: none;
-            box-sizing: border-box;
-            position: relative;
-            transition: transform 0.5s ease-in-out;
-          }
+          overflow: hidden;
 
           &-item {
-            background: var(--color);
-            color: var(--text-color);
+            background: v-bind(getCardColor);
+            color: v-bind(getBaseColor);
             height: 32px;
             padding: 6px 16px 4px;
             border-radius: 3px;
@@ -607,7 +622,7 @@
           }
 
           .active-item {
-            color: #2d8cf0;
+            color: v-bind(getAppTheme);
           }
         }
       }

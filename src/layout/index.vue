@@ -1,8 +1,10 @@
 <template>
-  <NLayout class="layout" :position="fixedMenu" has-sider>
-    <NLayoutSider
-      v-if="isMixMenuNoneSub && (navMode === 'vertical' || navMode === 'horizontal-mix')"
-      show-trigger
+  <n-layout class="layout" :position="fixedMenu" has-sider>
+    <n-layout-sider
+      v-if="
+        !isMobile && isMixMenuNoneSub && (navMode === 'vertical' || navMode === 'horizontal-mix')
+      "
+      show-trigger="bar"
       @collapse="collapsed = true"
       :position="fixedMenu"
       @expand="collapsed = false"
@@ -16,14 +18,24 @@
     >
       <Logo :collapsed="collapsed" />
       <AsideMenu v-model:collapsed="collapsed" v-model:location="getMenuLocation" />
-    </NLayoutSider>
+    </n-layout-sider>
 
-    <NLayout :inverted="inverted">
-      <NLayoutHeader :inverted="getHeaderInverted" :position="fixedHeader">
+    <n-drawer
+      v-model:show="showSideDrawder"
+      :width="menuWidth"
+      :placement="'left'"
+      class="layout-side-drawer"
+    >
+      <Logo :collapsed="collapsed" />
+      <AsideMenu @clickMenuItem="collapsed = false" />
+    </n-drawer>
+
+    <n-layout :inverted="inverted">
+      <n-layout-header :inverted="getHeaderInverted" :position="fixedHeader">
         <PageHeader v-model:collapsed="collapsed" :inverted="inverted" />
-      </NLayoutHeader>
+      </n-layout-header>
 
-      <NLayoutContent
+      <n-layout-content
         class="layout-content"
         :class="{ 'layout-default-background': getDarkTheme === false }"
       >
@@ -50,10 +62,10 @@
         <!--        <NLayoutFooter v-if="getShowFooter">-->
         <!--          <PageFooter />-->
         <!--        </NLayoutFooter>-->
-      </NLayoutContent>
+      </n-layout-content>
       <n-back-top :right="100" />
-    </NLayout>
-  </NLayout>
+    </n-layout>
+  </n-layout>
 </template>
 
 <script lang="ts" setup>
@@ -71,7 +83,7 @@
 
   const { getDarkTheme } = useDesignSetting();
   const {
-    getShowFooter,
+    // getShowFooter,
     getNavMode,
     getNavTheme,
     getHeaderSetting,
@@ -84,6 +96,13 @@
   const navMode = getNavMode;
 
   const collapsed = ref<boolean>(false);
+
+  const { mobileWidth, menuWidth } = unref(getMenuSetting);
+
+  const isMobile = computed<boolean>({
+    get: () => settingStore.getIsMobile,
+    set: (val) => settingStore.setIsMobile(val),
+  });
 
   const fixedHeader = computed(() => {
     const { fixed } = unref(getHeaderSetting);
@@ -127,33 +146,64 @@
     return collapsed.value ? minMenuWidth : menuWidth;
   });
 
-  const getChangeStyle = computed(() => {
-    const { minMenuWidth, menuWidth } = unref(getMenuSetting);
-    return {
-      'padding-left': collapsed.value ? `${minMenuWidth}px` : `${menuWidth}px`,
-    };
-  });
+  // const getChangeStyle = computed(() => {
+  //   const { minMenuWidth, menuWidth } = unref(getMenuSetting);
+  //   return {
+  //     'padding-left': collapsed.value ? `${minMenuWidth}px` : `${menuWidth}px`,
+  //   };
+  // });
 
   const getMenuLocation = computed(() => {
     return 'left';
   });
+
+  // 控制显示或隐藏移动端侧边栏
+  const showSideDrawder = computed({
+    get: () => isMobile.value && collapsed.value,
+    set: (val) => (collapsed.value = val),
+  });
+
+  //判断是否触发移动端模式
+  const checkMobileMode = () => {
+    if (document.body.clientWidth <= mobileWidth) {
+      isMobile.value = true;
+    } else {
+      isMobile.value = false;
+    }
+    collapsed.value = false;
+  };
 
   const watchWidth = () => {
     const Width = document.body.clientWidth;
     if (Width <= 950) {
       collapsed.value = true;
     } else collapsed.value = false;
-  }
+
+    checkMobileMode();
+  };
 
   onMounted(() => {
+    checkMobileMode();
     window.addEventListener('resize', watchWidth);
     //挂载在 window 方便与在js中使用
     window['$loading'] = useLoadingBar();
     window['$loading'].finish();
   });
-
 </script>
 
+<style lang="less">
+  .layout-side-drawer {
+    background-color: rgb(0, 20, 40);
+
+    .layout-sider {
+      min-height: 100vh;
+      box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
+      position: relative;
+      z-index: 13;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+</style>
 <style lang="less" scoped>
   .layout {
     display: flex;
@@ -214,7 +264,7 @@
   }
 
   .fluid-header {
-    padding-top: 0px;
+    padding-top: 0;
   }
 
   .main-view-fix {

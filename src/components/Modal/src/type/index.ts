@@ -12,7 +12,7 @@ export interface ModalMethods {
 /**
  * 支持修改，DialogOptions 參數
  */
-export interface ModalProps extends DialogOptions { }
+export type ModalProps = DialogOptions;
 
 export type RegisterFn = (ModalInstance: ModalMethods) => void;
 

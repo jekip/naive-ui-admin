@@ -9,7 +9,7 @@ export function useDataSource(
   { getPaginationInfo, setPagination, setLoading, tableData },
   emit
 ) {
-  const dataSourceRef = ref([]);
+  const dataSourceRef = ref<Recordable[]>([]);
 
   watchEffect(() => {
     tableData.value = unref(dataSourceRef);
@@ -47,6 +47,7 @@ export function useDataSource(
     try {
       setLoading(true);
       const { request, pagination }: any = unref(propsRef);
+      if (!request) return;
       //组装分页信息
       const pageField = APISETTING.pageField;
       const sizeField = APISETTING.sizeField;

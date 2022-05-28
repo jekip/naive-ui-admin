@@ -64,6 +64,7 @@ export const columns = [
     editComponentProps: {
       type: 'datetime',
       format: 'yyyy-MM-dd HH:mm:ss',
+      valueFormat: 'yyyy-MM-dd HH:mm:ss',
     },
     ellipsis: false,
   },

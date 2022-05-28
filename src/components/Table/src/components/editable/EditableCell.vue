@@ -11,7 +11,6 @@
         <CellComponent
           v-bind="getComponentProps"
           :component="getComponent"
-          :style="getWrapperStyle"
           :popoverVisible="getRuleVisible"
           :ruleMessage="ruleMessage"
           :rule="getRule"
@@ -33,7 +32,7 @@
   </div>
 </template>
 <script lang="ts">
-  import type { CSSProperties, PropType } from 'vue';
+  import type { PropType } from 'vue';
   import type { BasicColumn } from '../../types/table';
   import type { EditRecordRow } from './index';
 
@@ -51,7 +50,8 @@
   import { set, omit } from 'lodash-es';
   import { EventEnum } from '@/components/Table/src/componentMap';
 
-  import { milliseconds, format } from 'date-fns';
+  import { parseISO, format } from 'date-fns';
+  import { Fn, LabelValueOptions } from '/#/index';
 
   export default defineComponent({
     name: 'EditableCell',
@@ -94,7 +94,7 @@
 
       const getIsCheckComp = computed(() => {
         const component = unref(getComponent);
-        return ['NCheckbox', 'NSwitch'].includes(component);
+        return ['NCheckbox', 'NRadio'].includes(component);
       });
 
       const getComponentProps = computed(() => {
@@ -105,16 +105,28 @@
 
         const isCheckValue = unref(getIsCheckComp);
 
-        const valueField = isCheckValue ? 'checked' : 'value';
+        let valueField = isCheckValue ? 'checked' : 'value';
         const val = unref(currentValueRef);
 
         let value = isCheckValue ? (isNumber(val) && isBoolean(val) ? val : !!val) : val;
 
-        if (isString(value) && component === 'NDatePicker') {
-          value = milliseconds(value as Duration);
-        } else if (isArray(value) && component === 'NDatePicker') {
-          value = value.map((item) => milliseconds(item));
+        //TODO 特殊处理 NDatePicker 可能要根据项目 规范自行调整代码
+        if (component === 'NDatePicker') {
+          if (isString(value)) {
+            if (compProps.valueFormat) {
+              valueField = 'formatted-value';
+            } else {
+              value = parseISO(value as any).getTime();
+            }
+          } else if (isArray(value)) {
+            if (compProps.valueFormat) {
+              valueField = 'formatted-value';
+            } else {
+              value = value.map((item) => parseISO(item).getTime());
+            }
+          }
         }
+
         const onEvent: any = editComponent ? EventEnum[editComponent] : undefined;
 
         return {
@@ -144,15 +156,6 @@
         const option = options.find((item) => `${item.value}` === `${value}`);
 
         return option?.label ?? value;
-      });
-
-      const getWrapperStyle = computed((): CSSProperties => {
-        // if (unref(getIsCheckComp) || unref(getRowEditable)) {
-        //   return {};
-        // }
-        return {
-          width: 'calc(100% - 48px)',
-        };
       });
 
       const getWrapperClass = computed(() => {
@@ -188,6 +191,7 @@
 
       async function handleChange(e: any) {
         const component = unref(getComponent);
+        const compProps = props.column?.editComponentProps ?? {};
         if (!e) {
           currentValueRef.value = e;
         } else if (e?.target && Reflect.has(e.target, 'value')) {
@@ -198,10 +202,20 @@
           currentValueRef.value = e;
         }
 
-        //TODO 根据组件格式化值
-        // if (component === 'NDatePicker') {
-        //   currentValueRef.value = format(currentValueRef.value,'yyyy-MM-dd HH:mm:ss');
-        // }
+        //TODO 特殊处理 NDatePicker 可能要根据项目 规范自行调整代码
+        if (component === 'NDatePicker') {
+          if (isNumber(currentValueRef.value)) {
+            if (compProps.valueFormat) {
+              currentValueRef.value = format(currentValueRef.value, compProps.valueFormat);
+            }
+          } else if (isArray(currentValueRef.value)) {
+            if (compProps.valueFormat) {
+              currentValueRef.value = currentValueRef.value.map((item) => {
+                format(item, compProps.valueFormat);
+              });
+            }
+          }
+        }
 
         const onChange = props.column?.editComponentProps?.onChange;
         if (onChange && isFunction(onChange)) onChange(...arguments);
@@ -303,104 +317,103 @@
       function initCbs(cbs: 'submitCbs' | 'validCbs' | 'cancelCbs', handle: Fn) {
         if (props.record) {
           /* eslint-disable  */
-      isArray(props.record[cbs])
-         ? props.record[cbs]?.push(handle)
-         : (props.record[cbs] = [handle]);
-     }
-    }
-
-    if (props.record) {
-     initCbs('submitCbs', handleSubmit);
-     initCbs('validCbs', handleSubmiRule);
-     initCbs('cancelCbs', handleCancel);
-
-     if (props.column.key) {
-      if (!props.record.editValueRefs) props.record.editValueRefs = {};
-      props.record.editValueRefs[props.column.key] = currentValueRef;
-     }
-     /* eslint-disable  */
-     props.record.onCancelEdit = () => {
-      isArray(props.record?.cancelCbs) && props.record?.cancelCbs.forEach((fn) => fn());
-     };
-     /* eslint-disable */
-     props.record.onSubmitEdit = async() => {
-      if (isArray(props.record?.submitCbs)) {
-       const validFns = (props.record?.validCbs || []).map((fn) => fn());
-
-       const res = await Promise.all(validFns);
-
-       const pass = res.every((item) => !!item);
-
-       if (!pass) return;
-       const submitFns = props.record?.submitCbs || [];
-       submitFns.forEach((fn) => fn(false, false));
-       table.emit?.('edit-row-end');
-       return true;
+          isArray(props.record[cbs])
+            ? props.record[cbs]?.push(handle)
+            : (props.record[cbs] = [handle]);
+        }
       }
-     };
-    }
 
-    return {
-     isEdit,
-     handleEdit,
-     currentValueRef,
-     handleSubmit,
-     handleChange,
-     handleCancel,
-     elRef,
-     getComponent,
-     getRule,
-     onClickOutside,
-     ruleMessage,
-     getRuleVisible,
-     getComponentProps,
-     handleOptionsChange,
-     getWrapperStyle,
-     getWrapperClass,
-     getRowEditable,
-     getValues,
-     handleEnter,
-     // getSize,
-    };
-   },
+      if (props.record) {
+        initCbs('submitCbs', handleSubmit);
+        initCbs('validCbs', handleSubmiRule);
+        initCbs('cancelCbs', handleCancel);
+
+        if (props.column.key) {
+          if (!props.record.editValueRefs) props.record.editValueRefs = {};
+          props.record.editValueRefs[props.column.key] = currentValueRef;
+        }
+        /* eslint-disable  */
+        props.record.onCancelEdit = () => {
+          isArray(props.record?.cancelCbs) && props.record?.cancelCbs.forEach((fn) => fn());
+        };
+        /* eslint-disable */
+        props.record.onSubmitEdit = async () => {
+          if (isArray(props.record?.submitCbs)) {
+            const validFns = (props.record?.validCbs || []).map((fn) => fn());
+
+            const res = await Promise.all(validFns);
+
+            const pass = res.every((item) => !!item);
+
+            if (!pass) return;
+            const submitFns = props.record?.submitCbs || [];
+            submitFns.forEach((fn) => fn(false, false));
+            table.emit?.('edit-row-end');
+            return true;
+          }
+        };
+      }
+
+      return {
+        isEdit,
+        handleEdit,
+        currentValueRef,
+        handleSubmit,
+        handleChange,
+        handleCancel,
+        elRef,
+        getComponent,
+        getRule,
+        onClickOutside,
+        ruleMessage,
+        getRuleVisible,
+        getComponentProps,
+        handleOptionsChange,
+        getWrapperClass,
+        getRowEditable,
+        getValues,
+        handleEnter,
+        // getSize,
+      };
+    },
   });
 </script>
 
 <style lang="less">
-.editable-cell {
- &-content {
-  position: relative;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  .editable-cell {
+    &-content {
+      position: relative;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
 
-  &-comp{
-    flex: 1;
+      &-comp {
+        flex: 1;
+      }
+
+      .edit-icon {
+        font-size: 14px;
+        //position: absolute;
+        //top: 4px;
+        //right: 0;
+        display: none;
+        width: 20px;
+        cursor: pointer;
+      }
+
+      &:hover {
+        .edit-icon {
+          display: inline-block;
+        }
+      }
+    }
+
+    &-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
-
-  .edit-icon {
-   font-size: 14px;
-   //position: absolute;
-   //top: 4px;
-   //right: 0;
-   display: none;
-   width: 20px;
-   cursor: pointer;
-  }
-
-  &:hover {
-   .edit-icon {
-    display: inline-block;
-   }
-  }
- }
-
- &-action {
-  display: flex;
-  align-items: center;
-  justify-content: center;
- }
-}
 </style>

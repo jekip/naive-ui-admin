@@ -1,4 +1,3 @@
-
 *.sh
 node_modules
 *.md
@@ -13,3 +12,5 @@ dist
 .local
 /bin
 Dockerfile
+components.d.ts
+components.d.ts

@@ -4,7 +4,6 @@ import { RedirectRoute } from '@/router/base';
 import { PageEnum } from '@/enums/pageEnum';
 import { createRouterGuards } from './router-guards';
 
-// @ts-ignore
 const modules = import.meta.globEager('./modules/**/*.ts');
 
 const routeModuleList: RouteRecordRaw[] = [];

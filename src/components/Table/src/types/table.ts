@@ -14,6 +14,8 @@ export interface BasicColumn extends TableBaseColumn {
   auth?: string[];
   // 业务控制是否显示
   ifShow?: boolean | ((column: BasicColumn) => boolean);
+  // 控制是否支持拖拽，默认支持
+  draggable?: boolean;
 }
 
 export interface TableActionType {

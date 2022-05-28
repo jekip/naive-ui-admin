@@ -18,6 +18,15 @@ const routes: Array<RouteRecordRaw> = [
     },
     children: [
       {
+        path: 'naive-admin',
+        name: 'naive-admin',
+        meta: {
+          title: 'NaiveAdmin',
+          frameSrc: 'https://www.naiveadmin.com',
+        },
+        component: IFrame,
+      },
+      {
         path: 'docs',
         name: 'frame-docs',
         meta: {

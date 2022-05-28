@@ -7,12 +7,22 @@ const whiteList = ['Redirect', 'login'];
 
 export type RouteItem = Partial<RouteLocationNormalized> & {
   fullPath: string;
+  path: string;
   name: string;
+  hash: string;
+  meta: object;
+  params: object;
+  query: object;
 };
 
 export type ITabsViewState = {
   tabsList: RouteItem[]; // 标签页
 };
+
+//保留固定路由
+function retainAffixRoute(list: any[]) {
+  return list.filter((item) => item?.meta?.affix ?? false);
+}
 
 export const useTabsViewStore = defineStore({
   id: 'app-tabs-view',
@@ -55,8 +65,8 @@ export const useTabsViewStore = defineStore({
     },
     closeAllTabs() {
       // 关闭全部
-      this.tabsList = [];
-      localStorage.removeItem(TABS_ROUTES);
+      console.log(retainAffixRoute(this.tabsList));
+      this.tabsList = retainAffixRoute(this.tabsList);
     },
   },
 });

@@ -5,8 +5,8 @@ import { AxiosCanceler } from './axiosCancel';
 import { isFunction } from '@/utils/is';
 import { cloneDeep } from 'lodash-es';
 
-import type { RequestOptions, CreateAxiosOptions, Result } from './types';
-// import { ContentTypeEnum } from '/@/enums/httpEnum';
+import type { RequestOptions, CreateAxiosOptions, Result, UploadFileParams } from './types';
+import { ContentTypeEnum } from '@/enums/httpEnum';
 
 export * from './axiosTransform';
 
@@ -21,18 +21,6 @@ export class VAxios {
     this.options = options;
     this.axiosInstance = axios.create(options);
     this.setupInterceptors();
-  }
-
-  /**
-   * @description:  创建axios实例
-   */
-  private createAxios(config: CreateAxiosOptions): void {
-    this.axiosInstance = axios.create(config);
-  }
-
-  private getTransform() {
-    const { transform } = this.options;
-    return transform;
   }
 
   getAxios(): AxiosInstance {
@@ -60,6 +48,103 @@ export class VAxios {
   }
 
   /**
+   * @description:   请求方法
+   */
+  request<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+    let conf: AxiosRequestConfig = cloneDeep(config);
+    const transform = this.getTransform();
+
+    const { requestOptions } = this.options;
+
+    const opt: RequestOptions = Object.assign({}, requestOptions, options);
+
+    const { beforeRequestHook, requestCatch, transformRequestData } = transform || {};
+    if (beforeRequestHook && isFunction(beforeRequestHook)) {
+      conf = beforeRequestHook(conf, opt);
+    }
+
+    //这里重新 赋值成最新的配置
+    // @ts-ignore
+    conf.requestOptions = opt;
+
+    return new Promise((resolve, reject) => {
+      this.axiosInstance
+        .request<any, AxiosResponse<Result>>(conf)
+        .then((res: AxiosResponse<Result>) => {
+          // 请求是否被取消
+          const isCancel = axios.isCancel(res);
+          if (transformRequestData && isFunction(transformRequestData) && !isCancel) {
+            try {
+              const ret = transformRequestData(res, opt);
+              resolve(ret);
+            } catch (err) {
+              reject(err || new Error('request error!'));
+            }
+            return;
+          }
+          resolve(res as unknown as Promise<T>);
+        })
+        .catch((e: Error) => {
+          if (requestCatch && isFunction(requestCatch)) {
+            reject(requestCatch(e));
+            return;
+          }
+          reject(e);
+        });
+    });
+  }
+
+  /**
+   * @description:  创建axios实例
+   */
+  private createAxios(config: CreateAxiosOptions): void {
+    this.axiosInstance = axios.create(config);
+  }
+
+  private getTransform() {
+    const { transform } = this.options;
+    return transform;
+  }
+
+  /**
+   * @description:  文件上传
+   */
+  uploadFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams) {
+    const formData = new window.FormData();
+    const customFilename = params.name || 'file';
+
+    if (params.filename) {
+      formData.append(customFilename, params.file, params.filename);
+    } else {
+      formData.append(customFilename, params.file);
+    }
+
+    if (params.data) {
+      Object.keys(params.data).forEach((key) => {
+        const value = params.data![key];
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            formData.append(`${key}[]`, item);
+          });
+          return;
+        }
+
+        formData.append(key, params.data![key]);
+      });
+    }
+
+    return this.axiosInstance.request<T>({
+      method: 'POST',
+      data: formData,
+      headers: {
+        'Content-type': ContentTypeEnum.FORM_DATA,
+        ignoreCancelToken: true,
+      },
+      ...config,
+    });
+  }
+
+  /**
    * @description: 拦截器配置
    */
   private setupInterceptors() {
@@ -78,10 +163,17 @@ export class VAxios {
 
     // 请求拦截器配置处理
     this.axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
-      const { headers: { ignoreCancelToken } = { ignoreCancelToken: false } } = config;
-      !ignoreCancelToken && axiosCanceler.addPending(config);
+      const {
+        headers: { ignoreCancelToken },
+      } = config;
+      const ignoreCancel =
+        ignoreCancelToken !== undefined
+          ? ignoreCancelToken
+          : this.options.requestOptions?.ignoreCancelToken;
+
+      !ignoreCancel && axiosCanceler.addPending(config);
       if (requestInterceptors && isFunction(requestInterceptors)) {
-        config = requestInterceptors(config);
+        config = requestInterceptors(config, this.options);
       }
       return config;
     }, undefined);
@@ -104,63 +196,5 @@ export class VAxios {
     responseInterceptorsCatch &&
       isFunction(responseInterceptorsCatch) &&
       this.axiosInstance.interceptors.response.use(undefined, responseInterceptorsCatch);
-  }
-
-  // /**
-  //  * @description:  文件上传
-  //  */
-  // uploadFiles(config: AxiosRequestConfig, params: File[]) {
-  //   const formData = new FormData();
-
-  //   Object.keys(params).forEach((key) => {
-  //     formData.append(key, params[key as any]);
-  //   });
-
-  //   return this.request({
-  //     ...config,
-  //     method: 'POST',
-  //     data: formData,
-  //     headers: {
-  //       'Content-type': ContentTypeEnum.FORM_DATA,
-  //     },
-  //   });
-  // }
-
-  /**
-   * @description:   请求方法
-   */
-  request<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
-    let conf: AxiosRequestConfig = cloneDeep(config);
-    const transform = this.getTransform();
-
-    const { requestOptions } = this.options;
-
-    const opt: RequestOptions = Object.assign({}, requestOptions, options);
-
-    const { beforeRequestHook, requestCatch, transformRequestData } = transform || {};
-    if (beforeRequestHook && isFunction(beforeRequestHook)) {
-      conf = beforeRequestHook(conf, opt);
-    }
-    return new Promise((resolve, reject) => {
-      this.axiosInstance
-        .request<any, AxiosResponse<Result>>(conf)
-        .then((res: AxiosResponse<Result>) => {
-          // 请求是否被取消
-          const isCancel = axios.isCancel(res);
-          if (transformRequestData && isFunction(transformRequestData) && !isCancel) {
-            const ret = transformRequestData(res, opt);
-            // ret !== undefined ? resolve(ret) : reject(new Error('request error!'));
-            return resolve(ret);
-          }
-          reject(res as unknown as Promise<T>);
-        })
-        .catch((e: Error) => {
-          if (requestCatch && isFunction(requestCatch)) {
-            reject(requestCatch(e));
-            return;
-          }
-          reject(e);
-        });
-    });
   }
 }

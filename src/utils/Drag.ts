@@ -1,6 +1,5 @@
 //获取相关CSS属性
 const getCss = function (o, key) {
-  // @ts-ignore
   return o.currentStyle
     ? o.currentStyle[key]
     : document.defaultView?.getComputedStyle(o, null)[key];

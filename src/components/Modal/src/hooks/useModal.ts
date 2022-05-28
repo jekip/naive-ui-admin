@@ -4,7 +4,6 @@ import { ModalMethods, UseModalReturnType } from '../type';
 import { getDynamicProps } from '@/utils';
 import { tryOnUnmounted } from '@vueuse/core';
 export function useModal(props): UseModalReturnType {
-
   const modalRef = ref<Nullable<ModalMethods>>(null);
   const currentInstance = getCurrentInstance();
 

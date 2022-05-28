@@ -50,6 +50,11 @@
     return { ...props, ...(unref(propsRef) as any) };
   });
 
+  const subBtuText = computed(() => {
+    const { subBtuText } = propsRef.value as any;
+    return subBtuText || props.subBtuText;
+  });
+
   async function setProps(modalProps: Partial<ModalProps>): Promise<void> {
     propsRef.value = deepMerge(unref(propsRef) || ({} as any), modalProps);
   }
@@ -58,6 +63,7 @@
     return {
       ...attrs,
       ...unref(getProps),
+      ...unref(propsRef),
     };
   });
 
@@ -87,6 +93,7 @@
 
   function handleSubmit() {
     subLoading.value = true;
+    console.log(subLoading.value);
     emit('on-ok');
   }
 
@@ -101,7 +108,6 @@
   if (instance) {
     emit('register', modalMethods);
   }
-
 </script>
 
 <style lang="less">

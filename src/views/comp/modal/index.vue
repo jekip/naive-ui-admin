@@ -120,10 +120,10 @@
       giProps: {
         //span: 24,
       },
+      defaultValue: 1183135260000,
       componentProps: {
         type: 'date',
         clearable: true,
-        defaultValue: 1183135260000,
         onUpdateValue: (e: any) => {
           console.log(e);
         },

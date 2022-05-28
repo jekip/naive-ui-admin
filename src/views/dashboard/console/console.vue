@@ -23,7 +23,7 @@
                 日同比
                 <CountTo :startVal="1" suffix="%" :endVal="visits.rise" />
                 <n-icon size="12" color="#00ff6f">
-                  <component is="CaretUpOutlined" />
+                  <CaretUpOutlined />
                 </n-icon>
               </template>
             </div>
@@ -33,7 +33,7 @@
                 周同比
                 <CountTo :startVal="1" suffix="%" :endVal="visits.decline" />
                 <n-icon size="12" color="#ffde66">
-                  <component is="CaretDownOutlined" />
+                  <CaretDownOutlined />
                 </n-icon>
               </template>
             </div>
@@ -115,7 +115,7 @@
                 日同比
                 <CountTo :startVal="1" suffix="%" :endVal="orderLarge.rise" />
                 <n-icon size="12" color="#00ff6f">
-                  <component is="CaretUpOutlined" />
+                  <CaretUpOutlined />
                 </n-icon>
               </template>
             </div>
@@ -125,7 +125,7 @@
                 周同比
                 <CountTo :startVal="1" suffix="%" :endVal="orderLarge.rise" />
                 <n-icon size="12" color="#ffde66">
-                  <component is="CaretDownOutlined" />
+                  <CaretDownOutlined />
                 </n-icon>
               </template>
             </div>
@@ -164,7 +164,7 @@
                 月同比
                 <CountTo :startVal="1" suffix="%" :endVal="volume.rise" />
                 <n-icon size="12" color="#00ff6f">
-                  <component is="CaretUpOutlined" />
+                  <CaretUpOutlined />
                 </n-icon>
               </template>
             </div>
@@ -174,7 +174,7 @@
                 月同比
                 <CountTo :startVal="1" suffix="%" :endVal="volume.decline" />
                 <n-icon size="12" color="#ffde66">
-                  <component is="CaretDownOutlined" />
+                  <CaretDownOutlined />
                 </n-icon>
               </template>
             </div>
@@ -241,12 +241,10 @@
     SettingOutlined,
   } from '@vicons/antd';
 
-  const cardHeaderStyle = ref({ 'border-bottom': '1px solid #eee', 'font-size': '16px' });
-
   const loading = ref(true);
-  const visits = ref({});
-  const saleroom = ref({});
-  const orderLarge = ref({});
+  const visits = ref<any>({});
+  const saleroom = ref<any>({});
+  const orderLarge = ref<any>({});
   const volume = ref({});
 
   // 图标列表
