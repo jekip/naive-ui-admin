@@ -1,7 +1,7 @@
 import { ref, ComputedRef, unref, computed, onMounted, watchEffect, watch } from 'vue';
 import type { BasicTableProps } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
-import { isBoolean } from '@/utils/is';
+import { isBoolean, isFunction, isArray } from '@/utils/is';
 import { APISETTING } from '../const';
 
 export function useDataSource(
@@ -31,8 +31,8 @@ export function useDataSource(
     return rowKey
       ? rowKey
       : () => {
-          return 'key';
-        };
+        return 'key';
+      };
   });
 
   const getDataSourceRef = computed(() => {
@@ -46,7 +46,7 @@ export function useDataSource(
   async function fetch(opt?) {
     try {
       setLoading(true);
-      const { request, pagination }: any = unref(propsRef);
+      const { request, pagination, beforeRequest, afterRequest }: any = unref(propsRef);
       if (!request) return;
       //组装分页信息
       const pageField = APISETTING.pageField;
@@ -64,9 +64,13 @@ export function useDataSource(
         pageParams[sizeField] = pageSize;
       }
 
-      const params = {
+      let params = {
         ...pageParams,
       };
+      if (beforeRequest && isFunction(beforeRequest)) {
+        // The params parameter can be modified by outsiders
+        params = (await beforeRequest(params)) || params;
+      }
       const res = await request(params);
 
       const resultTotal = res[totalField] || 0;
@@ -81,7 +85,14 @@ export function useDataSource(
           fetch(opt);
         }
       }
-      const resultInfo = res[listField] ? res[listField] : [];
+      let resultInfo = res[listField] ? res[listField] : [];
+      if (afterRequest && isFunction(afterRequest)) {
+        // can modify the data returned by the interface for processing
+        resultInfo = (await afterRequest(resultInfo));
+        if (!isArray(resultInfo)) {
+          resultInfo = []
+        }
+      }
       dataSourceRef.value = resultInfo;
       setPagination({
         [pageField]: currentPage,
