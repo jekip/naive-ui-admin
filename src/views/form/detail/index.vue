@@ -10,7 +10,7 @@
       title="基本信息"
       class="mt-4 proCard"
       size="small"
-      :segmented="{ content: 'hard' }"
+      :segmented="{ content: true }"
     >
       <n-descriptions label-placement="left" class="py-2">
         <n-descriptions-item>
@@ -31,7 +31,7 @@
       title="其它信息"
       class="mt-4 proCard"
       size="small"
-      :segmented="{ content: 'hard' }"
+      :segmented="{ content: true }"
     >
       <n-descriptions label-placement="left" class="py-2">
         <n-descriptions-item>
@@ -52,7 +52,7 @@
       title="表格信息"
       class="mt-4 proCard"
       size="small"
-      :segmented="{ content: 'hard' }"
+      :segmented="{ content: true }"
     >
       <n-table :bordered="false" :single-line="false">
         <thead>

@@ -34,4 +34,5 @@ export interface BasicTableProps {
   actionColumn: any[];
   canResize: boolean;
   resizeHeightOffset: number;
+  loading: boolean;
 }

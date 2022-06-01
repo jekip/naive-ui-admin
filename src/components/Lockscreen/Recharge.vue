@@ -135,22 +135,6 @@
     }
   }
 
-  @width: ~`Math.round(Math.random() * 100) ` px;
-  @left: calc(15px + `Math.round(Math.random(70)) `);
-  each(range(15), {
-  .xiaoma-@{value} {
-    height: (@value * 50px);
-  }
-  li:nth-child(@{index}) {
-    top: 50%;
-    left: @left;
-    width: @width;
-    height: @width;
-    transform: translate(-50%, -50%);
-    /*animation: moveToTop (Math.random(6) + 3s) ease-in-out -(Math.random(5000) / 1000s) infinite;*/
-  }
-});
-
   @keyframes rotate {
     50% {
       border-radius: 45% / 42% 38% 58% 49%;

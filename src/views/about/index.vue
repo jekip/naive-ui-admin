@@ -11,7 +11,7 @@
       title="项目信息"
       class="mt-4 proCard"
       size="small"
-      :segmented="{ content: 'hard' }"
+      :segmented="{ content: true }"
     >
       <n-descriptions bordered label-placement="left" class="py-2">
         <n-descriptions-item label="版本">
@@ -56,7 +56,7 @@
       title="开发环境依赖"
       class="mt-4 proCard"
       size="small"
-      :segmented="{ content: 'hard' }"
+      :segmented="{ content: true }"
     >
       <n-descriptions bordered label-placement="left" class="py-2">
         <n-descriptions-item v-for="item in devSchema" :key="item.field" :label="item.field">
@@ -70,7 +70,7 @@
       title="生产环境依赖"
       class="mt-4 proCard"
       size="small"
-      :segmented="{ content: 'hard' }"
+      :segmented="{ content: true }"
     >
       <n-descriptions bordered label-placement="left" class="py-2">
         <n-descriptions-item v-for="item in schema" :key="item.field" :label="item.field">

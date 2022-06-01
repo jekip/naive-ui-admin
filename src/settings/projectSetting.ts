@@ -37,6 +37,8 @@ const setting = {
     mixMenu: false,
     //触发移动端侧边栏的宽度
     mobileWidth: 800,
+    // 折叠菜单
+    collapsed: false,
   },
   //面包屑
   crumbsSetting: {

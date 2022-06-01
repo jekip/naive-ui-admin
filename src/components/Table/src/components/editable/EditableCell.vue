@@ -51,7 +51,6 @@
   import { EventEnum } from '@/components/Table/src/componentMap';
 
   import { parseISO, format } from 'date-fns';
-  import { Fn, LabelValueOptions } from '/#/index';
 
   export default defineComponent({
     name: 'EditableCell',

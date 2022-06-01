@@ -109,7 +109,7 @@
       watch(
         () => props.value,
         () => {
-          imgList.value = props.value.map((item) => {
+          state.imgList = props.value.map((item) => {
             return getImgUrl(item);
           });
         }

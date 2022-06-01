@@ -46,10 +46,10 @@ export function useFormEvents({
       await validate();
       loadingSub.value = false;
       emit('submit', formModel);
-      return true;
+      return;
     } catch (error) {
       loadingSub.value = false;
-      return false;
+      return;
     }
   }
 
