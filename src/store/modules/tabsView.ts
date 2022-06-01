@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { RouteLocationNormalized } from 'vue-router';
-import { TABS_ROUTES } from '../mutation-types';
 
 // 不需要出现在标签页中的路由
 const whiteList = ['Redirect', 'login'];
