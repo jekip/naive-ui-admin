@@ -18,7 +18,7 @@
       <n-grid-item>
         <NCard
           title="需求池"
-          :segmented="{ content: 'hard', footer: 'hard' }"
+          :segmented="{ content: true, footer: true }"
           size="small"
           :bordered="false"
         >
@@ -45,7 +45,7 @@
       <n-grid-item>
         <NCard
           title="开发中"
-          :segmented="{ content: 'hard', footer: 'hard' }"
+          :segmented="{ content: true, footer: true }"
           size="small"
           :bordered="false"
         >
@@ -72,7 +72,7 @@
       <n-grid-item>
         <NCard
           title="已完成"
-          :segmented="{ content: 'hard', footer: 'hard' }"
+          :segmented="{ content: true, footer: true }"
           size="small"
           :bordered="false"
         >
@@ -98,7 +98,7 @@
       <n-grid-item>
         <NCard
           title="已验收"
-          :segmented="{ content: 'hard', footer: 'hard' }"
+          :segmented="{ content: true, footer: true }"
           size="small"
           :bordered="false"
         >

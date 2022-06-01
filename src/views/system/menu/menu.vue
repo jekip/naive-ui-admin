@@ -7,7 +7,7 @@
     </div>
     <n-grid class="mt-4" cols="1 s:1 m:1 l:3 xl:3 2xl:3" responsive="screen" :x-gap="12">
       <n-gi span="1">
-        <n-card :segmented="{ content: 'hard' }" :bordered="false" size="small">
+        <n-card :segmented="{ content: true }" :bordered="false" size="small">
           <template #header>
             <n-space>
               <n-dropdown trigger="hover" @select="selectAddMenu" :options="addMenuOptions">
@@ -67,7 +67,7 @@
         </n-card>
       </n-gi>
       <n-gi span="2">
-        <n-card :segmented="{ content: 'hard' }" :bordered="false" size="small">
+        <n-card :segmented="{ content: true }" :bordered="false" size="small">
           <template #header>
             <n-space>
               <n-icon size="18">

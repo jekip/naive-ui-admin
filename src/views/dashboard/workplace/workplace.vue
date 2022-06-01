@@ -36,7 +36,7 @@
     <n-grid class="mt-4" cols="2 s:1 m:1 l:2 xl:2 2xl:2" responsive="screen" :x-gap="12" :y-gap="9">
       <n-gi>
         <n-card
-          :segmented="{ content: 'hard' }"
+          :segmented="{ content: true }"
           content-style="padding: 0;"
           :bordered="false"
           size="small"
@@ -145,7 +145,7 @@
         </n-card>
 
         <n-card
-          :segmented="{ content: 'hard' }"
+          :segmented="{ content: true }"
           content-style="padding-top: 0;padding-bottom: 0;"
           :bordered="false"
           size="small"
@@ -221,7 +221,7 @@
       </n-gi>
       <n-gi>
         <n-card
-          :segmented="{ content: 'hard' }"
+          :segmented="{ content: true }"
           content-style="padding: 0;"
           :bordered="false"
           size="small"
@@ -290,7 +290,7 @@
             </n-card>
           </div>
         </n-card>
-        <n-card :segmented="{ content: 'hard' }" :bordered="false" size="small" class="mt-4">
+        <n-card :segmented="{ content: true }" :bordered="false" size="small" class="mt-4">
           <img src="~@/assets/images/Business.svg" class="w-full" />
         </n-card>
       </n-gi>
