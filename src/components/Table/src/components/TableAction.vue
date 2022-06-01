@@ -75,7 +75,7 @@
       const getDropdownList = computed(() => {
         return (toRaw(props.dropDownActions) || [])
           .filter((action) => {
-            return hasPermission(action.auth) && isIfShow(action);
+            return hasPermission(action.auth as string[]) && isIfShow(action);
           })
           .map((action) => {
             const { popConfirm } = action;
@@ -108,7 +108,7 @@
       const getActions = computed(() => {
         return (toRaw(props.actions) || [])
           .filter((action) => {
-            return hasPermission(action.auth) && isIfShow(action);
+            return hasPermission(action.auth as string[]) && isIfShow(action);
           })
           .map((action) => {
             const { popConfirm } = action;

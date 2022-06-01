@@ -1,6 +1,6 @@
 import { NButton } from 'naive-ui';
 import { PermissionsEnum } from '@/enums/permissionsEnum';
-export interface ActionItem extends NButton.props {
+export interface ActionItem extends Partial<InstanceType<typeof NButton>> {
   onClick?: Fn;
   label?: string;
   color?: 'success' | 'error' | 'warning';

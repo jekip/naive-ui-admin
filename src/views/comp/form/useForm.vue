@@ -16,10 +16,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { BasicForm, useForm } from '@/components/Form/index';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
   import { useMessage } from 'naive-ui';
 
-  const schemas = [
+  const schemas: FormSchema[] = [
     {
       field: 'name',
       component: 'NInput',
