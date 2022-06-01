@@ -41,7 +41,7 @@
   const props = defineProps({ ...basicProps });
   const emit = defineEmits(['on-close', 'on-ok', 'register']);
 
-  const propsRef = ref(<Partial<ModalProps> | null>null);
+  const propsRef = ref<Partial<ModalProps> | null>(null);
 
   const isModal = ref(false);
   const subLoading = ref(false);

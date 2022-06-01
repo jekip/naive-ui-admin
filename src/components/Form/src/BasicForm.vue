@@ -230,7 +230,6 @@
       });
 
       const { handleFormValues, initDefault } = useFormValues({
-        getProps,
         defaultFormModel,
         getSchema,
         formModel,
