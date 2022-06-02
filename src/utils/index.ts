@@ -211,5 +211,5 @@ export function lighten(color: string, amount: number) {
  * 判断是否 url
  * */
 export function isUrl(url: string) {
-  return /(^http|https:\/\/)/g.test(url);
+  return /^(http|https):\/\//g.test(url);
 }
