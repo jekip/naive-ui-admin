@@ -65,7 +65,7 @@
                 </n-input>
               </n-form-item>
               <n-form-item class="enter-x">
-                <div class="flex justify-between">
+                <div class="flex justify-between w-full">
                   <div class="flex-initial">
                     <n-checkbox v-model:checked="autoLogin">自动登录</n-checkbox>
                   </div>
@@ -86,7 +86,7 @@
                 </n-button>
               </n-form-item>
               <n-form-item class="default-color">
-                <div class="flex view-account-other">
+                <div class="flex items-center w-full view-account-other">
                   <div class="flex-initial">
                     <span>其它登录方式</span>
                   </div>
