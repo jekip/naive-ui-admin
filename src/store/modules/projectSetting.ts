@@ -89,6 +89,29 @@ export const useProjectSettingStore = defineStore({
       this.isMobile = value;
     },
   },
+
+  // 官方文档：https://seb-l.github.io/pinia-plugin-persist/
+  // 示例：https://juejin.cn/post/7094552264739651615
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'APP-PROJECT-SETTING', // 自定义 Key 值
+        storage: localStorage, // 选择存储方式 localStorage | sessionStorage
+        // 指定缓存项
+        paths: [
+          'navMode',
+          'navTheme',
+          'menuSetting',
+          'headerSetting',
+          'multiTabsSetting',
+          'crumbsSetting',
+          'isPageAnimate',
+          'pageAnimateType',
+        ],
+      },
+    ],
+  },
 });
 
 // Need to be used outside the setup

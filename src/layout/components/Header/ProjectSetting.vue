@@ -5,23 +5,7 @@
         <n-divider title-placement="center">主题</n-divider>
 
         <div class="justify-center drawer-setting-item dark-switch">
-          <n-tooltip placement="bottom">
-            <template #trigger>
-              <n-switch v-model:value="designStore.darkTheme" class="dark-theme-switch">
-                <template #checked>
-                  <n-icon size="14" color="#ffd93b">
-                    <SunnySharp />
-                  </n-icon>
-                </template>
-                <template #unchecked>
-                  <n-icon size="14" color="#ffd93b">
-                    <Moon />
-                  </n-icon>
-                </template>
-              </n-switch>
-            </template>
-            <span>{{ designStore.darkTheme ? '深' : '浅' }}色主题</span>
-          </n-tooltip>
+          <DarkModeToggle />
         </div>
 
         <n-divider title-placement="center">系统主题</n-divider>
@@ -234,13 +218,13 @@
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
   import { useDesignSettingStore } from '@/store/modules/designSetting';
   import { CheckOutlined } from '@vicons/antd';
-  import { Moon, SunnySharp } from '@vicons/ionicons5';
   import { darkTheme } from 'naive-ui';
   import { animates as animateOptions } from '@/settings/animateSetting';
+  import { DarkModeToggle } from '@/components/DarkModeToggle/index';
 
   export default defineComponent({
     name: 'ProjectSetting',
-    components: { CheckOutlined, Moon, SunnySharp },
+    components: { CheckOutlined, DarkModeToggle },
     props: {
       title: {
         type: String,
@@ -375,12 +359,6 @@
 
     .justify-center {
       justify-content: center;
-    }
-
-    .dark-switch .n-switch {
-      ::v-deep(.n-switch__rail) {
-        background-color: #000e1c;
-      }
     }
   }
 </style>

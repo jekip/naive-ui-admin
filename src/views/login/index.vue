@@ -1,87 +1,120 @@
 <template>
-  <div class="view-account">
-    <div class="view-account-header"></div>
-    <div class="view-account-container">
-      <div class="view-account-top">
-        <div class="view-account-top-logo">
-          <img src="~@/assets/images/account-logo.png" alt="" />
-        </div>
-        <div class="view-account-top-desc">Naive Ui Admin中台前端/设计解决方案</div>
+  <n-layout>
+    <div
+      class="flex items-center justify-center w-full h-screen pt-32 pb-32 bg-gray-800 xl:pt-0 xl:pb-0 xl:bg-transparent"
+    >
+      <div class="absolute logo top-4 left-4 -enter-x xl:hidden">
+        <Logo />
       </div>
-      <div class="view-account-form">
-        <n-form
-          ref="formRef"
-          label-placement="left"
-          size="large"
-          :model="formInline"
-          :rules="rules"
-        >
-          <n-form-item path="username">
-            <n-input v-model:value="formInline.username" placeholder="请输入用户名">
-              <template #prefix>
-                <n-icon size="18" color="#808695">
-                  <PersonOutline />
-                </n-icon>
-              </template>
-            </n-input>
-          </n-form-item>
-          <n-form-item path="password">
-            <n-input
-              v-model:value="formInline.password"
-              type="password"
-              showPasswordOn="click"
-              placeholder="请输入密码"
+
+      <div class="absolute h-10 my-auto top-4 right-4 enter-x">
+        <DarkModeToggle class="flex items-center h-10" />
+      </div>
+
+      <div class="hidden w-2/4 bg-blue-500 left-bg xl:block xl:w-2/4 xl:h-full">
+        <div class="flex items-end justify-center h-full">
+          <div
+            class="flex flex-col items-start justify-center w-9/12 py-2 -enter-x left-container sm:px-10 2xl:w-4/6"
+          >
+            <Logo class="absolute top-24 logo -enter-x" />
+            <div class="">
+              <img class="xl:w-4/6 2xl:w-4/5" src="~@/assets/images/login-bg.svg" />
+              <div class="mt-10 font-medium text-white -enter-x">
+                <span class="inline-block mt-4 text-3xl">Naive Ui Admin中台前端/设计解决方案</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="flex items-center justify-center w-full p-12 m-4 bg-white rounded-md shadow-xl login-form-container sm:m-32 md:m-40 md:w-96 xl:m-0 xl:w-2/4 xl:bg-transparent xl:rounded-none xl:shadow-none"
+      >
+        <div class="w-full xl:w-2/3 xl:max-w-sm">
+          <h2 class="mb-6 text-2xl font-bold text-center xl:text-3xl enter-x xl:text-left">登录</h2>
+          <div class="form">
+            <n-form
+              class="enter-x"
+              ref="formRef"
+              label-placement="left"
+              size="large"
+              :model="formInline"
+              :rules="rules"
             >
-              <template #prefix>
-                <n-icon size="18" color="#808695">
-                  <LockClosedOutline />
-                </n-icon>
-              </template>
-            </n-input>
-          </n-form-item>
-          <n-form-item class="default-color">
-            <div class="flex justify-between">
-              <div class="flex-initial">
-                <n-checkbox v-model:checked="autoLogin">自动登录</n-checkbox>
-              </div>
-              <div class="flex-initial order-last">
-                <a href="javascript:">忘记密码</a>
-              </div>
-            </div>
-          </n-form-item>
-          <n-form-item>
-            <n-button type="primary" @click="handleSubmit" size="large" :loading="loading" block>
-              登录
-            </n-button>
-          </n-form-item>
-          <n-form-item class="default-color">
-            <div class="flex view-account-other">
-              <div class="flex-initial">
-                <span>其它登录方式</span>
-              </div>
-              <div class="flex-initial mx-2">
-                <a href="javascript:">
-                  <n-icon size="24" color="#2d8cf0">
-                    <LogoGithub />
-                  </n-icon>
-                </a>
-              </div>
-              <div class="flex-initial mx-2">
-                <a href="javascript:">
-                  <n-icon size="24" color="#2d8cf0">
-                    <LogoFacebook />
-                  </n-icon>
-                </a>
-              </div>
-              <div class="flex-initial" style="margin-left: auto">
-                <a href="javascript:">注册账号</a>
-              </div>
-            </div>
-          </n-form-item>
-        </n-form>
+              <n-form-item path="username" class="enter-x">
+                <n-input v-model:value="formInline.username" placeholder="请输入用户名">
+                  <template #prefix>
+                    <n-icon size="18">
+                      <PersonOutline />
+                    </n-icon>
+                  </template>
+                </n-input>
+              </n-form-item>
+              <n-form-item path="password" class="enter-x">
+                <n-input
+                  v-model:value="formInline.password"
+                  type="password"
+                  showPasswordOn="click"
+                  placeholder="请输入密码"
+                >
+                  <template #prefix>
+                    <n-icon size="18">
+                      <LockClosedOutline />
+                    </n-icon>
+                  </template>
+                </n-input>
+              </n-form-item>
+              <n-form-item class="enter-x">
+                <div class="flex justify-between">
+                  <div class="flex-initial">
+                    <n-checkbox v-model:checked="autoLogin">自动登录</n-checkbox>
+                  </div>
+                  <div class="flex-initial order-last">
+                    <a href="javascript:">忘记密码</a>
+                  </div>
+                </div>
+              </n-form-item>
+              <n-form-item class="enter-x">
+                <n-button
+                  type="primary"
+                  @click="handleSubmit"
+                  size="large"
+                  :loading="loading"
+                  block
+                >
+                  登录
+                </n-button>
+              </n-form-item>
+              <n-form-item class="default-color">
+                <div class="flex view-account-other">
+                  <div class="flex-initial">
+                    <span>其它登录方式</span>
+                  </div>
+                  <div class="flex-initial mx-2">
+                    <a href="javascript:">
+                      <n-icon size="24" color="#2d8cf0">
+                        <LogoGithub />
+                      </n-icon>
+                    </a>
+                  </div>
+                  <div class="flex-initial mx-2">
+                    <a href="javascript:">
+                      <n-icon size="24" color="#2d8cf0">
+                        <LogoFacebook />
+                      </n-icon>
+                    </a>
+                  </div>
+                  <div class="flex-initial" style="margin-left: auto">
+                    <a href="javascript:">注册账号</a>
+                  </div>
+                </div>
+              </n-form-item>
+            </n-form>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </n-layout>
 </template>
 
 <script lang="ts" setup>
@@ -92,6 +125,8 @@
   import { ResultEnum } from '@/enums/httpEnum';
   import { PersonOutline, LockClosedOutline, LogoGithub, LogoFacebook } from '@vicons/ionicons5';
   import { PageEnum } from '@/enums/pageEnum';
+  import { DarkModeToggle } from '@/components/DarkModeToggle/index';
+  import { Logo } from '@/layout/components/Logo';
 
   interface FormState {
     username: string;
@@ -106,7 +141,7 @@
 
   const formInline = reactive({
     username: 'admin',
-    password: '123456',
+    password: '111111',
     isCaptcha: true,
   });
 
@@ -120,9 +155,9 @@
   const router = useRouter();
   const route = useRoute();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    formRef.value.validate(async (errors) => {
+    formRef.value.validate(async (errors: any) => {
       if (!errors) {
         const { username, password } = formInline;
         message.loading('登录中...');
@@ -143,7 +178,7 @@
               router.replace('/');
             } else router.replace(toPath);
           } else {
-            message.info(msg || '登录失败');
+            message.error(msg || '登录失败');
           }
         } finally {
           loading.value = false;
@@ -155,53 +190,43 @@
   };
 </script>
 
-<style lang="less" scoped>
-  .view-account {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: auto;
-
-    &-container {
-      flex: 1;
-      padding: 32px 0;
-      width: 384px;
-      margin: 0 auto;
+<style scoped lang="less">
+  html[data-theme='dark'] {
+    .login-form-container {
+      background: transparent !important;
     }
 
-    &-top {
-      padding: 32px 0;
-      text-align: center;
-
-      &-desc {
-        font-size: 14px;
-        color: #808695;
-      }
-    }
-
-    &-other {
-      width: 100%;
-    }
-
-    .default-color {
-      color: #515a6e;
-
-      .ant-checkbox-wrapper {
-        color: #515a6e;
-      }
+    .left-bg {
+      background-color: rgba(30, 64, 175, 1);
     }
   }
 
-  @media (min-width: 768px) {
-    .view-account {
-      background-image: url('../../assets/images/login.svg');
-      background-repeat: no-repeat;
-      background-position: 50%;
-      background-size: 100%;
+  .left-container {
+    height: 100%;
+
+    @media (min-width: 1200px) {
+      min-width: 600px;
     }
 
-    .page-account-container {
-      padding: 32px 0 24px 0;
+    @media (min-width: 1800px) {
+      max-width: 600px;
+    }
+  }
+
+  .logo {
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+
+    @media (min-width: 1200px) {
+      ::v-deep(img) {
+        width: auto;
+        height: 40px !important;
+      }
+
+      ::v-deep(.title) {
+        font-size: 22px;
+      }
     }
   }
 </style>

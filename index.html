@@ -14,7 +14,29 @@
 <body>
 <div id="appProvider" style="display: none"></div>
 <div id="app">
+  <script>
+    (() => {
+      const appDesignSetting = window.localStorage.getItem('APP-DESIGN-SETTING')
+      const isDark = appDesignSetting && JSON.parse(appDesignSetting).darkTheme
+
+      let theme = isDark ? 'dark' : 'light';
+      let htmlRoot = document.getElementById('htmlRoot');
+
+      if (htmlRoot && theme) {
+        htmlRoot.setAttribute('data-theme', theme);
+        theme = htmlRoot = null;
+      }
+    })();
+  </script>
   <style>
+    body {
+      margin: 0;
+    }
+
+    html[data-theme='dark'] .first-loading-wrap {
+      background-color: #101014;
+    }
+
     .first-loading-wrap {
       display: flex;
       width: 100%;

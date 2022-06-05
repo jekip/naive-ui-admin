@@ -32,6 +32,17 @@ export const useDesignSettingStore = defineStore({
     },
   },
   actions: {},
+
+  // 持久化
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'APP-DESIGN-SETTING',
+        storage: localStorage,
+      },
+    ],
+  },
 });
 
 // Need to be used outside the setup

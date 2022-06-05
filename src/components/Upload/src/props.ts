@@ -17,7 +17,7 @@ export const basicProps = {
   },
   maxNumber: {
     type: Number as PropType<number>,
-    default: Infinity,
+    default: 10,
   },
   value: {
     type: Array as PropType<string[]>,
