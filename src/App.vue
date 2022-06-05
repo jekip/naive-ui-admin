@@ -43,6 +43,7 @@
         primaryColor: appTheme,
         primaryColorHover: lightenStr,
         primaryColorPressed: lightenStr,
+        primaryColorSuppl: appTheme,
       },
       LoadingBar: {
         colorLoading: appTheme,
@@ -52,7 +53,7 @@
 
   const getDarkTheme = computed(() => (designStore.darkTheme ? darkTheme : undefined));
 
-  let timer;
+  let timer: NodeJS.Timeout;
 
   const timekeeping = () => {
     clearInterval(timer);

@@ -54,7 +54,7 @@
               </template>
               <span>左侧菜单模式</span>
             </n-tooltip>
-            <n-badge dot color="#19be6b" v-show="settingStore.navMode === 'vertical'" />
+            <n-badge dot :color="dot" v-show="settingStore.navMode === 'vertical'" />
           </div>
 
           <div class="drawer-setting-item-style">
@@ -68,7 +68,7 @@
               </template>
               <span>顶部菜单模式</span>
             </n-tooltip>
-            <n-badge dot color="#19be6b" v-show="settingStore.navMode === 'horizontal'" />
+            <n-badge dot :color="dot" v-show="settingStore.navMode === 'horizontal'" />
           </div>
 
           <div class="drawer-setting-item-style">
@@ -82,7 +82,7 @@
               </template>
               <span>顶部菜单混合模式</span>
             </n-tooltip>
-            <n-badge dot color="#19be6b" v-show="settingStore.navMode === 'horizontal-mix'" />
+            <n-badge dot :color="dot" v-show="settingStore.navMode === 'horizontal-mix'" />
           </div>
         </div>
 
@@ -100,7 +100,7 @@
               </template>
               <span>暗色侧边栏</span>
             </n-tooltip>
-            <n-badge dot color="#19be6b" v-if="settingStore.navTheme === 'dark'" />
+            <n-badge dot :color="dot" v-if="settingStore.navTheme === 'dark'" />
           </div>
 
           <div class="drawer-setting-item-style">
@@ -114,7 +114,7 @@
               </template>
               <span>白色侧边栏</span>
             </n-tooltip>
-            <n-badge dot color="#19be6b" v-if="settingStore.navTheme === 'light'" />
+            <n-badge dot :color="dot" v-if="settingStore.navTheme === 'light'" />
           </div>
 
           <div class="drawer-setting-item-style">
@@ -128,7 +128,7 @@
               </template>
               <span>暗色顶栏</span>
             </n-tooltip>
-            <n-badge dot color="#19be6b" v-if="settingStore.navTheme === 'header-dark'" />
+            <n-badge dot :color="dot" v-if="settingStore.navTheme === 'header-dark'" />
           </div>
         </div>
         <n-divider title-placement="center">界面功能</n-divider>
@@ -255,6 +255,7 @@
       const settingStore = useProjectSettingStore();
       const designStore = useDesignSettingStore();
       const state = reactive({
+        dot: designStore.appTheme,
         width: props.width,
         title: props.title,
         isDrawer: false,
@@ -283,18 +284,19 @@
         state.isDrawer = false;
       }
 
-      function togNavTheme(theme) {
+      function togNavTheme(theme: string) {
         settingStore.navTheme = theme;
         if (settingStore.navMode === 'horizontal' && ['light'].includes(theme)) {
           settingStore.navTheme = 'dark';
         }
       }
 
-      function togTheme(color) {
+      function togTheme(color: string) {
         designStore.appTheme = color;
+        state.dot = color;
       }
 
-      function togNavMode(mode) {
+      function togNavMode(mode: string) {
         settingStore.navMode = mode;
         settingStore.menuSetting.mixMenu = false;
       }
