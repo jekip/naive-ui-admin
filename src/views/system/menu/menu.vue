@@ -115,6 +115,7 @@
                   >保存修改</n-button
                 >
                 <n-button @click="handleReset">重置</n-button>
+                <n-button @click="handleDel">删除</n-button>
               </n-space>
             </n-form-item>
           </n-form>
@@ -126,7 +127,7 @@
 </template>
 <script lang="ts" setup>
   import { ref, unref, reactive, onMounted, computed } from 'vue';
-  import { useMessage } from 'naive-ui';
+  import { useDialog, useMessage } from 'naive-ui';
   import { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined } from '@vicons/antd';
   import { getMenuList } from '@/api/system/menu';
   import { getTreeItem } from '@/utils';
@@ -148,6 +149,7 @@
   const formRef: any = ref(null);
   const createDrawerRef = ref();
   const message = useMessage();
+  const dialog = useDialog();
 
   let treeItemKey = ref([]);
 
@@ -210,6 +212,21 @@
       treeItemKey.value = [];
       treeItemTitle.value = '';
     }
+  }
+
+  function handleDel() {
+    dialog.info({
+      title: '提示',
+      content: `您确定想删除此权限吗?`,
+      positiveText: '确定',
+      negativeText: '取消',
+      onPositiveClick: () => {
+        message.success('删除成功');
+      },
+      onNegativeClick: () => {
+        message.error('已取消');
+      },
+    });
   }
 
   function handleReset() {
