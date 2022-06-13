@@ -11,7 +11,7 @@ export function is(val: unknown, type: string) {
  * @description:  是否为函数
  */
 export function isFunction<T = Function>(val: unknown): val is T {
-  return is(val, 'Function');
+  return is(val, 'Function') || is(val, 'AsyncFunction');
 }
 
 /**
