@@ -25,8 +25,16 @@ export const basicProps = {
     default: () => [],
     required: true,
   },
+  beforeRequest: {
+    type: Function as PropType<(...arg: any[]) => void | Promise<any>>,
+    default: null,
+  },
   request: {
     type: Function as PropType<(...arg: any[]) => Promise<any>>,
+    default: null,
+  },
+  afterRequest: {
+    type: Function as PropType<(...arg: any[]) => void | Promise<any>>,
     default: null,
   },
   rowKey: {
@@ -35,7 +43,7 @@ export const basicProps = {
   },
   pagination: {
     type: [Object, Boolean],
-    default: () => {},
+    default: () => { },
   },
   //废弃
   showPagination: {

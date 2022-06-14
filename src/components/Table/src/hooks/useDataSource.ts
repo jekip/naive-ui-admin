@@ -88,10 +88,7 @@ export function useDataSource(
       let resultInfo = res[listField] ? res[listField] : [];
       if (afterRequest && isFunction(afterRequest)) {
         // can modify the data returned by the interface for processing
-        resultInfo = (await afterRequest(resultInfo));
-        if (!isArray(resultInfo)) {
-          resultInfo = []
-        }
+        resultInfo = (await afterRequest(resultInfo)) || resultInfo;
       }
       dataSourceRef.value = resultInfo;
       setPagination({
