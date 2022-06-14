@@ -7,7 +7,7 @@
         </n-form-item>
 
         <n-form-item label="邮箱" path="email">
-          <n-input placeholder="请输入备案编号" v-model:value="formValue.email" />
+          <n-input placeholder="请输入邮箱" v-model:value="formValue.email" />
         </n-form-item>
 
         <n-form-item label="联系电话" path="mobile">
