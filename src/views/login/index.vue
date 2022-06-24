@@ -164,8 +164,9 @@
 
     &-container {
       flex: 1;
-      padding: 32px 0;
-      width: 384px;
+      padding: 32px 12px;
+      max-width: 384px;
+      min-width: 320px;
       margin: 0 auto;
     }
 
