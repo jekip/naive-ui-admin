@@ -32,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'console',
         name: `${routeName}_console`,
         meta: {
-          title: '主控台',
+          title: 'Main console',
           permissions: ['dashboard_console'],
           affix: true,
         },
@@ -47,16 +47,16 @@ const routes: Array<RouteRecordRaw> = [
       //   },
       //   component: () => import('@/views/dashboard/monitor/monitor.vue')
       // },
-      {
-        path: 'workplace',
-        name: `${routeName}_workplace`,
-        meta: {
-          title: '工作台',
-          keepAlive: true,
-          permissions: ['dashboard_workplace'],
-        },
-        component: () => import('@/views/dashboard/workplace/workplace.vue'),
-      },
+      // {
+      //   path: 'workplace',
+      //   name: `${routeName}_workplace`,
+      //   meta: {
+      //     title: 'Workbench',
+      //     keepAlive: true,
+      //     permissions: ['dashboard_workplace'],
+      //   },
+      //   component: () => import('@/views/dashboard/workplace/workplace.vue'),
+      // },
     ],
   },
 ];

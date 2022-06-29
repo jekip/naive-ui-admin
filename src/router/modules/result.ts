@@ -4,14 +4,14 @@ import { CheckCircleOutlined } from '@vicons/antd';
 import { renderIcon } from '@/utils/index';
 
 /**
- * @param name 路由名称, 必须设置,且不能重名
- * @param meta 路由元信息（路由附带扩展信息）
- * @param redirect 重定向地址, 访问这个路由时,自定进行重定向
- * @param meta.disabled 禁用整个菜单
- * @param meta.title 菜单名称
- * @param meta.icon 菜单图标
- * @param meta.keepAlive 缓存该路由
- * @param meta.sort 排序越小越排前
+  * @param name route name, must be set, and cannot have the same name
+  * @param meta routing meta information (route comes with extended information)
+  * @param redirect redirect address, when accessing this route, redirect it by yourself
+  * @param meta.disabled disable the entire menu
+  * @param meta.title menu name
+  * @param meta.icon menu icon
+  * @param meta.keepAlive cache the route
+  * @param meta.sort The smaller the order, the higher the order
  *
  * */
 const routes: Array<RouteRecordRaw> = [

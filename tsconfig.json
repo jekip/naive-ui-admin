@@ -30,13 +30,9 @@
     "noImplicitAny": false,
     "skipLibCheck": true,
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "/#/*": [
-        "types/*"
-      ]
-    }
+      "@/*": ["src/*"],
+      "/#/*": ["types/*"]
+   }
   },
   "include": [
     "src/**/*.ts",

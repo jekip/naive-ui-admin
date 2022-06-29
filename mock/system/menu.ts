@@ -12,7 +12,7 @@ const menuList = () => {
       path: '/dashboard',
       children: [
         {
-          label: '主控台',
+          label: 'Main console',
           key: 'console',
           type: 1,
           subtitle: 'console',
@@ -21,7 +21,7 @@ const menuList = () => {
           path: '/dashboard/console',
         },
         {
-          label: '工作台',
+          label: 'Workbench',
           key: 'workplace',
           type: 1,
           subtitle: 'workplace',

@@ -102,7 +102,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'modal',
         name: `${routeName}_modal`,
         meta: {
-          title: '弹窗扩展',
+          title: 'MODALE',
         },
         component: () => import('@/views/comp/modal/index.vue'),
       },

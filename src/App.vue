@@ -1,21 +1,3 @@
-<template>
-  <NConfigProvider
-    v-if="!isLock"
-    :locale="zhCN"
-    :theme="getDarkTheme"
-    :theme-overrides="getThemeOverrides"
-    :date-locale="dateZhCN"
-  >
-    <AppProvider>
-      <RouterView />
-    </AppProvider>
-  </NConfigProvider>
-
-  <transition v-if="isLock && $route.name !== 'login'" name="slide-up">
-    <LockScreen />
-  </transition>
-</template>
-
 <script lang="ts" setup>
   import { computed, onMounted, onUnmounted } from 'vue';
   import { zhCN, dateZhCN, darkTheme } from 'naive-ui';
@@ -80,6 +62,23 @@
     document.removeEventListener('mousedown', timekeeping);
   });
 </script>
+
+<template>
+  <NConfigProvider v-if="!isLock"
+    :locale="zhCN"
+    :theme="getDarkTheme"
+    :theme-overrides="getThemeOverrides"
+    :date-locale="dateZhCN"
+  >
+    <AppProvider>
+      <RouterView />
+    </AppProvider>
+  </NConfigProvider>
+
+  <transition v-if="isLock && $route.name !== 'login'" name="slide-up">
+    <LockScreen />
+  </transition>
+</template>
 
 <style lang="less">
   @import 'styles/index.less';
