@@ -1,10 +1,13 @@
 import { NButton } from 'naive-ui';
+import type { Component } from 'vue';
 import { PermissionsEnum } from '@/enums/permissionsEnum';
 export interface ActionItem extends Partial<InstanceType<typeof NButton>> {
   onClick?: Fn;
   label?: string;
-  color?: 'success' | 'error' | 'warning';
-  icon?: string;
+  type?: 'success' | 'error' | 'warning' | 'info' | 'primary' | 'default';
+  // 设定 color 后会覆盖 type 的样式
+  color?: string;
+  icon?: Component;
   popConfirm?: PopConfirm;
   disabled?: boolean;
   divider?: boolean;
@@ -20,5 +23,5 @@ export interface PopConfirm {
   cancelText?: string;
   confirm: Fn;
   cancel?: Fn;
-  icon?: string;
+  icon?: Component;
 }

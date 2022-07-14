@@ -43,7 +43,7 @@ export const basicProps = {
   },
   pagination: {
     type: [Object, Boolean],
-    default: () => { },
+    default: () => {},
   },
   //废弃
   showPagination: {
