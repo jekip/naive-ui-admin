@@ -24,6 +24,7 @@
   import { getTableList } from '@/api/table/list';
   import { columns } from './basicColumns';
   import { useDialog, useMessage } from 'naive-ui';
+  import { DeleteOutlined, EditOutlined } from '@vicons/antd';
 
   const message = useMessage();
   const dialog = useDialog();
@@ -41,8 +42,8 @@
     fixed: 'right',
     align: 'center',
     render(record) {
-      return h(TableAction, {
-        style: 'button',
+      return h(TableAction as any, {
+        style: 'text',
         actions: createActions(record),
       });
     },
@@ -52,7 +53,10 @@
     return [
       {
         label: '删除',
-        icon: 'ic:outline-delete-outline',
+        type: 'error',
+        // 配置 color 会覆盖 type
+        color: 'red',
+        icon: DeleteOutlined,
         onClick: handleDelete.bind(null, record),
         // 根据业务控制是否显示 isShow 和 auth 是并且关系
         ifShow: () => {
@@ -63,6 +67,8 @@
       },
       {
         label: '编辑',
+        type: 'primary',
+        icon: EditOutlined,
         onClick: handleEdit.bind(null, record),
         ifShow: () => {
           return true;
