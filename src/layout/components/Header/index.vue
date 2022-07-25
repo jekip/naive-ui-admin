@@ -6,8 +6,8 @@
       v-if="navMode === 'horizontal' || (navMode === 'horizontal-mix' && mixMenu)"
     >
       <div class="logo" v-if="navMode === 'horizontal'">
-        <img src="~@/assets/images/logo.png" alt="" />
-        <h2 v-show="!collapsed" class="title">NaiveUiAdmin</h2>
+        <img :src="websiteConfig.logo" alt="" />
+        <h2 v-show="!collapsed" class="title">{{ websiteConfig.title }}</h2>
       </div>
       <AsideMenu
         v-model:collapsed="collapsed"
@@ -135,6 +135,7 @@
   import ProjectSetting from './ProjectSetting.vue';
   import { AsideMenu } from '@/layout/components/Menu';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
+  import { websiteConfig } from '@/config/website.config';
 
   export default defineComponent({
     name: 'PageHeader',
@@ -336,6 +337,7 @@
         getInverted,
         getMenuLocation,
         mixMenu,
+        websiteConfig,
       };
     },
   });
