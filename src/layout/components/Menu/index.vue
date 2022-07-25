@@ -99,12 +99,15 @@
         () => currentRoute.fullPath,
         () => {
           updateMenu();
-          const matched = currentRoute.matched;
-          state.openKeys = matched.map((item) => item.name);
-          const activeMenu: string = (currentRoute.meta?.activeMenu as string) || '';
-          selectedKeys.value = activeMenu ? (activeMenu as string) : (currentRoute.name as string);
         }
       );
+
+      function updateSelectedKeys() {
+        const matched = currentRoute.matched;
+        state.openKeys = matched.map((item) => item.name);
+        const activeMenu: string = (currentRoute.meta?.activeMenu as string) || '';
+        selectedKeys.value = activeMenu ? (activeMenu as string) : (currentRoute.name as string);
+      }
 
       function updateMenu() {
         if (!settingStore.menuSetting.mixMenu) {
@@ -116,6 +119,7 @@
           const activeMenu: string = currentRoute?.matched[0].meta?.activeMenu as string;
           headerMenuSelectKey.value = (activeMenu ? activeMenu : firstRouteName) || '';
         }
+        updateSelectedKeys();
       }
 
       // 点击菜单
