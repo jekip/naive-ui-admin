@@ -112,7 +112,8 @@
           state.imgList = props.value.map((item) => {
             return getImgUrl(item);
           });
-        }
+        },
+        { immediate: true }
       );
 
       //预览
@@ -236,6 +237,7 @@
         &-info {
           position: relative;
           height: 100%;
+          width: 100%;
           padding: 0;
           overflow: hidden;
 
