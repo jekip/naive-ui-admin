@@ -97,12 +97,7 @@ export function useECharts(
     }
   );
 
-  tryOnUnmounted(() => {
-    if (!chartInstance) return;
-    removeResizeFn();
-    chartInstance.dispose();
-    chartInstance = null;
-  });
+  tryOnUnmounted(disposeInstance);
 
   function getInstance(): echarts.ECharts | null {
     if (!chartInstance) {
@@ -111,10 +106,18 @@ export function useECharts(
     return chartInstance;
   }
 
+  function disposeInstance(){
+    if (!chartInstance) return;
+    removeResizeFn();
+    chartInstance.dispose();
+    chartInstance = null;
+  }
+
   return {
     setOptions,
     resize,
     echarts,
     getInstance,
+    disposeInstance
   };
 }
