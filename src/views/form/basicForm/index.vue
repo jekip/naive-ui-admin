@@ -16,7 +16,7 @@
             ref="formRef"
             class="py-8"
           >
-            <n-form-item label="预约姓名1" path="name">
+            <n-form-item label="预约姓名" path="name">
               <n-input v-model:value="formValue.name" placeholder="输入姓名" />
             </n-form-item>
             <n-form-item label="预约号码" path="mobile">
