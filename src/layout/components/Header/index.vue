@@ -43,7 +43,7 @@
       <!-- 面包屑 -->
       <n-breadcrumb v-if="crumbsSetting.show">
         <template v-for="routeItem in breadcrumbList" :key="routeItem.name">
-          <n-breadcrumb-item>
+          <n-breadcrumb-item :separator="routeItem.children.length == 1 ? '' : '/' ">
             <n-dropdown
               v-if="routeItem.children.length"
               :options="routeItem.children"
