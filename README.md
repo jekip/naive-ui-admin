@@ -11,7 +11,7 @@
 
 
 ## 预览
-- [naive-ui-admin](https://naive-ui-admin.vercel.app)
+- [naive-ui-admin](https://v1.naiveadmin.com)
 
 账号：admin，密码：123456（随意）
 
@@ -50,7 +50,7 @@
 
 ## 文档
 
-[v1文档地址](https://naive-ui-admin-docs.vercel.app)
+[v1文档地址](https://docs.naiveadmin.com)
 
 ## 准备
 
