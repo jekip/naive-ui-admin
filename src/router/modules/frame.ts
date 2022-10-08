@@ -31,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'frame-docs',
         meta: {
           title: '项目文档(内嵌)',
-          frameSrc: 'https://naive-ui-admin-docs.vercel.app',
+          frameSrc: 'https://jekip.github.io/docs',
         },
         component: IFrame,
       },

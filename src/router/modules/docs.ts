@@ -6,7 +6,7 @@ import { renderIcon } from '@/utils/index';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/external',
-    name: 'https://naive-ui-admin-docs.vercel.app',
+    name: 'https://jekip.github.io/docs',
     component: Layout,
     meta: {
       title: '项目文档',
