@@ -1,10 +1,3 @@
-/*
- * @Author: thelostword
- * @Date: 2022-10-28 17:13:52
- * @LastEditors: thelostword
- * @LastEditTime: 2022-10-28 18:01:54
- * @FilePath: \naive-ui-admin\src\plugins\naive.ts
- */
 import type { App } from 'vue';
 import * as NaiveUI from 'naive-ui';
 import { computed } from 'vue';
