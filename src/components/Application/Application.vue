@@ -1,10 +1,3 @@
-<!--
- * @Author: thelostword
- * @Date: 2022-10-25 15:43:12
- * @LastEditors: thelostword
- * @LastEditTime: 2022-10-28 18:10:57
- * @FilePath: \naive-ui-admin\src\components\Application\Application.vue
--->
 <template>
   <n-dialog-provider>
     <n-notification-provider>
