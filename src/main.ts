@@ -1,10 +1,3 @@
-/*
- * @Author: thelostword
- * @Date: 2022-10-25 15:43:13
- * @LastEditors: thelostword
- * @LastEditTime: 2022-10-28 18:03:36
- * @FilePath: \naive-ui-admin\src\main.ts
- */
 import './styles/tailwind.css';
 import { createApp } from 'vue';
 import { setupNaive, setupDirectives } from '@/plugins';
