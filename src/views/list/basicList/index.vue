@@ -63,7 +63,7 @@
 
 <script lang="ts" setup>
   import { h, reactive, ref } from 'vue';
-  import { useMessage } from 'naive-ui';
+  // import { useMessage } from 'naive-ui';
   import { BasicTable, TableAction } from '@/components/Table';
   import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
   import { getTableList } from '@/api/table/list';
@@ -216,7 +216,7 @@
 
   const router = useRouter();
   const formRef: any = ref(null);
-  const message = useMessage();
+  // const message = useMessage();
   const actionRef = ref();
 
   const showModal = ref(false);
@@ -279,7 +279,7 @@
           },
         ],
         select: (key) => {
-          message.info(`您点击了，${key} 按钮`);
+          window['$message'].info(`您点击了，${key} 按钮`);
         },
       });
     },
@@ -312,13 +312,13 @@
     formBtnLoading.value = true;
     formRef.value.validate((errors) => {
       if (!errors) {
-        message.success('新建成功');
+        window['$message'].success('新建成功');
         setTimeout(() => {
           showModal.value = false;
           reloadTable();
         });
       } else {
-        message.error('请填写完整信息');
+        window['$message'].error('请填写完整信息');
       }
       formBtnLoading.value = false;
     });
@@ -331,7 +331,7 @@
 
   function handleDelete(record: Recordable) {
     console.log('点击了删除', record);
-    message.info('点击了删除');
+    window['$message'].info('点击了删除');
   }
 
   function handleSubmit(values: Recordable) {
