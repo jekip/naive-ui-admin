@@ -77,7 +77,7 @@ export const createStorage = ({ prefixKey = '', storage = localStorage } = {}) =
      * @param {string} name cookie 名称
      * @param {*} value cookie 值
      * @param {number=} expire 过期时间
-     * 如果过期时间为设置，默认关闭浏览器自动删除
+     * 如果过期时间未设置，默认关闭浏览器自动删除
      * @example
      */
     setCookie(name: string, value: any, expire: number | null = DEFAULT_CACHE_TIME) {
