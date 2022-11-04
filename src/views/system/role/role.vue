@@ -120,7 +120,6 @@
           },
           {
             label: '删除',
-            icon: 'ic:outline-delete-outline',
             onClick: handleDelete.bind(null, record),
             // 根据业务控制是否显示 isShow 和 auth 是并且关系
             ifShow: () => {

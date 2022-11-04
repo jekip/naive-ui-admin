@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { ProjectOutlined } from '@vicons/antd';
-import { renderIcon, renderNew } from '@/utils/index';
+import { renderIcon } from '@/utils/index';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'about',
     component: Layout,
     meta: {
-      sort: 10,
+      sort: 9,
       isRoot: true,
       activeMenu: 'about_index',
       icon: renderIcon(ProjectOutlined),
@@ -19,8 +19,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'index',
         name: `about_index`,
         meta: {
-          title: '关于',
-          extra: renderNew(),
+          title: '关于项目',
           activeMenu: 'about_index',
         },
         component: () => import('@/views/about/index.vue'),
