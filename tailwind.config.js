@@ -1,10 +1,12 @@
 module.exports = {
-  mode: 'jit',
   // darkMode: 'class',
   plugins: [createEnterPlugin()],
-  purge: {
+  content: {
     enable: process.env.NODE_ENV === 'production',
     content: ['./index.html', './src/**/*.{vue,ts,tsx}'],
+  },
+  corePlugins: {
+    preflight: false,
   },
   theme: {
     extend: {

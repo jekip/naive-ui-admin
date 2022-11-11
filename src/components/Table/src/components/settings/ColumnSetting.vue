@@ -25,7 +25,7 @@
           </template>
           <div class="table-toolbar-inner">
             <n-checkbox-group v-model:value="checkList" @update:value="onChange">
-              <Draggable
+              <vuedraggable
                 v-model="columnsList"
                 animation="300"
                 item-key="key"
@@ -81,7 +81,7 @@
                     </div>
                   </div>
                 </template>
-              </Draggable>
+              </vuedraggable>
             </n-checkbox-group>
           </div>
         </n-popover>
@@ -101,7 +101,7 @@
     VerticalRightOutlined,
     VerticalLeftOutlined,
   } from '@vicons/antd';
-  import Draggable from 'vuedraggable/src/vuedraggable';
+  import vuedraggable from 'vuedraggable';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 
   interface Options {
@@ -115,7 +115,7 @@
     components: {
       SettingOutlined,
       DragOutlined,
-      Draggable,
+      vuedraggable,
       VerticalRightOutlined,
       VerticalLeftOutlined,
     },
