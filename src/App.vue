@@ -43,6 +43,7 @@
         primaryColor: appTheme,
         primaryColorHover: lightenStr,
         primaryColorPressed: lightenStr,
+        primaryColorSuppl: appTheme,
       },
       LoadingBar: {
         colorLoading: appTheme,
