@@ -12,7 +12,7 @@ const routes: Array<RouteRecordRaw> = [
       title: 'Pro 版本',
       extra: renderNew(),
       icon: renderIcon(SketchOutlined),
-      sort: 10,
+      sort: 12,
     },
   },
 ];
