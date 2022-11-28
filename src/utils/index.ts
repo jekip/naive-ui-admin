@@ -1,5 +1,5 @@
 import { h, unref } from 'vue';
-import type { App, Plugin } from 'vue';
+import type { App, Plugin, Component } from 'vue';
 import { NIcon, NTag } from 'naive-ui';
 import { PageEnum } from '@/enums/pageEnum';
 import { isObject } from './is/index';
@@ -144,7 +144,7 @@ export function filterRouter(routerMap: Array<any>) {
   });
 }
 
-export const withInstall = <T>(component: T, alias?: string) => {
+export const withInstall = <T extends Component>(component: T, alias?: string) => {
   const comp = component as any;
   comp.install = (app: App) => {
     app.component(comp.name || comp.displayName, component);
@@ -187,7 +187,7 @@ export function getTreeAll(data: any[]): any[] {
 }
 
 // dynamic use hook props
-export function getDynamicProps<T, U>(props: T): Partial<U> {
+export function getDynamicProps<T extends {}, U>(props: T): Partial<U> {
   const ret: Recordable = {};
 
   Object.keys(props).map((key) => {
