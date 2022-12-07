@@ -1,6 +1,6 @@
 <template>
   <div
-    class="tabs-view"
+    class="tabs-view box-border"
     :class="{
       'tabs-view-fix': multiTabsSetting.fixed,
       'tabs-view-fixed-header': isMultiHeaderFixed,
@@ -642,7 +642,6 @@
       background: var(--color);
       border-radius: 2px;
       cursor: pointer;
-      //margin-right: 10px;
 
       &-btn {
         color: var(--color);
@@ -665,7 +664,7 @@
   .tabs-view-fix {
     position: fixed;
     z-index: 5;
-    padding: 6px 19px 6px 10px;
+    padding: 6px 10px 6px 10px;
     left: 200px;
   }
 
