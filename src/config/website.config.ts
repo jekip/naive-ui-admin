@@ -5,5 +5,5 @@ export const websiteConfig = Object.freeze({
   title: 'NaiveUiAdmin',
   logo: logoImage,
   loginImage: loginImage,
-  loginDesc: 'Naive Ui Admin中台前端/设计解决方案',
+  loginDesc: 'Naive Ui Admin中后台前端/设计解决方案',
 });
