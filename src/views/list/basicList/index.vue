@@ -70,8 +70,9 @@
   import { columns } from './columns';
   import { PlusOutlined } from '@vicons/antd';
   import { useRouter } from 'vue-router';
+  import { type FormRules } from 'naive-ui';
 
-  const rules = {
+  const rules: FormRules = {
     name: {
       required: true,
       trigger: ['blur', 'input'],
