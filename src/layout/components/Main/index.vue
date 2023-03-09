@@ -2,7 +2,7 @@
   <RouterView>
     <template #default="{ Component, route }">
       <transition :name="getTransitionName" mode="out-in" appear>
-        <keep-alive v-if="keepAliveComponents" :include="keepAliveComponents">
+        <keep-alive v-if="keepAliveComponents.length" :include="keepAliveComponents">
           <component :is="Component" :key="route.fullPath" />
         </keep-alive>
         <component v-else :is="Component" :key="route.fullPath" />
