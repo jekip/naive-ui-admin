@@ -1,4 +1,4 @@
-const allModules = import.meta.globEager('./*/index.ts');
+const allModules = import.meta.glob('./*/index.ts', { eager: true });
 const modules = {} as any;
 Object.keys(allModules).forEach((path) => {
   const fileName = path.split('/')[1];
