@@ -42,7 +42,10 @@
       </div>
       <!-- 面包屑 -->
       <n-breadcrumb v-if="crumbsSetting.show">
-        <template v-for="routeItem in breadcrumbList" :key="routeItem.name">
+        <template
+          v-for="routeItem in breadcrumbList"
+          :key="routeItem.name === 'Redirect' ? void 0 : routeItem.name"
+        >
           <n-breadcrumb-item v-if="routeItem.meta.title">
             <n-dropdown
               v-if="routeItem.children.length"
