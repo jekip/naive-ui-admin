@@ -3,8 +3,9 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { RedirectRoute } from '@/router/base';
 import { PageEnum } from '@/enums/pageEnum';
 import { createRouterGuards } from './router-guards';
+import type { IModuleType } from './types';
 
-const modules = import.meta.glob('./modules/**/*.ts', { eager: true });
+const modules = import.meta.glob<IModuleType>('./modules/**/*.ts', { eager: true });
 
 const routeModuleList: RouteRecordRaw[] = [];
 

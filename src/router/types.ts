@@ -53,3 +53,7 @@ export interface Menu {
   redirect?: string;
   sort?: number;
 }
+
+export interface IModuleType {
+  default: Array<RouteRecordRaw> | RouteRecordRaw;
+}
