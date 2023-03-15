@@ -11,13 +11,13 @@
 
 
 ## 预览
-- [naive-ui-admin](https://v1.naiveadmin.com)
+- [naive-ui-admin](https://jekip.github.io)
 
 账号：admin，密码：123456（随意）
 
 ## 文档
 
-[v1文档地址](https://docs.naiveadmin.com)
+[v1文档地址](https://jekip.github.io/docs)
 
 ## 准备
 
