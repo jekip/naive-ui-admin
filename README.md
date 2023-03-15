@@ -17,7 +17,7 @@
 
 ## 文档
 
-[v1文档地址](https://jekip.github.io/docs)
+[文档地址](https://jekip.github.io/docs)
 
 ## 准备
 
