@@ -69,7 +69,7 @@ export const useProjectSettingStore = defineStore({
       return this.multiTabsSetting;
     },
     getCrumbsSetting(): object {
-      return this.multiTabsSetting;
+      return this.crumbsSetting;
     },
     getPermissionMode(): string {
       return this.permissionMode;
