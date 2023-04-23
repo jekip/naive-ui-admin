@@ -1,10 +1,6 @@
 module.exports = {
-  // darkMode: 'class',
   plugins: [createEnterPlugin()],
-  content: {
-    enable: process.env.NODE_ENV === 'production',
-    content: ['./index.html', './src/**/*.{vue,ts,tsx}'],
-  },
+  content: ['./index.html', './src/**/*.{vue,ts,tsx}'],
   corePlugins: {
     preflight: false,
   },

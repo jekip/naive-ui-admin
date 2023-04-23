@@ -75,7 +75,7 @@
       <div
         class="layout-header-trigger layout-header-trigger-min"
         v-for="item in iconList"
-        :key="item.icon.name"
+        :key="item.icon"
       >
         <n-tooltip placement="bottom">
           <template #trigger>
@@ -134,7 +134,7 @@
   import { NDialogProvider, useDialog, useMessage } from 'naive-ui';
   import { TABS_ROUTES } from '@/store/mutation-types';
   import { useUserStore } from '@/store/modules/user';
-  import { useLockscreenStore } from '@/store/modules/lockscreen';
+  import { useScreenLockStore } from '@/store/modules/screenLock';
   import ProjectSetting from './ProjectSetting.vue';
   import { AsideMenu } from '@/layout/components/Menu';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
@@ -153,37 +153,37 @@
     },
     setup(props) {
       const userStore = useUserStore();
-      const useLockscreen = useLockscreenStore();
+      const useLockscreen = useScreenLockStore();
       const message = useMessage();
       const dialog = useDialog();
-      const { getNavMode, getNavTheme, getHeaderSetting, getMenuSetting, getCrumbsSetting } =
-        useProjectSetting();
+      const { navMode, navTheme, headerSetting, menuSetting, crumbsSetting } = useProjectSetting();
 
-      const { username } = userStore?.info || {};
+      const { name } = userStore?.info || {};
 
       const drawerSetting = ref();
 
       const state = reactive({
-        username: username || '',
+        username: name ?? '',
         fullscreenIcon: 'FullscreenOutlined',
-        navMode: getNavMode,
-        navTheme: getNavTheme,
-        headerSetting: getHeaderSetting,
-        crumbsSetting: getCrumbsSetting,
+        navMode,
+        navTheme,
+        headerSetting,
+        crumbsSetting,
       });
 
       const getInverted = computed(() => {
-        const navTheme = unref(getNavTheme);
-        return ['light', 'header-dark'].includes(navTheme) ? props.inverted : !props.inverted;
+        return ['light', 'header-dark'].includes(unref(navTheme))
+          ? props.inverted
+          : !props.inverted;
       });
 
       const mixMenu = computed(() => {
-        return unref(getMenuSetting).mixMenu;
+        return unref(menuSetting).mixMenu;
       });
 
       const getChangeStyle = computed(() => {
         const { collapsed } = props;
-        const { minMenuWidth, menuWidth }: any = unref(getMenuSetting);
+        const { minMenuWidth, menuWidth } = unref(menuSetting);
         return {
           left: collapsed ? `${minMenuWidth}px` : `${menuWidth}px`,
           width: `calc(100% - ${collapsed ? `${minMenuWidth}px` : `${menuWidth}px`})`,

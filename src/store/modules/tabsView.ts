@@ -30,11 +30,11 @@ export const useTabsViewStore = defineStore({
   }),
   getters: {},
   actions: {
-    initTabs(routes) {
+    initTabs(routes: RouteItem[]) {
       // 初始化标签页
       this.tabsList = routes;
     },
-    addTabs(route): boolean {
+    addTab(route: RouteItem): boolean {
       // 添加标签页
       if (whiteList.includes(route.name)) return false;
       const isExists = this.tabsList.some((item) => item.fullPath == route.fullPath);
@@ -43,28 +43,29 @@ export const useTabsViewStore = defineStore({
       }
       return true;
     },
-    closeLeftTabs(route) {
+    closeLeftTabs(route: RouteItem) {
       // 关闭左侧
       const index = this.tabsList.findIndex((item) => item.fullPath == route.fullPath);
       this.tabsList = this.tabsList.filter((item, i) => i >= index || (item?.meta?.affix ?? false));
     },
-    closeRightTabs(route) {
+    closeRightTabs(route: RouteItem) {
       // 关闭右侧
       const index = this.tabsList.findIndex((item) => item.fullPath == route.fullPath);
       this.tabsList = this.tabsList.filter((item, i) => i <= index || (item?.meta?.affix ?? false));
     },
-    closeOtherTabs(route) {
+    closeOtherTabs(route: RouteItem) {
       // 关闭其他
-      this.tabsList = this.tabsList.filter((item) => item.fullPath == route.fullPath || (item?.meta?.affix ?? false));
+      this.tabsList = this.tabsList.filter(
+        (item) => item.fullPath == route.fullPath || (item?.meta?.affix ?? false)
+      );
     },
-    closeCurrentTab(route) {
+    closeCurrentTab(route: RouteItem) {
       // 关闭当前页
       const index = this.tabsList.findIndex((item) => item.fullPath == route.fullPath);
       this.tabsList.splice(index, 1);
     },
     closeAllTabs() {
       // 关闭全部
-      console.log(retainAffixRoute(this.tabsList));
       this.tabsList = retainAffixRoute(this.tabsList);
     },
   },
