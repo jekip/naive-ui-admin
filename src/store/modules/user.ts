@@ -1,10 +1,16 @@
 import { defineStore } from 'pinia';
 import { store } from '@/store';
-import { ACCESS_TOKEN, CURRENT_USER, IS_LOCKSCREEN } from '@/store/mutation-types';
+import { ACCESS_TOKEN, CURRENT_USER, IS_SCREENLOCKED } from '@/store/mutation-types';
 import { ResultEnum } from '@/enums/httpEnum';
 
-import { getUserInfo, login } from '@/api/system/user';
+import { getUserInfo as getUserInfoApi, login } from '@/api/system/user';
 import { storage } from '@/utils/Storage';
+
+export type UserInfoType = {
+  // TODO: add your own data
+  name: string;
+  email: string;
+};
 
 export interface IUserState {
   token: string;
@@ -12,7 +18,7 @@ export interface IUserState {
   welcome: string;
   avatar: string;
   permissions: any[];
-  info: any;
+  info: UserInfoType;
 }
 
 export const useUserStore = defineStore({
@@ -38,7 +44,7 @@ export const useUserStore = defineStore({
     getPermissions(): [any][] {
       return this.permissions;
     },
-    getUserInfo(): object {
+    getUserInfo(): UserInfoType {
       return this.info;
     },
   },
@@ -52,63 +58,49 @@ export const useUserStore = defineStore({
     setPermissions(permissions) {
       this.permissions = permissions;
     },
-    setUserInfo(info) {
+    setUserInfo(info: UserInfoType) {
       this.info = info;
     },
     // 登录
-    async login(userInfo) {
-      try {
-        const response = await login(userInfo);
-        const { result, code } = response;
-        if (code === ResultEnum.SUCCESS) {
-          const ex = 7 * 24 * 60 * 60;
-          storage.set(ACCESS_TOKEN, result.token, ex);
-          storage.set(CURRENT_USER, result, ex);
-          storage.set(IS_LOCKSCREEN, false);
-          this.setToken(result.token);
-          this.setUserInfo(result);
-        }
-        return Promise.resolve(response);
-      } catch (e) {
-        return Promise.reject(e);
+    async login(params: any) {
+      const response = await login(params);
+      const { result, code } = response;
+      if (code === ResultEnum.SUCCESS) {
+        const ex = 7 * 24 * 60 * 60;
+        storage.set(ACCESS_TOKEN, result.token, ex);
+        storage.set(CURRENT_USER, result, ex);
+        storage.set(IS_SCREENLOCKED, false);
+        this.setToken(result.token);
+        this.setUserInfo(result);
       }
+      return response;
     },
 
     // 获取用户信息
-    GetInfo() {
-      const that = this;
-      return new Promise((resolve, reject) => {
-        getUserInfo()
-          .then((res) => {
-            const result = res;
-            if (result.permissions && result.permissions.length) {
-              const permissionsList = result.permissions;
-              that.setPermissions(permissionsList);
-              that.setUserInfo(result);
-            } else {
-              reject(new Error('getInfo: permissionsList must be a non-null array !'));
-            }
-            that.setAvatar(result.avatar);
-            resolve(res);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      });
+    async getInfo() {
+      const result = await getUserInfoApi();
+      if (result.permissions && result.permissions.length) {
+        const permissionsList = result.permissions;
+        this.setPermissions(permissionsList);
+        this.setUserInfo(result);
+      } else {
+        throw new Error('getInfo: permissionsList must be a non-null array !');
+      }
+      this.setAvatar(result.avatar);
+      return result;
     },
 
     // 登出
     async logout() {
       this.setPermissions([]);
-      this.setUserInfo('');
+      this.setUserInfo({ name: '', email: '' });
       storage.remove(ACCESS_TOKEN);
       storage.remove(CURRENT_USER);
-      return Promise.resolve('');
     },
   },
 });
 
 // Need to be used outside the setup
-export function useUserStoreWidthOut() {
+export function useUser() {
   return useUserStore(store);
 }

@@ -46,15 +46,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     define: {
       __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
-    css: {
-      preprocessorOptions: {
-        less: {
-          modifyVars: {},
-          javascriptEnabled: true,
-          additionalData: `@import "src/styles/var.less";`,
-        },
-      },
-    },
+    // css: {
+    //   preprocessorOptions: {
+    //     less: {
+    //       modifyVars: {},
+    //       javascriptEnabled: true,
+    //       additionalData: `@import "src/styles/var.less";`,
+    //     },
+    //   },
+    // },
     server: {
       host: true,
       port: VITE_PORT,

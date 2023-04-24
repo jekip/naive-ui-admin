@@ -106,7 +106,7 @@ export function useECharts(
     return chartInstance;
   }
 
-  function disposeInstance(){
+  function disposeInstance() {
     if (!chartInstance) return;
     removeResizeFn();
     chartInstance.dispose();
@@ -118,6 +118,6 @@ export function useECharts(
     resize,
     echarts,
     getInstance,
-    disposeInstance
+    disposeInstance,
   };
 }

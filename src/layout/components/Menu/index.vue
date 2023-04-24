@@ -23,7 +23,7 @@
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 
   export default defineComponent({
-    name: 'Menu',
+    name: 'AppMenu',
     components: {},
     props: {
       mode: {
@@ -52,9 +52,7 @@
       const selectedKeys = ref<string>(currentRoute.name as string);
       const headerMenuSelectKey = ref<string>('');
 
-      const { getNavMode } = useProjectSetting();
-
-      const navMode = getNavMode;
+      const { navMode } = useProjectSetting();
 
       // 获取当前打开的子菜单
       const matched = currentRoute.matched;

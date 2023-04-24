@@ -1,12 +1,12 @@
 import { IAsyncRouteState } from '@/store/modules/asyncRoute';
 import { IUserState } from '@/store/modules/user';
-import { ILockscreenState } from '@/store/modules/lockscreen';
+import { IScreenLockState } from '@/store/modules/screenLock';
 import { ITabsViewState } from '@/store/modules/tabsView';
 
 export interface IStore {
   asyncRoute: IAsyncRouteState;
   user: IUserState;
-  lockscreen: ILockscreenState;
+  screenLock: IScreenLockState;
   tabsView: ITabsViewState;
   count: number;
 }

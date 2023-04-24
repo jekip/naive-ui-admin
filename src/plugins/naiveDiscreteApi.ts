@@ -1,6 +1,6 @@
 import * as NaiveUI from 'naive-ui';
 import { computed } from 'vue';
-import { useDesignSettingWithOut } from '@/store/modules/designSetting';
+import { useDesignSetting } from '@/store/modules/designSetting';
 import { lighten } from '@/utils/index';
 
 /**
@@ -10,7 +10,7 @@ import { lighten } from '@/utils/index';
  */
 
 export function setupNaiveDiscreteApi() {
-  const designStore = useDesignSettingWithOut();
+  const designStore = useDesignSetting();
 
   const configProviderPropsRef = computed(() => ({
     theme: designStore.darkTheme ? NaiveUI.darkTheme : undefined,

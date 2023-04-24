@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import { RouteRecordRaw } from 'vue-router';
 import { store } from '@/store';
 import { asyncRoutes, constantRouter } from '@/router/index';
-import { generatorDynamicRouter } from '@/router/generator-routers';
+import { generateDynamicRoutes } from '@/router/generator';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 
 interface TreeHelperConfig {
@@ -23,9 +23,9 @@ const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAU
 export interface IAsyncRouteState {
   menus: RouteRecordRaw[];
   routers: any[];
-  addRouters: any[];
+  routersAdded: any[];
   keepAliveComponents: string[];
-  isDynamicAddedRoute: boolean;
+  isDynamicRouteAdded: boolean;
 }
 
 function filter<T = any>(
@@ -53,54 +53,53 @@ export const useAsyncRouteStore = defineStore({
   state: (): IAsyncRouteState => ({
     menus: [],
     routers: constantRouter,
-    addRouters: [],
+    routersAdded: [],
     keepAliveComponents: [],
     // Whether the route has been dynamically added
-    isDynamicAddedRoute: false,
+    isDynamicRouteAdded: false,
   }),
   getters: {
     getMenus(): RouteRecordRaw[] {
       return this.menus;
     },
-    getIsDynamicAddedRoute(): boolean {
-      return this.isDynamicAddedRoute;
+    getIsDynamicRouteAdded(): boolean {
+      return this.isDynamicRouteAdded;
     },
   },
   actions: {
     getRouters() {
-      return toRaw(this.addRouters);
+      return toRaw(this.routersAdded);
     },
-    setDynamicAddedRoute(added: boolean) {
-      this.isDynamicAddedRoute = added;
+    setDynamicRouteAdded(added: boolean) {
+      this.isDynamicRouteAdded = added;
     },
     // 设置动态路由
-    setRouters(routers) {
-      this.addRouters = routers;
+    setRouters(routers: RouteRecordRaw[]) {
+      this.routersAdded = routers;
       this.routers = constantRouter.concat(routers);
     },
-    setMenus(menus) {
+    setMenus(menus: RouteRecordRaw[]) {
       // 设置动态路由
       this.menus = menus;
     },
-    setKeepAliveComponents(compNames) {
+    setKeepAliveComponents(compNames: string[]) {
       // 设置需要缓存的组件
       this.keepAliveComponents = compNames;
     },
     async generateRoutes(data) {
       let accessedRouters;
-      const permissionsList = data.permissions || [];
+      const permissionsList = data.permissions ?? [];
       const routeFilter = (route) => {
         const { meta } = route;
         const { permissions } = meta || {};
         if (!permissions) return true;
         return permissionsList.some((item) => permissions.includes(item.value));
       };
-      const { getPermissionMode } = useProjectSetting();
-      const permissionMode = unref(getPermissionMode);
-      if (permissionMode === 'BACK') {
+      const { permissionMode } = useProjectSetting();
+      if (unref(permissionMode) === 'BACK') {
         // 动态获取菜单
         try {
-          accessedRouters = await generatorDynamicRouter();
+          accessedRouters = await generateDynamicRoutes();
         } catch (error) {
           console.log(error);
         }
@@ -121,6 +120,6 @@ export const useAsyncRouteStore = defineStore({
 });
 
 // Need to be used outside the setup
-export function useAsyncRouteStoreWidthOut() {
+export function useAsyncRoute() {
   return useAsyncRouteStore(store);
 }

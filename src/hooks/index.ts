@@ -1,3 +1,3 @@
-import { useAsync } from './use-async';
+import { useAsync } from './useAsync';
 
 export { useAsync };

@@ -60,11 +60,11 @@
           </template>
         </n-input>
 
-        <div class="w-full flex" v-if="isLoginError">
+        <div class="flex w-full" v-if="isLoginError">
           <span class="text-red-500">{{ errorMsg }}</span>
         </div>
 
-        <div class="w-full mt-1 flex justify-around">
+        <div class="flex justify-around w-full mt-1">
           <div><a @click="showLogin = false">返回</a></div>
           <div><a @click="goLogin">重新登录</a></div>
           <div><a @click="onLogin">进入系统</a></div>
@@ -91,11 +91,11 @@
   import { useOnline } from '@/hooks/useOnline';
   import { useTime } from '@/hooks/useTime';
   import { useBattery } from '@/hooks/useBattery';
-  import { useLockscreenStore } from '@/store/modules/lockscreen';
-  import { useUserStore } from '@/store/modules/user';
+  import { useScreenLockStore } from '@/store/modules/screenLock';
+  import { UserInfoType, useUserStore } from '@/store/modules/user';
 
   export default defineComponent({
-    name: 'Lockscreen',
+    name: 'ScreenLock',
     components: {
       LockOutlined,
       LoadingOutlined,
@@ -106,7 +106,7 @@
       recharge,
     },
     setup() {
-      const useLockscreen = useLockscreenStore();
+      const useScreenLock = useScreenLockStore();
       const userStore = useUserStore();
 
       // 获取时间
@@ -117,7 +117,7 @@
       const route = useRoute();
 
       const { battery, batteryStatus, calcDischargingTime, calcChargingTime } = useBattery();
-      const userInfo: object = userStore.getUserInfo || {};
+      const userInfo: UserInfoType = userStore.getUserInfo || {};
       const username = userInfo['username'] || '';
       const state = reactive({
         showLogin: false,
@@ -146,7 +146,7 @@
         const { code, message } = await userStore.login(params);
         if (code === ResultEnum.SUCCESS) {
           onLockLogin(false);
-          useLockscreen.setLock(false);
+          useScreenLock.setLock(false);
         } else {
           state.errorMsg = message;
           state.isLoginError = true;
@@ -157,7 +157,7 @@
       //重新登录
       const goLogin = () => {
         onLockLogin(false);
-        useLockscreen.setLock(false);
+        useScreenLock.setLock(false);
         router.replace({
           path: '/login',
           query: {

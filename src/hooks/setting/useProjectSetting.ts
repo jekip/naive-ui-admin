@@ -4,39 +4,39 @@ import { useProjectSettingStore } from '@/store/modules/projectSetting';
 export function useProjectSetting() {
   const projectStore = useProjectSettingStore();
 
-  const getNavMode = computed(() => projectStore.navMode);
+  const navMode = computed(() => projectStore.navMode);
 
-  const getNavTheme = computed(() => projectStore.navTheme);
+  const navTheme = computed(() => projectStore.navTheme);
 
-  const getIsMobile = computed(() => projectStore.isMobile);
+  const isMobile = computed(() => projectStore.isMobile);
 
-  const getHeaderSetting = computed(() => projectStore.headerSetting);
+  const headerSetting = computed(() => projectStore.headerSetting);
 
-  const getMultiTabsSetting = computed(() => projectStore.multiTabsSetting);
+  const multiTabsSetting = computed(() => projectStore.multiTabsSetting);
 
-  const getMenuSetting = computed(() => projectStore.menuSetting);
+  const menuSetting = computed(() => projectStore.menuSetting);
 
-  const getCrumbsSetting = computed(() => projectStore.crumbsSetting);
+  const crumbsSetting = computed(() => projectStore.crumbsSetting);
 
-  const getPermissionMode = computed(() => projectStore.permissionMode);
+  const permissionMode = computed(() => projectStore.permissionMode);
 
-  const getShowFooter = computed(() => projectStore.showFooter);
+  const showFooter = computed(() => projectStore.showFooter);
 
-  const getIsPageAnimate = computed(() => projectStore.isPageAnimate);
+  const isPageAnimate = computed(() => projectStore.isPageAnimate);
 
-  const getPageAnimateType = computed(() => projectStore.pageAnimateType);
+  const pageAnimateType = computed(() => projectStore.pageAnimateType);
 
   return {
-    getNavMode,
-    getNavTheme,
-    getIsMobile,
-    getHeaderSetting,
-    getMultiTabsSetting,
-    getMenuSetting,
-    getCrumbsSetting,
-    getPermissionMode,
-    getShowFooter,
-    getIsPageAnimate,
-    getPageAnimateType,
+    navMode,
+    navTheme,
+    isMobile,
+    headerSetting,
+    multiTabsSetting,
+    menuSetting,
+    crumbsSetting,
+    permissionMode,
+    showFooter,
+    isPageAnimate,
+    pageAnimateType,
   };
 }
