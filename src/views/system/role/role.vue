@@ -74,7 +74,6 @@
   import { useRouter } from 'vue-router';
 
   const router = useRouter();
-  const formRef: any = ref(null);
   const message = useMessage();
   const actionRef = ref();
 
@@ -152,18 +151,12 @@
   function confirmForm(e: any) {
     e.preventDefault();
     formBtnLoading.value = true;
-    formRef.value.validate((errors) => {
-      if (!errors) {
-        message.success('新建成功');
-        setTimeout(() => {
-          showModal.value = false;
-          reloadTable();
-        });
-      } else {
-        message.error('请填写完整信息');
-      }
+    setTimeout(() => {
+      showModal.value = false;
+      message.success('提交成功');
+      reloadTable();
       formBtnLoading.value = false;
-    });
+    }, 200);
   }
 
   function handleEdit(record: Recordable) {
