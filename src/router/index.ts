@@ -4,6 +4,7 @@ import { RedirectRoute } from '@/router/base';
 import { PageEnum } from '@/enums/pageEnum';
 import { createRouterGuards } from './guards';
 import type { IModuleType } from './types';
+import { useUserStore } from '@/store/modules/user';
 
 const modules = import.meta.glob<IModuleType>('./modules/**/*.ts', { eager: true });
 
@@ -22,7 +23,14 @@ routeModuleList.sort(sortRoute);
 export const RootRoute: RouteRecordRaw = {
   path: '/',
   name: 'Root',
-  redirect: PageEnum.BASE_HOME,
+  redirect: () => {
+    const userStore = useUserStore();
+    if (userStore.getToken) {
+      //如果是已经登录了，那么应该跳转到有权限的路由的第一个，这里先简单的重定向到/dashboard 页面
+      return { path: PageEnum.BASE_HOME };
+    }
+    return { path: '/login' };
+  },
   meta: {
     title: 'Root',
   },
