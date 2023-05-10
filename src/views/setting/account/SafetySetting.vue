@@ -1,5 +1,5 @@
 <template>
-  <n-grid cols="1" responsive="screen" class="-mt-5">
+  <n-grid cols="1" responsive="screen" class="-mt-4">
     <n-grid-item>
       <n-list>
         <n-list-item>
