@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { DocumentTextOutline } from '@vicons/ionicons5';
-import { renderIcon } from '@/utils/index';
+import { renderIcon } from '@/utils';
 
 const routes: Array<RouteRecordRaw> = [
   {

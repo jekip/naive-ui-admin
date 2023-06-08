@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
-import { ProfileOutlined } from '@vicons/antd';
-import { renderIcon } from '@/utils/index';
+import { CheckCircleOutlined } from '@vicons/antd';
+import { renderIcon } from '@/utils';
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -16,39 +16,39 @@ import { renderIcon } from '@/utils/index';
  * */
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/form',
-    name: 'Form',
-    redirect: '/form/basic-form',
+    path: '/result',
+    name: 'Result',
+    redirect: '/result/success',
     component: Layout,
     meta: {
-      title: '表单页面',
-      icon: renderIcon(ProfileOutlined),
-      sort: 3,
+      title: '结果页面',
+      icon: renderIcon(CheckCircleOutlined),
+      sort: 4,
     },
     children: [
       {
-        path: 'basic-form',
-        name: 'form-basic-form',
+        path: 'success',
+        name: 'result-success',
         meta: {
-          title: '基础表单',
+          title: '成功页',
         },
-        component: () => import('@/views/form/basicForm/index.vue'),
+        component: () => import('@/views/result/success.vue'),
       },
       {
-        path: 'step-form',
-        name: 'form-step-form',
+        path: 'fail',
+        name: 'result-fail',
         meta: {
-          title: '分步表单',
+          title: '失败页',
         },
-        component: () => import('@/views/form/stepForm/stepForm.vue'),
+        component: () => import('@/views/result/fail.vue'),
       },
       {
-        path: 'detail',
-        name: 'form-detail',
+        path: 'info',
+        name: 'result-info',
         meta: {
-          title: '表单详情',
+          title: '信息页',
         },
-        component: () => import('@/views/form/detail/index.vue'),
+        component: () => import('@/views/result/info.vue'),
       },
     ],
   },

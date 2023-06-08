@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
-import { SettingOutlined } from '@vicons/antd';
-import { renderIcon } from '@/utils/index';
+import { OptionsSharp } from '@vicons/ionicons5';
+import { renderIcon } from '@/utils';
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -16,31 +16,31 @@ import { renderIcon } from '@/utils/index';
  * */
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/setting',
-    name: 'Setting',
-    redirect: '/setting/account',
+    path: '/system',
+    name: 'System',
+    redirect: '/system/menu',
     component: Layout,
     meta: {
-      title: '设置页面',
-      icon: renderIcon(SettingOutlined),
-      sort: 5,
+      title: '系统设置',
+      icon: renderIcon(OptionsSharp),
+      sort: 1,
     },
     children: [
       {
-        path: 'account',
-        name: 'setting-account',
+        path: 'menu',
+        name: 'system_menu',
         meta: {
-          title: '个人设置',
+          title: '菜单权限管理',
         },
-        component: () => import('@/views/setting/account/account.vue'),
+        component: () => import('@/views/system/menu/menu.vue'),
       },
       {
-        path: 'system',
-        name: 'setting-system',
+        path: 'role',
+        name: 'system_role',
         meta: {
-          title: '系统设置',
+          title: '角色权限管理',
         },
-        component: () => import('@/views/setting/system/system.vue'),
+        component: () => import('@/views/system/role/role.vue'),
       },
     ],
   },

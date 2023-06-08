@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { ExclamationCircleOutlined } from '@vicons/antd';
-import { renderIcon } from '@/utils/index';
+import { renderIcon } from '@/utils';
 
 /**
  * @param name 路由名称, 必须设置,且不能重名

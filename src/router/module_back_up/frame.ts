@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { DesktopOutline } from '@vicons/ionicons5';
-import { renderIcon } from '@/utils/index';
+import { renderIcon } from '@/utils';
 
 const IFrame = () => import('@/views/iframe/index.vue');
 
