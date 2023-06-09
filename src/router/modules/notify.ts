@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
           title: '到货预报',
           activeMenu: 'notify_index',
         },
-        component: () => import('@/views/about/index.vue'),
+        component: () => import('@/views/notify/list/index.vue'),
       },
       {
         path: 'add',
