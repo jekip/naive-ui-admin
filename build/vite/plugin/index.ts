@@ -1,4 +1,4 @@
-import type { Plugin,PluginOption } from 'vite';
+import type { Plugin, PluginOption } from 'vite';
 import Components from 'unplugin-vue-components/vite';
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 
@@ -8,6 +8,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import { configHtmlPlugin } from './html';
 import { configMockPlugin } from './mock';
 import { configCompressPlugin } from './compress';
+import ReactivityTransform from '@vue-macros/reactivity-transform/vite';
 
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean, prodMock) {
   const { VITE_USE_MOCK, VITE_BUILD_COMPRESS, VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE } = viteEnv;
@@ -17,7 +18,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean, prodMock) 
     vue(),
     // have to
     vueJsx(),
-
+    ReactivityTransform(),
     // 按需引入NaiveUi且自动创建组件声明
     Components({
       dts: true,

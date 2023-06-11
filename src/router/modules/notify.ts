@@ -24,15 +24,6 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import('@/views/notify/list/index.vue'),
       },
-      {
-        path: 'add',
-        name: `notify_add`,
-        meta: {
-          title: '新增到货预报',
-          activeMenu: 'notify_add',
-        },
-        component: () => import('@/views/about/index.vue'),
-      },
     ],
   },
 ];

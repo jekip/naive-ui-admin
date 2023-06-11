@@ -21,7 +21,8 @@
       "esnext"
     ],
     "types": [
-      "vite/client"
+      "vite/client",
+      "@vue-macros/reactivity-transform/macros-global"
     ],
     "typeRoots": [
       "./node_modules/@types/",
@@ -49,7 +50,8 @@
     "build/**/*.d.ts",
     "mock/**/*.ts",
     "components.d.ts",
-    "vite.config.ts"
+    "vite.config.ts",
+    "node_modules/vue/macros-global.d.ts"
   ],
   "exclude": [
     "node_modules",

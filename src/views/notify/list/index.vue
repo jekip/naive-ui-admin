@@ -31,8 +31,8 @@
       </template>
     </BasicTable>
 
-    <n-modal v-model:show="showModal" :show-icon="false" preset="dialog" title="新建">
-      <new-notify-form />
+    <n-modal v-model:show="showModal" :show-icon="false" preset="dialog" title="新建到货预报">
+      <notify-form-index />
     </n-modal>
   </n-card>
 </template>
@@ -52,7 +52,8 @@
   import { warehouseList } from '@/api/warehouse';
   import { notifyStatusList } from '@/api/notify/statusList';
   import dayjs from 'dayjs';
-  import NewNotifyForm from '@/views/list/basicList/NewNotifyForm.vue';
+  import NewNotifyForm from '@/views/notify/NotifyFormPage/NewNotifyForm.vue';
+  import NotifyFormIndex from '@/views/notify/NotifyFormPage/NotifyFormIndex.vue';
 
   const rules: FormRules = {
     name: {

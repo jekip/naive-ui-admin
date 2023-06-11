@@ -47,7 +47,7 @@
   import { PlusOutlined } from '@vicons/antd';
   import { useRouter } from 'vue-router';
   import { type FormRules } from 'naive-ui';
-  import NewNotifyForm from '@/views/list/basicList/NewNotifyForm.vue';
+  import NewNotifyForm from '@/views/notify/NotifyFormPage/NewNotifyForm.vue';
 
   const rules: FormRules = {
     name: {
