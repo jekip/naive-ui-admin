@@ -2,7 +2,7 @@ import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { renderIcon } from '@/utils';
 import { BellOutlined } from '@vicons/antd';
-const name = 'task';
+const name = 'claimGoods';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,8 +10,8 @@ const routes: Array<RouteRecordRaw> = [
     name: name,
     component: Layout,
     meta: {
-      title: '任务管理',
-      sort: 2,
+      title: '无主货管理',
+      sort: 5,
       isRoot: true,
       icon: renderIcon(BellOutlined),
     },
@@ -20,19 +20,10 @@ const routes: Array<RouteRecordRaw> = [
         path: 'index',
         name: `${name}_index`,
         meta: {
-          title: '任务管理',
+          title: '无主货管理',
           activeMenu: `${name}_index`,
         },
-        component: () => import('@/views/about/index.vue'),
-      },
-      {
-        path: 'add',
-        name: `${name}_add`,
-        meta: {
-          title: '任务管理',
-          activeMenu: `${name}_add`,
-        },
-        component: () => import('@/views/about/index.vue'),
+        component: () => import('@/views/claimGoods/list/index.vue'),
       },
     ],
   },
