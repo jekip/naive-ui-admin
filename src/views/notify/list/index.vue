@@ -45,34 +45,13 @@
   import { columns } from './columns';
   import { PlusOutlined } from '@vicons/antd';
   import { useRouter } from 'vue-router';
-  import { type FormRules } from 'naive-ui';
   import { getNotifyList } from '@/api/notify/list';
   import { salesNameList } from '@/api/sales';
   import { deliveryMethod } from '@/api/deliveryMethod';
   import { warehouseList } from '@/api/warehouse';
   import { notifyStatusList } from '@/api/notify/statusList';
   import dayjs from 'dayjs';
-  import NewNotifyForm from '@/views/notify/NotifyFormPage/NewNotifyForm.vue';
   import NotifyFormIndex from '@/views/notify/NotifyFormPage/NotifyFormIndex.vue';
-
-  const rules: FormRules = {
-    name: {
-      required: true,
-      trigger: ['blur', 'input'],
-      message: '请输入名称',
-    },
-    address: {
-      required: true,
-      trigger: ['blur', 'input'],
-      message: '请输入地址',
-    },
-    date: {
-      type: 'number',
-      required: true,
-      trigger: ['blur', 'change'],
-      message: '请选择日期',
-    },
-  };
 
   const schemas: FormSchema[] = [
     {
