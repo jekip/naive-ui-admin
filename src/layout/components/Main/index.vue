@@ -1,12 +1,20 @@
 <template>
   <RouterView>
     <template #default="{ Component, route }">
-      <transition :name="getTransitionName" mode="out-in" appear>
+      <template v-if="mode === 'production'">
+        <transition :name="getTransitionName" mode="out-in" appear>
+          <keep-alive v-if="keepAliveComponents.length" :include="keepAliveComponents">
+            <component :is="Component" :key="route.fullPath" />
+          </keep-alive>
+          <component v-else :is="Component" :key="route.fullPath" />
+        </transition>
+      </template>
+      <template v-else>
         <keep-alive v-if="keepAliveComponents.length" :include="keepAliveComponents">
           <component :is="Component" :key="route.fullPath" />
         </keep-alive>
         <component v-else :is="Component" :key="route.fullPath" />
-      </transition>
+      </template>
     </template>
   </RouterView>
 </template>
@@ -39,9 +47,11 @@
         return unref(isPageAnimate) ? unref(pageAnimateType) : '';
       });
 
+      const mode = import.meta.env.MODE;
       return {
         keepAliveComponents,
         getTransitionName,
+        mode,
       };
     },
   });
