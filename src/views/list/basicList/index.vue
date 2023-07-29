@@ -9,7 +9,7 @@
     <BasicTable
       :columns="columns"
       :request="loadDataTable"
-      :row-key="(row) => row.id"
+      :row-key="(row:ListData) => row.id"
       ref="actionRef"
       :actionColumn="actionColumn"
       @update:checked-row-keys="onCheckedRow"
@@ -67,7 +67,7 @@
   import { BasicTable, TableAction } from '@/components/Table';
   import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
   import { getTableList } from '@/api/table/list';
-  import { columns } from './columns';
+  import { columns, ListData } from './columns';
   import { PlusOutlined } from '@vicons/antd';
   import { useRouter } from 'vue-router';
   import { type FormRules } from 'naive-ui';
