@@ -18,11 +18,11 @@ export interface BasicColumn<T = InternalRowData> extends TableBaseColumn<T> {
   draggable?: boolean;
 }
 
-export interface TableActionType<T> {
+export interface TableActionType {
   reload: (opt) => Promise<void>;
   emit?: any;
-  getColumns: (opt?) => BasicColumn<T>[];
-  setColumns: (columns: BasicColumn<T>[] | string[]) => void;
+  getColumns: (opt?) => BasicColumn[];
+  setColumns: (columns: BasicColumn[] | string[]) => void;
 }
 
 export interface BasicTableProps {

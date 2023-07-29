@@ -4,7 +4,7 @@ import { provide, inject, ComputedRef } from 'vue';
 
 const key = Symbol('s-table');
 
-type Instance = TableActionType<{}> & {
+type Instance = TableActionType & {
   wrapRef: Ref<Nullable<HTMLElement>>;
   getBindValues: ComputedRef<Recordable>;
 };
