@@ -1,6 +1,6 @@
-import type { TableBaseColumn } from 'naive-ui/lib/data-table/src/interface';
+import type { InternalRowData, TableBaseColumn } from 'naive-ui/lib/data-table/src/interface';
 import { ComponentType } from './componentType';
-export interface BasicColumn<T> extends TableBaseColumn<T> {
+export interface BasicColumn<T = InternalRowData> extends TableBaseColumn<T> {
   //编辑表格
   edit?: boolean;
   editRow?: boolean;
@@ -13,7 +13,7 @@ export interface BasicColumn<T> extends TableBaseColumn<T> {
   // 权限编码控制是否显示
   auth?: string[];
   // 业务控制是否显示
-  ifShow?: boolean | ((column: BasicColumn<T>) => boolean);
+  ifShow?: boolean | ((column: BasicColumn) => boolean);
   // 控制是否支持拖拽，默认支持
   draggable?: boolean;
 }
