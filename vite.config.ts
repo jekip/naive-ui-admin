@@ -46,15 +46,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     define: {
       __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
-    css: {
-      preprocessorOptions: {
-        less: {
-          modifyVars: {},
-          javascriptEnabled: true,
-          additionalData: `@import "src/styles/var.less";`,
-        },
-      },
-    },
+    // css: {
+    //   preprocessorOptions: {
+    //     less: {
+    //       modifyVars: {},
+    //       javascriptEnabled: true,
+    //       additionalData: `@import "src/styles/var.less";`,
+    //     },
+    //   },
+    // },
     server: {
       host: true,
       port: VITE_PORT,
@@ -73,14 +73,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
     build: {
       target: 'es2015',
+      cssTarget: 'chrome80',
       outDir: OUTPUT_DIR,
-      terserOptions: {
-        compress: {
-          keep_infinity: true,
-          drop_console: VITE_DROP_CONSOLE,
-        },
-      },
-      brotliSize: false,
+      // terserOptions: {
+      //   compress: {
+      //     keep_infinity: true,
+      //     drop_console: VITE_DROP_CONSOLE,
+      //   },
+      // },
+      reportCompressedSize: false,
       chunkSizeWarningLimit: 2000,
     },
   };

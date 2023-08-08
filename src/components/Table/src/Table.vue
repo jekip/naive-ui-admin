@@ -7,7 +7,7 @@
           {{ title }}
           <n-tooltip trigger="hover" v-if="titleTooltip">
             <template #trigger>
-              <n-icon size="18" class="ml-1 cursor-pointer text-gray-400">
+              <n-icon size="18" class="ml-1 text-gray-400 cursor-pointer">
                 <QuestionCircleOutlined />
               </n-icon>
             </template>
@@ -21,6 +21,17 @@
     <div class="flex items-center table-toolbar-right">
       <!--顶部右侧区域-->
       <slot name="toolbar"></slot>
+
+      <!--斑马纹-->
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <div class="mr-2 table-toolbar-right-icon">
+            <n-switch v-model:value="isStriped" @update:value="setStriped" />
+          </div>
+        </template>
+        <span>表格斑马纹</span>
+      </n-tooltip>
+      <n-divider vertical />
 
       <!--刷新-->
       <n-tooltip trigger="hover">
@@ -61,6 +72,7 @@
     <n-data-table
       ref="tableElRef"
       v-bind="getBindValues"
+      :striped="isStriped"
       :pagination="pagination"
       @update:page="updatePage"
       @update:page-size="updatePageSize"
@@ -144,7 +156,7 @@
       const tableElRef = ref<ComponentRef>(null);
       const wrapRef = ref<Nullable<HTMLDivElement>>(null);
       let paginationEl: HTMLElement | null;
-
+      const isStriped = ref(false);
       const tableData = ref<Recordable[]>([]);
       const innerPropsRef = ref<Partial<BasicTableProps>>();
 
@@ -156,7 +168,7 @@
 
       const { getPaginationInfo, setPagination } = usePagination(getProps);
 
-      const { getDataSourceRef, getRowKey, reload } = useDataSource(
+      const { getDataSourceRef, getDataSource, getRowKey, reload } = useDataSource(
         getProps,
         {
           getPaginationInfo,
@@ -223,6 +235,8 @@
         innerPropsRef.value = { ...unref(innerPropsRef), ...props };
       }
 
+      const setStriped = (value: boolean) => (isStriped.value = value);
+
       const tableAction = {
         reload,
         setColumns,
@@ -250,7 +264,7 @@
         const headerH = 64;
         let paginationH = 2;
         let marginH = 24;
-        if (!isBoolean(pagination)) {
+        if (!isBoolean(unref(pagination))) {
           paginationEl = tableEl.querySelector('.n-data-table__pagination') as HTMLElement;
           if (paginationEl) {
             const offsetHeight = paginationEl.offsetHeight;
@@ -280,6 +294,7 @@
         ...toRefs(state),
         tableElRef,
         getBindValues,
+        getDataSource,
         densityOptions,
         reload,
         densitySelect,
@@ -287,6 +302,8 @@
         updatePageSize,
         pagination,
         tableAction,
+        setStriped,
+        isStriped,
       };
     },
   });

@@ -41,7 +41,7 @@
   const props = defineProps({ ...basicProps });
   const emit = defineEmits(['on-close', 'on-ok', 'register']);
 
-  const propsRef = ref(<Partial<ModalProps> | null>null);
+  const propsRef = ref<Partial<ModalProps> | null>(null);
 
   const isModal = ref(false);
   const subLoading = ref(false);
@@ -93,7 +93,7 @@
 
   function handleSubmit() {
     subLoading.value = true;
-    console.log(subLoading.value)
+    console.log(subLoading.value);
     emit('on-ok');
   }
 

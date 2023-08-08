@@ -35,6 +35,6 @@ export const useDesignSettingStore = defineStore({
 });
 
 // Need to be used outside the setup
-export function useDesignSettingWithOut() {
+export function useDesignSetting() {
   return useDesignSettingStore(store);
 }

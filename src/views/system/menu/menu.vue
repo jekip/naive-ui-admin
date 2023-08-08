@@ -7,7 +7,7 @@
     </div>
     <n-grid class="mt-4" cols="1 s:1 m:1 l:3 xl:3 2xl:3" responsive="screen" :x-gap="12">
       <n-gi span="1">
-        <n-card :segmented="{ content: 'hard' }" :bordered="false" size="small">
+        <n-card :segmented="{ content: true }" :bordered="false" size="small">
           <template #header>
             <n-space>
               <n-dropdown trigger="hover" @select="selectAddMenu" :options="addMenuOptions">
@@ -67,7 +67,7 @@
         </n-card>
       </n-gi>
       <n-gi span="2">
-        <n-card :segmented="{ content: 'hard' }" :bordered="false" size="small">
+        <n-card :segmented="{ content: true }" :bordered="false" size="small">
           <template #header>
             <n-space>
               <n-icon size="18">
@@ -115,6 +115,7 @@
                   >保存修改</n-button
                 >
                 <n-button @click="handleReset">重置</n-button>
+                <n-button @click="handleDel">删除</n-button>
               </n-space>
             </n-form-item>
           </n-form>
@@ -126,7 +127,7 @@
 </template>
 <script lang="ts" setup>
   import { ref, unref, reactive, onMounted, computed } from 'vue';
-  import { useMessage } from 'naive-ui';
+  import { useDialog, useMessage } from 'naive-ui';
   import { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined } from '@vicons/antd';
   import { getMenuList } from '@/api/system/menu';
   import { getTreeItem } from '@/utils';
@@ -148,6 +149,7 @@
   const formRef: any = ref(null);
   const createDrawerRef = ref();
   const message = useMessage();
+  const dialog = useDialog();
 
   let treeItemKey = ref([]);
 
@@ -212,8 +214,23 @@
     }
   }
 
+  function handleDel() {
+    dialog.info({
+      title: '提示',
+      content: `您确定想删除此权限吗?`,
+      positiveText: '确定',
+      negativeText: '取消',
+      onPositiveClick: () => {
+        message.success('删除成功');
+      },
+      onNegativeClick: () => {
+        message.error('已取消');
+      },
+    });
+  }
+
   function handleReset() {
-    const treeItem = getTreeItem(unref(treeData), treeItemKey[0]);
+    const treeItem = getTreeItem(unref(treeData), treeItemKey.value[0]);
     Object.assign(formParams, treeItem);
   }
 

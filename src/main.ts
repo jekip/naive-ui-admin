@@ -1,22 +1,21 @@
 import './styles/tailwind.css';
 import { createApp } from 'vue';
+import { setupNaiveDiscreteApi, setupNaive, setupDirectives } from '@/plugins';
 import App from './App.vue';
 import router, { setupRouter } from './router';
 import { setupStore } from '@/store';
-import MakeitCaptcha from 'makeit-captcha';
-import 'makeit-captcha/dist/captcha.min.css';
-import { setupNaive, setupDirectives } from '@/plugins';
-import { AppProvider } from '@/components/Application';
 
 async function bootstrap() {
-  const appProvider = createApp(AppProvider);
-
   const app = createApp(App);
 
-  app.use(MakeitCaptcha);
+  // 挂载状态管理
+  setupStore(app);
 
   // 注册全局常用的 naive-ui 组件
   setupNaive(app);
+
+  // 挂载 naive-ui 脱离上下文的 Api
+  setupNaiveDiscreteApi();
 
   // 注册全局自定义组件
   //setupCustomComponents();
@@ -27,17 +26,17 @@ async function bootstrap() {
   // 注册全局方法，如：app.config.globalProperties.$message = message
   //setupGlobalMethods(app);
 
-  // 挂载状态管理
-  setupStore(app);
-
-  //优先挂载一下 Provider 解决路由守卫，Axios中可使用，Dialog，Message 等之类组件
-  appProvider.mount('#appProvider', true);
-
   // 挂载路由
-  await setupRouter(app);
+  setupRouter(app);
 
-  // 路由准备就绪后挂载APP实例
+  // 路由准备就绪后挂载 APP 实例
+  // https://router.vuejs.org/api/interfaces/router.html#isready
   await router.isReady();
+
+  // https://www.naiveui.com/en-US/os-theme/docs/style-conflict#About-Tailwind's-Preflight-Style-Override
+  const meta = document.createElement('meta');
+  meta.name = 'naive-ui-style';
+  document.head.appendChild(meta);
 
   app.mount('#app', true);
 }

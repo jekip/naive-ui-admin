@@ -5,7 +5,7 @@
       <n-grid-item>
         <NCard
           title="访问量"
-          :segmented="{ content: 'hard', footer: 'hard' }"
+          :segmented="{ content: true, footer: true }"
           size="small"
           :bordered="false"
         >
@@ -23,7 +23,7 @@
                 日同比
                 <CountTo :startVal="1" suffix="%" :endVal="visits.rise" />
                 <n-icon size="12" color="#00ff6f">
-                  <component is="CaretUpOutlined" />
+                  <CaretUpOutlined />
                 </n-icon>
               </template>
             </div>
@@ -33,7 +33,7 @@
                 周同比
                 <CountTo :startVal="1" suffix="%" :endVal="visits.decline" />
                 <n-icon size="12" color="#ffde66">
-                  <component is="CaretDownOutlined" />
+                  <CaretDownOutlined />
                 </n-icon>
               </template>
             </div>
@@ -54,7 +54,7 @@
       <n-grid-item>
         <NCard
           title="销售额"
-          :segmented="{ content: 'hard', footer: 'hard' }"
+          :segmented="{ content: true, footer: true }"
           size="small"
           :bordered="false"
         >
@@ -97,7 +97,7 @@
       <n-grid-item>
         <NCard
           title="订单量"
-          :segmented="{ content: 'hard', footer: 'hard' }"
+          :segmented="{ content: true, footer: true }"
           size="small"
           :bordered="false"
         >
@@ -115,7 +115,7 @@
                 日同比
                 <CountTo :startVal="1" suffix="%" :endVal="orderLarge.rise" />
                 <n-icon size="12" color="#00ff6f">
-                  <component is="CaretUpOutlined" />
+                  <CaretUpOutlined />
                 </n-icon>
               </template>
             </div>
@@ -125,7 +125,7 @@
                 周同比
                 <CountTo :startVal="1" suffix="%" :endVal="orderLarge.rise" />
                 <n-icon size="12" color="#ffde66">
-                  <component is="CaretDownOutlined" />
+                  <CaretDownOutlined />
                 </n-icon>
               </template>
             </div>
@@ -146,7 +146,7 @@
       <n-grid-item>
         <NCard
           title="成交额"
-          :segmented="{ content: 'hard', footer: 'hard' }"
+          :segmented="{ content: true, footer: true }"
           size="small"
           :bordered="false"
         >
@@ -164,7 +164,7 @@
                 月同比
                 <CountTo :startVal="1" suffix="%" :endVal="volume.rise" />
                 <n-icon size="12" color="#00ff6f">
-                  <component is="CaretUpOutlined" />
+                  <CaretUpOutlined />
                 </n-icon>
               </template>
             </div>
@@ -174,7 +174,7 @@
                 月同比
                 <CountTo :startVal="1" suffix="%" :endVal="volume.decline" />
                 <n-icon size="12" color="#ffde66">
-                  <component is="CaretDownOutlined" />
+                  <CaretDownOutlined />
                 </n-icon>
               </template>
             </div>
@@ -241,12 +241,10 @@
     SettingOutlined,
   } from '@vicons/antd';
 
-  const cardHeaderStyle = ref({ 'border-bottom': '1px solid #eee', 'font-size': '16px' });
-
   const loading = ref(true);
-  const visits = ref({});
-  const saleroom = ref({});
-  const orderLarge = ref({});
+  const visits = ref<any>({});
+  const saleroom = ref<any>({});
+  const orderLarge = ref<any>({});
   const volume = ref({});
 
   // 图标列表
@@ -326,11 +324,11 @@
   ];
 
   onMounted(async () => {
-    const { visits, saleroom, orderLarge, volume } = await getConsoleInfo();
-    visits.value = visits;
-    saleroom.value = saleroom;
-    orderLarge.value = orderLarge;
-    volume.value = volume;
+    const data = await getConsoleInfo();
+    visits.value = data.visits;
+    saleroom.value = data.saleroom;
+    orderLarge.value = data.orderLarge;
+    volume.value = data.volume;
     loading.value = false;
   });
 </script>

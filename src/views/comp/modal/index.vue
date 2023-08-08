@@ -259,7 +259,7 @@
 
       function lightOkModal() {
         lightCloseModal();
-        lightSetSubLoading();
+        lightSetSubLoading(false);
       }
 
       function showLightModal() {

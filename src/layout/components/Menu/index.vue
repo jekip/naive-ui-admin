@@ -23,7 +23,7 @@
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 
   export default defineComponent({
-    name: 'Menu',
+    name: 'AppMenu',
     components: {},
     props: {
       mode: {
@@ -41,7 +41,7 @@
         default: 'left',
       },
     },
-    emits: ['update:collapsed'],
+    emits: ['update:collapsed', 'clickMenuItem'],
     setup(props, { emit }) {
       // 当前路由
       const currentRoute = useRoute();
@@ -52,9 +52,7 @@
       const selectedKeys = ref<string>(currentRoute.name as string);
       const headerMenuSelectKey = ref<string>('');
 
-      const { getNavMode } = useProjectSetting();
-
-      const navMode = getNavMode;
+      const { navMode } = useProjectSetting();
 
       // 获取当前打开的子菜单
       const matched = currentRoute.matched;
@@ -99,12 +97,15 @@
         () => currentRoute.fullPath,
         () => {
           updateMenu();
-          const matched = currentRoute.matched;
-          state.openKeys = matched.map((item) => item.name);
-          const activeMenu: string = (currentRoute.meta?.activeMenu as string) || '';
-          selectedKeys.value = activeMenu ? (activeMenu as string) : (currentRoute.name as string);
         }
       );
+
+      function updateSelectedKeys() {
+        const matched = currentRoute.matched;
+        state.openKeys = matched.map((item) => item.name);
+        const activeMenu: string = (currentRoute.meta?.activeMenu as string) || '';
+        selectedKeys.value = activeMenu ? (activeMenu as string) : (currentRoute.name as string);
+      }
 
       function updateMenu() {
         if (!settingStore.menuSetting.mixMenu) {
@@ -116,6 +117,7 @@
           const activeMenu: string = currentRoute?.matched[0].meta?.activeMenu as string;
           headerMenuSelectKey.value = (activeMenu ? activeMenu : firstRouteName) || '';
         }
+        updateSelectedKeys();
       }
 
       // 点击菜单
@@ -125,6 +127,7 @@
         } else {
           router.push({ name: key });
         }
+        emit('clickMenuItem' as any, key);
       }
 
       //展开菜单

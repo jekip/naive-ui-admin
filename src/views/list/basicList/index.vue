@@ -9,7 +9,7 @@
     <BasicTable
       :columns="columns"
       :request="loadDataTable"
-      :row-key="(row) => row.id"
+      :row-key="(row:ListData) => row.id"
       ref="actionRef"
       :actionColumn="actionColumn"
       @update:checked-row-keys="onCheckedRow"
@@ -63,15 +63,16 @@
 
 <script lang="ts" setup>
   import { h, reactive, ref } from 'vue';
-  import { useMessage } from 'naive-ui';
+  // import { useMessage } from 'naive-ui';
   import { BasicTable, TableAction } from '@/components/Table';
-  import { BasicForm, useForm } from '@/components/Form/index';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
   import { getTableList } from '@/api/table/list';
-  import { columns } from './columns';
+  import { columns, ListData } from './columns';
   import { PlusOutlined } from '@vicons/antd';
   import { useRouter } from 'vue-router';
+  import { type FormRules } from 'naive-ui';
 
-  const rules = {
+  const rules: FormRules = {
     name: {
       required: true,
       trigger: ['blur', 'input'],
@@ -90,7 +91,7 @@
     },
   };
 
-  const schemas = [
+  const schemas: FormSchema[] = [
     {
       field: 'name',
       labelMessage: '这是一个提示',
@@ -216,7 +217,7 @@
 
   const router = useRouter();
   const formRef: any = ref(null);
-  const message = useMessage();
+  // const message = useMessage();
   const actionRef = ref();
 
   const showModal = ref(false);
@@ -243,7 +244,6 @@
         actions: [
           {
             label: '删除',
-            icon: 'ic:outline-delete-outline',
             onClick: handleDelete.bind(null, record),
             // 根据业务控制是否显示 isShow 和 auth 是并且关系
             ifShow: () => {
@@ -279,7 +279,7 @@
           },
         ],
         select: (key) => {
-          message.info(`您点击了，${key} 按钮`);
+          window['$message'].info(`您点击了，${key} 按钮`);
         },
       });
     },
@@ -312,13 +312,13 @@
     formBtnLoading.value = true;
     formRef.value.validate((errors) => {
       if (!errors) {
-        message.success('新建成功');
+        window['$message'].success('新建成功');
         setTimeout(() => {
           showModal.value = false;
           reloadTable();
         });
       } else {
-        message.error('请填写完整信息');
+        window['$message'].error('请填写完整信息');
       }
       formBtnLoading.value = false;
     });
@@ -331,7 +331,7 @@
 
   function handleDelete(record: Recordable) {
     console.log('点击了删除', record);
-    message.info('点击了删除');
+    window['$message'].info('点击了删除');
   }
 
   function handleSubmit(values: Recordable) {

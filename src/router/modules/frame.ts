@@ -18,11 +18,20 @@ const routes: Array<RouteRecordRaw> = [
     },
     children: [
       {
+        path: 'naive-admin',
+        name: 'naive-admin',
+        meta: {
+          title: 'NaiveAdmin',
+          frameSrc: 'https://www.naiveadmin.com',
+        },
+        component: IFrame,
+      },
+      {
         path: 'docs',
         name: 'frame-docs',
         meta: {
           title: '项目文档(内嵌)',
-          frameSrc: 'https://naive-ui-admin-docs.vercel.app',
+          frameSrc: 'https://jekip.github.io/docs',
         },
         component: IFrame,
       },

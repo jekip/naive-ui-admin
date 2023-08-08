@@ -4,36 +4,39 @@ import { useProjectSettingStore } from '@/store/modules/projectSetting';
 export function useProjectSetting() {
   const projectStore = useProjectSettingStore();
 
-  const getNavMode = computed(() => projectStore.navMode);
+  const navMode = computed(() => projectStore.navMode);
 
-  const getNavTheme = computed(() => projectStore.navTheme);
+  const navTheme = computed(() => projectStore.navTheme);
 
-  const getHeaderSetting = computed(() => projectStore.headerSetting);
+  const isMobile = computed(() => projectStore.isMobile);
 
-  const getMultiTabsSetting = computed(() => projectStore.multiTabsSetting);
+  const headerSetting = computed(() => projectStore.headerSetting);
 
-  const getMenuSetting = computed(() => projectStore.menuSetting);
+  const multiTabsSetting = computed(() => projectStore.multiTabsSetting);
 
-  const getCrumbsSetting = computed(() => projectStore.crumbsSetting);
+  const menuSetting = computed(() => projectStore.menuSetting);
 
-  const getPermissionMode = computed(() => projectStore.permissionMode);
+  const crumbsSetting = computed(() => projectStore.crumbsSetting);
 
-  const getShowFooter = computed(() => projectStore.showFooter);
+  const permissionMode = computed(() => projectStore.permissionMode);
 
-  const getIsPageAnimate = computed(() => projectStore.isPageAnimate);
+  const showFooter = computed(() => projectStore.showFooter);
 
-  const getPageAnimateType = computed(() => projectStore.pageAnimateType);
+  const isPageAnimate = computed(() => projectStore.isPageAnimate);
+
+  const pageAnimateType = computed(() => projectStore.pageAnimateType);
 
   return {
-    getNavMode,
-    getNavTheme,
-    getHeaderSetting,
-    getMultiTabsSetting,
-    getMenuSetting,
-    getCrumbsSetting,
-    getPermissionMode,
-    getShowFooter,
-    getIsPageAnimate,
-    getPageAnimateType,
+    navMode,
+    navTheme,
+    isMobile,
+    headerSetting,
+    multiTabsSetting,
+    menuSetting,
+    crumbsSetting,
+    permissionMode,
+    showFooter,
+    isPageAnimate,
+    pageAnimateType,
   };
 }

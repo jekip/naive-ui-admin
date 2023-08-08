@@ -1,7 +1,16 @@
 import { h } from 'vue';
 import { NAvatar } from 'naive-ui';
-
-export const columns = [
+import { BasicColumn } from '@/components/Table';
+export interface ListData {
+  id: string;
+  name: string;
+  avatar: string;
+  address: string;
+  beginTime: string;
+  endTime: string;
+  date: string;
+}
+export const columns: BasicColumn<ListData>[] = [
   {
     title: 'id',
     key: 'id',

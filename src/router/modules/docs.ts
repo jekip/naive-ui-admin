@@ -6,12 +6,12 @@ import { renderIcon } from '@/utils/index';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/external',
-    name: 'https://naive-ui-admin-docs.vercel.app',
+    name: 'https://docs.naiveadmin.com',
     component: Layout,
     meta: {
       title: '项目文档',
       icon: renderIcon(DocumentTextOutline),
-      sort: 9,
+      sort: 11,
     },
   },
 ];

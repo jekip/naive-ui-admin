@@ -17,30 +17,31 @@ export interface ProjectSettingState {
   permissionMode: string;
 }
 
-export interface IbodySetting {
+export interface IBodySetting {
   fixed: boolean;
 }
 
-export interface IheaderSetting {
+export interface IHeaderSetting {
   bgColor: string;
   fixed: boolean;
   isReload: boolean;
 }
 
-export interface ImenuSetting {
+export interface IMenuSetting {
   minMenuWidth: number;
   menuWidth: number;
   fixed: boolean;
   mixMenu: boolean;
   collapsed: boolean;
+  mobileWidth: number;
 }
 
-export interface IcrumbsSetting {
+export interface ICrumbsSetting {
   show: boolean;
   showIcon: boolean;
 }
 
-export interface ImultiTabsSetting {
+export interface IMultiTabsSetting {
   bgColor: string;
   fixed: boolean;
   show: boolean;

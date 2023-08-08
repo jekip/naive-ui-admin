@@ -2,7 +2,7 @@
   <RouterView>
     <template #default="{ Component, route }">
       <transition :name="getTransitionName" mode="out-in" appear>
-        <keep-alive v-if="keepAliveComponents" :include="keepAliveComponents">
+        <keep-alive v-if="keepAliveComponents.length" :include="keepAliveComponents">
           <component :is="Component" :key="route.fullPath" />
         </keep-alive>
         <component v-else :is="Component" :key="route.fullPath" />
@@ -30,13 +30,13 @@
       },
     },
     setup() {
-      const { getIsPageAnimate, getPageAnimateType } = useProjectSetting();
+      const { isPageAnimate, pageAnimateType } = useProjectSetting();
       const asyncRouteStore = useAsyncRouteStore();
       // 需要缓存的路由组件
       const keepAliveComponents = computed(() => asyncRouteStore.keepAliveComponents);
 
       const getTransitionName = computed(() => {
-        return unref(getIsPageAnimate) ? unref(getPageAnimateType) : '';
+        return unref(isPageAnimate) ? unref(pageAnimateType) : '';
       });
 
       return {

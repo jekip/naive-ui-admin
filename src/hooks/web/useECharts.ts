@@ -10,23 +10,27 @@ import { useBreakpoint } from '@/hooks/event/useBreakpoint';
 
 import echarts from '@/utils/lib/echarts';
 
-// import { useRootSetting } from '@/hooks/setting/useRootSetting';
+import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 
 export function useECharts(
   elRef: Ref<HTMLDivElement>,
-  theme: 'light' | 'dark' | 'default' = 'light'
+  theme: 'light' | 'dark' | 'default' = 'default'
 ) {
-  // const { getDarkMode } = useRootSetting();
-  const getDarkMode = 'light';
+  const { getDarkTheme: getSysDarkTheme } = useDesignSetting();
+
+  const getDarkTheme = computed(() => {
+    const sysTheme: string = getSysDarkTheme.value ? 'dark' : 'light';
+    return theme === 'default' ? sysTheme : theme;
+  });
+
   let chartInstance: echarts.ECharts | null = null;
   let resizeFn: Fn = resize;
-  const cacheOptions = ref<EChartsOption>({});
+  const cacheOptions = ref({});
   let removeResizeFn: Fn = () => {};
-
   resizeFn = useDebounceFn(resize, 200);
 
   const getOptions = computed((): EChartsOption => {
-    if (getDarkMode !== 'dark') {
+    if (getDarkTheme.value !== 'dark') {
       return cacheOptions.value;
     }
     return {
@@ -67,7 +71,7 @@ export function useECharts(
     nextTick(() => {
       useTimeoutFn(() => {
         if (!chartInstance) {
-          initCharts(getDarkMode.value as 'default');
+          initCharts(getDarkTheme.value as 'default');
 
           if (!chartInstance) return;
         }
@@ -83,7 +87,7 @@ export function useECharts(
   }
 
   watch(
-    () => getDarkMode.value,
+    () => getDarkTheme.value,
     (theme) => {
       if (chartInstance) {
         chartInstance.dispose();
@@ -93,18 +97,20 @@ export function useECharts(
     }
   );
 
-  tryOnUnmounted(() => {
+  tryOnUnmounted(disposeInstance);
+
+  function getInstance(): echarts.ECharts | null {
+    if (!chartInstance) {
+      initCharts(getDarkTheme.value as 'default');
+    }
+    return chartInstance;
+  }
+
+  function disposeInstance() {
     if (!chartInstance) return;
     removeResizeFn();
     chartInstance.dispose();
     chartInstance = null;
-  });
-
-  function getInstance(): echarts.ECharts | null {
-    if (!chartInstance) {
-      initCharts(getDarkMode.value as 'default');
-    }
-    return chartInstance;
   }
 
   return {
@@ -112,5 +118,6 @@ export function useECharts(
     resize,
     echarts,
     getInstance,
+    disposeInstance,
   };
 }

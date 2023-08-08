@@ -25,6 +25,7 @@ module.exports = defineConfig({
   ],
   rules: {
     'vue/script-setup-uses-vars': 'error',
+    'vue/multi-word-component-names': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
@@ -37,19 +38,12 @@ module.exports = defineConfig({
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-      },
-    ],
+    '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '.*', args: 'none' }],
     'no-unused-vars': [
       'error',
-      {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-      },
+      // we are only using this rule to check for unused arguments since TS
+      // catches unused variables but not args.
+      { varsIgnorePattern: '.*', args: 'none' },
     ],
     'space-before-function-paren': 'off',
 

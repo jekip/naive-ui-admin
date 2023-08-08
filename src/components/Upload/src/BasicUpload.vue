@@ -14,10 +14,10 @@
               <img :src="item" />
             </div>
             <div class="img-box-actions">
-              <n-icon size="18" class="action-icon mx-2" @click="preview(item)">
+              <n-icon size="18" class="mx-2 action-icon" @click="preview(item)">
                 <EyeOutlined />
               </n-icon>
-              <n-icon size="18" class="action-icon mx-2" @click="remove(index)">
+              <n-icon size="18" class="mx-2 action-icon" @click="remove(index)">
                 <DeleteOutlined />
               </n-icon>
             </div>
@@ -36,7 +36,7 @@
             @before-upload="beforeUpload"
             @finish="finish"
           >
-            <div class="flex justify-center flex-col">
+            <div class="flex flex-col justify-center">
               <n-icon size="18" class="m-auto">
                 <PlusOutlined />
               </n-icon>
@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, toRefs, reactive, computed } from 'vue';
+  import { defineComponent, toRefs, reactive, computed, watch } from 'vue';
   import { EyeOutlined, DeleteOutlined, PlusOutlined } from '@vicons/antd';
   import { basicProps } from './props';
   import { useMessage, useDialog } from 'naive-ui';
@@ -106,11 +106,15 @@
       });
 
       //赋值默认图片显示
-      if (props.value.length) {
-        state.imgList = props.value.map((item) => {
-          return getImgUrl(item);
-        });
-      }
+      watch(
+        () => props.value,
+        () => {
+          state.imgList = props.value.map((item) => {
+            return getImgUrl(item);
+          });
+        },
+        { immediate: true }
+      );
 
       //预览
       function preview(url: string) {
@@ -233,6 +237,7 @@
         &-info {
           position: relative;
           height: 100%;
+          width: 100%;
           padding: 0;
           overflow: hidden;
 

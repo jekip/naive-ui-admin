@@ -1,6 +1,6 @@
 <template>
   <div
-    class="tabs-view"
+    class="box-border tabs-view"
     :class="{
       'tabs-view-fix': multiTabsSetting.fixed,
       'tabs-view-fixed-header': isMultiHeaderFixed,
@@ -40,11 +40,7 @@
                 @contextmenu="handleContextMenu($event, element)"
               >
                 <span>{{ element.meta.title }}</span>
-                <n-icon
-                  size="14"
-                  @click.stop="closeTabItem(element)"
-                  v-if="element.path !== baseHome"
-                >
+                <n-icon size="14" @click.stop="closeTabItem(element)" v-if="!element.meta.affix">
                   <CloseOutlined />
                 </n-icon>
               </div>
@@ -86,7 +82,6 @@
     computed,
     ref,
     toRefs,
-    unref,
     provide,
     watch,
     onMounted,
@@ -115,6 +110,8 @@
   import elementResizeDetectorMaker from 'element-resize-detector';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
+  import { useThemeVars } from 'naive-ui';
+  import { useGo } from '@/hooks/web/usePage';
 
   export default defineComponent({
     name: 'TabsView',
@@ -132,7 +129,7 @@
     },
     setup(props) {
       const { getDarkTheme, getAppTheme } = useDesignSetting();
-      const { getNavMode, getHeaderSetting, getMenuSetting, getMultiTabsSetting } =
+      const { navMode, headerSetting, menuSetting, multiTabsSetting, isMobile } =
         useProjectSetting();
       const settingStore = useProjectSettingStore();
 
@@ -144,6 +141,17 @@
       const navScroll: any = ref(null);
       const navWrap: any = ref(null);
       const isCurrent = ref(false);
+      const go = useGo();
+
+      const themeVars = useThemeVars();
+
+      const getCardColor = computed(() => {
+        return themeVars.value.cardColor;
+      });
+
+      const getBaseColor = computed(() => {
+        return themeVars.value.textColor1;
+      });
 
       const state = reactive({
         activeKey: route.fullPath,
@@ -152,7 +160,7 @@
         dropdownY: 0,
         showDropdown: false,
         isMultiHeaderFixed: false,
-        multiTabsSetting: getMultiTabsSetting,
+        multiTabsSetting: multiTabsSetting,
       });
 
       // 获取简易的路由对象
@@ -164,23 +172,28 @@
       const isMixMenuNoneSub = computed(() => {
         const mixMenu = settingStore.menuSetting.mixMenu;
         const currentRoute = useRoute();
-        const navMode = unref(getNavMode);
-        if (unref(navMode) != 'horizontal-mix') return true;
-        return !(unref(navMode) === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot);
+        if (navMode.value != 'horizontal-mix') return true;
+        return !(navMode.value === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot);
       });
 
       //动态组装样式 菜单缩进
       const getChangeStyle = computed(() => {
         const { collapsed } = props;
-        const navMode = unref(getNavMode);
-        const { minMenuWidth, menuWidth }: any = unref(getMenuSetting);
-        const { fixed }: any = unref(getMultiTabsSetting);
+        const { minMenuWidth, menuWidth }: any = menuSetting.value;
+        const { fixed }: any = multiTabsSetting.value;
         let lenNum =
-          navMode === 'horizontal' || !isMixMenuNoneSub.value
+          navMode.value === 'horizontal' || !isMixMenuNoneSub.value
             ? '0px'
             : collapsed
             ? `${minMenuWidth}px`
             : `${menuWidth}px`;
+
+        if (isMobile.value) {
+          return {
+            left: '0px',
+            width: '100%',
+          };
+        }
         return {
           left: lenNum,
           width: `calc(100% - ${!fixed ? '0px' : lenNum})`,
@@ -189,7 +202,7 @@
 
       //tags 右侧下拉菜单
       const TabsMenuOptions = computed(() => {
-        const isDisabled = unref(tabsList).length <= 1;
+        const isDisabled = tabsList.value.length <= 1;
         return [
           {
             label: '刷新当前',
@@ -199,7 +212,7 @@
           {
             label: `关闭当前`,
             key: '2',
-            disabled: unref(isCurrent) || isDisabled,
+            disabled: isCurrent.value || isDisabled,
             icon: renderIcon(CloseOutlined),
           },
           {
@@ -247,8 +260,8 @@
           window.pageYOffset ||
           document.body.scrollTop; // 滚动条偏移量
         state.isMultiHeaderFixed = !!(
-          !getHeaderSetting.fixed &&
-          getMultiTabsSetting.fixed &&
+          !headerSetting.value.fixed &&
+          multiTabsSetting.value.fixed &&
           scrollTop >= 64
         );
       }
@@ -281,7 +294,7 @@
         (to) => {
           if (whiteList.includes(route.name as string)) return;
           state.activeKey = to;
-          tabsViewStore.addTabs(getSimpleRoute(route));
+          tabsViewStore.addTab(getSimpleRoute(route));
           updateNavScroll(true);
         },
         { immediate: true }
@@ -312,7 +325,7 @@
       const reloadPage = () => {
         delKeepAliveCompName();
         router.push({
-          path: '/redirect' + unref(route).fullPath,
+          path: '/redirect' + route.fullPath,
         });
       };
 
@@ -345,7 +358,6 @@
 
       // 关闭全部
       const closeAll = () => {
-        localStorage.removeItem('routes');
         tabsViewStore.closeAllTabs();
         router.replace(PageEnum.BASE_HOME);
         updateNavScroll();
@@ -462,7 +474,7 @@
         const { fullPath } = e;
         if (fullPath === route.fullPath) return;
         state.activeKey = fullPath;
-        router.push({ path: fullPath });
+        go(e, true);
       }
 
       //删除tab
@@ -488,7 +500,6 @@
         navScroll,
         route,
         tabsList,
-        baseHome: PageEnum.BASE_HOME_REDIRECT,
         goPage,
         closeTabItem,
         closeLeft,
@@ -505,6 +516,8 @@
         onClickOutside,
         getDarkTheme,
         getAppTheme,
+        getCardColor,
+        getBaseColor,
       };
     },
   });
@@ -565,8 +578,8 @@
           overflow: hidden;
 
           &-item {
-            background: var(--color);
-            color: var(--text-color);
+            background: v-bind(getCardColor);
+            color: v-bind(getBaseColor);
             height: 32px;
             padding: 6px 16px 4px;
             border-radius: 3px;
@@ -626,7 +639,6 @@
       background: var(--color);
       border-radius: 2px;
       cursor: pointer;
-      //margin-right: 10px;
 
       &-btn {
         color: var(--color);
@@ -649,7 +661,7 @@
   .tabs-view-fix {
     position: fixed;
     z-index: 5;
-    padding: 6px 19px 6px 10px;
+    padding: 6px 10px 6px 10px;
     left: 200px;
   }
 

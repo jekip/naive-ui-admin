@@ -1,9 +1,9 @@
 import type { App } from 'vue';
 import {
   create,
-  NConfigProvider,
   NMessageProvider,
   NDialogProvider,
+  NConfigProvider,
   NInput,
   NButton,
   NForm,
@@ -68,6 +68,7 @@ import {
   NSkeleton,
 } from 'naive-ui';
 
+// https://www.naiveui.com/en-US/os-theme/docs/import-on-demand
 const naive = create({
   components: [
     NMessageProvider,

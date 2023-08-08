@@ -1,4 +1,4 @@
-import http from '@/utils/http/axios';
+import { http } from '@/utils/http/axios';
 
 export interface BasicResponseModel<T = any> {
   code: number;

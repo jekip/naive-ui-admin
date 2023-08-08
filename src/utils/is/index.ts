@@ -11,7 +11,7 @@ export function is(val: unknown, type: string) {
  * @description:  是否为函数
  */
 export function isFunction<T = Function>(val: unknown): val is T {
-  return is(val, 'Function');
+  return is(val, 'Function') || is(val, 'AsyncFunction');
 }
 
 /**
@@ -48,7 +48,7 @@ export function isNumber(val: unknown): val is number {
 /**
  * @description:  是否为AsyncFunction
  */
-export function isAsyncFunction<T = any>(val: unknown): val is Promise<T> {
+export function isAsyncFunction<T = any>(val: unknown): val is () => Promise<T> {
   return is(val, 'AsyncFunction');
 }
 

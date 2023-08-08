@@ -1,5 +1,5 @@
 import { adminMenus } from '@/api/system/menu';
-import { constantRouterIcon } from './router-icons';
+import { constantRouterIcon } from './icons';
 import { RouteRecordRaw } from 'vue-router';
 import { Layout, ParentLayout } from '@/router/constant';
 import type { AppRouteRecordRaw } from '@/router/types';
@@ -16,13 +16,13 @@ LayoutMap.set('IFRAME', Iframe);
  * @param parent
  * @returns {*}
  */
-export const routerGenerator = (routerMap, parent?): any[] => {
+export const generateRoutes = (routerMap, parent?): any[] => {
   return routerMap.map((item) => {
-    const currentRouter: any = {
+    const currentRoute: any = {
       // 路由地址 动态拼接生成如 /dashboard/workplace
-      path: `${(parent && parent.path) || ''}/${item.path}`,
+      path: `${(parent && parent.path) ?? ''}/${item.path}`,
       // 路由名称，建议唯一
-      name: item.name || '',
+      name: item.name ?? '',
       // 该路由对应页面的 组件
       component: item.component,
       // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
@@ -35,17 +35,17 @@ export const routerGenerator = (routerMap, parent?): any[] => {
     };
 
     // 为了防止出现后端返回结果不规范，处理有可能出现拼接出两个 反斜杠
-    currentRouter.path = currentRouter.path.replace('//', '/');
+    currentRoute.path = currentRoute.path.replace('//', '/');
     // 重定向
-    item.redirect && (currentRouter.redirect = item.redirect);
+    item.redirect && (currentRoute.redirect = item.redirect);
     // 是否有子菜单，并递归处理
     if (item.children && item.children.length > 0) {
       //如果未定义 redirect 默认第一个子路由为 redirect
-      !item.redirect && (currentRouter.redirect = `${item.path}/${item.children[0].path}`);
+      !item.redirect && (currentRoute.redirect = `${item.path}/${item.children[0].path}`);
       // Recursion
-      currentRouter.children = routerGenerator(item.children, currentRouter);
+      currentRoute.children = generateRoutes(item.children, currentRoute);
     }
-    return currentRouter;
+    return currentRoute;
   });
 };
 
@@ -53,19 +53,11 @@ export const routerGenerator = (routerMap, parent?): any[] => {
  * 动态生成菜单
  * @returns {Promise<Router>}
  */
-export const generatorDynamicRouter = (): Promise<RouteRecordRaw[]> => {
-  return new Promise((resolve, reject) => {
-    adminMenus()
-      .then((result) => {
-        const routeList = routerGenerator(result);
-        asyncImportRoute(routeList);
-
-        resolve(routeList);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+export const generateDynamicRoutes = async (): Promise<RouteRecordRaw[]> => {
+  const result = await adminMenus();
+  const router = generateRoutes(result);
+  asyncImportRoute(router);
+  return router;
 };
 
 /**

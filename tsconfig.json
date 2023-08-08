@@ -20,9 +20,6 @@
       "dom",
       "esnext"
     ],
-    "types": [
-      "vite/client"
-    ],
     "typeRoots": [
       "./node_modules/@types/",
       "./types"
@@ -38,7 +35,7 @@
       ]
     }
   },
-  "includes": [
+  "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",

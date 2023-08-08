@@ -1,10 +1,10 @@
 <template>
-  <n-drawer v-model:show="isDrawer" :width="width" :placement="placement" :native-scrollbar="false">
-    <n-drawer-content :title="title">
+  <n-drawer v-model:show="isDrawer" :width="width" :placement="placement">
+    <n-drawer-content :title="title" :native-scrollbar="false">
       <div class="drawer">
         <n-divider title-placement="center">主题</n-divider>
 
-        <div class="drawer-setting-item justify-center dark-switch">
+        <div class="justify-center drawer-setting-item dark-switch">
           <n-tooltip placement="bottom">
             <template #trigger>
               <n-switch v-model:value="designStore.darkTheme" class="dark-theme-switch">
@@ -116,9 +116,7 @@
             </n-tooltip>
             <n-badge dot color="#19be6b" v-if="settingStore.navTheme === 'light'" />
           </div>
-        </div>
 
-        <div class="drawer-setting-item align-items-top">
           <div class="drawer-setting-item-style">
             <n-tooltip placement="top">
               <template #trigger>
@@ -133,7 +131,6 @@
             <n-badge dot color="#19be6b" v-if="settingStore.navTheme === 'header-dark'" />
           </div>
         </div>
-
         <n-divider title-placement="center">界面功能</n-divider>
 
         <div class="drawer-setting-item">
@@ -361,6 +358,7 @@
         border-radius: 2px;
         margin: 0 5px 5px 0;
         text-align: center;
+        line-height: 14px;
 
         .n-icon {
           color: #fff;

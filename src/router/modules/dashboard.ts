@@ -34,6 +34,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: '主控台',
           permissions: ['dashboard_console'],
+          affix: true,
         },
         component: () => import('@/views/dashboard/console/console.vue'),
       },
