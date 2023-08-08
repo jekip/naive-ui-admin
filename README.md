@@ -15,6 +15,41 @@
 
 账号：admin，密码：123456（随意）
 
+## 提示
+
+如果开源版本的功能和组件，并不能满足您的需求，不妨看看，我们全新 `NaiveAdmin` 他或许能让您眼前一亮O(∩_∩)O哈哈~
+
+[NaiveAdmin 官网](https://www.naiveadmin.com)
+
+[NaiveAdmin 变更日志](https://www.yuque.com/u5825/zaqu0e)
+
+[为什么选我们？](https://www.naiveadmin.com/choose/we)
+### Plus
+
+基于 `NaiveUi` 全新设计版本，新增众多特性，强烈推荐
+
+[NaiveAdmin Plus 预览](https://plus.naiveadmin.com)
+
+### Arco vue
+
+智能设计体系，连接轻盈体验
+
+[NaiveAdmin Arco 预览](https://arco.naiveadmin.com)
+
+### Element Plus
+
+面向设计师和开发者的组件库
+
+[Element Plus Admin 预览](https://element.naiveadmin.com)
+
+以上版本同时具备 `NaiveAdmin` 功能/组件/页面，一如既往、开箱即用，欢迎前往查看。
+
+### Antd vue
+
+新产品，如果您选的技术栈是 `Antd` 的话，不妨看看
+
+[NaiveAdmin Antd 预览](https://antd.naiveadmin.com)
+
 ## 文档
 
 [文档地址](https://jekip.github.io/docs)
