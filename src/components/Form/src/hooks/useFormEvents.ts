@@ -32,24 +32,28 @@ export function useFormEvents({
   }
 
   // 提交
-  async function handleSubmit(e?: Event): Promise<void> {
+  async function handleSubmit(e?: Event): Promise<object | boolean> {
     e && e.preventDefault();
     loadingSub.value = true;
     const { submitFunc } = unref(getProps);
     if (submitFunc && isFunction(submitFunc)) {
       await submitFunc();
-      return;
+      loadingSub.value = false;
+      return false;
     }
     const formEl = unref(formElRef);
-    if (!formEl) return;
+    if (!formEl) return false;
     try {
       await validate();
+      const values = getFieldsValue();
       loadingSub.value = false;
-      emit('submit', formModel);
-      return;
-    } catch (error) {
+      emit('submit', values);
+      return values;
+    } catch (error: any) {
+      emit('submit', false);
       loadingSub.value = false;
-      return;
+      console.error(error);
+      return false;
     }
   }
 
@@ -96,6 +100,10 @@ export function useFormEvents({
     });
   }
 
+  function setLoading(value: boolean): void {
+    loadingSub.value = value;
+  }
+
   return {
     handleSubmit,
     validate,
@@ -103,5 +111,6 @@ export function useFormEvents({
     getFieldsValue,
     clearValidate,
     setFieldsValue,
+    setLoading,
   };
 }

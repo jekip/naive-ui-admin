@@ -66,6 +66,7 @@ import {
   NTimePicker,
   NBackTop,
   NSkeleton,
+  NCascader,
 } from 'naive-ui';
 
 // https://www.naiveui.com/en-US/os-theme/docs/import-on-demand
@@ -136,6 +137,7 @@ const naive = create({
     NTimePicker,
     NBackTop,
     NSkeleton,
+    NCascader,
   ],
 });
 

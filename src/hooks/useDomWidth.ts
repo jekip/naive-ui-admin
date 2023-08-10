@@ -1,5 +1,5 @@
 import { ref, onMounted, onUnmounted } from 'vue';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 
 /**
  * description: 获取页面宽度

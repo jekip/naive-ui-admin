@@ -80,6 +80,15 @@ export function useForm(props?: Props): UseFormReturnType {
       const form = await getForm();
       return form.validate(nameList);
     },
+
+    setLoading: (value: boolean) => {
+      loadedRef.value = value;
+    },
+
+    setSchema: async (values) => {
+      const form = await getForm();
+      form.setSchema(values);
+    },
   };
 
   return [register, methods];

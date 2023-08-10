@@ -47,11 +47,13 @@ export interface FormProps {
 export interface FormActionType {
   submit: () => Promise<any>;
   setProps: (formProps: Partial<FormProps>) => Promise<void>;
-  setFieldsValue: (values: Recordable) => Promise<void>;
+  setSchema: (schemaProps: Partial<FormSchema[]>) => Promise<void>;
+  setFieldsValue: (values: Recordable) => void;
   clearValidate: (name?: string | string[]) => Promise<void>;
   getFieldsValue: () => Recordable;
   resetFields: () => Promise<void>;
   validate: (nameList?: any[]) => Promise<any>;
+  setLoading: (status: boolean) => void;
 }
 
 export type RegisterFn = (formInstance: FormActionType) => void;

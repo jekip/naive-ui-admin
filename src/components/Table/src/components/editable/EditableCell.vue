@@ -17,7 +17,7 @@
           :class="getWrapperClass"
           ref="elRef"
           @options-change="handleOptionsChange"
-          @pressEnter="handleEnter"
+          @press-enter="handleEnter"
         />
       </div>
       <div class="editable-cell-action" v-if="!getRowEditable">

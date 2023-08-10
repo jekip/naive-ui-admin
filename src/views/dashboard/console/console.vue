@@ -12,11 +12,11 @@
           <template #header-extra>
             <n-tag type="success">日</n-tag>
           </template>
-          <div class="py-1 px-1 flex justify-between">
+          <div class="flex justify-between px-1 py-1">
             <n-skeleton v-if="loading" :width="100" size="medium" />
             <CountTo v-else :startVal="1" :endVal="visits.dayVisits" class="text-3xl" />
           </div>
-          <div class="py-1 px-1 flex justify-between">
+          <div class="flex justify-between px-1 py-1">
             <div class="text-sn">
               <n-skeleton v-if="loading" :width="100" size="medium" />
               <template v-else>
@@ -61,7 +61,7 @@
           <template #header-extra>
             <n-tag type="info">周</n-tag>
           </template>
-          <div class="py-1 px-1 flex justify-between">
+          <div class="flex justify-between px-1 py-1">
             <n-skeleton v-if="loading" :width="100" size="medium" />
             <CountTo
               v-else
@@ -71,8 +71,8 @@
               class="text-3xl"
             />
           </div>
-          <div class="py-2 px-2 flex justify-between">
-            <div class="text-sn flex-1">
+          <div class="flex justify-between px-2 py-2">
+            <div class="flex-1 text-sn">
               <n-progress
                 type="line"
                 :percentage="saleroom.degree"
@@ -104,11 +104,11 @@
           <template #header-extra>
             <n-tag type="warning">周</n-tag>
           </template>
-          <div class="py-1 px-1 flex justify-between">
+          <div class="flex justify-between px-1 py-1">
             <n-skeleton v-if="loading" :width="100" size="medium" />
             <CountTo v-else :startVal="1" :endVal="orderLarge.weekLarge" class="text-3xl" />
           </div>
-          <div class="py-1 px-1 flex justify-between">
+          <div class="flex justify-between px-1 py-1">
             <div class="text-sn">
               <n-skeleton v-if="loading" :width="100" size="medium" />
               <template v-else>
@@ -153,11 +153,11 @@
           <template #header-extra>
             <n-tag type="error">月</n-tag>
           </template>
-          <div class="py-1 px-1 flex justify-between">
+          <div class="flex justify-between px-1 py-1">
             <n-skeleton v-if="loading" :width="100" size="medium" />
             <CountTo v-else prefix="￥" :startVal="1" :endVal="volume.weekLarge" class="text-3xl" />
           </div>
-          <div class="py-1 px-1 flex justify-between">
+          <div class="flex justify-between px-1 py-1">
             <div class="text-sn">
               <n-skeleton v-if="loading" :width="100" size="medium" />
               <template v-else>
@@ -245,7 +245,7 @@
   const visits = ref<any>({});
   const saleroom = ref<any>({});
   const orderLarge = ref<any>({});
-  const volume = ref({});
+  const volume = ref(<any>{});
 
   // 图标列表
   const iconList = [

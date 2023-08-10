@@ -26,8 +26,17 @@
       :placement="'left'"
       class="layout-side-drawer"
     >
-      <Logo :collapsed="collapsed" />
-      <AsideMenu @clickMenuItem="collapsed = false" />
+      <n-layout-sider
+        :position="fixedMenu"
+        :collapsed="false"
+        :width="menuWidth"
+        :native-scrollbar="false"
+        :inverted="inverted"
+        class="layout-sider"
+      >
+        <Logo :collapsed="collapsed" />
+        <AsideMenu v-model:location="getMenuLocation" />
+      </n-layout-sider>
     </n-drawer>
 
     <n-layout :inverted="inverted">

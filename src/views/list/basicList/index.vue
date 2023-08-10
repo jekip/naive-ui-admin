@@ -63,7 +63,6 @@
 
 <script lang="ts" setup>
   import { h, reactive, ref } from 'vue';
-  // import { useMessage } from 'naive-ui';
   import { BasicTable, TableAction } from '@/components/Table';
   import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
   import { getTableList } from '@/api/table/list';
@@ -217,7 +216,6 @@
 
   const router = useRouter();
   const formRef: any = ref(null);
-  // const message = useMessage();
   const actionRef = ref();
 
   const showModal = ref(false);
@@ -226,11 +224,6 @@
     name: '',
     address: '',
     date: null,
-  });
-
-  const params = ref({
-    pageSize: 5,
-    name: 'xiaoMa',
   });
 
   const actionColumn = reactive({
@@ -285,7 +278,7 @@
     },
   });
 
-  const [register, {}] = useForm({
+  const [register, { getFieldsValue }] = useForm({
     gridProps: { cols: '1 s:1 m:2 l:3 xl:4 2xl:4' },
     labelWidth: 80,
     schemas,
@@ -296,7 +289,7 @@
   }
 
   const loadDataTable = async (res) => {
-    return await getTableList({ ...formParams, ...params.value, ...res });
+    return await getTableList({ ...getFieldsValue(), ...res });
   };
 
   function onCheckedRow(rowKeys) {

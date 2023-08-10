@@ -153,6 +153,9 @@
   const message = useMessage();
 
   function handleSubmit(values: Recordable) {
+    if (!values) {
+      return message.error('请填写完整信息');
+    }
     console.log(values);
     message.success(JSON.stringify(values));
   }

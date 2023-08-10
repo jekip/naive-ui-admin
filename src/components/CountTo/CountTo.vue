@@ -46,7 +46,7 @@
       const source = ref(props.startVal);
       const disabled = ref(false);
       let outputValue = useTransition(source);
-  
+
       const value = computed(() => formatNumber(unref(outputValue)));
 
       watchEffect(() => {

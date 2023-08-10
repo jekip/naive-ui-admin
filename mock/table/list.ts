@@ -27,12 +27,15 @@ export default [
     timeout: 1000,
     method: 'get',
     response: ({ query }) => {
-      const { page = 1, pageSize = 10 } = query;
+      const { page = 1, pageSize = 10, name } = query;
       const list = tableList(Number(pageSize));
+      //并非真实，只是为了模拟搜索结果
+      const count = name ? 30 : 60;
       return resultSuccess({
         page: Number(page),
         pageSize: Number(pageSize),
-        pageCount: 60,
+        pageCount: count,
+        itemCount: count * Number(pageSize),
         list,
       });
     },

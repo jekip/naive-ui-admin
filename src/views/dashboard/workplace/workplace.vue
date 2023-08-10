@@ -16,15 +16,15 @@
           </n-gi>
           <n-gi>
             <div class="flex justify-end w-full">
-              <div class="flex flex-1 flex-col justify-center text-right">
+              <div class="flex flex-col justify-center flex-1 text-right">
                 <span class="text-secondary">项目数</span>
                 <span class="text-2xl">16</span>
               </div>
-              <div class="flex flex-1 flex-col justify-center text-right">
+              <div class="flex flex-col justify-center flex-1 text-right">
                 <span class="text-secondary">待办</span>
                 <span class="text-2xl">3/15</span>
               </div>
-              <div class="flex flex-1 flex-col justify-center text-right">
+              <div class="flex flex-col justify-center flex-1 text-right">
                 <span class="text-secondary">消息</span>
                 <span class="text-2xl">35</span>
               </div>
@@ -54,12 +54,12 @@
                     <GithubOutlined />
                   </n-icon>
                 </span>
-                <span class="text-lg ml-4">Github</span>
+                <span class="ml-4 text-lg">Github</span>
               </div>
-              <div class="flex mt-2 h-10 text-gray-400">
+              <div class="flex h-10 mt-2 text-gray-400">
                 是一个面向开源及私有软件项目的托管平台。
               </div>
-              <div class="flex mt-2 h-10 text-gray-400"> 开源君，2021-07-04 </div>
+              <div class="flex h-10 mt-2 text-gray-400"> 开源君，2021-07-04 </div>
             </n-card>
             <n-card
               size="small"
@@ -72,10 +72,10 @@
                     <LogoVue />
                   </n-icon>
                 </span>
-                <span class="text-lg ml-4">Vue</span>
+                <span class="ml-4 text-lg">Vue</span>
               </div>
-              <div class="flex mt-2 h-10 text-gray-400"> 渐进式 JavaScript 框架 </div>
-              <div class="flex mt-2 h-10 text-gray-400"> 学不动也要学，2021-07-04 </div>
+              <div class="flex h-10 mt-2 text-gray-400"> 渐进式 JavaScript 框架 </div>
+              <div class="flex h-10 mt-2 text-gray-400"> 学不动也要学，2021-07-04 </div>
             </n-card>
             <n-card
               size="small"
@@ -88,10 +88,10 @@
                     <Html5Outlined />
                   </n-icon>
                 </span>
-                <span class="text-lg ml-4">Html5</span>
+                <span class="ml-4 text-lg">Html5</span>
               </div>
-              <div class="flex mt-2 h-10 text-gray-400"> HTML5是互联网的下一代标准。 </div>
-              <div class="flex mt-2 h-10 text-gray-400"> 撸码也是一种艺术 2021-04-01 </div>
+              <div class="flex h-10 mt-2 text-gray-400"> HTML5是互联网的下一代标准。 </div>
+              <div class="flex h-10 mt-2 text-gray-400"> 撸码也是一种艺术 2021-04-01 </div>
             </n-card>
             <n-card
               size="small"
@@ -104,10 +104,10 @@
                     <LogoAngular />
                   </n-icon>
                 </span>
-                <span class="text-lg ml-4">Angular</span>
+                <span class="ml-4 text-lg">Angular</span>
               </div>
-              <div class="flex mt-2 h-10 text-gray-400"> 现代 Web 开发平台，百万粉丝热捧。 </div>
-              <div class="flex mt-2 h-10 text-gray-400"> 铁粉君 2021-07-04。 </div>
+              <div class="flex h-10 mt-2 text-gray-400"> 现代 Web 开发平台，百万粉丝热捧。 </div>
+              <div class="flex h-10 mt-2 text-gray-400"> 铁粉君 2021-07-04。 </div>
             </n-card>
             <n-card
               size="small"
@@ -120,10 +120,10 @@
                     <LogoReact />
                   </n-icon>
                 </span>
-                <span class="text-lg ml-4">React</span>
+                <span class="ml-4 text-lg">React</span>
               </div>
-              <div class="flex mt-2 h-10 text-gray-400"> 用于构建用户界面的 JavaScript 库。 </div>
-              <div class="flex mt-2 h-10 text-gray-400"> 技术牛 2021-07-04。 </div>
+              <div class="flex h-10 mt-2 text-gray-400"> 用于构建用户界面的 JavaScript 库。 </div>
+              <div class="flex h-10 mt-2 text-gray-400"> 技术牛 2021-07-04。 </div>
             </n-card>
             <n-card
               size="small"
@@ -136,10 +136,10 @@
                     <LogoJavascript />
                   </n-icon>
                 </span>
-                <span class="text-lg ml-4">Js</span>
+                <span class="ml-4 text-lg">Js</span>
               </div>
-              <div class="flex mt-2 h-10 text-gray-400"> 路是走出来的，而不是空想出来的。 </div>
-              <div class="flex mt-2 h-10 text-gray-400"> 架构组 2021-07-04 </div>
+              <div class="flex h-10 mt-2 text-gray-400"> 路是走出来的，而不是空想出来的。 </div>
+              <div class="flex h-10 mt-2 text-gray-400"> 架构组 2021-07-04 </div>
             </n-card>
           </div>
         </n-card>
@@ -235,7 +235,7 @@
                     <DashboardOutlined />
                   </n-icon>
                 </span>
-                <span class="text-lx text-center">主控台</span>
+                <span class="text-center text-lx">主控台</span>
               </div>
             </n-card>
             <n-card size="small" class="cursor-pointer project-card-item" hoverable>
@@ -245,7 +245,7 @@
                     <ProfileOutlined />
                   </n-icon>
                 </span>
-                <span class="text-lx text-center">列表</span>
+                <span class="text-center text-lx">列表</span>
               </div>
             </n-card>
             <n-card size="small" class="cursor-pointer project-card-item" hoverable>
@@ -255,7 +255,7 @@
                     <FileProtectOutlined />
                   </n-icon>
                 </span>
-                <span class="text-lx text-center">表单</span>
+                <span class="text-center text-lx">表单</span>
               </div>
             </n-card>
             <n-card size="small" class="cursor-pointer project-card-item" hoverable>
@@ -265,7 +265,7 @@
                     <ApartmentOutlined />
                   </n-icon>
                 </span>
-                <span class="text-lx text-center">权限管理</span>
+                <span class="text-center text-lx">权限管理</span>
               </div>
             </n-card>
             <n-card size="small" class="cursor-pointer project-card-item" hoverable>
@@ -275,7 +275,7 @@
                     <SettingOutlined />
                   </n-icon>
                 </span>
-                <span class="text-lx text-center">系统管理</span>
+                <span class="text-center text-lx">系统管理</span>
               </div>
             </n-card>
             <n-card size="small" class="cursor-pointer project-card-item" hoverable>
@@ -285,7 +285,7 @@
                     <DashboardOutlined />
                   </n-icon>
                 </span>
-                <span class="text-lx text-center">主控台</span>
+                <span class="text-center text-lx">主控台</span>
               </div>
             </n-card>
           </div>
@@ -297,6 +297,10 @@
     </n-grid>
   </div>
 </template>
+
+<script lang="ts">
+  export default { name: 'DashboardWorkplace' };
+</script>
 
 <script lang="ts" setup>
   import schoolboy from '@/assets/images/schoolboy.png';

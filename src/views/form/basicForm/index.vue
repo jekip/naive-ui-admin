@@ -63,7 +63,7 @@
                 name="files"
                 :width="100"
                 :height="100"
-                @uploadChange="uploadChange"
+                @upload-change="uploadChange"
                 v-model:value="uploadList"
                 helpText="单个文件不超过20MB，最多只能上传10个文件"
               />

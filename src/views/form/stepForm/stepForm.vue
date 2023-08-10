@@ -12,9 +12,9 @@
           <n-step title="确认转账信息" description="确认转账信息" />
           <n-step title="完成转账" description="恭喜您，转账成功" />
         </n-steps>
-        <step1 v-if="currentTab === 1" @nextStep="nextStep" />
-        <step2 v-if="currentTab === 2" @nextStep="nextStep" @prevStep="prevStep" />
-        <step3 v-if="currentTab === 3" @prevStep="prevStep" @finish="finish" />
+        <step1 v-if="currentTab === 1" @next-step="nextStep" />
+        <step2 v-if="currentTab === 2" @next-step="nextStep" @prevStep="prevStep" />
+        <step3 v-if="currentTab === 3" @prev-step="prevStep" @finish="finish" />
       </n-space>
     </n-card>
   </div>
