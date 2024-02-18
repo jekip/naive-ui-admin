@@ -1,6 +1,6 @@
 <template>
   <n-form
-    :label-width="90"
+    :label-width="100"
     :model="formValue"
     :rules="rules"
     label-placement="left"
