@@ -90,6 +90,7 @@
             v-bind="getSubmitBtnOptions"
             @click="handleSubmit"
             :loading="loadingSub"
+            attr-type="submit"
             >{{ getProps.submitButtonText }}</n-button
           >
           <n-button
