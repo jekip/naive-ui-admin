@@ -106,7 +106,7 @@
     actionRef.value.reload();
   }
 
-  function editEnd({ record, index, key, value }) {
+  function editEnd({ value }) {
     console.log(value);
   }
 </script>

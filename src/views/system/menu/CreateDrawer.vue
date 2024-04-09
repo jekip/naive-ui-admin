@@ -1,5 +1,5 @@
 <template>
-  <n-drawer v-model:show="isDrawer" :width="width" :placement="placement">
+  <n-drawer v-model:show="state.isDrawer" :width="width" :placement="state.placement">
     <n-drawer-content :title="title" closable>
       <n-form
         :model="formParams"
@@ -38,7 +38,7 @@
 
       <template #footer>
         <n-space>
-          <n-button type="primary" :loading="subLoading" @click="formSubmit">提交</n-button>
+          <n-button type="primary" :loading="state.subLoading" @click="formSubmit">提交</n-button>
           <n-button @click="handleReset">重置</n-button>
         </n-space>
       </template>
@@ -46,8 +46,8 @@
   </n-drawer>
 </template>
 
-<script lang="ts">
-  import { defineComponent, reactive, ref, toRefs } from 'vue';
+<script lang="ts" setup>
+  import { reactive, ref, toRefs } from 'vue';
   import { useMessage } from 'naive-ui';
 
   const rules = {
@@ -62,75 +62,58 @@
       trigger: 'blur',
     },
   };
-  export default defineComponent({
-    name: 'CreateDrawer',
-    components: {},
-    props: {
-      title: {
-        type: String,
-        default: '添加顶级菜单',
-      },
-      width: {
-        type: Number,
-        default: 450,
-      },
+
+  defineProps({
+    title: {
+      type: String,
+      default: '添加顶级菜单',
     },
-    setup() {
-      const message = useMessage();
-      const formRef: any = ref(null);
-      const defaultValueRef = () => ({
-        label: '',
-        type: 1,
-        subtitle: '',
-        openType: 1,
-        auth: '',
-        path: '',
-        hidden: false,
-      });
-
-      const state = reactive({
-        isDrawer: false,
-        subLoading: false,
-        formParams: defaultValueRef(),
-        placement: 'right' as const,
-        alertText:
-          '该功能主要实时预览各种布局效果，更多完整配置在 projectSetting.ts 中设置，建议在生产环境关闭该布局预览功能。',
-      });
-
-      function openDrawer() {
-        state.isDrawer = true;
-      }
-
-      function closeDrawer() {
-        state.isDrawer = false;
-      }
-
-      function formSubmit() {
-        formRef.value.validate((errors) => {
-          if (!errors) {
-            message.success('添加成功');
-            handleReset();
-            closeDrawer();
-          } else {
-            message.error('请填写完整信息');
-          }
-        });
-      }
-
-      function handleReset() {
-        formRef.value.restoreValidation();
-        state.formParams = Object.assign(state.formParams, defaultValueRef());
-      }
-
-      return {
-        ...toRefs(state),
-        formRef,
-        rules,
-        formSubmit,
-        handleReset,
-        openDrawer,
-        closeDrawer,
-      };
+    width: {
+      type: Number,
+      default: 450,
     },
   });
+
+  const message = useMessage();
+  const formRef: any = ref(null);
+  const defaultValueRef = () => ({
+    label: '',
+    type: 1,
+    subtitle: '',
+    openType: 1,
+    auth: '',
+    path: '',
+    hidden: false,
+  });
+  const formParams = ref(defaultValueRef());
+  const state = reactive({
+    isDrawer: false,
+    subLoading: false,
+    placement: 'right' as const,
+  });
+
+  function openDrawer() {
+    state.isDrawer = true;
+  }
+
+  function closeDrawer() {
+    state.isDrawer = false;
+  }
+
+  function formSubmit() {
+    formRef.value.validate((errors) => {
+      if (!errors) {
+        message.success('添加成功');
+        handleReset();
+        closeDrawer();
+      } else {
+        message.error('请填写完整信息');
+      }
+    });
+  }
+
+  function handleReset() {
+    formRef.value.restoreValidation();
+    formParams.value = Object.assign(formParams.value, defaultValueRef());
+  }
 </script>

@@ -16,15 +16,7 @@
     </NRow>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import FluxTrend from './FluxTrend.vue';
   import VisitAmount from './VisitAmount.vue';
-
-  export default defineComponent({
-    components: { FluxTrend, VisitAmount },
-    setup() {
-      return {};
-    },
-  });
 </script>

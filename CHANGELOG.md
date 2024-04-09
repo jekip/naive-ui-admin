@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.9.1
+
+- 优化 `typeSctipt` 类型定义
+- 优化 `setup` 语法
+- 依赖升级
+
 ## 1.9.0
 
 - 新增 `BasicForm` 组件，支持 `setLoading`, `setSchema` 方法

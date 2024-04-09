@@ -8,7 +8,7 @@ import { storage } from '@/utils/Storage';
 
 export type UserInfoType = {
   // TODO: add your own data
-  name: string;
+  username: string;
   email: string;
 };
 

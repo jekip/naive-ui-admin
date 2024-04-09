@@ -10,7 +10,7 @@
         <h2 v-show="!collapsed" class="title">{{ websiteConfig.title }}</h2>
       </div>
       <AsideMenu
-        v-model:collapsed="collapsed"
+        :collapsed="collapsed"
         v-model:location="getMenuLocation"
         :inverted="getInverted"
         mode="horizontal"
@@ -21,7 +21,7 @@
       <!-- 菜单收起 -->
       <div
         class="ml-1 layout-header-trigger layout-header-trigger-min"
-        @click="() => $emit('update:collapsed', !collapsed)"
+        @click="handleMenuCollapsed"
       >
         <n-icon size="18" v-if="collapsed">
           <MenuUnfoldOutlined />
@@ -101,12 +101,14 @@
       <div class="layout-header-trigger layout-header-trigger-min">
         <n-dropdown trigger="hover" @select="avatarSelect" :options="avatarOptions">
           <div class="avatar">
-            <n-avatar round>
-              {{ username }}
+            <n-avatar round :src="websiteConfig.logo">
+             
               <template #icon>
                 <UserOutlined />
               </template>
             </n-avatar>
+            <n-divider vertical />
+            <span>{{ username }}</span>
           </div>
         </n-dropdown>
       </div>
@@ -151,19 +153,18 @@
         type: Boolean,
       },
     },
-    setup(props) {
+    emits: ['update:collapsed'],
+    setup(props, { emit }) {
       const userStore = useUserStore();
       const useLockscreen = useScreenLockStore();
       const message = useMessage();
       const dialog = useDialog();
       const { navMode, navTheme, headerSetting, menuSetting, crumbsSetting } = useProjectSetting();
 
-      const { name } = userStore?.info || {};
-
       const drawerSetting = ref();
 
       const state = reactive({
-        username: name ?? '',
+        username: userStore?.info?.username ?? '',
         fullscreenIcon: 'FullscreenOutlined',
         navMode,
         navTheme,
@@ -323,6 +324,10 @@
         openDrawer();
       }
 
+      function handleMenuCollapsed() {
+        emit('update:collapsed', !props.collapsed);
+      }
+
       return {
         ...toRefs(state),
         iconList,
@@ -341,6 +346,7 @@
         getMenuLocation,
         mixMenu,
         websiteConfig,
+        handleMenuCollapsed,
       };
     },
   });

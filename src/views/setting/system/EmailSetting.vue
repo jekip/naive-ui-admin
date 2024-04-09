@@ -36,8 +36,8 @@
   </n-grid>
 </template>
 
-<script lang="ts">
-  import { defineComponent, reactive, ref, toRefs } from 'vue';
+<script lang="ts" setup>
+  import { reactive, ref, toRefs } from 'vue';
   import { useMessage } from 'naive-ui';
 
   const rules = {
@@ -47,33 +47,21 @@
       trigger: 'blur',
     },
   };
-  export default defineComponent({
-    setup() {
-      const formRef: any = ref(null);
-      const message = useMessage();
 
-      const state = reactive({
-        formValue: {
-          originator: '',
-        },
-      });
+  const formRef: any = ref(null);
+  const message = useMessage();
 
-      function formSubmit() {
-        formRef.value.validate((errors) => {
-          if (!errors) {
-            message.success('验证成功');
-          } else {
-            message.error('验证失败，请填写完整信息');
-          }
-        });
-      }
-
-      return {
-        formRef,
-        ...toRefs(state),
-        rules,
-        formSubmit,
-      };
-    },
+  const formValue = ref({
+    originator: '',
   });
+
+  function formSubmit() {
+    formRef.value.validate((errors) => {
+      if (!errors) {
+        message.success('验证成功');
+      } else {
+        message.error('验证失败，请填写完整信息');
+      }
+    });
+  }
 </script>

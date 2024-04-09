@@ -25,8 +25,8 @@
     </n-grid>
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent, reactive, toRefs } from 'vue';
+<script lang="ts" setup>
+  import { reactive, toRefs } from 'vue';
   import BasicSetting from './BasicSetting.vue';
   import RevealSetting from './RevealSetting.vue';
   import EmailSetting from './EmailSetting.vue';
@@ -48,26 +48,16 @@
       key: 3,
     },
   ];
-  export default defineComponent({
-    components: { BasicSetting, RevealSetting, EmailSetting },
-    setup() {
-      const state = reactive({
-        type: 1,
-        typeTitle: '基本设置',
-      });
 
-      function switchType(e) {
-        state.type = e.key;
-        state.typeTitle = e.name;
-      }
-
-      return {
-        ...toRefs(state),
-        switchType,
-        typeTabList,
-      };
-    },
+  const state = reactive({
+    type: 1,
+    typeTitle: '基本设置',
   });
+
+  function switchType(e) {
+    state.type = e.key;
+    state.typeTitle = e.name;
+  }
 </script>
 <style lang="less" scoped>
   .thing-cell {

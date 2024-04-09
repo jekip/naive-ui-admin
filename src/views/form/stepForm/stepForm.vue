@@ -13,7 +13,7 @@
           <n-step title="完成转账" description="恭喜您，转账成功" />
         </n-steps>
         <step1 v-if="currentTab === 1" @next-step="nextStep" />
-        <step2 v-if="currentTab === 2" @next-step="nextStep" @prevStep="prevStep" />
+        <step2 v-if="currentTab === 2" @next-step="nextStep" @prev-step="prevStep" />
         <step3 v-if="currentTab === 3" @prev-step="prevStep" @finish="finish" />
       </n-space>
     </n-card>
@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-  import { defineComponent, ref } from 'vue';
+  import { ref } from 'vue';
   import step1 from './Step1.vue';
   import step2 from './Step2.vue';
   import step3 from './Step3.vue';

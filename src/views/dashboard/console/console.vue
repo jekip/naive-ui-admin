@@ -241,11 +241,38 @@
     SettingOutlined,
   } from '@vicons/antd';
 
+  interface InVisits {
+    dayVisits: number;
+    rise: number;
+    decline: number;
+    amount: number;
+  }
+
+  interface InSaleroom {
+    weekSaleroom: number;
+    amount: number;
+    degree: number;
+  }
+
+  interface InOrderLarge {
+    weekLarge: number;
+    rise: number;
+    decline: number;
+    amount: number;
+  }
+
+  interface InVolume {
+    weekLarge: number;
+    rise: number;
+    decline: number;
+    amount: number;
+  }
+
   const loading = ref(true);
-  const visits = ref<any>({});
-  const saleroom = ref<any>({});
-  const orderLarge = ref<any>({});
-  const volume = ref(<any>{});
+  const visits = ref({} as InVisits);
+  const saleroom = ref({} as InSaleroom);
+  const orderLarge = ref({} as InOrderLarge);
+  const volume = ref({} as InVolume);
 
   // 图标列表
   const iconList = [
