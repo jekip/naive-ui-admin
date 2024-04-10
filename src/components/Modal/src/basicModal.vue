@@ -98,6 +98,8 @@
   if (instance) {
     emit('register', modalMethods);
   }
+
+  defineExpose(modalMethods);
 </script>
 
 <style lang="less">
