@@ -206,7 +206,7 @@
         <n-divider title-placement="center">动画</n-divider>
 
         <div class="drawer-setting-item">
-          <div class="drawer-setting-item-title"> 禁用动画 </div>
+          <div class="drawer-setting-item-title"> 启用动画 </div>
           <div class="drawer-setting-item-action">
             <n-switch v-model:value="settingStore.isPageAnimate" />
           </div>
