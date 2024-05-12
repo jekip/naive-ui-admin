@@ -1,10 +1,10 @@
 export interface PaginationProps {
-  page?: number; //ÊÜ¿ØÄ£Ê½ÏÂµÄµ±Ç°Ò³
-  itemCount?: number; //×ÜÌõÊı
-  pageCount?: number; //×ÜÒ³Êı
-  pageSize?: number; //ÊÜ¿ØÄ£Ê½ÏÂµÄ·ÖÒ³´óĞ¡
-  pageSizes?: number[]; //Ã¿Ò³ÌõÊı£¬ ¿É×Ô¶¨Òå
-  showSizePicker?: boolean; //ÊÇ·ñÏÔÊ¾Ã¿Ò³ÌõÊıµÄÑ¡ÔñÆ÷
-  showQuickJumper?: boolean; //ÊÇ·ñÏÔÊ¾¿ìËÙÌø×ª
-  prefix?: any; //·ÖÒ³Ç°×º
+  page?: number; //å—æ§æ¨¡å¼ä¸‹çš„å½“å‰é¡µ
+  itemCount?: number; //æ€»æ¡æ•°
+  pageCount?: number; //æ€»é¡µæ•°
+  pageSize?: number; //å—æ§æ¨¡å¼ä¸‹çš„åˆ†é¡µå¤§å°
+  pageSizes?: number[]; //æ¯é¡µæ¡æ•°ï¼Œ å¯è‡ªå®šä¹‰
+  showSizePicker?: boolean; //æ˜¯å¦æ˜¾ç¤ºæ¯é¡µæ¡æ•°çš„é€‰æ‹©å™¨
+  showQuickJumper?: boolean; //æ˜¯å¦æ˜¾ç¤ºå¿«é€Ÿè·³è½¬
+  prefix?: any; //åˆ†é¡µå‰ç¼€
 }

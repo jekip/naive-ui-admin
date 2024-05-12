@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- 依赖升级
+
 ## 1.9.1
 
 - 优化 `typeSctipt` 类型定义
@@ -19,6 +21,7 @@
 - 修复 `手机端侧边导航风格不一致bug` 关闭[#247](https://github.com/jekip/naive-ui-admin/issues/247
 - 移除 `yarn.lock` 文件
 - 依赖升级
+
 ## 1.8.2
 
 - ### ✨ Features
