@@ -66,7 +66,7 @@
 - [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
 - [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
 - [Vue-Router-Next](https://next.router.vuejs.org/) - 熟悉 vue-router 基本使用
-- [Naive-ui-admin](https://www.naiveui.com/) - ui 基本使用
+- [NaiveUi](https://www.naiveui.com/) - ui 基本使用
 - [Mock.js](https://github.com/nuysoft/Mock) - mockjs 基本语法
 
 
