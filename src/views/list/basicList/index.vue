@@ -14,6 +14,7 @@
       :actionColumn="actionColumn"
       @update:checked-row-keys="onCheckedRow"
       :scroll-x="1090"
+      :striped="true"
     >
       <template #tableTitle>
         <n-button type="primary" @click="addTable">

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.9.2
+
+- 升级 `vite` 到 `5.x` 版本
+- 优化 `BasicTable` 组件，编辑样式
+- 新增 `BasicTable` 组件，支持 `striped` 入参
 - 依赖升级
 
 ## 1.9.1

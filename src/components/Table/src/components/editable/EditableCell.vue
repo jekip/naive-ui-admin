@@ -1,12 +1,6 @@
 <template>
   <div class="editable-cell">
-    <div v-show="!isEdit" class="editable-cell-content" @click="handleEdit">
-      {{ getValues }}
-      <n-icon class="edit-icon" v-if="!column.editRow">
-        <FormOutlined />
-      </n-icon>
-    </div>
-    <div class="flex editable-cell-content" v-show="isEdit" v-click-outside="onClickOutside">
+    <div class="flex editable-cell-content" v-if="isEdit" v-click-outside="onClickOutside">
       <div class="editable-cell-content-comp">
         <CellComponent
           v-bind="getComponentProps"
@@ -28,6 +22,12 @@
           <CloseOutlined @click="handleCancel" />
         </n-icon>
       </div>
+    </div>
+    <div v-else class="flex items-center editable-cell-content" @click="handleEdit">
+      {{ getValues }}
+      <n-icon class="ml-1 edit-icon" v-if="!column.editRow">
+        <FormOutlined />
+      </n-icon>
     </div>
   </div>
 </template>
