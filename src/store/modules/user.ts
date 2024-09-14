@@ -78,7 +78,8 @@ export const useUserStore = defineStore({
 
     // 获取用户信息
     async getInfo() {
-      const result = await getUserInfoApi();
+      const data = await getUserInfoApi();
+      const { result } = data;
       if (result.permissions && result.permissions.length) {
         const permissionsList = result.permissions;
         this.setPermissions(permissionsList);

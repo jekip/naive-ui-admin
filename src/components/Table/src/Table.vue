@@ -2,23 +2,23 @@
   <div class="table-toolbar">
     <!--顶部左侧区域-->
     <div class="flex items-center table-toolbar-left">
-      <template v-if="title">
+      <template v-if="props.title">
         <div class="table-toolbar-left-title">
-          {{ title }}
-          <n-tooltip trigger="hover" v-if="titleTooltip">
+          {{ props.title }}
+          <n-tooltip trigger="hover" v-if="props.titleTooltip">
             <template #trigger>
               <n-icon size="18" class="ml-1 text-gray-400 cursor-pointer">
                 <QuestionCircleOutlined />
               </n-icon>
             </template>
-            {{ titleTooltip }}
+            {{ props.titleTooltip }}
           </n-tooltip>
         </div>
       </template>
       <slot name="tableTitle"></slot>
     </div>
 
-    <div class="flex items-center table-toolbar-right">
+    <div class="flex items-center leading-none table-toolbar-right">
       <!--顶部右侧区域-->
       <slot name="toolbar"></slot>
 
@@ -84,18 +84,8 @@
   </div>
 </template>
 
-<script lang="ts">
-  import {
-    ref,
-    defineComponent,
-    reactive,
-    unref,
-    toRaw,
-    computed,
-    toRefs,
-    onMounted,
-    nextTick,
-  } from 'vue';
+<script lang="ts" setup>
+  import { ref, unref, toRaw, computed, onMounted, nextTick } from 'vue';
   import { ReloadOutlined, ColumnHeightOutlined, QuestionCircleOutlined } from '@vicons/antd';
   import { createTableContext } from './hooks/useTableContext';
 
@@ -132,181 +122,150 @@
     },
   ];
 
-  export default defineComponent({
-    components: {
-      ReloadOutlined,
-      ColumnHeightOutlined,
-      ColumnSetting,
-      QuestionCircleOutlined,
-    },
-    props: {
-      ...basicProps,
-    },
-    emits: [
-      'fetch-success',
-      'fetch-error',
-      'update:checked-row-keys',
-      'edit-end',
-      'edit-cancel',
-      'edit-row-end',
-      'edit-change',
-    ],
-    setup(props, { emit }) {
-      const deviceHeight = ref(150);
-      const tableElRef = ref<ComponentRef>(null);
-      const wrapRef = ref<Nullable<HTMLDivElement>>(null);
-      let paginationEl: HTMLElement | null;
-      const isStriped = ref(props.striped || false);
-      const tableData = ref<Recordable[]>([]);
-      const innerPropsRef = ref<Partial<BasicTableProps>>();
+  const emit = defineEmits([
+    'fetch-success',
+    'fetch-error',
+    'update:checked-row-keys',
+    'edit-end',
+    'edit-cancel',
+    'edit-row-end',
+    'edit-change',
+  ]);
 
-      const getProps = computed(() => {
-        return { ...props, ...unref(innerPropsRef) } as BasicTableProps;
-      });
+  const props = defineProps({ ...basicProps });
+  const deviceHeight = ref(150);
+  const tableElRef = ref<ComponentRef>(null);
+  const wrapRef = ref<Nullable<HTMLDivElement>>(null);
+  let paginationEl: HTMLElement | null;
+  const isStriped = ref(props.striped || false);
+  const tableData = ref<Recordable[]>([]);
+  const innerPropsRef = ref<Partial<BasicTableProps>>();
 
-      const { getLoading, setLoading } = useLoading(getProps);
-
-      const { getPaginationInfo, setPagination } = usePagination(getProps);
-
-      const { getDataSourceRef, getDataSource, getRowKey, reload } = useDataSource(
-        getProps,
-        {
-          getPaginationInfo,
-          setPagination,
-          tableData,
-          setLoading,
-        },
-        emit
-      );
-
-      const { getPageColumns, setColumns, getColumns, getCacheColumns, setCacheColumnsField } =
-        useColumns(getProps);
-
-      const state = reactive({
-        tableSize: unref(getProps as any).size || 'medium',
-        isColumnSetting: false,
-      });
-
-      //页码切换
-      function updatePage(page) {
-        setPagination({ page: page });
-        reload();
-      }
-
-      //分页数量切换
-      function updatePageSize(size) {
-        setPagination({ page: 1, pageSize: size });
-        reload();
-      }
-
-      //密度切换
-      function densitySelect(e) {
-        state.tableSize = e;
-      }
-
-      //选中行
-      function updateCheckedRowKeys(rowKeys) {
-        emit('update:checked-row-keys', rowKeys);
-      }
-
-      //获取表格大小
-      const getTableSize = computed(() => state.tableSize);
-
-      //组装表格信息
-      const getBindValues = computed(() => {
-        const tableData = unref(getDataSourceRef);
-        const maxHeight = tableData.length ? `${unref(deviceHeight)}px` : 'auto';
-        return {
-          ...unref(getProps),
-          loading: unref(getLoading),
-          columns: toRaw(unref(getPageColumns)),
-          rowKey: unref(getRowKey),
-          data: tableData,
-          size: unref(getTableSize),
-          remote: true,
-          'max-height': maxHeight,
-        };
-      });
-
-      //获取分页信息
-      const pagination = computed(() => toRaw(unref(getPaginationInfo)));
-
-      function setProps(props: Partial<BasicTableProps>) {
-        innerPropsRef.value = { ...unref(innerPropsRef), ...props };
-      }
-
-      const setStriped = (value: boolean) => (isStriped.value = value);
-
-      const tableAction = {
-        reload,
-        setColumns,
-        setLoading,
-        setProps,
-        getColumns,
-        getPageColumns,
-        getCacheColumns,
-        setCacheColumnsField,
-        emit,
-      };
-
-      const getCanResize = computed(() => {
-        const { canResize } = unref(getProps);
-        return canResize;
-      });
-
-      async function computeTableHeight() {
-        const table = unref(tableElRef);
-        if (!table) return;
-        if (!unref(getCanResize)) return;
-        const tableEl: any = table?.$el;
-        const headEl = tableEl.querySelector('.n-data-table-thead ');
-        const { bottomIncludeBody } = getViewportOffset(headEl);
-        const headerH = 64;
-        let paginationH = 2;
-        let marginH = 24;
-        if (!isBoolean(unref(pagination))) {
-          paginationEl = tableEl.querySelector('.n-data-table__pagination') as HTMLElement;
-          if (paginationEl) {
-            const offsetHeight = paginationEl.offsetHeight;
-            paginationH += offsetHeight || 0;
-          } else {
-            paginationH += 28;
-          }
-        }
-        let height =
-          bottomIncludeBody - (headerH + paginationH + marginH + (props.resizeHeightOffset || 0));
-        const maxHeight = props.maxHeight;
-        height = maxHeight && maxHeight < height ? maxHeight : height;
-        deviceHeight.value = height;
-      }
-
-      useWindowSizeFn(computeTableHeight, 280);
-
-      onMounted(() => {
-        nextTick(() => {
-          computeTableHeight();
-        });
-      });
-
-      createTableContext({ ...tableAction, wrapRef, getBindValues });
-
-      return {
-        ...toRefs(state),
-        tableElRef,
-        getBindValues,
-        getDataSource,
-        densityOptions,
-        reload,
-        densitySelect,
-        updatePage,
-        updatePageSize,
-        pagination,
-        tableAction,
-        setStriped,
-        isStriped,
-      };
-    },
+  const getProps = computed(() => {
+    return { ...props, ...unref(innerPropsRef) } as BasicTableProps;
   });
+
+  const tableSize = ref(unref(getProps as any).size || 'medium');
+
+  const { getLoading, setLoading } = useLoading(getProps);
+
+  const { getPaginationInfo, setPagination } = usePagination(getProps);
+
+  const { getDataSourceRef, getDataSource, getRowKey, reload } = useDataSource(
+    getProps,
+    {
+      getPaginationInfo,
+      setPagination,
+      tableData,
+      setLoading,
+    },
+    emit
+  );
+
+  const { getPageColumns, setColumns, getColumns, getCacheColumns, setCacheColumnsField } =
+    useColumns(getProps);
+
+  //页码切换
+  function updatePage(page) {
+    setPagination({ page: page });
+    reload();
+  }
+
+  //分页数量切换
+  function updatePageSize(size) {
+    setPagination({ page: 1, pageSize: size });
+    reload();
+  }
+
+  //密度切换
+  function densitySelect(e) {
+    tableSize.value = e;
+  }
+
+  //获取表格大小
+  const getTableSize = computed(() => tableSize.value);
+
+  //组装表格信息
+  const getBindValues = computed(() => {
+    const tableData = unref(getDataSourceRef);
+    const maxHeight = tableData.length ? `${unref(deviceHeight)}px` : 'auto';
+    return {
+      ...unref(getProps),
+      loading: unref(getLoading),
+      columns: toRaw(unref(getPageColumns)),
+      rowKey: unref(getRowKey),
+      data: tableData,
+      size: unref(getTableSize),
+      remote: true,
+      'max-height': maxHeight,
+      title: '', // 重置为空 避免绑定到 table 上面
+    };
+  });
+
+  //获取分页信息
+  const pagination = computed(() => toRaw(unref(getPaginationInfo)));
+
+  function setProps(props: Partial<BasicTableProps>) {
+    innerPropsRef.value = { ...unref(innerPropsRef), ...props };
+  }
+
+  const setStriped = (value: boolean) => (isStriped.value = value);
+
+  const tableAction = {
+    reload,
+    setColumns,
+    setLoading,
+    setProps,
+    getColumns,
+    getDataSource,
+    getPageColumns,
+    getCacheColumns,
+    setCacheColumnsField,
+    emit,
+  };
+
+  const getCanResize = computed(() => {
+    const { canResize } = unref(getProps);
+    return canResize;
+  });
+
+  async function computeTableHeight() {
+    const table = unref(tableElRef);
+    if (!table) return;
+    if (!unref(getCanResize)) return;
+    const tableEl: any = table?.$el;
+    const headEl = tableEl.querySelector('.n-data-table-thead ');
+    const { bottomIncludeBody } = getViewportOffset(headEl);
+    const headerH = 64;
+    let paginationH = 2;
+    let marginH = 24;
+    if (!isBoolean(unref(pagination))) {
+      paginationEl = tableEl.querySelector('.n-data-table__pagination') as HTMLElement;
+      if (paginationEl) {
+        const offsetHeight = paginationEl.offsetHeight;
+        paginationH += offsetHeight || 0;
+      } else {
+        paginationH += 28;
+      }
+    }
+    let height =
+      bottomIncludeBody - (headerH + paginationH + marginH + (props.resizeHeightOffset || 0));
+    const maxHeight = props.maxHeight;
+    height = maxHeight && maxHeight < height ? maxHeight : height;
+    deviceHeight.value = height;
+  }
+
+  useWindowSizeFn(computeTableHeight, 280);
+
+  onMounted(() => {
+    nextTick(() => {
+      computeTableHeight();
+    });
+  });
+
+  createTableContext({ ...tableAction, wrapRef, getBindValues });
+
+  defineExpose(tableAction);
 </script>
 <style lang="less" scoped>
   .table-toolbar {

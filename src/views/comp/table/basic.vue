@@ -10,11 +10,7 @@
       :actionColumn="actionColumn"
       :scroll-x="1360"
       @update:checked-row-keys="onCheckedRow"
-    >
-      <template #toolbar>
-        <n-button type="primary" @click="reloadTable">刷新数据</n-button>
-      </template>
-    </BasicTable>
+    />
   </n-card>
 </template>
 
@@ -32,18 +28,18 @@
 
   const params = reactive({
     pageSize: 5,
-    name: 'xiaoMa',
+    name: 'NaiveAdmin',
   });
 
   const actionColumn = reactive({
-    width: 150,
+    width: 180,
     title: '操作',
     key: 'action',
     fixed: 'right',
     align: 'center',
     render(record) {
       return h(TableAction as any, {
-        style: 'text',
+        style: 'button',
         actions: createActions(record),
       });
     },
@@ -53,26 +49,16 @@
     return [
       {
         label: '删除',
-        type: 'error',
         // 配置 color 会覆盖 type
-        color: 'red',
         icon: DeleteOutlined,
         onClick: handleDelete.bind(null, record),
-        // 根据业务控制是否显示 isShow 和 auth 是并且关系
-        ifShow: () => {
-          return true;
-        },
         // 根据权限控制是否显示: 有权限，会显示，支持多个
         auth: ['basic_list'],
       },
       {
         label: '编辑',
-        type: 'primary',
         icon: EditOutlined,
         onClick: handleEdit.bind(null, record),
-        ifShow: () => {
-          return true;
-        },
         auth: ['basic_list'],
       },
     ];
@@ -84,10 +70,6 @@
 
   function onCheckedRow(rowKeys) {
     console.log(rowKeys);
-  }
-
-  function reloadTable() {
-    actionRef.value.reload();
   }
 
   function handleDelete(record) {

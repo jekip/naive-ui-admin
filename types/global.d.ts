@@ -30,6 +30,12 @@ declare global {
     -readonly [P in keyof T]: T[P];
   };
 
+  declare interface InResult<T = any> {
+    code: number;
+    message: string;
+    result: T;
+  }
+
   declare type Nullable<T> = T | null;
   declare type NonNullable<T> = T extends null | undefined ? never : T;
   declare type Recordable<T = any> = Record<string, T>;

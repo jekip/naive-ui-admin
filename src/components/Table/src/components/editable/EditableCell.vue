@@ -15,10 +15,10 @@
         />
       </div>
       <div class="editable-cell-action" v-if="!getRowEditable">
-        <n-icon class="mx-2 cursor-pointer">
+        <n-icon class="mx-2 cursor-pointer" title="保存">
           <CheckOutlined @click="handleSubmit" />
         </n-icon>
-        <n-icon class="mx-2 cursor-pointer">
+        <n-icon class="mx-2 cursor-pointer" title="取消">
           <CloseOutlined @click="handleCancel" />
         </n-icon>
       </div>

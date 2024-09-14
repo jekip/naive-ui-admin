@@ -1,11 +1,12 @@
 <template>
-  <n-card :bordered="false" class="proCard">
+  <n-card :bordered="false">
     <BasicForm @register="register" @submit="handleSubmit" @reset="handleReset">
       <template #statusSlot="{ model, field }">
         <n-input v-model:value="model[field]" />
       </template>
     </BasicForm>
-
+  </n-card>
+  <n-card :bordered="false" class="mt-3">
     <BasicTable
       :columns="columns"
       :request="loadDataTable"
@@ -27,9 +28,7 @@
         </n-button>
       </template>
 
-      <template #toolbar>
-        <n-button type="primary" @click="reloadTable">刷新数据</n-button>
-      </template>
+      <template #toolbar> </template>
     </BasicTable>
 
     <n-modal v-model:show="showModal" :show-icon="false" preset="dialog" title="新建">

@@ -1,11 +1,8 @@
-import { http } from '@/utils/http/axios';
+import { Alova } from '@/utils/http/alova/index';
 
 /**
  * @description: 角色列表
  */
-export function getRoleList() {
-  return http.request({
-    url: '/role/list',
-    method: 'GET',
-  });
+export function getRoleList(params) {
+  return Alova.Get('/role/list', { params });
 }

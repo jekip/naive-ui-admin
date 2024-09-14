@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 2.0.0
+
+- 新增 `alova` 请求库
+- 新增 `@faker-js/faker` 可配合 `mock` 数据模拟
+- 新增 `VITE_USE_MOCK` 环境变量-开启 `mock` 
+- 新增 `demo` 实例，新增/编辑角色
+- 移除 `axios` 请求封装，使用 `alova` 代替
+- 移除 `vite-plugin-mock` 使用 `@alova/mock` 代替
+- 移除 `VITE_GLOB_PROD_MOCK` 环境变量
+- 变更 `VITE_GLOB_IMG_URL` 环境变量变更成 `VITE_GLOB_FILE_URL` 
+- 优化 `BasicTable` 组件相关样式
+- 优化 `TS` 类型定义
+- 依赖升级
+
 ## 1.9.2
 
 - 升级 `vite` 到 `5.x` 版本

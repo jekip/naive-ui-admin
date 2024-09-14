@@ -1,7 +1,19 @@
+import { defineMock } from '@alova/mock';
 import { resultSuccess } from '../_util';
 
+export interface ListDate {
+  label: string;
+  key: string;
+  type: number;
+  subtitle: string;
+  openType: number;
+  auth: string;
+  path: string;
+  children?: ListDate[];
+}
+
 const menuList = () => {
-  const result: any[] = [
+  const result: ListDate[] = [
     {
       label: 'Dashboard',
       key: 'dashboard',
@@ -74,16 +86,11 @@ const menuList = () => {
   return result;
 };
 
-export default [
-  {
-    url: '/api/menu/list',
-    timeout: 1000,
-    method: 'get',
-    response: () => {
-      const list = menuList();
-      return resultSuccess({
-        list,
-      });
-    },
+export default defineMock({
+  '/api/menu/list': () => {
+    const list = menuList();
+    return resultSuccess({
+      list,
+    });
   },
-];
+});

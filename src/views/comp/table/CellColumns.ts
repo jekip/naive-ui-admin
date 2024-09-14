@@ -1,16 +1,34 @@
 import { h } from 'vue';
-import { NAvatar } from 'naive-ui';
+import { NAvatar, NTag } from 'naive-ui';
+import { BasicColumn } from '@/components/Table';
+export interface ListData {
+  id: number;
+  name: string;
+  sex: string;
+  avatar: string;
+  email: string;
+  city: string;
+  status: string;
+  type: string;
+  createDate: string;
+}
 
-export const columns = [
+const sexMap = {
+  male: '男',
+  female: '女',
+  unknown: '未知',
+};
+
+const statusMap = {
+  close: '已取消',
+  refuse: '已拒绝',
+  pass: '已通过',
+};
+
+export const columns: BasicColumn<ListData>[] = [
   {
     title: 'id',
     key: 'id',
-    width: 100,
-  },
-  {
-    title: '编码',
-    key: 'no',
-    width: 100,
   },
   {
     title: '名称',
@@ -19,65 +37,78 @@ export const columns = [
     // 默认必填校验
     editRule: true,
     edit: true,
-    width: 200,
   },
   {
     title: '头像',
     key: 'avatar',
-    width: 100,
-    render(row) {
+    render(record) {
       return h(NAvatar, {
-        size: 48,
-        src: row.avatar,
+        size: 50,
+        src: record.avatar,
       });
     },
   },
   {
-    title: '地址',
-    key: 'address',
+    title: '性别',
+    key: 'sex',
+    render(record) {
+      return h(
+        NTag,
+        {
+          type: record.sex === 'male' ? 'info' : 'error',
+        },
+        {
+          default: () => sexMap[record.sex],
+        }
+      );
+    },
+  },
+  {
+    title: '邮箱',
+    key: 'email',
+    width: 220,
+  },
+  {
+    title: '城市',
+    key: 'city',
     editComponent: 'NSelect',
     editComponentProps: {
       options: [
         {
-          label: '广东省',
+          label: '深圳市',
           value: 1,
         },
         {
-          label: '浙江省',
+          label: '广州市',
           value: 2,
         },
       ],
     },
     edit: true,
-    width: 200,
-    ellipsis: false,
+    width: 220,
   },
   {
-    title: '开始日期',
-    key: 'beginTime',
-    edit: true,
-    width: 160,
-    editComponent: 'NDatePicker',
-    editComponentProps: {
-      type: 'datetime',
-      format: 'yyyy-MM-dd HH:mm:ss',
-      valueFormat: 'yyyy-MM-dd HH:mm:ss',
+    title: '状态',
+    key: 'status',
+    render(record) {
+      return h(
+        NTag,
+        {
+          type:
+            record.status === 'close'
+              ? 'default'
+              : record.status === 'refuse'
+              ? 'error'
+              : 'success',
+        },
+        {
+          default: () => statusMap[record.status],
+        }
+      );
     },
-    ellipsis: false,
-  },
-  {
-    title: '结束日期',
-    key: 'endTime',
-    width: 160,
   },
   {
     title: '创建时间',
-    key: 'date',
-    width: 160,
-  },
-  {
-    title: '停留时间',
-    key: 'time',
-    width: 80,
+    key: 'createDate',
   },
 ];

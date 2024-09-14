@@ -1,5 +1,6 @@
 import Mock from 'mockjs';
 import { resultSuccess } from '../_util';
+import { defineMock } from '@alova/mock';
 
 const Random = Mock.Random;
 
@@ -37,23 +38,7 @@ const adminInfo = {
   ],
 };
 
-export default [
-  {
-    url: '/api/login',
-    timeout: 1000,
-    method: 'post',
-    response: () => {
-      return resultSuccess({ token });
-    },
-  },
-  {
-    url: '/api/admin_info',
-    timeout: 1000,
-    method: 'get',
-    response: () => {
-      // const token = getRequestToken(request);
-      // if (!token) return resultError('Invalid token');
-      return resultSuccess(adminInfo);
-    },
-  },
-];
+export default defineMock({
+  '[POST]/api/login': () => resultSuccess({ token }),
+  '/api/admin_info': () => resultSuccess(adminInfo),
+});

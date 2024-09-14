@@ -12,11 +12,7 @@
       @edit-change="onEditChange"
       @update:checked-row-keys="onCheckedRow"
       :scroll-x="1590"
-    >
-      <template #toolbar>
-        <n-button type="primary" @click="reloadTable">刷新数据</n-button>
-      </template>
-    </BasicTable>
+    />
   </n-card>
 </template>
 
@@ -30,7 +26,7 @@
   const currentEditKeyRef = ref('');
   const params = reactive({
     pageSize: 5,
-    name: 'xiaoMa',
+    name: 'NaiveAdmin',
   });
 
   const actionColumn = reactive({
@@ -99,11 +95,6 @@
 
   function onCheckedRow(rowKeys) {
     console.log(rowKeys);
-  }
-
-  function reloadTable() {
-    console.log(actionRef.value);
-    actionRef.value.reload();
   }
 
   function editEnd({ value }) {

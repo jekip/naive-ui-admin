@@ -60,7 +60,7 @@ export function useColumns(propsRef: ComputedRef<BasicTableProps>) {
             const title: any = column.title;
             column.title = () => {
               return renderTooltip(
-                h('span', {}, [
+                h('div', { class: 'flex items-center' }, [
                   h('span', { style: { 'margin-right': '5px' } }, title),
                   h(
                     NIcon,

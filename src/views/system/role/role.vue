@@ -15,13 +15,13 @@
         @update:checked-row-keys="onCheckedRow"
       >
         <template #tableTitle>
-          <n-button type="primary">
+          <n-button type="primary" @click="addRole">
             <template #icon>
               <n-icon>
                 <PlusOutlined />
               </n-icon>
             </template>
-            添加角色
+            新增角色
           </n-button>
         </template>
 
@@ -59,6 +59,8 @@
         </n-space>
       </template>
     </n-modal>
+    <CreateModal ref="createModalRef" />
+    <EditModal ref="editModalRef" />
   </div>
 </template>
 
@@ -71,23 +73,26 @@
   import { columns } from './columns';
   import { PlusOutlined } from '@vicons/antd';
   import { getTreeAll } from '@/utils';
+  import CreateModal from './CreateModal.vue';
+  import EditModal from './EditModal.vue';
   import { useRouter } from 'vue-router';
+  import { ListDate } from 'mock/system/menu';
 
   const router = useRouter();
   const message = useMessage();
   const actionRef = ref();
-
+  const createModalRef = ref();
+  const editModalRef = ref();
   const showModal = ref(false);
   const formBtnLoading = ref(false);
   const checkedAll = ref(false);
   const editRoleTitle = ref('');
-  const treeData = ref([]);
-  const expandedKeys = ref([]);
-  const checkedKeys = ref(['console', 'step-form']);
+  const treeData = ref<ListDate[]>([]);
+  const expandedKeys = ref<string[]>([]);
+  const checkedKeys = ref<string[]>(['console', 'step-form']);
 
   const params = reactive({
-    pageSize: 5,
-    name: 'xiaoMa',
+    name: 'NaiveAdmin',
   });
 
   const actionColumn = reactive({
@@ -140,6 +145,10 @@
     return await getRoleList(_params);
   };
 
+  function addRole() {
+    createModalRef.value.openModal();
+  }
+
   function onCheckedRow(rowKeys: any[]) {
     console.log(rowKeys);
   }
@@ -161,7 +170,8 @@
 
   function handleEdit(record: Recordable) {
     console.log('点击了编辑', record);
-    router.push({ name: 'basic-info', params: { id: record.id } });
+    // router.push({ name: 'basic-info', params: { id: record.id } });
+    editModalRef.value.showModal(record);
   }
 
   function handleDelete(record: Recordable) {
@@ -203,8 +213,8 @@
 
   onMounted(async () => {
     const treeMenuList = await getMenuList();
-    expandedKeys.value = treeMenuList.list.map((item) => item.key);
-    treeData.value = treeMenuList.list;
+    expandedKeys.value = treeMenuList?.list.map((item) => item.key);
+    treeData.value = treeMenuList?.list;
   });
 </script>
 

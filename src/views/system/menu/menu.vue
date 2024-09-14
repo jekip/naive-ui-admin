@@ -132,6 +132,7 @@
   import { getMenuList } from '@/api/system/menu';
   import { getTreeItem } from '@/utils';
   import CreateDrawer from './CreateDrawer.vue';
+  import { ListDate } from 'mock/system/menu';
 
   const rules = {
     label: {
@@ -155,7 +156,7 @@
 
   let expandedKeys = ref([]);
 
-  const treeData = ref([]);
+  const treeData = ref<ListDate[]>([]);
 
   const loading = ref(true);
   const subLoading = ref(false);
