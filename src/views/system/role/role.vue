@@ -75,10 +75,8 @@
   import { getTreeAll } from '@/utils';
   import CreateModal from './CreateModal.vue';
   import EditModal from './EditModal.vue';
-  import { useRouter } from 'vue-router';
-  import { ListDate } from 'mock/system/menu';
+  import type { ListDate } from '@/api/system/menu';
 
-  const router = useRouter();
   const message = useMessage();
   const actionRef = ref();
   const createModalRef = ref();

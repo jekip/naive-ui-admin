@@ -1,16 +1,6 @@
 import { defineMock } from '@alova/mock';
 import { resultSuccess } from '../_util';
-
-export interface ListDate {
-  label: string;
-  key: string;
-  type: number;
-  subtitle: string;
-  openType: number;
-  auth: string;
-  path: string;
-  children?: ListDate[];
-}
+import type { ListDate } from '@/api/system/menu';
 
 const menuList = () => {
   const result: ListDate[] = [

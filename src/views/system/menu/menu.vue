@@ -132,7 +132,7 @@
   import { getMenuList } from '@/api/system/menu';
   import { getTreeItem } from '@/utils';
   import CreateDrawer from './CreateDrawer.vue';
-  import { ListDate } from 'mock/system/menu';
+  import type { ListDate } from '@/api/system/menu';
 
   const rules = {
     label: {
