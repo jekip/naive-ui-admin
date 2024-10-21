@@ -7,7 +7,7 @@
             class="thing-cell"
             v-for="item in typeTabList"
             :key="item.key"
-            :class="{ 'thing-cell-on': type === item.key }"
+            :class="{ 'thing-cell-on': state.type === item.key }"
             @click="switchType(item)"
           >
             <template #header>{{ item.name }}</template>
@@ -16,10 +16,10 @@
         </n-card>
       </n-grid-item>
       <n-grid-item span="18">
-        <n-card :bordered="false" size="small" :title="typeTitle" class="proCard">
-          <BasicSetting v-if="type === 1" />
-          <RevealSetting v-if="type === 2" />
-          <EmailSetting v-if="type === 3" />
+        <n-card :bordered="false" size="small" :title="state.typeTitle" class="proCard">
+          <BasicSetting v-if="state.type === 1" />
+          <RevealSetting v-if="state.type === 2" />
+          <EmailSetting v-if="state.type === 3" />
         </n-card>
       </n-grid-item>
     </n-grid>
