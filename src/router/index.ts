@@ -45,7 +45,7 @@ export const constantRouter: RouteRecordRaw[] = [LoginRoute, RootRoute, Redirect
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: constantRouter,
+  routes: [...constantRouter, ...asyncRoutes],
   strict: true,
   scrollBehavior: () => ({ left: 0, top: 0 }),
 });
