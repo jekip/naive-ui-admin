@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, defineEmits } from 'vue';
+  import { ref } from 'vue';
   import { useMessage } from 'naive-ui';
 
   const myAccountList = [
