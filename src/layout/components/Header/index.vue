@@ -44,7 +44,7 @@
       <n-breadcrumb v-if="crumbsSetting.show">
         <template
           v-for="routeItem in breadcrumbList"
-          :key="routeItem.name === 'Redirect' ? void 0 : routeItem.name"
+          :key="routeItem.name === RedirectName ? void 0 : routeItem.name"
         >
           <n-breadcrumb-item v-if="routeItem.meta.title">
             <n-dropdown
@@ -129,17 +129,18 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive, toRefs, ref, computed, unref } from 'vue';
-  import { useRouter, useRoute } from 'vue-router';
-  import components from './components';
-  import { NDialogProvider, useDialog, useMessage } from 'naive-ui';
-  import { TABS_ROUTES } from '@/store/mutation-types';
-  import { useUserStore } from '@/store/modules/user';
-  import { useScreenLockStore } from '@/store/modules/screenLock';
-  import ProjectSetting from './ProjectSetting.vue';
-  import { AsideMenu } from '@/layout/components/Menu';
-  import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
   import { websiteConfig } from '@/config/website.config';
+  import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
+  import { AsideMenu } from '@/layout/components/Menu';
+  import { RedirectName } from '@/router/constant';
+  import { useScreenLockStore } from '@/store/modules/screenLock';
+  import { useUserStore } from '@/store/modules/user';
+  import { TABS_ROUTES } from '@/store/mutation-types';
+  import { NDialogProvider, useDialog, useMessage } from 'naive-ui';
+  import { computed, defineComponent, reactive, ref, toRefs, unref } from 'vue';
+  import { useRoute, useRouter } from 'vue-router';
+  import components from './components';
+  import ProjectSetting from './ProjectSetting.vue';
 
   export default defineComponent({
     name: 'PageHeader',
@@ -346,6 +347,7 @@
         mixMenu,
         websiteConfig,
         handleMenuCollapsed,
+        RedirectName,
       };
     },
   });
