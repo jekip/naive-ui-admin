@@ -1,7 +1,7 @@
 import type { GlobConfig } from '/#/config';
 
-import { warn } from '@/utils/log';
 import { getAppEnvConfig } from '@/utils/env';
+import { warn } from '@/utils/log';
 
 export const useGlobSetting = (): Readonly<GlobConfig> => {
   const {
@@ -29,8 +29,8 @@ export const useGlobSetting = (): Readonly<GlobConfig> => {
     urlPrefix: VITE_GLOB_API_URL_PREFIX,
     uploadUrl: VITE_GLOB_UPLOAD_URL,
     fileUrl: VITE_GLOB_FILE_URL,
-    useMock: VITE_USE_MOCK,
-    loggerMock: VITE_LOGGER_MOCK,
+    useMock: VITE_USE_MOCK === 'true',
+    loggerMock: VITE_LOGGER_MOCK === 'true',
   };
   return glob as Readonly<GlobConfig>;
 };

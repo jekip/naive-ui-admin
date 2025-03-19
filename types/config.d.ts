@@ -71,7 +71,7 @@ export interface GlobEnvConfig {
   // 文件前缀地址
   VITE_GLOB_FILE_URL?: string;
   // 开启 mock
-  VITE_USE_MOCK: boolean;
+  VITE_USE_MOCK: string;
   // 是否开启控制台打印 mock 请求信息
-  VITE_LOGGER_MOCK: boolean;
+  VITE_LOGGER_MOCK: string;
 }
