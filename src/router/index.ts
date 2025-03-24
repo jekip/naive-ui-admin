@@ -18,7 +18,7 @@ function sortRoute(a, b) {
 }
 
 routeModuleList.sort(sortRoute);
-
+console.log(routeModuleList, '----wriririr');
 export const RootRoute: RouteRecordRaw = {
   path: '/',
   name: 'Root',
@@ -45,6 +45,7 @@ export const constantRouter: RouteRecordRaw[] = [LoginRoute, RootRoute, Redirect
 
 const router = createRouter({
   history: createWebHistory(),
+  // routes: [...constantRouter, ...asyncRoutes],
   routes: constantRouter,
   strict: true,
   scrollBehavior: () => ({ left: 0, top: 0 }),

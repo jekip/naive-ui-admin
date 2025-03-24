@@ -140,7 +140,10 @@
             const toPath = decodeURIComponent((route.query?.redirect || '/') as string);
             message.success('登录成功，即将进入系统');
             if (route.name === LOGIN_NAME) {
-              router.replace('/');
+              // router.replace('/');
+              router.isReady().then(() => {
+                router.push('/');
+              });
             } else router.replace(toPath);
           } else {
             message.info(msg || '登录失败');
