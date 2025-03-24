@@ -1,11 +1,12 @@
-import type { RouteRecordRaw } from 'vue-router';
-import { isNavigationFailure, Router } from 'vue-router';
-import { useUser } from '@/store/modules/user';
-import { useAsyncRoute } from '@/store/modules/asyncRoute';
-import { ACCESS_TOKEN } from '@/store/mutation-types';
-import { storage } from '@/utils/Storage';
 import { PageEnum } from '@/enums/pageEnum';
 import { ErrorPageRoute } from '@/router/base';
+import { useAsyncRoute } from '@/store/modules/asyncRoute';
+import { useUser } from '@/store/modules/user';
+import { ACCESS_TOKEN } from '@/store/mutation-types';
+import { storage } from '@/utils/Storage';
+import type { RouteRecordRaw } from 'vue-router';
+import { isNavigationFailure, Router } from 'vue-router';
+import { RedirectName } from './constant';
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
 
@@ -91,7 +92,7 @@ export function createRouterGuards(router: Router) {
     if (currentComName && !keepAliveComponents.includes(currentComName) && to.meta?.keepAlive) {
       // 需要缓存的组件
       keepAliveComponents.push(currentComName);
-    } else if (!to.meta?.keepAlive || to.name == 'Redirect') {
+    } else if (!to.meta?.keepAlive || to.name == RedirectName) {
       // 不需要缓存的组件
       const index = asyncRouteStore.keepAliveComponents.findIndex((name) => name == currentComName);
       if (index != -1) {
