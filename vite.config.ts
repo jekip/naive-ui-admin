@@ -1,5 +1,4 @@
-import type { UserConfig, ConfigEnv } from 'vite';
-import { loadEnv } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import { resolve } from 'path';
 import { wrapperEnv } from './build/utils';
 import { createVitePlugins } from './build/vite/plugin';
@@ -7,6 +6,7 @@ import { OUTPUT_DIR } from './build/constant';
 import { createProxy } from './build/vite/proxy';
 import pkg from './package.json';
 import { format } from 'date-fns';
+
 const { dependencies, devDependencies, name, version } = pkg;
 
 const __APP_INFO__ = {
@@ -18,25 +18,19 @@ function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
 }
 
-export default ({ command, mode }: ConfigEnv): UserConfig => {
+export default defineConfig(({ command, mode }) => {
   const root = process.cwd();
   const env = loadEnv(mode, root);
   const viteEnv = wrapperEnv(env);
   const { VITE_PUBLIC_PATH, VITE_PORT, VITE_PROXY } = viteEnv;
   const isBuild = command === 'build';
+
   return {
     base: VITE_PUBLIC_PATH,
-    esbuild: {},
     resolve: {
       alias: [
-        {
-          find: /\/#\//,
-          replacement: pathResolve('types') + '/',
-        },
-        {
-          find: '@',
-          replacement: pathResolve('src') + '/',
-        },
+        { find: /\/#\//, replacement: pathResolve('types') + '/' },
+        { find: '@', replacement: pathResolve('src') + '/' },
       ],
       dedupe: ['vue'],
     },
@@ -63,4 +57,4 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       chunkSizeWarningLimit: 2000,
     },
   };
-};
+});

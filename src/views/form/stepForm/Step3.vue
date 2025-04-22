@@ -32,8 +32,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { defineEmits } from 'vue';
-
   const emit = defineEmits(['finish', 'prevStep']);
   function prevStep() {
     emit('prevStep');
