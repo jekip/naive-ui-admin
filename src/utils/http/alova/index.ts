@@ -6,12 +6,14 @@ import { isString } from 'lodash-es';
 import mocks from './mocks';
 import { useUser } from '@/store/modules/user';
 import { storage } from '@/utils/Storage';
-import { useGlobSetting } from '@/hooks/setting';
+import { useGlobSetting, useLocalSetting } from '@/hooks/setting';
 import { PageEnum } from '@/enums/pageEnum';
 import { ResultEnum } from '@/enums/httpEnum';
 import { isUrl } from '@/utils';
 
-const { useMock, apiUrl, urlPrefix, loggerMock } = useGlobSetting();
+const { apiUrl, urlPrefix } = useGlobSetting();
+
+const { useMock, loggerMock } = useLocalSetting();
 
 const mockAdapter = createAlovaMockAdapter([...mocks], {
   // 全局控制是否启用mock接口，默认为true

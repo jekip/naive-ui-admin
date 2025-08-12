@@ -52,8 +52,13 @@ export interface GlobConfig {
   shortName: string;
   urlPrefix?: string;
   uploadUrl?: string;
-  useMock: boolean;
   fileUrl?: string;
+}
+
+export interface LocalConfig {
+  // 生产环境开启 mock
+  useMock: boolean;
+  // 打印 mock 请求信息
   loggerMock: boolean;
 }
 
