@@ -11,7 +11,7 @@
 
 
 ## 🎥 预览
-- [naive-ui-admin](https://jekip.github.io)
+- [naive-ui-admin](https://gratis.naiveadmin.com)
 
 账号：admin，密码：123456（随意）
 
