@@ -61,6 +61,24 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       outDir: OUTPUT_DIR,
       reportCompressedSize: false,
       chunkSizeWarningLimit: 2000,
+      // 构建分包策略
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'naive-ui': ['naive-ui'],
+            'lodash-es': ['lodash-es'],
+            'vue-router': ['vue-router'],
+            'vue-quill': ['@vueup/vue-quill'],
+            'vicons-antd': ['@vicons/antd'],
+            'vicons-ionicons5': ['@vicons/ionicons5'],
+            vuedraggable: ['vuedraggable'],
+            echarts: ['echarts'],
+            vueuse: ['@vueuse/core'],
+            vue: ['vue'],
+            pinia: ['pinia'],
+          },
+        },
+      },
     },
   };
 };

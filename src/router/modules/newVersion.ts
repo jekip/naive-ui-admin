@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'https://www.naiveadmin.com',
     component: Layout,
     meta: {
-      title: 'Pro 版本',
+      title: 'Plus 版本',
       extra: renderNew(),
       icon: renderIcon(SketchOutlined),
       sort: 12,
