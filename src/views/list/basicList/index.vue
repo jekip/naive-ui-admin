@@ -1,64 +1,70 @@
 <template>
-  <n-card :bordered="false">
-    <BasicForm @register="register" @submit="handleSubmit" @reset="handleReset">
-      <template #statusSlot="{ model, field }">
-        <n-input v-model:value="model[field]" />
-      </template>
-    </BasicForm>
-  </n-card>
-  <n-card :bordered="false" class="mt-3">
-    <BasicTable
-      :columns="columns"
-      :request="loadDataTable"
-      :row-key="(row:ListData) => row.id"
-      ref="actionRef"
-      :actionColumn="actionColumn"
-      @update:checked-row-keys="onCheckedRow"
-      :scroll-x="1090"
-      :striped="true"
-    >
-      <template #tableTitle>
-        <n-button type="primary" @click="addTable">
-          <template #icon>
-            <n-icon>
-              <PlusOutlined />
-            </n-icon>
-          </template>
-          新建
-        </n-button>
-      </template>
-
-      <template #toolbar> </template>
-    </BasicTable>
-
-    <n-modal v-model:show="showModal" :show-icon="false" preset="dialog" title="新建">
-      <n-form
-        :model="formParams"
-        :rules="rules"
-        ref="formRef"
-        label-placement="left"
-        :label-width="80"
-        class="py-4"
+  <n-flex vertical>
+    <n-card :bordered="false">
+      <BasicForm @register="register" @submit="handleSubmit" @reset="handleReset">
+        <template #statusSlot="{ model, field }">
+          <n-input v-model:value="model[field]" />
+        </template>
+      </BasicForm>
+    </n-card>
+    <n-card :bordered="false">
+      <BasicTable
+        :columns="columns"
+        :request="loadDataTable"
+        :row-key="(row:ListData) => row.id"
+        ref="actionRef"
+        :actionColumn="actionColumn"
+        @update:checked-row-keys="onCheckedRow"
+        :scroll-x="1090"
+        :striped="true"
       >
-        <n-form-item label="名称" path="name">
-          <n-input placeholder="请输入名称" v-model:value="formParams.name" />
-        </n-form-item>
-        <n-form-item label="地址" path="address">
-          <n-input type="textarea" placeholder="请输入地址" v-model:value="formParams.address" />
-        </n-form-item>
-        <n-form-item label="日期" path="date">
-          <n-date-picker type="datetime" placeholder="请选择日期" v-model:value="formParams.date" />
-        </n-form-item>
-      </n-form>
+        <template #tableTitle>
+          <n-button type="primary" @click="addTable">
+            <template #icon>
+              <n-icon>
+                <PlusOutlined />
+              </n-icon>
+            </template>
+            新建
+          </n-button>
+        </template>
 
-      <template #action>
-        <n-space>
-          <n-button @click="() => (showModal = false)">取消</n-button>
-          <n-button type="info" :loading="formBtnLoading" @click="confirmForm">确定</n-button>
-        </n-space>
-      </template>
-    </n-modal>
-  </n-card>
+        <template #toolbar> </template>
+      </BasicTable>
+
+      <n-modal v-model:show="showModal" :show-icon="false" preset="dialog" title="新建">
+        <n-form
+          :model="formParams"
+          :rules="rules"
+          ref="formRef"
+          label-placement="left"
+          :label-width="80"
+          class="py-4"
+        >
+          <n-form-item label="名称" path="name">
+            <n-input placeholder="请输入名称" v-model:value="formParams.name" />
+          </n-form-item>
+          <n-form-item label="地址" path="address">
+            <n-input type="textarea" placeholder="请输入地址" v-model:value="formParams.address" />
+          </n-form-item>
+          <n-form-item label="日期" path="date">
+            <n-date-picker
+              type="datetime"
+              placeholder="请选择日期"
+              v-model:value="formParams.date"
+            />
+          </n-form-item>
+        </n-form>
+
+        <template #action>
+          <n-space>
+            <n-button @click="() => (showModal = false)">取消</n-button>
+            <n-button type="info" :loading="formBtnLoading" @click="confirmForm">确定</n-button>
+          </n-space>
+        </template>
+      </n-modal>
+    </n-card>
+  </n-flex>
 </template>
 
 <script lang="ts" setup>
