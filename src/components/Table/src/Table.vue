@@ -99,6 +99,7 @@
   import { basicProps } from './props';
 
   import { BasicTableProps } from './types/table';
+  import type { PaginationProps } from './types/pagination';
 
   import { getViewportOffset } from '@/utils/domUtils';
   import { useWindowSizeFn } from '@/hooks/event/useWindowSizeFn';
@@ -203,7 +204,7 @@
   });
 
   //获取分页信息
-  const pagination = computed(() => toRaw(unref(getPaginationInfo)));
+  const pagination = computed(() => toRaw(unref(getPaginationInfo)) as PaginationProps | false);
 
   function setProps(props: Partial<BasicTableProps>) {
     innerPropsRef.value = { ...unref(innerPropsRef), ...props };
@@ -238,7 +239,7 @@
     const { bottomIncludeBody } = getViewportOffset(headEl);
     const headerH = 64;
     let paginationH = 2;
-    let marginH = 24;
+    const marginH = 24;
     if (!isBoolean(unref(pagination))) {
       paginationEl = tableEl.querySelector('.n-data-table__pagination') as HTMLElement;
       if (paginationEl) {
@@ -271,7 +272,7 @@
   .table-toolbar {
     display: flex;
     justify-content: space-between;
-    padding: 0 0 16px 0;
+    padding: 0 0 16px;
 
     &-left {
       display: flex;

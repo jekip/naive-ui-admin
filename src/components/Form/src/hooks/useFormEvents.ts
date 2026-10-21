@@ -13,7 +13,7 @@ interface UseFormActionContext {
   formElRef: Ref<FormActionType>;
   defaultFormModel: Recordable;
   loadingSub: Ref<boolean>;
-  handleFormValues: Function;
+  handleFormValues: (...args: any[]) => any;
 }
 
 export function useFormEvents({
@@ -59,7 +59,7 @@ export function useFormEvents({
 
   //清空校验
   async function clearValidate() {
-    // @ts-ignore
+    // @ts-expect-error restoreValidation 由 n-form 实例提供
     await unref(formElRef)?.restoreValidation();
   }
 

@@ -24,9 +24,7 @@ export function useEventListener({
   isDebounce = true,
   wait = 80,
 }: UseEventParams): { removeEvent: RemoveEventFn } {
-  /* eslint-disable-next-line */
-    let remove: RemoveEventFn = () => {
-    };
+  let remove: RemoveEventFn = () => {};
   const isAddRef = ref(false);
 
   if (el) {

@@ -1,12 +1,18 @@
+# Naive Ui Admin
+
 ## 🚀 简介
 
-`Naive Ui Admin` 是一款 完全免费 且可商用的中后台解决方案，基于 🌟 `Vue3.x` 🌟、🚀 `Vite` 🚀、✨ [Naive UI](https://www.naiveui.com/) ✨ 和 🎉 `TypeScript` 🎉。
-它融合了最新的前端技术栈，提炼了典型的业务模型和页面，包括二次封装组件、动态菜单、权限校验等功能，助力快速搭建企业级中后台项目
+`Naive Ui Admin` 是一款基于 MIT 协议开源、可免费商用的中后台解决方案，基于 Vue 3、Vite、Naive UI 和 TypeScript 构建。
+
+它融合了最新的前端技术栈，提炼了典型的业务模型和页面，包括二次封装组件、动态菜单、权限校验等功能，助力快速搭建企业级中后台项目。项目自 2021 年发布，已持续维护五年。
+
+> 3.0.0 包含破坏性变更（依赖大版本升级、路由 `meta.title` 改为 i18n key 等），升级前请先阅读 [CHANGELOG](./CHANGELOG.md)。
 
 ## 🌈 特性
 📦 二次封装的实用高扩展性组件
 🎨 响应式、多主题、多配置，快速集成，开箱即用
-🚀 强大的鉴权系统，支持 三种鉴权模式，满足多样业务需求
+🚀 支持前端固定路由 / 后端动态菜单两种路由权限模式，并提供按钮级权限控制
+🌍 内置简体中文 / English 国际化，顶栏可实时切换
 🌐 持续更新的实用性页面模板和交互设计，简化页面构建
 
 
@@ -16,41 +22,20 @@
 账号：admin，密码：123456（随意）
 
 
-## 🚀 Naive Admin - 开箱即用的企业级前后端框架 `商业版本`
+## 💼 Naive Admin 商业版
 
-> **✨ 多版本选择 · 四年持续迭代**  
-> 配套前后端支持 Java/Php 语言，支持单体和微服务多租户架构  
-> [详情→官网](https://www.naiveadmin.com) | [更新日志](https://www.yuque.com/u5825/zaqu0e)
+> 商业版与开源版是相互独立的产品线，无代码继承，源码不公开。
 
----
+| 交付形态 | 档位 | UI 组件库 | 后端 | 在线预览 |
+| --- | --- | --- | --- | --- |
+| 前端版 | Max | Naive UI | — | [max.naiveadmin.com](https://max.naiveadmin.com) |
+| 前端版 | Next | AntdvNext | — | [next.naiveadmin.com](https://next.naiveadmin.com) |
+| 全栈版 | Max | Naive UI | PHP / Laravel | [max-full.naiveadmin.com](https://max-full.naiveadmin.com) |
+| 全栈版 | Next | AntdvNext | PHP / Laravel | [next-full.naiveadmin.com](https://next-full.naiveadmin.com) |
 
-## 🔥 为什么选择 NaiveAdmin 商业版？
-- **省时间**：内置丰富扩展组件与业务模板，不写一行样板代码即可开始业务开发
-- **经实战**：已落地电网、跨境 ERP、SaaS 等 30+ 场景 
-- **可扩展**：插件式菜单 / 按钮 / 数据权限，新增业务模块「0 侵入」
+一次买断，全量源码交付，享一年免费更新。价格与活动以官网为准。
 
----
-
-## 🖥️ 纯前端版本
-
-| 版本 | 技术栈 | 配套后端 | 预览地址 |
-|-----|-------|---------|-------------|
-| **🆕 Naive UI Max** | Vu3 + Ts + NaiveUI |  否 | [https://max.naiveadmin.com](https://max.naiveadmin.com) |
-| **Naive UI Plus** | Vu3 + Ts + NaiveUI |  支持Java/PHP | [https://plus.naiveadmin.com](https://plus.naiveadmin.com) |
-
-## 🔌 前后端版本
-
-| 版本 | 技术栈     | 预览地址                                          |
-|------|------------------|--------------------------------------------------------------|
-| **🆕Naive UI Max** | Vu3 + Ts + NaiveUI  |  [https://max-full.naiveadmin.com](https://max-full.naiveadmin.com)    |
-| **Naive UI Plus** | Vu3 + Ts + NaiveUI  |  [https://plus-full.naiveadmin.com](https://plus-full.naiveadmin.com)    |
-
-## 🏢 多租户版本
-
-| 版本           | 技术栈             | 适用场景           | 预览地址                                        |
-|-----------------------------|-----------------------------|----------------|-------------------------------------------|
-| **Vue3**  | Vu3 + Ts + NaiveUI + Java    | 构建企业级 Saas 化系统 | [https://tenant.naiveadmin.com](https://tenant.naiveadmin.com)   |
-| **React** | React + Ts + Ant + Java  | 构建企业级 Saas 化系统       | [https://compose.warden.vip](https://compose.warden.vip)   |
+[商业版官网](https://www.naiveadmin.com) · [更新日志](https://www.yuque.com/u5825/zaqu0e) · [常见问题](https://www.yuque.com/u5825/qg1lta)
 
 
 ## 📚 文档
@@ -59,14 +44,15 @@
 
 ## 🛠 准备
 
-- [node](http://nodejs.org/) 和 [git](https://git-scm.com/) -项目开发环境
-- [Vite](https://vitejs.dev/) - 熟悉 vite 特性
-- [Vue3](https://v3.vuejs.org/) - 熟悉 Vue 基础语法
+- [Node.js](https://nodejs.org/) 和 [Git](https://git-scm.com/) - 项目开发环境（Node `>=20.19.0`）
+- [pnpm](https://pnpm.io/) - 包管理器（`>=10`）
+- [Vite](https://vite.dev/) - 熟悉 Vite 特性
+- [Vue 3](https://vuejs.org/) - 熟悉 Vue 基础语法
 - [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
-- [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
-- [Vue-Router-Next](https://next.router.vuejs.org/) - 熟悉 vue-router 基本使用
-- [NaiveUi](https://www.naiveui.com/) - ui 基本使用
-- [Mock.js](https://github.com/nuysoft/Mock) - mockjs 基本语法
+- [ES6+](https://es6.ruanyifeng.com/) - 熟悉 ES6 基本语法
+- [Vue Router](https://router.vuejs.org/) - 熟悉 Vue Router 基本使用
+- [Naive UI](https://www.naiveui.com/) - UI 基本使用
+- [@alova/mock](https://alova.js.org/extension/alova-mock) / [@faker-js/faker](https://fakerjs.dev/) - mock 数据与造数
 
 
 ## 🏗️ 使用
@@ -95,8 +81,67 @@ pnpm run dev
 - 打包
 
 ```bash
-pnpm build
+pnpm build          # 生产包（默认携带 mock 数据，无需后端即可部署演示）
+pnpm build:no-cache # 清缓存后重新构建
 ```
+
+构建结束后会自动输出体积报告（首屏静态资源，含 gzip / brotli）：
+
+```bash
+pnpm size    # 只输出体积报告
+pnpm report  # 额外生成 rollup-plugin-visualizer 报告到 .analyze/
+```
+
+> 首屏体积受 CI 体积预算保护（gzip ≤ 500KB），超限即失败。
+> 默认 `VITE_USE_MOCK=true`，接口全部走本地 mock，产物约 458KB（gzip）。
+> 接入真实后端时把 `.env.production` 的 `VITE_USE_MOCK` 改为 `false`，
+> mock 数据与 `@faker-js/faker`、`mockjs` 会被完整摇掉，首屏降至约 239KB。
+
+- 类型检查与代码检查
+
+```bash
+pnpm type-check     # vue-tsc 类型检查（只读）
+pnpm lint:eslint    # ESLint（flat config，自动修复）
+pnpm lint:stylelint # Stylelint（自动修复）
+```
+
+> 两个 lint 脚本都会加 `--fix` 修改文件；CI 中使用的是不带 `--fix` 的只读检查（`pnpm exec eslint` / `pnpm exec stylelint`）。
+
+## 🌍 国际化（i18n）
+
+基于 `vue-i18n@11`，内置 **简体中文 / English**。顶栏可实时切换，选择会持久化到 `localStorage`（`LOCALE__KEY__`），并同步 Naive UI 的 `locale` / `date-locale`。
+
+已接入范围：路由菜单、面包屑、多页签、顶栏、项目配置面板、登录页、关于页。业务页面与 `src/components` 扩展组件保持原样，由使用方按需接入。
+
+路由标题使用 i18n key（如 `route.dashboard_console`），词条位于 `src/locales/lang/<locale>/route.ts`。后端动态菜单同样保留原始 `title`：返回 key 时跟随切换，返回纯中文标题时因未命中语言包而原样显示。
+
+最小接入示例：
+
+```ts
+// src/locales/lang/zh-CN/common.ts
+export default {
+  welcome: '欢迎',
+};
+
+// src/locales/lang/en-US/common.ts（英文包由 satisfies 约束，漏翻会在 type-check 报错）
+export default {
+  welcome: 'Welcome',
+};
+```
+
+```vue
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+</script>
+
+<template>
+  <div>{{ t('common.welcome') }}</div>
+</template>
+```
+
+非组件环境（路由生成、菜单转换等）可使用 `src/locales/index.ts` 导出的 `tr()`。更多说明见 [文档](https://docs.naiveadmin.com)。
 
 ## 📜 更新日志
 
@@ -117,21 +162,21 @@ pnpm build
 
 ## 📋 Git 贡献提交规范
 
-- 参考 [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) 规范 ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
+- 参考 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/) 规范（[Angular 约定](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular)）
 
   - `feat` 增加新功能
   - `fix` 修复问题/BUG
-  - `style` 代码风格相关无影响运行结果的
-  - `perf` 优化/性能提升
-  - `refactor` 重构
-  - `revert` 撤销修改
-  - `test` 测试相关
   - `docs` 文档/注释
-  - `chore` 依赖更新/脚手架配置修改等
-  - `workflow` 工作流改进
+  - `style` 代码风格相关无影响运行结果的
+  - `refactor` 重构
+  - `perf` 优化/性能提升
+  - `test` 测试相关
+  - `build` 构建/依赖变更
   - `ci` 持续集成
-  - `types` 类型定义文件更改
-  - `wip` 开发中
+  - `chore` 依赖更新/脚手架配置修改等
+  - `revert` 撤销修改
+
+  > 以上类型由 `commitlint.config.cjs` 校验，未列出的类型会被 `commit-msg` 钩子拒绝。
 
 ## 🌐 浏览器支持
 

@@ -7,6 +7,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 
 import { configHtmlPlugin } from './html';
 import { configCompressPlugin } from './compress';
+import { configVisualizerPlugin } from './visualizer';
 
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const { VITE_BUILD_COMPRESS, VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE } = viteEnv;
@@ -26,6 +27,9 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
 
   // vite-plugin-html
   vitePlugins.push(configHtmlPlugin(viteEnv, isBuild));
+
+  // 体积分析，仅在 ANALYZE=true 时生效（pnpm report）
+  vitePlugins.push(...configVisualizerPlugin());
 
   if (isBuild) {
     // rollup-plugin-gzip

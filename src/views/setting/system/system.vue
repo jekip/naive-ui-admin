@@ -26,7 +26,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { reactive, toRefs } from 'vue';
+  import { reactive } from 'vue';
   import BasicSetting from './BasicSetting.vue';
   import RevealSetting from './RevealSetting.vue';
   import EmailSetting from './EmailSetting.vue';

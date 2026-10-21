@@ -128,8 +128,8 @@
       const state = reactive({
         selection: false,
         checkAll: true,
-        checkList: [],
-        defaultCheckList: [],
+        checkList: [] as string[],
+        defaultCheckList: [] as string[],
       });
 
       const getSelection = computed(() => {
@@ -171,7 +171,7 @@
 
       //获取
       function getColumns() {
-        let newRet: any[] = [];
+        const newRet: any[] = [];
         table.getColumns().forEach((item) => {
           newRet.push({ ...item });
         });
@@ -182,8 +182,8 @@
       function resetColumns() {
         state.checkList = [...state.defaultCheckList];
         state.checkAll = true;
-        let cacheColumnsKeys: any[] = table.getCacheColumns();
-        let newColumns = cacheColumnsKeys.map((item) => {
+        const cacheColumnsKeys: any[] = table.getCacheColumns();
+        const newColumns = cacheColumnsKeys.map((item) => {
           return {
             ...item,
             fixed: undefined,
@@ -195,7 +195,7 @@
 
       //全选
       function onCheckAll(e) {
-        let checkList = table.getCacheColumns(true);
+        const checkList = table.getCacheColumns(true);
         if (e) {
           setColumns(checkList);
           state.checkList = checkList;
@@ -214,7 +214,7 @@
 
       //勾选列
       function onSelection(e) {
-        let checkList = table.getCacheColumns();
+        const checkList = table.getCacheColumns();
         if (e) {
           checkList.unshift({ type: 'selection', key: 'selection' });
           setColumns(checkList);
@@ -232,9 +232,9 @@
       //固定
       function fixedColumn(item, fixed) {
         if (!state.checkList.includes(item.key)) return;
-        let columns = getColumns();
+        const columns = getColumns();
         const isFixed = item.fixed === fixed ? undefined : fixed;
-        let index = columns.findIndex((res) => res.key === item.key);
+        const index = columns.findIndex((res) => res.key === item.key);
         if (index !== -1) {
           columns[index].fixed = isFixed;
         }
@@ -294,6 +294,7 @@
         display: inline-flex;
         margin-right: 8px;
         cursor: move;
+
         &-hidden {
           visibility: hidden;
           cursor: default;
@@ -318,7 +319,7 @@
 
     &-checkbox-dark {
       &:hover {
-        background: hsla(0, 0%, 100%, 0.08);
+        background: hsl(0deg 0% 100% / 8%);
       }
     }
   }

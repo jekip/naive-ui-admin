@@ -57,7 +57,7 @@
                   v-if="crumbsSetting.showIcon && routeItem.meta.icon"
                   :is="routeItem.meta.icon"
                 />
-                {{ routeItem.meta.title }}
+                {{ tr(routeItem.meta.title) }}
               </span>
             </n-dropdown>
             <span class="link-text" v-else>
@@ -65,7 +65,7 @@
                 v-if="crumbsSetting.showIcon && routeItem.meta.icon"
                 :is="routeItem.meta.icon"
               />
-              {{ routeItem.meta.title }}
+              {{ tr(routeItem.meta.title) }}
             </span>
           </n-breadcrumb-item>
         </template>
@@ -94,18 +94,24 @@
               <component :is="fullscreenIcon" @click="toggleFullScreen" />
             </n-icon>
           </template>
-          <span>全屏</span>
+          <span>{{ t('layout.header.fullscreen') }}</span>
         </n-tooltip>
+      </div>
+      <!--切换语言-->
+      <div class="layout-header-trigger layout-header-trigger-min">
+        <n-dropdown trigger="hover" :options="localeOptions" @select="localeSelect">
+          <div class="layout-header-trigger layout-header-trigger-min">
+            <n-icon size="18">
+              <TranslationOutlined />
+            </n-icon>
+          </div>
+        </n-dropdown>
       </div>
       <!-- 个人中心 -->
       <div class="layout-header-trigger layout-header-trigger-min">
         <n-dropdown trigger="hover" @select="avatarSelect" :options="avatarOptions">
           <div class="avatar">
-            <n-avatar :src="websiteConfig.logo">
-              <template #icon>
-                <UserOutlined />
-              </template>
-            </n-avatar>
+            <n-avatar :src="schoolboy" round />
             <n-divider vertical />
             <span>{{ username }}</span>
           </div>
@@ -119,7 +125,7 @@
               <SettingOutlined />
             </n-icon>
           </template>
-          <span>项目配置</span>
+          <span>{{ t('layout.header.projectConfig') }}</span>
         </n-tooltip>
       </div>
     </div>
@@ -139,12 +145,18 @@
   import { NDialogProvider, useDialog, useMessage } from 'naive-ui';
   import { computed, defineComponent, reactive, ref, toRefs, unref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
+  import { useI18n } from 'vue-i18n';
+  import { TranslationOutlined } from '@vicons/antd';
+  import { tr } from '@/locales';
+  import { LOCALE_OPTIONS, isLocaleType, type LocaleType } from '@/locales/types';
+  import { useLocaleStore } from '@/store/modules/locale';
   import components from './components';
   import ProjectSetting from './ProjectSetting.vue';
+  import schoolboy from '@/assets/images/schoolboy.png'
 
   export default defineComponent({
     name: 'PageHeader',
-    components: { ...components, NDialogProvider, ProjectSetting, AsideMenu },
+    components: { ...components, NDialogProvider, ProjectSetting, AsideMenu, TranslationOutlined },
     props: {
       collapsed: {
         type: Boolean,
@@ -159,7 +171,23 @@
       const useLockscreen = useScreenLockStore();
       const message = useMessage();
       const dialog = useDialog();
+      const { t } = useI18n();
+      const localeStore = useLocaleStore();
       const { navMode, navTheme, headerSetting, menuSetting, crumbsSetting } = useProjectSetting();
+
+      // 语言切换下拉
+      const localeOptions = computed(() =>
+        LOCALE_OPTIONS.map((item) => ({
+          label: item.label,
+          key: item.value,
+          disabled: item.value === localeStore.locale,
+        }))
+      );
+
+      const localeSelect = (key: string) => {
+        if (!isLocaleType(key)) return;
+        localeStore.setLocale(key as LocaleType);
+      };
 
       const drawerSetting = ref();
 
@@ -202,7 +230,7 @@
         return routerMap.map((item) => {
           const currentMenu = {
             ...item,
-            label: item.meta.title,
+            label: tr(item.meta.title),
             key: item.name,
             disabled: item.path === '/',
           };
@@ -233,13 +261,13 @@
       // 退出登录
       const doLogout = () => {
         dialog.info({
-          title: '提示',
-          content: '您确定要退出登录吗',
-          positiveText: '确定',
-          negativeText: '取消',
+          title: t('common.tip'),
+          content: t('layout.header.logoutTip'),
+          positiveText: t('common.confirm'),
+          negativeText: t('common.cancel'),
           onPositiveClick: () => {
             userStore.logout().then(() => {
-              message.success('成功退出登录');
+              message.success(t('layout.header.logoutSuccess'));
               // 移除标签页
               localStorage.removeItem(TABS_ROUTES);
               router
@@ -276,36 +304,36 @@
       };
 
       // 图标列表
-      const iconList = [
+      const iconList = computed(() => [
         {
           icon: 'SearchOutlined',
-          tips: '搜索',
+          tips: t('layout.header.search'),
         },
         {
           icon: 'GithubOutlined',
-          tips: 'github',
+          tips: t('layout.header.github'),
           eventObject: {
             click: () => window.open('https://github.com/jekip/naive-ui-admin'),
           },
         },
         {
           icon: 'LockOutlined',
-          tips: '锁屏',
+          tips: t('layout.header.lock'),
           eventObject: {
             click: () => useLockscreen.setLock(true),
           },
         },
-      ];
-      const avatarOptions = [
+      ]);
+      const avatarOptions = computed(() => [
         {
-          label: '个人设置',
+          label: t('layout.header.personalSetting'),
           key: 1,
         },
         {
-          label: '退出登录',
+          label: t('layout.header.logout'),
           key: 2,
         },
-      ];
+      ]);
 
       //头像下拉菜单
       const avatarSelect = (key) => {
@@ -330,12 +358,16 @@
 
       return {
         ...toRefs(state),
+        t,
+        tr,
         iconList,
         toggleFullScreen,
         doLogout,
         route,
         dropdownSelect,
         avatarOptions,
+        localeOptions,
+        localeSelect,
         getChangeStyle,
         avatarSelect,
         breadcrumbList,
@@ -348,6 +380,7 @@
         websiteConfig,
         handleMenuCollapsed,
         RedirectName,
+        schoolboy
       };
     },
   });
@@ -435,7 +468,7 @@
       }
 
       &:hover {
-        background: hsla(0, 0%, 100%, 0.08);
+        background: hsl(0deg 0% 100% / 8%);
       }
 
       .anticon {

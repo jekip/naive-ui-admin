@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { SketchOutlined } from '@vicons/antd';
-import { renderIcon, renderNew } from '@/utils/index';
+import { renderIcon } from '@/utils/index';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -9,8 +9,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'https://www.naiveadmin.com',
     component: Layout,
     meta: {
-      title: 'Plus 版本',
-      extra: renderNew(),
+      title: 'route.newVersion',
       icon: renderIcon(SketchOutlined),
       sort: 12,
     },

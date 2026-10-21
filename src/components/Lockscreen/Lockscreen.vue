@@ -117,6 +117,7 @@
       const route = useRoute();
 
       const { battery, batteryStatus, calcDischargingTime, calcChargingTime } = useBattery();
+
       const userInfo: UserInfoType = userStore.getUserInfo || {};
       const username = userInfo['username'] || '';
       const state = reactive({
@@ -190,10 +191,7 @@
 <style lang="less" scoped>
   .lockscreen {
     position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    inset: 0;
     display: flex;
     background: #000;
     color: white;
@@ -201,7 +199,7 @@
     z-index: 9999;
 
     &.onLockLogin {
-      background-color: rgba(25, 28, 34, 0.88);
+      background-color: rgb(25 28 34 / 88%);
       backdrop-filter: blur(7px);
     }
 

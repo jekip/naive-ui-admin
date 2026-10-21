@@ -89,8 +89,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref, toRefs } from 'vue';
-  import { useDialog, useMessage } from 'naive-ui';
+  import { ref } from 'vue';
+  import { useMessage } from 'naive-ui';
 
   const rules = {
     name: {
@@ -154,7 +154,6 @@
 
   const formRef: any = ref(null);
   const message = useMessage();
-  const dialog = useDialog();
 
   const formValue = ref({
     bigWidth: '',
@@ -162,27 +161,11 @@
     smallWidth: '',
     smallHeight: '',
     watermarkClarity: null,
+    watermarkPlace: null,
     pricePrecise: 1,
     isMarketPrice: true,
     pricePreciseNum: null,
   });
-
-  function systemOpenChange(value) {
-    if (!value) {
-      dialog.warning({
-        title: '提示',
-        content: '您确定要关闭系统访问吗？该操作立马生效，请慎重操作！',
-        positiveText: '确定',
-        negativeText: '取消',
-        onPositiveClick: () => {
-          message.success('操作成功');
-        },
-        onNegativeClick: () => {
-          formValue.value.systemOpen = true;
-        },
-      });
-    }
-  }
 
   function formSubmit() {
     formRef.value.validate((errors) => {
@@ -194,7 +177,4 @@
     });
   }
 
-  function resetForm() {
-    formRef.value.restoreValidation();
-  }
 </script>

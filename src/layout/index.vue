@@ -188,7 +188,7 @@
 
 <style lang="less">
   .layout-side-drawer {
-    background-color: rgb(0, 20, 40);
+    background-color: rgb(0 20 40);
 
     .layout-sider {
       min-height: 100vh;

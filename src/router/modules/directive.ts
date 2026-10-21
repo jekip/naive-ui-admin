@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'index',
         name: `directive_index`,
         meta: {
-          title: '指令示例',
+          title: 'route.directive',
           activeMenu: 'directive_index',
         },
         component: () => import('@/views/directive/index.vue'),

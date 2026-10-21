@@ -61,6 +61,10 @@ export function downloadByUrl({
         // window.navigator.msSaveBlob(canvas.msToBlob(),'image.jpg');
         // saveAs(imageDataUrl, '附件');
         canvas.toBlob((blob) => {
+          if (!blob) {
+            resolve(false);
+            return;
+          }
           const link = document.createElement('a');
           link.href = window.URL.createObjectURL(blob);
           link.download = getFileName(url);

@@ -1,7 +1,7 @@
 import { ref, ComputedRef, unref, computed, onMounted, watchEffect, watch } from 'vue';
 import type { BasicTableProps } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
-import { isBoolean, isFunction, isArray } from '@/utils/is';
+import { isBoolean, isFunction } from '@/utils/is';
 import { APISETTING } from '../const';
 
 export function useDataSource(
@@ -76,7 +76,6 @@ export function useDataSource(
       const resultTotal = res[totalField];
       const currentPage = res[pageField];
       const total = res[itemCount];
-      const results = res[listField] ? res[listField] : [];
 
       // 如果数据异常，需获取正确的页码再次执行
       if (resultTotal) {

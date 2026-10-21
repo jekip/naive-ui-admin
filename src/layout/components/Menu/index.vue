@@ -15,12 +15,23 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, onMounted, reactive, computed, watch, toRefs, unref } from 'vue';
+  import {
+    defineComponent,
+    ref,
+    onMounted,
+    reactive,
+    computed,
+    watch,
+    toRefs,
+    unref,
+    type PropType,
+  } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import { useAsyncRouteStore } from '@/store/modules/asyncRoute';
   import { generatorMenu, generatorMenuMix } from '@/utils';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
+  import { useLocaleStore } from '@/store/modules/locale';
 
   export default defineComponent({
     name: 'AppMenu',
@@ -28,7 +39,7 @@
     props: {
       mode: {
         // 菜单模式
-        type: String,
+        type: String as PropType<'vertical' | 'horizontal'>,
         default: 'vertical',
       },
       collapsed: {
@@ -48,6 +59,7 @@
       const router = useRouter();
       const asyncRouteStore = useAsyncRouteStore();
       const settingStore = useProjectSettingStore();
+      const localeStore = useLocaleStore();
       const menus = ref<any[]>([]);
       const selectedKeys = ref<string>(currentRoute.name as string);
       const headerMenuSelectKey = ref<string>('');
@@ -57,7 +69,8 @@
       // 获取当前打开的子菜单
       const matched = currentRoute.matched;
 
-      const getOpenKeys = matched && matched.length ? matched.map((item) => item.name) : [];
+      const getOpenKeys: string[] =
+        matched && matched.length ? matched.map((item) => String(item.name)) : [];
 
       const state = reactive({
         openKeys: getOpenKeys,
@@ -68,7 +81,7 @@
       });
 
       const getSelectedKeys = computed(() => {
-        let location = props.location;
+        const location = props.location;
         return location === 'left' || (location === 'header' && unref(navMode) === 'horizontal')
           ? unref(selectedKeys)
           : unref(headerMenuSelectKey);
@@ -100,9 +113,17 @@
         }
       );
 
+      // 语言切换后重新生成菜单，让菜单标题同步翻译
+      watch(
+        () => localeStore.locale,
+        () => {
+          updateMenu();
+        }
+      );
+
       function updateSelectedKeys() {
         const matched = currentRoute.matched;
-        state.openKeys = matched.map((item) => item.name);
+        state.openKeys = matched.map((item) => String(item.name));
         const activeMenu: string = (currentRoute.meta?.activeMenu as string) || '';
         selectedKeys.value = activeMenu ? (activeMenu as string) : (currentRoute.name as string);
       }

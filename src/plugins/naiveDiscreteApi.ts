@@ -1,4 +1,4 @@
-import * as NaiveUI from 'naive-ui';
+import { createDiscreteApi, darkTheme } from 'naive-ui';
 import { computed } from 'vue';
 import { useDesignSetting } from '@/store/modules/designSetting';
 import { lighten } from '@/utils/index';
@@ -13,7 +13,7 @@ export function setupNaiveDiscreteApi() {
   const designStore = useDesignSetting();
 
   const configProviderPropsRef = computed(() => ({
-    theme: designStore.darkTheme ? NaiveUI.darkTheme : undefined,
+    theme: designStore.darkTheme ? darkTheme : undefined,
     themeOverrides: {
       common: {
         primaryColor: designStore.appTheme,
@@ -25,7 +25,7 @@ export function setupNaiveDiscreteApi() {
       },
     },
   }));
-  const { message, dialog, notification, loadingBar } = NaiveUI.createDiscreteApi(
+  const { message, dialog, notification, loadingBar } = createDiscreteApi(
     ['message', 'dialog', 'notification', 'loadingBar'],
     {
       configProviderProps: configProviderPropsRef,

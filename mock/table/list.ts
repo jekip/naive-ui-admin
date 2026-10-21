@@ -1,7 +1,7 @@
 import { defineMock } from '@alova/mock';
 import { faker } from '@faker-js/faker';
 import { doCustomTimes, resultSuccess } from '../_util';
-import dayjs from 'dayjs';
+import { format } from 'date-fns';
 function tableList(pageSize: number) {
   const result: any[] = [];
   doCustomTimes(pageSize, () => {
@@ -15,7 +15,7 @@ function tableList(pageSize: number) {
       status: faker.helpers.arrayElement(['close', 'refuse', 'pass']),
       type: faker.helpers.arrayElement(['person', 'company']),
       // createDate: faker.helpers.arrayElement(dateStrs),
-      createDate: dayjs(faker.date.anytime()).format('YYYY-MM-DD HH:mm'),
+      createDate: format(faker.date.anytime(), 'yyyy-MM-dd HH:mm'),
     });
   });
   return result;

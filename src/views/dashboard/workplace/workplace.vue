@@ -322,7 +322,7 @@
 
     &-item {
       margin: -1px;
-      width: 33.333333%;
+      width: 33.3333%;
     }
   }
 </style>

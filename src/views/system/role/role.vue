@@ -136,7 +136,7 @@
   });
 
   const loadDataTable = async (res: any) => {
-    let _params = {
+    const _params = {
       ...unref(params),
       ...res,
     };

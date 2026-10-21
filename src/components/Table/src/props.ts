@@ -1,5 +1,4 @@
 import type { PropType } from 'vue';
-import { propTypes } from '@/utils/propTypes';
 import { BasicColumn } from './types/table';
 import { NDataTable } from 'naive-ui';
 export const basicProps = {
@@ -54,7 +53,16 @@ export const basicProps = {
     type: Object as PropType<BasicColumn>,
     default: null,
   },
-  canResize: propTypes.bool.def(true),
-  resizeHeightOffset: propTypes.number.def(0),
-  striped: propTypes.bool.def(false),
+  canResize: {
+    type: Boolean,
+    default: true,
+  },
+  resizeHeightOffset: {
+    type: Number,
+    default: 0,
+  },
+  striped: {
+    type: Boolean,
+    default: false,
+  },
 };

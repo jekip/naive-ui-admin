@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref, toRefs } from 'vue';
+  import { ref } from 'vue';
   import { useDialog, useMessage } from 'naive-ui';
 
   const rules = {
@@ -112,7 +112,4 @@
     });
   }
 
-  function resetForm() {
-    formRef.value.restoreValidation();
-  }
 </script>

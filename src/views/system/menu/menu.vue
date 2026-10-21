@@ -35,7 +35,7 @@
             </n-space>
           </template>
           <div class="w-full menu">
-            <n-input type="input" v-model:value="pattern" placeholder="输入菜单名称搜索">
+            <n-input v-model:value="pattern" placeholder="输入菜单名称搜索">
               <template #suffix>
                 <n-icon size="18" class="cursor-pointer">
                   <SearchOutlined />
@@ -152,9 +152,9 @@
   const message = useMessage();
   const dialog = useDialog();
 
-  let treeItemKey = ref([]);
+  const treeItemKey = ref([]);
 
-  let expandedKeys = ref([]);
+  const expandedKeys = ref([]);
 
   const treeData = ref<ListDate[]>([]);
 

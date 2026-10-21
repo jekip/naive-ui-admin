@@ -2,8 +2,11 @@
 node_modules
 /screenshots
 /dist
+dist-*
 dist.zip
+.analyze
 dist_electron
+.workbuddy
 
 # local env files
 .env.local
@@ -24,5 +27,4 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-/components.d.ts
 /components.d.ts

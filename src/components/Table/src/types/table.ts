@@ -27,7 +27,7 @@ export interface TableActionType {
 
 export interface BasicTableProps {
   title?: string;
-  dataSource: Function;
+  dataSource: (...args: any[]) => any;
   columns: any[];
   pagination: object;
   showPagination: boolean;

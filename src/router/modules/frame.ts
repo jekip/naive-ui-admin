@@ -12,7 +12,7 @@ const routes: Array<RouteRecordRaw> = [
     redirect: '/frame/docs',
     component: Layout,
     meta: {
-      title: '外部页面',
+      title: 'route.frame',
       sort: 8,
       icon: renderIcon(DesktopOutline),
     },
@@ -21,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'naive-admin',
         name: 'naive-admin',
         meta: {
-          title: 'NaiveAdmin',
+          title: 'route.frame_naiveAdmin',
           frameSrc: 'https://www.naiveadmin.com',
         },
         component: IFrame,
@@ -30,7 +30,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'docs',
         name: 'frame-docs',
         meta: {
-          title: '项目文档(内嵌)',
+          title: 'route.frame_docs',
           frameSrc: 'https://jekip.github.io/docs',
         },
         component: IFrame,
@@ -39,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'naive',
         name: 'frame-naive',
         meta: {
-          title: 'NaiveUi(内嵌)',
+          title: 'route.frame_naiveUi',
           frameSrc: 'https://www.naiveui.com',
         },
         component: IFrame,

@@ -2,6 +2,7 @@ import { h, unref } from 'vue';
 import type { App, Plugin, Component } from 'vue';
 import { NIcon, NTag } from 'naive-ui';
 import { PageEnum } from '@/enums/pageEnum';
+import { tr } from '@/locales';
 import { isObject } from './is/index';
 import { cloneDeep } from 'lodash-es';
 /**
@@ -58,10 +59,14 @@ export function generatorMenu(routerMap: Array<any>) {
   return filterRouter(routerMap).map((item) => {
     const isRoot = isRootRouter(item);
     const info = isRoot ? item.children[0] : item;
+    // naive-ui 的 NMenuOption 渲染的是 title 字段，label 只是数据字段，
+    // 因此两者都要赋翻译后的文案，否则菜单会显示未翻译的 meta.title（i18n key）
+    const label = tr(info.meta?.title);
     const currentMenu = {
       ...info,
       ...info.meta,
-      label: info.meta?.title,
+      label,
+      title: label,
       key: info.name,
       icon: isRoot ? item.meta?.icon : info.meta?.icon,
     };
@@ -86,10 +91,12 @@ export function generatorMenuMix(routerMap: Array<any>, routerName: string, loca
       const isRoot = isRootRouter(item);
       const info = isRoot ? item.children[0] : item;
       info.children = undefined;
+      const label = tr(info.meta?.title);
       const currentMenu = {
         ...info,
         ...info.meta,
-        label: info.meta?.title,
+        label,
+        title: label,
         key: info.name,
       };
       firstRouter.push(currentMenu);
@@ -107,10 +114,12 @@ export function getChildrenRouter(routerMap: Array<any>) {
   return filterRouter(routerMap).map((item) => {
     const isRoot = isRootRouter(item);
     const info = isRoot ? item.children[0] : item;
+    const label = tr(info.meta?.title);
     const currentMenu = {
       ...info,
       ...info.meta,
-      label: info.meta?.title,
+      label,
+      title: label,
       key: info.name,
     };
     // 是否有子菜单，并递归处理
@@ -187,7 +196,7 @@ export function getTreeAll(data: any[]): any[] {
 }
 
 // dynamic use hook props
-export function getDynamicProps<T extends {}, U>(props: T): Partial<U> {
+export function getDynamicProps<T extends object, U>(props: T): Partial<U> {
   const ret: Recordable = {};
 
   Object.keys(props).map((key) => {

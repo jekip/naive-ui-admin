@@ -1,24 +1,26 @@
 <template>
   <div class="page-footer">
     <div class="page-footer-link">
-      <a href="https://github.com/jekip/naive-ui-admin" target="_blank"> 官网 </a>
-      <a href="https://github.com/jekip/naive-ui-admin" target="_blank"> 社区 </a>
-      <a href="https://github.com/jekip/naive-ui-admin/issues" target="_blank"> 交流 </a>
+      <a href="https://github.com/jekip/naive-ui-admin" target="_blank">
+        {{ t('layout.footer.officialWebsite') }}
+      </a>
+      <a href="https://github.com/jekip/naive-ui-admin" target="_blank">
+        {{ t('layout.footer.community') }}
+      </a>
+      <a href="https://github.com/jekip/naive-ui-admin/issues" target="_blank">
+        {{ t('layout.footer.communication') }}
+      </a>
     </div>
-    <div class="copyright"> naive-ui-admin 1.4 · Made by Ah jung </div>
+    <div class="copyright">{{ t('layout.footer.copyright') }}</div>
   </div>
 </template>
 
-<script>
-  export default {
-    name: 'PageFooter',
-    components: {},
-    props: {
-      collapsed: {
-        type: Boolean,
-      },
-    },
-  };
+<script lang="ts" setup>
+  import { useI18n } from 'vue-i18n';
+
+  defineProps<{ collapsed?: boolean }>();
+
+  const { t } = useI18n();
 </script>
 
 <style lang="less" scoped>
@@ -30,7 +32,6 @@
     a {
       font-size: 14px;
       color: #808695;
-      -webkit-transition: all 0.2s ease-in-out;
       transition: all 0.2s ease-in-out;
 
       &:hover {

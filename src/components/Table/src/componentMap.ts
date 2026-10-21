@@ -10,15 +10,15 @@ import {
 } from 'naive-ui';
 import type { ComponentType } from './types/componentType';
 
-export enum EventEnum {
-  NInput = 'on-input',
-  NInputNumber = 'on-input',
-  NSelect = 'on-update:value',
-  NSwitch = 'on-update:value',
-  NCheckbox = 'on-update:value',
-  NDatePicker = 'on-update:value',
-  NTimePicker = 'on-update:value',
-}
+export const EventEnum = {
+  NInput: 'on-input',
+  NInputNumber: 'on-input',
+  NSelect: 'on-update:value',
+  NSwitch: 'on-update:value',
+  NCheckbox: 'on-update:value',
+  NDatePicker: 'on-update:value',
+  NTimePicker: 'on-update:value',
+} as const;
 
 const componentMap = new Map<ComponentType, Component>();
 

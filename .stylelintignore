@@ -1,3 +1,11 @@
 /dist/*
+/dist-*
 /public/*
 public/*
+/node_modules/**
+**/*.js
+**/*.jsx
+**/*.ts
+**/*.tsx
+**/*.svg
+**/*.sh

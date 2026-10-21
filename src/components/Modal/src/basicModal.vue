@@ -50,7 +50,7 @@
     propsRef.value = deepMerge(unref(propsRef) || ({} as any), modalProps);
   }
 
-  const getBindValue = computed(() => {
+  const getBindValue = computed<Recordable>(() => {
     return {
       ...attrs,
       ...unref(getProps),

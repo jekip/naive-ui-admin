@@ -10,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
     redirect: '/exception/403',
     component: Layout,
     meta: {
-      title: '异常页面',
+      title: 'route.exception',
       icon: renderIcon(ExclamationCircleOutlined),
       sort: 3,
     },
@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '403',
         name: 'exception-403',
         meta: {
-          title: '403',
+          title: 'route.exception_403',
         },
         component: () => import('@/views/exception/403.vue'),
       },
@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '404',
         name: 'exception-404',
         meta: {
-          title: '404',
+          title: 'route.exception_404',
         },
         component: () => import('@/views/exception/404.vue'),
       },
@@ -35,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '500',
         name: 'exception-500',
         meta: {
-          title: '500',
+          title: 'route.exception_500',
         },
         component: () => import('@/views/exception/500.vue'),
       },

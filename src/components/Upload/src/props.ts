@@ -1,8 +1,12 @@
 import type { PropType } from 'vue';
 import { NUpload } from 'naive-ui';
 
+// NUpload.props 没有导出类型声明，直接展开会让 basicProps 退化成 any，
+// 进而让组件的 props 类型整体丢失，这里先收敛成通用描述再展开
+const nUploadProps = NUpload.props as Record<string, { type?: unknown; default?: unknown }>;
+
 export const basicProps = {
-  ...NUpload.props,
+  ...nUploadProps,
   accept: {
     type: String,
     default: '.jpg,.png,.jpeg,.svg,.gif',

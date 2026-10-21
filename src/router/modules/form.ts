@@ -10,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
     redirect: '/form/basic-form',
     component: Layout,
     meta: {
-      title: '表单页面',
+      title: 'route.form',
       icon: renderIcon(ProfileOutlined),
       sort: 3,
     },
@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'basic-form',
         name: 'form-basic-form',
         meta: {
-          title: '基础表单',
+          title: 'route.form_basic',
         },
         component: () => import('@/views/form/basicForm/index.vue'),
       },
@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'step-form',
         name: 'form-step-form',
         meta: {
-          title: '分步表单',
+          title: 'route.form_step',
         },
         component: () => import('@/views/form/stepForm/stepForm.vue'),
       },
@@ -35,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'detail',
         name: 'form-detail',
         meta: {
-          title: '表单详情',
+          title: 'route.form_detail',
         },
         component: () => import('@/views/form/detail/index.vue'),
       },

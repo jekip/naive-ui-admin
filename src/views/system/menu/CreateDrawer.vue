@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref, toRefs } from 'vue';
+  import { reactive, ref } from 'vue';
   import { useMessage } from 'naive-ui';
 
   const rules = {
@@ -95,6 +95,9 @@
   function openDrawer() {
     state.isDrawer = true;
   }
+
+  // 父组件通过 ref 调用，script setup 下必须显式暴露
+  defineExpose({ openDrawer });
 
   function closeDrawer() {
     state.isDrawer = false;

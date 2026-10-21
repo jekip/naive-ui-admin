@@ -50,12 +50,13 @@
 <script lang="ts" setup>
   import { ref, unref, reactive } from 'vue';
   import { useMessage } from 'naive-ui';
+  import type { FormRules } from 'naive-ui';
   import { BasicUpload } from '@/components/Upload';
   import { useGlobSetting } from '@/hooks/setting';
 
   const globSetting = useGlobSetting();
 
-  const rules = {
+  const rules: FormRules = {
     name: {
       required: true,
       message: '请输入预约姓名',

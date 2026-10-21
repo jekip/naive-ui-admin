@@ -43,8 +43,10 @@
     background-color: #ccc;
     position: relative;
   }
+
   .content-box {
     height: 100vh;
+
     .box {
       width: 100px;
       height: 100px;

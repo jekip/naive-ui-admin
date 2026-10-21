@@ -12,7 +12,7 @@ const routes: Array<RouteRecordRaw> = [
     redirect: '/dashboard/console',
     component: Layout,
     meta: {
-      title: 'Dashboard',
+      title: 'route.dashboard',
       icon: renderIcon(DashboardOutlined),
       permissions: ['dashboard_console', 'dashboard_console', 'dashboard_workplace'],
       sort: 0,
@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'console',
         name: `${routeName}_console`,
         meta: {
-          title: '主控台',
+          title: 'route.dashboard_console',
           permissions: ['dashboard_console'],
           affix: true,
         },
@@ -41,7 +41,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'workplace',
         name: `${routeName}_workplace`,
         meta: {
-          title: '工作台',
+          title: 'route.dashboard_workplace',
           keepAlive: true,
           permissions: ['dashboard_workplace'],
         },

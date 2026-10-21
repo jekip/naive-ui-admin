@@ -15,26 +15,33 @@ const { apiUrl, urlPrefix } = useGlobSetting();
 
 const { useMock, loggerMock } = useLocalSetting();
 
-const mockAdapter = createAlovaMockAdapter([...mocks], {
-  // 全局控制是否启用mock接口，默认为true
-  enable: useMock,
+// mock 数据（faker + mockjs，约 0.5MB）只在 VITE_USE_MOCK=true 时才进入产物。
+// 该值由 Vite 在构建期静态替换，因此关闭时整段会被摇掉，
+// 生产构建不再把 mock 数据与造数库一起打包给用户。
+const enableMock = import.meta.env.VITE_USE_MOCK === 'true';
 
-  // 非模拟请求适配器，用于未匹配mock接口时发送请求
-  httpAdapter: adapterFetch(),
+const requestAdapter = enableMock
+  ? createAlovaMockAdapter([...mocks], {
+      // 全局控制是否启用mock接口，默认为true
+      enable: useMock,
 
-  // mock接口响应延迟，单位毫秒
-  delay: 1000,
+      // 非模拟请求适配器，用于未匹配mock接口时发送请求
+      httpAdapter: adapterFetch(),
 
-  // 自定义打印mock接口请求信息
-  // mockRequestLogger: (res) => {
-  //   loggerMock && console.log(`Mock Request ${res.url}`, res);
-  // },
-  mockRequestLogger: loggerMock,
-  onMockError(error, currentMethod) {
-    console.error('🚀 ~ onMockError ~ currentMethod:', currentMethod);
-    console.error('🚀 ~ onMockError ~ error:', error);
-  },
-});
+      // mock接口响应延迟，单位毫秒
+      delay: 1000,
+
+      // 自定义打印mock接口请求信息
+      // mockRequestLogger: (res) => {
+      //   loggerMock && console.log(`Mock Request ${res.url}`, res);
+      // },
+      mockRequestLogger: loggerMock,
+      onMockError(error, currentMethod) {
+        console.error('🚀 ~ onMockError ~ currentMethod:', currentMethod);
+        console.error('🚀 ~ onMockError ~ error:', error);
+      },
+    })
+  : adapterFetch();
 
 export const Alova = createAlova({
   baseURL: apiUrl,
@@ -55,7 +62,7 @@ export const Alova = createAlova({
   // },
   // 在开发环境开启缓存命中日志
   cacheLogger: process.env.NODE_ENV === 'development',
-  requestAdapter: mockAdapter,
+  requestAdapter,
   beforeRequest(method) {
     const userStore = useUser();
     const token = userStore.getToken;
@@ -89,9 +96,9 @@ export const Alova = createAlova({
         return res.data;
       }
 
-      // @ts-ignore
+      // @ts-expect-error 全局挂载的 naive-ui discrete api
       const Message = window.$message;
-      // @ts-ignore
+      // @ts-expect-error 全局挂载的 naive-ui discrete api
       const Modal = window.$dialog;
 
       const LoginPath = PageEnum.BASE_LOGIN;

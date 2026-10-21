@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
@@ -13,8 +13,10 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    // SFC 里的模板 ref（`ref="xxx"`）不被 TS 视为"使用"，会让 noUnusedLocals 误报，
+    // 未使用代码的检查统一交给 ESLint 的 @typescript-eslint/no-unused-vars（它能识别模板引用）
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "experimentalDecorators": true,
     "lib": [
       "dom",
@@ -46,7 +48,7 @@
     "build/**/*.d.ts",
     "mock/**/*.ts",
     "components.d.ts",
-    "vite.config.ts"
+    "vite.config.mts"
   ],
   "exclude": [
     "node_modules",

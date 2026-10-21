@@ -1,7 +1,8 @@
 import './styles/tailwind.css';
 import './styles/index.less';
 import { createApp } from 'vue';
-import { setupNaiveDiscreteApi, setupNaive, setupDirectives } from '@/plugins';
+import { setupNaiveDiscreteApi, setupDirectives } from '@/plugins';
+import { setupI18n } from '@/locales';
 import App from './App.vue';
 import router, { setupRouter } from './router';
 import { setupStore } from '@/store';
@@ -12,8 +13,8 @@ async function bootstrap() {
   // 挂载状态管理
   setupStore(app);
 
-  // 注册全局常用的 naive-ui 组件
-  setupNaive(app);
+  // 挂载国际化（非默认语言会按需加载语言包）
+  await setupI18n(app);
 
   // 挂载 naive-ui 脱离上下文的 Api
   setupNaiveDiscreteApi();

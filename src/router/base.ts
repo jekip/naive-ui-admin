@@ -7,7 +7,7 @@ export const ErrorPageRoute: RouteRecordRaw = {
   name: 'ErrorPage',
   component: Layout,
   meta: {
-    title: 'ErrorPage',
+    title: 'route.errorPage',
     hideBreadcrumb: true,
   },
   children: [
@@ -16,7 +16,7 @@ export const ErrorPageRoute: RouteRecordRaw = {
       name: 'ErrorPageSon',
       component: ErrorPage,
       meta: {
-        title: 'ErrorPage',
+        title: 'route.errorPage',
         hideBreadcrumb: true,
       },
     },

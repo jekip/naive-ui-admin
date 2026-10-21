@@ -31,7 +31,7 @@
             <n-checkbox-group v-model:value="formModel[schema.field]">
               <n-space>
                 <n-checkbox
-                  v-for="item in schema.componentProps.options"
+                  v-for="item in schema.componentProps?.options ?? []"
                   :key="item.value"
                   :value="item.value"
                   :label="item.label"
@@ -45,7 +45,7 @@
             <n-radio-group v-model:value="formModel[schema.field]">
               <n-space>
                 <n-radio
-                  v-for="item in schema.componentProps.options"
+                  v-for="item in schema.componentProps?.options ?? []"
                   :key="item.value"
                   :value="item.value"
                 >
@@ -133,6 +133,7 @@
 
   import type { Ref } from 'vue';
   import type { GridProps } from 'naive-ui/lib/grid';
+  import type { ButtonProps } from 'naive-ui/lib/button';
   import type { FormSchema, FormProps, FormActionType } from './types/form';
 
   import { isArray } from '@/utils/is/index';
@@ -155,24 +156,24 @@
       const loadingSub = ref(false);
       const isUpdateDefaultRef = ref(false);
 
-      const getSubmitBtnOptions = computed(() => {
+      const getSubmitBtnOptions = computed<Partial<ButtonProps>>(() => {
         return Object.assign(
           {
             size: props.size,
             type: 'primary',
           },
           props.submitButtonOptions
-        );
+        ) as Partial<ButtonProps>;
       });
 
-      const getResetBtnOptions = computed(() => {
+      const getResetBtnOptions = computed<Partial<ButtonProps>>(() => {
         return Object.assign(
           {
             size: props.size,
             type: 'default',
           },
           props.resetButtonOptions
-        );
+        ) as Partial<ButtonProps>;
       });
 
       function getComponentProps(schema) {

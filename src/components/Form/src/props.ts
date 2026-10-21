@@ -2,7 +2,6 @@ import type { CSSProperties, PropType } from 'vue';
 import { FormSchema } from './types/form';
 import type { GridProps, GridItemProps } from 'naive-ui/lib/grid';
 import type { ButtonProps } from 'naive-ui/lib/button';
-import { propTypes } from '@/utils/propTypes';
 export const basicProps = {
   // 标签宽度  固定宽度
   labelWidth: {
@@ -40,17 +39,29 @@ export const basicProps = {
     default: true,
   },
   //是否显示操作按钮（查询/重置）
-  showActionButtonGroup: propTypes.bool.def(true),
+  showActionButtonGroup: {
+    type: Boolean,
+    default: true,
+  },
   // 显示重置按钮
-  showResetButton: propTypes.bool.def(true),
+  showResetButton: {
+    type: Boolean,
+    default: true,
+  },
   //重置按钮配置
   resetButtonOptions: Object as PropType<Partial<ButtonProps>>,
   // 显示确认按钮
-  showSubmitButton: propTypes.bool.def(true),
+  showSubmitButton: {
+    type: Boolean,
+    default: true,
+  },
   // 确认按钮配置
   submitButtonOptions: Object as PropType<Partial<ButtonProps>>,
   //展开收起按钮
-  showAdvancedButton: propTypes.bool.def(true),
+  showAdvancedButton: {
+    type: Boolean,
+    default: true,
+  },
   // 确认按钮文字
   submitButtonText: {
     type: String,

@@ -65,14 +65,14 @@ declare global {
 
   declare interface ViteEnv {
     VITE_PORT: number;
-    VITE_USE_MOCK: boolean;
+    // 由 Vite 静态替换为字符串（"true" / "false"），注意不要用布尔语义直接判断
+    VITE_USE_MOCK: string;
     VITE_LOGGER_MOCK: boolean;
     VITE_PUBLIC_PATH: string;
     VITE_GLOB_APP_TITLE: string;
     VITE_GLOB_APP_SHORT_NAME: string;
     VITE_DROP_CONSOLE: boolean;
-    VITE_GLOB_PROD_MOCK: boolean;
-    VITE_GLOB_IMG_URL: string;
+    VITE_GLOB_FILE_URL: string;
     VITE_PROXY: [string, string][];
     VITE_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none';
     VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE: boolean;
@@ -104,6 +104,5 @@ declare global {
 
 declare module 'vue' {
   export type JSXComponent<Props = any> =
-    | { new (): ComponentPublicInstance<Props> }
-    | FunctionalComponent<Props>;
+    { new (): ComponentPublicInstance<Props> } | FunctionalComponent<Props>;
 }

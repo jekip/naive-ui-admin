@@ -2,7 +2,7 @@
   <div class="tableAction">
     <div class="flex items-center justify-center">
       <template v-for="(action, index) in getActions" :key="`${index}-${action.label}`">
-        <n-button v-bind="action" class="mx-1">
+        <n-button v-bind="action as any" class="mx-1">
           {{ action.label }}
           <template #icon v-if="action.hasOwnProperty('icon')">
             <n-icon :component="action.icon" />
@@ -12,11 +12,11 @@
       <n-dropdown
         v-if="dropDownActions && getDropdownList.length"
         trigger="hover"
-        :options="getDropdownList"
-        @select="select"
+        :options="getDropdownList as any"
+        @select="select as any"
       >
         <slot name="more"></slot>
-        <n-button v-bind="getMoreProps" class="mx-1" v-if="!$slots.more" icon-placement="right">
+        <n-button v-bind="getMoreProps as any" class="mx-1" v-if="!$slots.more" icon-placement="right">
           <div class="flex items-center">
             <span>更多</span>
             <n-icon size="14" class="ml-1">
@@ -53,11 +53,11 @@
         default: null,
       },
       style: {
-        type: String as PropType<String>,
+        type: String as PropType<string>,
         default: 'button',
       },
       select: {
-        type: Function as PropType<Function>,
+        type: Function as PropType<(...args: any[]) => any>,
         default: () => {},
       },
     },

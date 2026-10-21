@@ -33,7 +33,7 @@ export const LoginRoute: RouteRecordRaw = {
   name: 'Login',
   component: () => import('@/views/login/index.vue'),
   meta: {
-    title: '登录',
+    title: 'route.login',
   },
 };
 

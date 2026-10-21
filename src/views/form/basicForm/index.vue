@@ -84,6 +84,7 @@
 <script lang="ts" setup>
   import { ref, unref, reactive } from 'vue';
   import { useMessage } from 'naive-ui';
+  import type { FormRules } from 'naive-ui';
   import { BasicUpload } from '@/components/Upload';
   import { useGlobSetting } from '@/hooks/setting';
 
@@ -119,7 +120,7 @@
     },
   ];
 
-  const rules = {
+  const rules: FormRules = {
     name: {
       required: true,
       message: '请输入预约姓名',
@@ -160,7 +161,7 @@
     sex: 1,
     matter: null,
     doctor: null,
-    datetime: [],
+    datetime: null,
   });
 
   let formValue = reactive(defaultValueRef());

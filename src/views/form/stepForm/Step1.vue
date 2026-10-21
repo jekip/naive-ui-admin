@@ -50,6 +50,7 @@
 <script lang="ts" setup>
   import { ref, defineEmits } from 'vue';
   import { useMessage } from 'naive-ui';
+  import type { FormRules } from 'naive-ui';
 
   const myAccountList = [
     {
@@ -86,7 +87,7 @@
     name: 'Ah jung',
   });
 
-  const rules = {
+  const rules: FormRules = {
     name: {
       required: true,
       message: '请输入收款人姓名',

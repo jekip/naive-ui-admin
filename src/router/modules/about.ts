@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'index',
         name: `about_index`,
         meta: {
-          title: '关于项目',
+          title: 'route.about',
           activeMenu: 'about_index',
         },
         component: () => import('@/views/about/index.vue'),

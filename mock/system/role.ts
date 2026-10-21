@@ -1,7 +1,7 @@
 import { defineMock } from '@alova/mock';
 import { faker } from '@faker-js/faker';
 import { resultSuccess, doCustomTimes } from '../_util';
-import dayjs from 'dayjs';
+import { format } from 'date-fns';
 function getMenuKeys() {
   const keys = ['dashboard', 'console', 'workplace', 'basic-form', 'step-form', 'detail'];
   const newKeys = [];
@@ -21,7 +21,7 @@ const roleList = (pageSize) => {
       explain: faker.lorem.sentence({ min: 2, max: 4 }),
       isDefault: faker.helpers.arrayElement([true, false]),
       menu_keys: getMenuKeys(),
-      create_date: dayjs(faker.date.anytime()).format('YYYY-MM-DD HH:mm'),
+      create_date: format(faker.date.anytime(), 'yyyy-MM-dd HH:mm'),
       status: faker.helpers.arrayElement(['normal', 'enable', 'disable']),
     });
   });

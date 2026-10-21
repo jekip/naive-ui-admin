@@ -28,7 +28,8 @@ export const generateRoutes = (routerMap, parent?): any[] => {
       // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
       meta: {
         ...item.meta,
-        label: item.meta.title,
+        // 保留后端返回的原始 title：i18n key 会在菜单/面包屑渲染时翻译，
+        // 纯中文标题在 tr() 未命中语言包时原样回显，且切换语言可实时生效
         icon: constantRouterIcon[item.meta.icon] || null,
         permissions: item.meta.permissions || null,
       },

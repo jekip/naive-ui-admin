@@ -84,9 +84,7 @@
     name: 'BasicUpload',
 
     components: { EyeOutlined, DeleteOutlined, PlusOutlined },
-    props: {
-      ...basicProps,
-    },
+    props: basicProps,
     emits: ['uploadChange', 'delete'],
     setup(props, { emit }) {
       const getCSSProperties = computed(() => {
@@ -142,8 +140,8 @@
 
       //组装完整图片地址
       function getImgUrl(url: string): string {
-        const { imgUrl } = globSetting;
-        return /(^http|https:\/\/)/g.test(url) ? url : `${imgUrl}${url}`;
+        const { fileUrl } = globSetting;
+        return /(^http|https:\/\/)/g.test(url) ? url : `${fileUrl}${url}`;
       }
 
       function checkFileType(fileType: string) {
@@ -173,15 +171,15 @@
       }
 
       //上传结束
-      function finish({ event: Event }) {
-        const res = eval('(' + Event.target.response + ')');
+      function finish({ event }: { event?: Event }) {
+        const res = eval('(' + (event?.target as XMLHttpRequest)?.response + ')');
         const infoField = componentSetting.upload.apiSetting.infoField;
         const { code } = res;
         const message = res.msg || res.message || '上传失败';
         const result = res[infoField];
         //成功
         if (code === ResultEnum.SUCCESS) {
-          let imgUrl: string = getImgUrl(result.photo);
+          const imgUrl: string = getImgUrl(result.photo);
           state.imgList.push(imgUrl);
           state.originalImgList.push(result.photo);
           emit('uploadChange', state.originalImgList);
@@ -253,7 +251,7 @@
             z-index: 1;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgb(0 0 0 / 50%);
             opacity: 0;
             transition: all 0.3s;
             content: ' ';
@@ -284,7 +282,7 @@
             }
 
             .action-icon {
-              color: rgba(255, 255, 255, 0.85);
+              color: rgb(255 255 255 / 85%);
 
               &:hover {
                 cursor: pointer;

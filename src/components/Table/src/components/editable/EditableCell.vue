@@ -44,7 +44,6 @@
 
   import clickOutside from '@/directives/clickOutside';
 
-  import { propTypes } from '@/utils/propTypes';
   import { isString, isBoolean, isFunction, isNumber, isArray } from '@/utils/is';
   import { createPlaceholderMessage } from './helper';
   import { set, omit } from 'lodash-es';
@@ -70,7 +69,10 @@
         type: Object as PropType<BasicColumn>,
         default: () => ({}),
       },
-      index: propTypes.number,
+      index: {
+        type: Number,
+        default: 0,
+      },
     },
     setup(props) {
       const table = useTableContext();
@@ -188,7 +190,7 @@
         });
       }
 
-      async function handleChange(e: any) {
+      async function handleChange(e: any, ...rest: any[]) {
         const component = unref(getComponent);
         const compProps = props.column?.editComponentProps ?? {};
         if (!e) {
@@ -217,7 +219,7 @@
         }
 
         const onChange = props.column?.editComponentProps?.onChange;
-        if (onChange && isFunction(onChange)) onChange(...arguments);
+        if (onChange && isFunction(onChange)) onChange(e, ...rest);
 
         table.emit?.('edit-change', {
           column: props.column,
@@ -383,7 +385,6 @@
     &-content {
       position: relative;
       overflow-wrap: break-word;
-      word-break: break-word;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

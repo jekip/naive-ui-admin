@@ -39,7 +39,7 @@
                 @click.stop="goPage(element)"
                 @contextmenu="handleContextMenu($event, element)"
               >
-                <span>{{ element.meta.title }}</span>
+                <span>{{ tr(element.meta.title) }}</span>
                 <n-icon size="14" @click.stop="closeTabItem(element)" v-if="!element.meta.affix">
                   <CloseOutlined />
                 </n-icon>
@@ -95,6 +95,8 @@
   import { RouteItem } from '@/store/modules/tabsView';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
   import { useMessage } from 'naive-ui';
+  import { useI18n } from 'vue-i18n';
+  import { tr } from '@/locales';
   import Draggable from 'vuedraggable';
   import { PageEnum } from '@/enums/pageEnum';
   import {
@@ -134,6 +136,7 @@
       const settingStore = useProjectSettingStore();
 
       const message = useMessage();
+      const { t } = useI18n();
       const route = useRoute();
       const router = useRouter();
       const tabsViewStore = useTabsViewStore();
@@ -181,7 +184,7 @@
         const { collapsed } = props;
         const { minMenuWidth, menuWidth }: any = menuSetting.value;
         const { fixed }: any = multiTabsSetting.value;
-        let lenNum =
+        const lenNum =
           navMode.value === 'horizontal' || !isMixMenuNoneSub.value
             ? '0px'
             : collapsed
@@ -205,24 +208,24 @@
         const isDisabled = tabsList.value.length <= 1;
         return [
           {
-            label: '刷新当前',
+            label: t('layout.tabs.refresh'),
             key: '1',
             icon: renderIcon(ReloadOutlined),
           },
           {
-            label: `关闭当前`,
+            label: t('layout.tabs.closeCurrent'),
             key: '2',
             disabled: isCurrent.value || isDisabled,
             icon: renderIcon(CloseOutlined),
           },
           {
-            label: '关闭其他',
+            label: t('layout.tabs.closeOther'),
             key: '3',
             disabled: isDisabled,
             icon: renderIcon(ColumnWidthOutlined),
           },
           {
-            label: '关闭全部',
+            label: t('layout.tabs.closeAll'),
             key: '4',
             disabled: isDisabled,
             icon: renderIcon(MinusOutlined),
@@ -254,7 +257,7 @@
 
       //监听滚动条
       function onScroll(e) {
-        let scrollTop =
+        const scrollTop =
           e.target.scrollTop ||
           document.documentElement.scrollTop ||
           window.pageYOffset ||
@@ -308,7 +311,7 @@
       // 关闭当前页面
       const removeTab = (route) => {
         if (tabsList.value.length === 1) {
-          return message.warning('这已经是最后一页，不能再关闭了！');
+          return message.warning(t('layout.tabs.lastPageTip'));
         }
         delKeepAliveCompName();
         tabsViewStore.closeCurrentTab(route);
@@ -437,7 +440,7 @@
         if (containerWidth < navWidth) {
           state.scrollable = true;
           if (autoScroll) {
-            let tagList = navScroll.value.querySelectorAll('.tabs-card-scroll-item') || [];
+            const tagList = navScroll.value.querySelectorAll('.tabs-card-scroll-item') || [];
             [...tagList].forEach((tag: HTMLElement) => {
               // fix SyntaxError
               if (tag.id === `tag${state.activeKey.split('/').join('\/')}`) {
@@ -489,13 +492,14 @@
       });
 
       function onElementResize() {
-        let observer;
-        observer = elementResizeDetectorMaker();
+        const observer = elementResizeDetectorMaker();
         observer.listenTo(navWrap.value, handleResize);
       }
 
       return {
         ...toRefs(state),
+        t,
+        tr,
         navWrap,
         navScroll,
         route,
@@ -537,7 +541,6 @@
       min-width: 100%;
 
       .tabs-card {
-        -webkit-box-flex: 1;
         flex-grow: 1;
         flex-shrink: 1;
         overflow: hidden;
@@ -661,7 +664,7 @@
   .tabs-view-fix {
     position: fixed;
     z-index: 5;
-    padding: 6px 10px 6px 10px;
+    padding: 6px 10px;
     left: 200px;
   }
 

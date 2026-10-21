@@ -1,12 +1,27 @@
+/** @type {import('stylelint').Config} */
 module.exports = {
-  root: true,
   plugins: ['stylelint-order'],
-  extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
+  extends: ['stylelint-config-standard'],
+  // stylelint 16+ 不再内置 HTML/Less 解析能力，需要显式指定 customSyntax
+  overrides: [
+    {
+      files: ['**/*.vue'],
+      customSyntax: 'postcss-html',
+      rules: {
+        // Vue SFC 的 v-bind(getCardColor) 会被 value-keyword-case 改写成小写，导致变量失效
+        'value-keyword-case': null,
+      },
+    },
+    {
+      files: ['**/*.less'],
+      customSyntax: 'postcss-less',
+    },
+  ],
   rules: {
     'selector-pseudo-class-no-unknown': [
       true,
       {
-        ignorePseudoClasses: ['global'],
+        ignorePseudoClasses: ['global', 'deep'],
       },
     ],
     'selector-pseudo-element-no-unknown': [
@@ -34,18 +49,17 @@ module.exports = {
     ],
     'no-empty-source': null,
     'named-grid-areas-no-invalid': null,
-    'unicode-bom': 'never',
+    // Less 嵌套中允许声明出现在嵌套规则之后，该规则对 Less 有误报
+    'no-invalid-position-declaration': null,
     'no-descending-specificity': null,
     'font-family-no-missing-generic-family-keyword': null,
-    'declaration-colon-space-after': 'always-single-line',
-    'declaration-colon-space-before': 'never',
-    // 'declaration-block-trailing-semicolon': 'always',
-    'rule-empty-line-before': [
-      'always',
-      {
-        ignore: ['after-comment', 'first-nested'],
-      },
-    ],
+    'selector-class-pattern': null,
+    'keyframes-name-pattern': null,
+    'custom-property-pattern': null,
+    'function-no-unknown': null,
+    // Vue SFC 的 v-bind() CSS 变量会被误判为未知值
+    'declaration-property-value-no-unknown': null,
+    'media-feature-range-notation': null,
     'unit-no-unknown': [true, { ignoreUnits: ['rpx'] }],
     'order/order': [
       [
@@ -66,5 +80,4 @@ module.exports = {
       { severity: 'warning' },
     ],
   },
-  ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts'],
 };
